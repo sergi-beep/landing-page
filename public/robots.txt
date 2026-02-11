@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://stimuli.digital/sitemap.xml
+Sitemap: https://stimulidigital.com/sitemap.xml

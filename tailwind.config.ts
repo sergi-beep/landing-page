@@ -17,7 +17,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['Sloth', 'system-ui', '-apple-system', 'sans-serif'],
       },
     },
   },

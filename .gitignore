@@ -34,3 +34,15 @@ next-env.d.ts
 
 # brand assets (keep in brand_assets folder)
 brand_assets/
+
+# Source files (already organized in /public/)
+/*.png
+/*.jpeg
+/*.jpg
+/*.ttc
+/*.pptx
+/*.ai
+/Thumbnail*.png
+/Company*.png
+/Personal*.png
+/Stimuli*.png
