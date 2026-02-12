@@ -5,173 +5,247 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-2xl border-b border-gray-100">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
-          <div className="flex items-center justify-between h-[88px]">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo */}
             <div className="flex items-center">
-              <Image
-                src="/images/logo-full.png"
-                alt="Stimuli Digital"
-                width={160}
-                height={42}
-                className="h-11 w-auto"
-                priority
-              />
+              <Link href="/">
+                <Image
+                  src="/images/logo-full.png"
+                  alt="Stimuli Digital"
+                  width={160}
+                  height={42}
+                  className="h-10 w-auto cursor-pointer"
+                  priority
+                />
+              </Link>
             </div>
+
+            {/* Navigation Menu */}
+            <div className="hidden lg:flex items-center gap-10">
+              <Link href="#services" className="text-[15px] font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                Services
+              </Link>
+              <Link href="#case-studies" className="text-[15px] font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                Client Success
+              </Link>
+              <Link href="#faq" className="text-[15px] font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                FAQs
+              </Link>
+              <Link href="#pricing" className="text-[15px] font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-1">
+                Resources
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </Link>
+            </div>
+
+            {/* CTA Button */}
             <Link
               href="https://calendly.com/sergi-feq/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative px-6 py-3 bg-brand-black text-white rounded-full font-semibold text-[15px] tracking-tight overflow-hidden transition-all duration-500 hover:bg-brand-blue hover:shadow-xl hover:shadow-brand-blue/20"
+              className="px-6 py-2.5 bg-gray-900 text-white rounded-full font-medium text-[15px] hover:bg-gray-800 transition-colors"
             >
-              <span className="relative z-10">Book a Call</span>
+              Let's talk
             </Link>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-8 lg:px-12 overflow-hidden bg-white">
-        {/* Warm, subtle background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-blue/[0.02] via-white to-white"></div>
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-brand-sky/[0.03] blur-3xl rounded-full"></div>
-
-        {/* 3D Graphics - Decorative */}
-        <div className="absolute top-32 right-[5%] w-32 h-32 opacity-5 animate-float hidden lg:block">
-          <Image
-            src="/images/graphics/shape-1.png"
-            alt=""
-            fill
-            className="object-contain"
-          />
-        </div>
-        <div className="absolute bottom-20 left-[8%] w-40 h-40 opacity-5 animate-pulse-slow hidden lg:block">
-          <Image
-            src="/images/graphics/shape-2.png"
-            alt=""
-            fill
-            className="object-contain"
-          />
-        </div>
-
-        <div className="relative max-w-[1100px] mx-auto text-center">
-          {/* Boutique badge with scarcity */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-brand-blue/[0.08] rounded-full mb-8">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue"></span>
-            </span>
-            <span className="text-[13px] font-bold text-brand-blue tracking-tight">1 of 6 Spots Available · Boutique CTO Partnership</span>
-          </div>
-
-          {/* Headline - direct pain callout */}
-          <h1 className="text-[56px] lg:text-[72px] font-extrabold tracking-[-0.04em] leading-[1.05] mb-8 text-gray-900">
-            Your systems are breaking.<br />
-            <span className="text-brand-blue">We'll fix them.</span>
-          </h1>
-
-          {/* Subheadline - conversational, empathetic */}
-          <p className="text-[20px] lg:text-[24px] text-gray-600 leading-[1.5] mb-6 max-w-[800px] mx-auto">
-            We've built agencies. We've built these exact systems. We understand your ops inside out—and we can start fixing things this week.
+      <section className="relative pt-40 pb-32 px-8 lg:px-12 bg-white">
+        <div className="max-w-[1100px] mx-auto text-center">
+          {/* Tagline */}
+          <p className="text-sm text-gray-500 font-medium uppercase tracking-wide mb-6">
+            TECH-OPS FOR B2B SALES & MARKETING
           </p>
 
-          {/* Trust builder */}
-          <p className="text-[15px] text-gray-500 mb-12 max-w-[700px] mx-auto">
-            Fractional CTO + dedicated engineering team exclusively for B2B sales & marketing agencies doing $5M+ ARR
+          {/* Headline */}
+          <h1 className="text-5xl lg:text-7xl font-bold tracking-tight leading-tight mb-6 text-gray-900">
+            Turn Your Agency Into a<br />
+            <span className="text-brand-blue">System-Driven Machine</span>
+          </h1>
+
+          {/* Subheadline */}
+          <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed mb-10 max-w-3xl mx-auto">
+            Retire your Frankenstein system.<br />
+            Save $10K+/month. Scale without hiring.
           </p>
 
           {/* CTA */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-24">
             <Link
               href="https://calendly.com/sergi-feq/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className="group px-8 py-4 bg-brand-blue text-white rounded-xl font-semibold text-[15px] hover:bg-brand-blue/90 transition-all duration-300 hover:shadow-lg hover:shadow-brand-blue/25 flex items-center gap-2"
+              className="px-8 py-3.5 bg-gray-900 text-white rounded-full font-medium text-base hover:bg-gray-800 transition-colors"
             >
               Let's talk about your systems
-              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
             </Link>
             <a
               href="#case-studies"
-              className="px-8 py-4 text-gray-700 rounded-xl font-semibold text-[15px] hover:bg-gray-50 transition-all duration-300 flex items-center gap-2"
+              className="px-8 py-3.5 text-gray-700 border border-gray-200 rounded-full font-medium text-base hover:bg-gray-50 transition-colors"
             >
-              See what we've built
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              See the proof
             </a>
           </div>
 
-          {/* Stats - proof of reliability */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-[900px] mx-auto pt-12 border-t border-gray-200/60">
-            <div className="text-center">
-              <div className="text-[48px] font-bold tracking-tight text-gray-900 mb-2">
-                Week 1
+          {/* Social proof - client logos */}
+          <div className="mt-20">
+            <div className="flex flex-col items-center gap-12">
+              <div className="text-center">
+                <p className="text-[13px] text-gray-500 uppercase tracking-wider font-semibold mb-2">
+                  Engineering world class systems for:
+                </p>
               </div>
-              <div className="text-[14px] text-gray-600 font-medium mb-1">First working results</div>
-              <div className="text-[13px] text-gray-500">Not theory. Actual fixes.</div>
-            </div>
-            <div className="text-center">
-              <div className="text-[48px] font-bold tracking-tight text-gray-900 mb-2">
-                $12k<span className="text-[28px]">/mo</span>
+
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto w-full px-4">
+                <div className="group flex flex-col items-center gap-4 p-8 rounded-xl bg-gradient-to-br from-white to-gray-50/30 border border-gray-200/60 hover:border-brand-blue/30 hover:shadow-xl hover:shadow-brand-blue/5 transition-all duration-300">
+                  <div className="relative h-20 w-full flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-lg px-3 overflow-hidden">
+                    <Image
+                      src="/images/logos/clients/coldiq.png"
+                      alt="ColdIQ"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-brand-blue tracking-tight">Case Study</span>
+                </div>
+
+                <div className="group flex flex-col items-center gap-4 p-8 rounded-xl bg-gradient-to-br from-white to-gray-50/30 border border-gray-200/60 hover:border-brand-blue/30 hover:shadow-xl hover:shadow-brand-blue/5 transition-all duration-300">
+                  <div className="relative h-20 w-full flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-lg px-3 overflow-hidden">
+                    <Image
+                      src="/images/logos/clients/stack-optimize-finale.jpeg"
+                      alt="Stack Optimize"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-brand-blue tracking-tight">Case Study</span>
+                </div>
+
+                <div className="group flex flex-col items-center gap-4 p-8 rounded-xl bg-gradient-to-br from-white to-gray-50/30 border border-gray-200/60 hover:border-brand-blue/30 hover:shadow-xl hover:shadow-brand-blue/5 transition-all duration-300">
+                  <div className="relative h-20 w-full flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-lg px-3 overflow-hidden">
+                    <Image
+                      src="/images/logos/clients/c17.jpeg"
+                      alt="C17 Lab"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-brand-blue tracking-tight">Case Study</span>
+                </div>
+
+                <div className="group flex flex-col items-center gap-4 p-8 rounded-xl bg-gradient-to-br from-white to-gray-50/30 border border-gray-200/60 hover:border-brand-blue/30 hover:shadow-xl hover:shadow-brand-blue/5 transition-all duration-300">
+                  <div className="relative h-20 w-full flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-lg px-3 overflow-hidden">
+                    <Image
+                      src="/images/logos/clients/salesautomationsystems.jpeg"
+                      alt="Sales Automation Systems"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-brand-blue tracking-tight">Case Study</span>
+                </div>
+
+                <div className="group flex flex-col items-center gap-4 p-8 rounded-xl bg-gradient-to-br from-white to-gray-50/30 border border-gray-200/60 hover:border-brand-blue/30 hover:shadow-xl hover:shadow-brand-blue/5 transition-all duration-300">
+                  <div className="relative h-20 w-full flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-lg px-3 overflow-hidden">
+                    <Image
+                      src="/images/logos/clients/revenueboost.png"
+                      alt="Revenue Boost"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-brand-blue tracking-tight">Case Study</span>
+                </div>
+
+                <div className="group flex flex-col items-center gap-4 p-8 rounded-xl bg-gradient-to-br from-white to-gray-50/30 border border-gray-200/60 hover:border-brand-blue/30 hover:shadow-xl hover:shadow-brand-blue/5 transition-all duration-300">
+                  <div className="relative h-20 w-full flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-lg px-3 overflow-hidden">
+                    <Image
+                      src="/images/logos/clients/hypergen.webp"
+                      alt="Hypergen"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-brand-blue tracking-tight">Case Study</span>
+                </div>
+
+                <div className="group flex flex-col items-center gap-4 p-8 rounded-xl bg-gradient-to-br from-white to-gray-50/30 border border-gray-200/60 hover:border-brand-blue/30 hover:shadow-xl hover:shadow-brand-blue/5 transition-all duration-300">
+                  <div className="relative h-20 w-full flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-lg px-3 overflow-hidden">
+                    <Image
+                      src="/images/logos/clients/vangates.png"
+                      alt="Vangates"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-brand-blue tracking-tight">Case Study</span>
+                </div>
+
+                <div className="group flex flex-col items-center gap-4 p-8 rounded-xl bg-gradient-to-br from-white to-gray-50/30 border border-gray-200/60 hover:border-brand-blue/30 hover:shadow-xl hover:shadow-brand-blue/5 transition-all duration-300">
+                  <div className="relative h-20 w-full flex items-center justify-center bg-white/60 backdrop-blur-sm rounded-lg px-3 overflow-hidden">
+                    <Image
+                      src="/images/logos/clients/succession.png"
+                      alt="Succession"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-brand-blue tracking-tight">Case Study</span>
+                </div>
               </div>
-              <div className="text-[14px] text-gray-600 font-medium mb-1">Average savings</div>
-              <div className="text-[13px] text-gray-500">Through better systems</div>
-            </div>
-            <div className="text-center">
-              <div className="text-[48px] font-bold tracking-tight text-gray-900 mb-2">
-                7+ mo
-              </div>
-              <div className="text-[14px] text-gray-600 font-medium mb-1">Average retention</div>
-              <div className="text-[13px] text-gray-500">Long-term partners</div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Social proof - client logos */}
-          <div className="mt-16 pt-12 border-t border-gray-200/60">
-            <div className="flex flex-col items-center gap-6">
-              <p className="text-[13px] text-gray-500 uppercase tracking-wider font-semibold">
-                Trusted by world-class agencies
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12 opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500">
-                <div className="relative h-8 w-24">
-                  <Image
-                    src="/images/logos/clients/coldiq.png"
-                    alt="ColdIQ"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <div className="relative h-8 w-24">
-                  <Image
-                    src="/images/logos/clients/sas.jpeg"
-                    alt="Sales Automation Systems"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <div className="relative h-8 w-24">
-                  <Image
-                    src="/images/logos/clients/client-3.png"
-                    alt="Client Logo"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <div className="relative h-8 w-24">
-                  <Image
-                    src="/images/logos/clients/client-4.png"
-                    alt="Client Logo"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+      {/* Testimonial Section */}
+      <section className="relative py-20 px-8 lg:px-12 bg-gradient-to-b from-white to-gray-50/30">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="flex items-center justify-center gap-8 p-8 rounded-2xl bg-white border border-gray-200/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center p-2 ring-2 ring-gray-100 overflow-hidden">
+                <Image
+                  src="/images/logos/clients/salesautomationsystems.jpeg"
+                  alt="Sales Automation Systems"
+                  width={56}
+                  height={56}
+                  className="object-contain"
+                />
               </div>
-              <p className="text-[14px] text-gray-600">
-                Working with agencies at <span className="font-bold text-gray-900">$10M–$50M+ ARR</span>
-              </p>
+              <div className="text-sm">
+                <p className="font-semibold text-gray-900">10k$+ saved in MoM</p>
+                <p className="text-gray-600">in first 3 weeks</p>
+              </div>
+            </div>
+
+            <div className="hidden md:block w-px h-12 bg-gray-200"></div>
+
+            <div className="flex items-start gap-4 max-w-2xl">
+              <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 flex-shrink-0 ring-2 ring-gray-100">
+                <Image
+                  src="/images/testimonials/taylor-haren.jpg"
+                  alt="Taylor Haren"
+                  width={64}
+                  height={64}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="flex gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} className="text-yellow-400 text-base">⭐</span>
+                    ))}
+                  </div>
+                  <span className="text-sm font-semibold text-gray-900">Taylor Haren - CEO</span>
+                </div>
+                <p className="text-gray-700 font-medium leading-relaxed max-w-xl">"A software development agency said building a lead database would take three months and cost $42k. You built the whole thing in a week."</p>
+              </div>
             </div>
           </div>
         </div>
@@ -185,7 +259,7 @@ export default function Home() {
               Is this for you?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto tracking-tight">
-              We work exclusively with B2B sales and marketing agencies that have outgrown no-code solutions
+              We work exclusively with B2B sales/marketing teams and agencies that have outgrown no-code solutions
             </p>
           </div>
 
@@ -202,7 +276,7 @@ export default function Home() {
                   <ul className="space-y-4 text-gray-700">
                     <li className="flex items-start gap-3">
                       <div className="w-1 h-1 bg-brand-blue rounded-full mt-2.5 flex-shrink-0"></div>
-                      <span className="tracking-tight">Run a B2B sales or marketing agency doing $5M+ ARR</span>
+                      <span className="tracking-tight">Run a B2B sales/marketing team or agency doing $5M+ ARR</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <div className="w-1 h-1 bg-brand-blue rounded-full mt-2.5 flex-shrink-0"></div>
@@ -245,7 +319,7 @@ export default function Home() {
                     </li>
                     <li className="flex items-start gap-3">
                       <div className="w-1 h-1 bg-gray-400 rounded-full mt-2.5 flex-shrink-0"></div>
-                      <span className="tracking-tight">Run a different type of agency (not B2B sales/marketing)</span>
+                      <span className="tracking-tight">Are not in B2B sales/marketing industry</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <div className="w-1 h-1 bg-gray-400 rounded-full mt-2.5 flex-shrink-0"></div>
@@ -321,7 +395,7 @@ export default function Home() {
               The transformation
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto tracking-tight">
-              Real results from agencies working with Stimuli for 6+ months
+              Real results from teams and agencies working with Stimuli for 6+ months
             </p>
           </div>
 
@@ -531,8 +605,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What We Build */}
-      <section className="relative py-32 px-8 lg:px-12 bg-white">
+      {/* What We Build / Services */}
+      <section id="services" className="relative py-32 px-8 lg:px-12 bg-white">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
@@ -627,7 +701,7 @@ export default function Home() {
               Don't take our word for it
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto tracking-tight">
-              Real video testimonials from world-class B2B agencies
+              Real video testimonials from world-class B2B teams and agencies
             </p>
           </div>
 
@@ -868,8 +942,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="relative py-32 px-8 lg:px-12 bg-white">
+      {/* Team Section / About */}
+      <section id="about" className="relative py-32 px-8 lg:px-12 bg-white">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
@@ -983,7 +1057,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-lg font-bold mb-2">Not a generic dev shop</h3>
                   <p className="text-gray-600 text-sm">
-                    We only serve B2B sales/marketing agencies. We don't build websites, mobile apps, or consumer products.
+                    We only serve B2B sales/marketing teams and agencies. We don't build websites, mobile apps, or consumer products.
                   </p>
                 </div>
               </div>
@@ -1075,9 +1149,9 @@ export default function Home() {
             </div>
 
             <div className="p-8 rounded-2xl border border-gray-200/50 bg-gradient-to-br from-white to-gray-50/30">
-              <h3 className="text-xl font-bold mb-3">Do you work with agencies outside the US?</h3>
+              <h3 className="text-xl font-bold mb-3">Do you work with teams and agencies outside the US?</h3>
               <p className="text-gray-600 leading-relaxed">
-                Yes. We work with agencies in the US, UK, Western Europe, Nordics, and Australia. Primarily countries with $30k+ GDP per capita where the economics make sense.
+                Yes. We work with teams and agencies in the US, UK, Western Europe, Nordics, and Australia. Primarily countries with $30k+ GDP per capita where the economics make sense.
               </p>
             </div>
 
@@ -1085,6 +1159,154 @@ export default function Home() {
               <h3 className="text-xl font-bold mb-3">What's the minimum commitment?</h3>
               <p className="text-gray-600 leading-relaxed">
                 We work on monthly retainers with no long-term contracts. Most clients stay 7+ months because we're continuously improving their systems and they see ongoing value.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section id="products" className="relative py-32 px-8 lg:px-12 bg-white">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
+              Our Products
+            </h2>
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light">
+              Tools and systems we've built from agency experience
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-10 rounded-2xl border border-gray-200 bg-white hover:border-brand-blue/30 transition-all duration-300 hover:shadow-lg">
+              <div className="w-14 h-14 bg-brand-blue/10 rounded-2xl flex items-center justify-center mb-6">
+                <svg className="w-7 h-7 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Spintaxer.AI</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Email content variation tool that helped us land our first major clients. Built from our own cold email needs.
+              </p>
+              <div className="inline-flex items-center gap-2 text-brand-blue font-semibold text-sm">
+                Learn more
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+
+            <div className="p-10 rounded-2xl border border-gray-200 bg-white hover:border-brand-blue/30 transition-all duration-300 hover:shadow-lg">
+              <div className="w-14 h-14 bg-brand-blue/10 rounded-2xl flex items-center justify-center mb-6">
+                <svg className="w-7 h-7 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Custom Solutions</h3>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Every system we build becomes a reusable pattern. We're constantly shipping internal tools that solve real agency problems.
+              </p>
+              <div className="inline-flex items-center gap-2 text-brand-blue font-semibold text-sm">
+                See what we build
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="relative py-32 px-8 lg:px-12 bg-gradient-to-b from-gray-50/30 to-white">
+        <div className="max-w-[1000px] mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance">
+              Simple, transparent pricing
+            </h2>
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light">
+              Monthly retainer. No long-term contracts. Weekly sprints with continuous delivery.
+            </p>
+          </div>
+
+          <div className="max-w-2xl mx-auto">
+            <div className="relative p-12 rounded-3xl border-2 border-brand-blue bg-white shadow-xl">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 inline-flex items-center gap-2.5 px-4 py-2 bg-brand-blue text-white text-sm font-bold rounded-full">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                </span>
+                1 of 6 Spots Available · Boutique CTO Partnership
+              </div>
+
+              <div className="text-center mb-10">
+                <div className="flex items-baseline justify-center gap-2 mb-4">
+                  <span className="text-6xl font-bold tracking-tight">Custom</span>
+                </div>
+                <p className="text-gray-600 text-lg">
+                  Pricing based on your needs and complexity
+                </p>
+              </div>
+
+              <div className="space-y-5 mb-10">
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-brand-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Fractional CTO + 8+ dedicated engineers</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-brand-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Weekly sprints with Monday → Monday delivery</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-brand-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Results visible from the first sprint</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-brand-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">No long-term contracts, 3-month notice period</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-brand-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">You own all code and documentation</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-6 h-6 text-brand-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700 text-lg">Average ROI: 3-4x within 6 months</span>
+                </div>
+              </div>
+
+              <Link
+                href="https://calendly.com/sergi-feq/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center px-8 py-4 bg-brand-blue text-white rounded-xl font-semibold text-lg hover:bg-brand-blue/90 transition-all duration-300 hover:shadow-lg hover:shadow-brand-blue/25"
+              >
+                Book Discovery Call
+              </Link>
+
+              <p className="text-center text-sm text-gray-500 mt-6">
+                30-minute call to discuss your needs and explore fit
+              </p>
+            </div>
+
+            <div className="mt-12 text-center">
+              <p className="text-gray-600 text-lg mb-4">
+                <span className="font-bold text-gray-900">Average client saves $5-8k/month</span> in operational costs
+              </p>
+              <p className="text-gray-500 text-sm">
+                Most clients see ROI within 3-6 months through headcount optimization and SaaS consolidation
               </p>
             </div>
           </div>
@@ -1141,7 +1363,7 @@ export default function Home() {
             <div className="text-sm text-center md:text-right">
               <p className="text-gray-600 font-medium tracking-tight">&copy; 2025 Stimuli Digital. All rights reserved.</p>
               <p className="mt-2 text-gray-500 tracking-tight">
-                Fractional CTO for B2B sales & marketing agencies
+                Fractional CTO for B2B sales & marketing teams and agencies
               </p>
             </div>
           </div>
