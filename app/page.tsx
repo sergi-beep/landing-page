@@ -454,25 +454,6 @@ export default function Home() {
               </ul>
             </div>
           </div>
-
-          {/* Metrics */}
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-10 rounded-2xl bg-white border border-gray-200">
-              <div className="text-5xl lg:text-6xl font-bold tracking-tight mb-3 text-brand-blue">$12k</div>
-              <div className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2">Average Monthly Savings</div>
-              <div className="text-[13px] text-gray-500 tracking-tight">Through headcount optimization + SaaS consolidation</div>
-            </div>
-            <div className="text-center p-10 rounded-2xl bg-white border border-gray-200">
-              <div className="text-5xl lg:text-6xl font-bold tracking-tight mb-3 text-brand-blue">15+</div>
-              <div className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2">Clients Per Employee</div>
-              <div className="text-[13px] text-gray-500 tracking-tight">vs. industry average of 8-10</div>
-            </div>
-            <div className="text-center p-10 rounded-2xl bg-white border border-gray-200">
-              <div className="text-5xl lg:text-6xl font-bold tracking-tight mb-3 text-brand-blue">7+</div>
-              <div className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-2">Month Avg Retention</div>
-              <div className="text-[13px] text-gray-500 tracking-tight">Ongoing operational partnership</div>
-            </div>
-          </div>
         </div>
       </section>
 
