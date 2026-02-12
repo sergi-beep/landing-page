@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -94,6 +94,8 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const servicesRef = useRef<HTMLDivElement | null>(null);
+  const graveyardRef = useRef<HTMLDivElement | null>(null);
 
   const current = testimonials[activeSlide];
   const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false]);
@@ -120,6 +122,35 @@ export default function Home() {
       if (step >= steps) clearInterval(timer);
     }, interval);
     return () => clearInterval(timer);
+  }, []);
+
+  // Universal scroll reveal — one observer for everything
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
+    );
+    // Reveal cards (services bento, etc.)
+    document.querySelectorAll('.reveal-card').forEach((el) => observer.observe(el));
+    // Reveal sections (fade-up on scroll)
+    document.querySelectorAll('.reveal-section').forEach((el) => observer.observe(el));
+    // Graveyard
+    const gy = graveyardRef.current;
+    if (gy) {
+      const gyObserver = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) { entry.target.classList.add('graveyard-visible'); gyObserver.disconnect(); } },
+        { threshold: 0.3 }
+      );
+      gyObserver.observe(gy);
+    }
+    return () => observer.disconnect();
   }, []);
 
   function handleCtaClick() {
@@ -240,12 +271,12 @@ export default function Home() {
 
             {/* Headline */}
             <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
-              Turn Your Agency Into a <span className="text-gradient">System-Driven</span> Machine
+              Your agency runs on <span className="text-gradient">duct tape</span>. We fix that.
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl lg:text-2xl text-white/50 leading-relaxed mb-12 max-w-3xl mx-auto font-light tracking-tight">
-              Retire your Frankenstein system. Save $10K+/month. Scale without hiring.
+              Fractional CTO + engineering team that replaces your Frankenstein stack with one system. Results in week one.
             </p>
 
             {/* CTA */}
@@ -445,13 +476,14 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           WHO THIS IS FOR — Light section
       ═══════════════════════════════════════════ */}
-      <section className="relative py-32 px-8 lg:px-12 bg-white overflow-hidden">
-        <div className="max-w-[700px] mx-auto relative">
+      <section className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-[120px]"></div>
+        <div className="max-w-[700px] mx-auto relative reveal-section">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance text-gray-900">
+            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance text-white">
               Is this for you?
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto tracking-tight">
+            <p className="text-xl text-white/50 max-w-2xl mx-auto tracking-tight">
               Check every box that applies
             </p>
           </div>
@@ -473,14 +505,14 @@ export default function Home() {
                 onKeyDown={(e) => { if (e.key === 'Enter') setChecked(prev => { const next = [...prev]; next[i] = !next[i]; return next; }); }}
                 className={`flex items-center gap-4 p-5 rounded-xl border cursor-pointer select-none transition-all duration-300 ${
                   checked[i]
-                    ? "border-brand-blue/30 bg-brand-blue/[0.03]"
-                    : "border-gray-200 bg-white hover:border-gray-300"
+                    ? "border-brand-blue/30 bg-brand-blue/[0.06]"
+                    : "border-white/[0.08] bg-white/[0.02] hover:border-white/[0.15]"
                 }`}
               >
                 <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                   checked[i]
                     ? "bg-brand-blue border-brand-blue"
-                    : "border-gray-300"
+                    : "border-white/20"
                 }`}>
                   {checked[i] && (
                     <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -489,7 +521,7 @@ export default function Home() {
                   )}
                 </div>
                 <span className={`tracking-tight text-[16px] transition-colors duration-300 ${
-                  checked[i] ? "text-gray-900 font-medium" : "text-gray-600"
+                  checked[i] ? "text-white font-medium" : "text-white/60"
                 }`}>{item}</span>
               </div>
             ))}
@@ -497,7 +529,7 @@ export default function Home() {
 
           {/* Progress + CTA */}
           <div className={`text-center transition-all duration-500 ${checkedCount >= 3 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}>
-            <p className={`text-sm font-semibold mb-4 tracking-tight transition-colors duration-300 ${checkedCount === 5 ? "text-green-600" : "text-brand-blue"}`}>
+            <p className={`text-sm font-semibold mb-4 tracking-tight transition-colors duration-300 ${checkedCount === 5 ? "text-emerald-400" : "text-brand-blue"}`}>
               {checkedCount === 5 ? "5/5 — Perfect match." : `${checkedCount}/5 — You\u2019re exactly who we built this for.`}
             </p>
             <div
@@ -522,22 +554,20 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           THE PROBLEM — Slack Messages
       ═══════════════════════════════════════════ */}
-      <section className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        {/* Ambient light */}
-        <div className="absolute top-0 left-1/3 w-[800px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-[120px]"></div>
+      <section className="relative py-32 px-8 lg:px-12 bg-white overflow-hidden">
 
-        <div className="max-w-[700px] mx-auto relative">
+        <div className="max-w-[700px] mx-auto relative reveal-section">
           <div className="text-center mb-16">
-            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-8 text-balance text-white">
+            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-8 text-balance text-gray-900">
               Sound familiar?
             </h2>
-            <p className="text-xl text-white/40 max-w-2xl mx-auto leading-[1.6] tracking-tight font-light">
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-[1.6] tracking-tight font-light">
               Every agency Slack looks the same.
             </p>
           </div>
 
           {/* #ops-fires channel */}
-          <div className="rounded-2xl border border-red-500/20 bg-white/[0.02] overflow-hidden">
+          <div className="rounded-2xl border border-red-500/20 bg-brand-black overflow-hidden">
             {/* Channel header */}
             <div className="px-6 py-3.5 border-b border-white/[0.06] flex items-center gap-2">
               <span className="text-white/30 font-bold text-sm">#</span>
@@ -641,7 +671,7 @@ export default function Home() {
                 alt="Stimuli"
                 width={100}
                 height={26}
-                className="h-5 w-auto brightness-0 invert opacity-80"
+                className="h-5 w-auto opacity-80"
               />
               <span className="text-brand-blue text-sm font-semibold tracking-tight">Effect</span>
               <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -652,7 +682,7 @@ export default function Home() {
           </div>
 
           {/* #ops-wins channel */}
-          <div className="rounded-2xl border border-emerald-500/20 bg-white/[0.02] overflow-hidden">
+          <div className="rounded-2xl border border-emerald-500/20 bg-brand-black overflow-hidden">
             {/* Channel header */}
             <div className="px-6 py-3.5 border-b border-white/[0.06] flex items-center gap-2">
               <span className="text-white/30 font-bold text-sm">#</span>
@@ -748,14 +778,15 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           HOW IT WORKS — Dual-Track Timeline
       ═══════════════════════════════════════════ */}
-      <section className="relative py-32 px-8 lg:px-12 bg-white overflow-hidden">
-        <div className="max-w-[800px] mx-auto relative">
+      <section className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
+        <div className="absolute top-1/4 right-1/4 w-[600px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-[120px]"></div>
+        <div className="max-w-[800px] mx-auto relative reveal-section">
           <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-gray-900">
-              What actually happens
+            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-white">
+              What happens after you say yes
             </h2>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light">
-              Two tracks running simultaneously. Quick wins <span className="italic">while</span> building the right foundation.
+            <p className="text-xl text-white/40 max-w-2xl mx-auto font-light">
+              Two tracks running simultaneously. Quick wins <span className="italic">while</span> building the right foundation. You see results before the first invoice.
             </p>
           </div>
 
@@ -763,11 +794,11 @@ export default function Home() {
           <div className="flex items-center justify-center gap-8 mb-14">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-brand-blue"></div>
-              <span className="text-sm font-semibold text-gray-500">Quick Wins</span>
+              <span className="text-sm font-semibold text-white/50">Quick Wins</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gray-900"></div>
-              <span className="text-sm font-semibold text-gray-500">Foundation</span>
+              <div className="w-3 h-3 rounded-full bg-white"></div>
+              <span className="text-sm font-semibold text-white/50">Foundation</span>
             </div>
           </div>
 
@@ -788,15 +819,15 @@ export default function Home() {
                     <div className="flex items-start gap-3">
                       <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
                       <div>
-                        <p className="font-bold text-gray-900">Your broken workflows? Fixed.</p>
-                        <p className="text-gray-500 text-sm mt-0.5">Audit everything, kill the fires, get lead flow running again.</p>
+                        <p className="font-bold text-white">Your broken workflows? Fixed.</p>
+                        <p className="text-white/40 text-sm mt-0.5">Audit everything, kill the fires, get lead flow running again.</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-gray-900 mt-2 flex-shrink-0"></div>
+                      <div className="w-2 h-2 rounded-full bg-white mt-2 flex-shrink-0"></div>
                       <div>
-                        <p className="font-bold text-gray-900">Full system discovery & architecture design.</p>
-                        <p className="text-gray-500 text-sm mt-0.5">Map every workflow, identify the right data schema, plan the real infrastructure.</p>
+                        <p className="font-bold text-white">Full system discovery & architecture design.</p>
+                        <p className="text-white/40 text-sm mt-0.5">Map every workflow, identify the right data schema, plan the real infrastructure.</p>
                       </div>
                     </div>
                   </div>
@@ -814,15 +845,15 @@ export default function Home() {
                     <div className="flex items-start gap-3">
                       <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
                       <div>
-                        <p className="font-bold text-gray-900">Lead database built. Auto-enriching.</p>
-                        <p className="text-gray-500 text-sm mt-0.5">One source of truth, feeding directly into your outreach.</p>
+                        <p className="font-bold text-white">Lead database built. Auto-enriching.</p>
+                        <p className="text-white/40 text-sm mt-0.5">One source of truth, feeding directly into your outreach.</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-gray-900 mt-2 flex-shrink-0"></div>
+                      <div className="w-2 h-2 rounded-full bg-white mt-2 flex-shrink-0"></div>
                       <div>
-                        <p className="font-bold text-gray-900">Core data models & integrations scaffolded.</p>
-                        <p className="text-gray-500 text-sm mt-0.5">Proper schemas, API connections, the backbone that won't break at scale.</p>
+                        <p className="font-bold text-white">Core data models & integrations scaffolded.</p>
+                        <p className="text-white/40 text-sm mt-0.5">Proper schemas, API connections, the backbone that won't break at scale.</p>
                       </div>
                     </div>
                   </div>
@@ -840,15 +871,15 @@ export default function Home() {
                     <div className="flex items-start gap-3">
                       <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
                       <div>
-                        <p className="font-bold text-gray-900">Custom dashboard replaces 6 spreadsheets.</p>
-                        <p className="text-gray-500 text-sm mt-0.5">Real-time metrics, pipeline visibility. Your CEO stops pinging you.</p>
+                        <p className="font-bold text-white">Custom dashboard replaces 6 spreadsheets.</p>
+                        <p className="text-white/40 text-sm mt-0.5">Real-time metrics, pipeline visibility. Your CEO stops pinging you.</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-gray-900 mt-2 flex-shrink-0"></div>
+                      <div className="w-2 h-2 rounded-full bg-white mt-2 flex-shrink-0"></div>
                       <div>
-                        <p className="font-bold text-gray-900">Production-grade system taking shape.</p>
-                        <p className="text-gray-500 text-sm mt-0.5">Automated pipelines, error handling, monitoring. Built to scale, not to patch.</p>
+                        <p className="font-bold text-white">Production-grade system taking shape.</p>
+                        <p className="text-white/40 text-sm mt-0.5">Automated pipelines, error handling, monitoring. Built to scale, not to patch.</p>
                       </div>
                     </div>
                   </div>
@@ -866,15 +897,15 @@ export default function Home() {
                     <div className="flex items-start gap-3">
                       <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
                       <div>
-                        <p className="font-bold text-gray-900">Every manual process automated.</p>
-                        <p className="text-gray-500 text-sm mt-0.5">Onboarding, reporting, data sync, client comms — all hands-free.</p>
+                        <p className="font-bold text-white">Every manual process automated.</p>
+                        <p className="text-white/40 text-sm mt-0.5">Onboarding, reporting, data sync, client comms — all hands-free.</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-gray-900 mt-2 flex-shrink-0"></div>
+                      <div className="w-2 h-2 rounded-full bg-white mt-2 flex-shrink-0"></div>
                       <div>
-                        <p className="font-bold text-gray-900">Quick wins merged into the real system.</p>
-                        <p className="text-gray-500 text-sm mt-0.5">The two tracks converge. Everything runs on one clean, scalable platform.</p>
+                        <p className="font-bold text-white">Quick wins merged into the real system.</p>
+                        <p className="text-white/40 text-sm mt-0.5">The two tracks converge. Everything runs on one clean, scalable platform.</p>
                       </div>
                     </div>
                   </div>
@@ -887,9 +918,9 @@ export default function Home() {
                   <div className="w-[14px] h-[14px] rounded-full bg-emerald-500 ring-4 ring-emerald-500/20"></div>
                 </div>
                 <div>
-                  <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest">Month 3+</span>
-                  <h3 className="text-xl font-bold text-gray-900 mt-1">You forgot what manual ops felt like.</h3>
-                  <p className="text-gray-500 text-[15px] leading-relaxed mt-1">
+                  <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Month 3+</span>
+                  <h3 className="text-xl font-bold text-white mt-1">You forgot what manual ops felt like.</h3>
+                  <p className="text-white/40 text-[15px] leading-relaxed mt-1">
                     Your team focuses on growth, not firefighting. You scale by adding clients, not headcount. That's the point.
                   </p>
                 </div>
@@ -900,358 +931,375 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SERVICES — Dark with glass cards & 3D
+          SERVICES — Tool Graveyard + Bento Grid
       ═══════════════════════════════════════════ */}
       <section id="services" className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        {/* 3D S-shape accent — left, screen blend */}
-        <div className="absolute -left-32 top-1/3 w-[550px] h-[550px] opacity-50 mix-blend-screen mask-radial pointer-events-none animate-float-slow">
+        {/* 3D S-shape accent — centered behind heading */}
+        <div className="absolute left-1/2 top-16 -translate-x-1/2 w-[700px] h-[700px] opacity-30 mix-blend-screen mask-radial pointer-events-none animate-float-slow">
           <Image src="/images/3d/s_main.png" alt="" fill className="object-contain" />
         </div>
 
         {/* Ambient glow */}
         <div className="absolute bottom-0 right-1/4 w-[600px] h-[400px] bg-brand-blue/[0.05] rounded-full blur-[120px]"></div>
+        <div className="absolute top-1/3 left-1/4 w-[400px] h-[300px] bg-brand-blue/[0.03] rounded-full blur-[100px]"></div>
 
         <div className="max-w-[1400px] mx-auto relative">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12">
             <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-white">
-              What we build
+              Your new operating system
             </h2>
-            <p className="text-xl text-white/40 max-w-2xl mx-auto font-light">
-              Custom internal systems that transform how your agency operates
+            <p className="text-xl text-white/70 max-w-2xl mx-auto font-light">
+              Built to replace everything that&apos;s breaking.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                icon: (
-                  <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                ),
-                title: "Custom Analytics Dashboards",
-                desc: "Real-time performance tracking for agency and client metrics with accurate, reliable data"
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                ),
-                title: "Master Inbox / Unified Conversations",
-                desc: "Manage all client conversations across email sequencers in one place"
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                  </svg>
-                ),
-                title: "Real-Time Data Streaming",
-                desc: "Live synchronization from Smartlead, Instantly, EmailBison, and other sequencers"
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                  </svg>
-                ),
-                title: "CRM Integrations",
-                desc: "Deep HubSpot integration and custom CRM solutions for agency workflows"
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                  </svg>
-                ),
-                title: "Lead Database Infrastructure",
-                desc: "Centralized lead storage with data reuse across campaigns and clients"
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                ),
-                title: "Cold Email Infrastructure Automation",
-                desc: "Automated domain rotation, warmup management, and deliverability monitoring"
-              }
-            ].map((service, i) => (
-              <div key={i} className="group p-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,102,255,0.08)]">
-                <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-brand-blue/20 transition-colors">
-                  {service.icon}
+          {/* ── Tool Graveyard ── */}
+          <div ref={graveyardRef} className="max-w-3xl mx-auto mb-20 py-10 px-8 rounded-2xl border border-white/[0.06] bg-white/[0.02]">
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              {["Zapier", "Make", "Airtable", "Google Sheets", "Notion", "Monday.com", "Retool", "n8n"].map((tool, i) => (
+                <span
+                  key={tool}
+                  className="graveyard-tool relative px-5 py-2.5 rounded-full border border-white/[0.1] bg-white/[0.04] text-[15px] text-white/50 font-semibold"
+                  style={{ '--delay': `${i * 0.07}s`, '--strike-delay': `${0.6 + i * 0.05}s` } as React.CSSProperties}
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
+            <p
+              className="graveyard-line text-center text-lg font-semibold tracking-tight text-white/60"
+              style={{ '--delay': '1.1s' } as React.CSSProperties}
+            >
+              You won&apos;t need these anymore.
+            </p>
+          </div>
+
+          {/* ── Bento Grid ── */}
+          <div ref={servicesRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+            {/* Dashboard — wide card with animated chart */}
+            <div className="reveal-card md:col-span-2 group p-8 lg:p-10 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_60px_rgba(0,102,255,0.1)]" style={{ transitionDelay: '0ms' }}>
+              <div className="flex items-start justify-between gap-6">
+                <div className="flex-1">
+                  <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
+                    <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-white">Custom Analytics Dashboards</h3>
+                  <p className="text-white/40 text-sm leading-relaxed mb-1">Your CEO gets the numbers before you wake up. Pipeline, revenue, client health — one screen.</p>
+                  <span className="text-xs text-white/20">Replaces: <span className="line-through decoration-red-400/50">6 spreadsheets + manual exports</span></span>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-white">{service.title}</h3>
-                <p className="text-white/40 text-sm leading-relaxed">
-                  {service.desc}
-                </p>
+                {/* Mini animated chart */}
+                <div className="hidden md:flex items-end gap-1 h-24 flex-shrink-0 pt-4">
+                  {[35, 55, 40, 70, 50, 85, 60, 92, 48, 78, 65, 88].map((h, i) => (
+                    <div
+                      key={i}
+                      className="chart-bar w-2.5 rounded-sm bg-brand-blue/60 group-hover:bg-brand-blue transition-colors"
+                      style={{ '--bar-height': `${h}%`, animationDelay: `${i * 0.06}s` } as React.CSSProperties}
+                    />
+                  ))}
+                </div>
               </div>
-            ))}
+            </div>
+
+            {/* Lead DB — tall card with streaming data rows */}
+            <div className="reveal-card lg:row-span-2 group p-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_60px_rgba(0,102,255,0.1)]" style={{ transitionDelay: '100ms' }}>
+              <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-white">Lead Database</h3>
+              <p className="text-white/40 text-sm leading-relaxed mb-2">One source of truth. Auto-enriched, deduplicated, ready the moment it lands.</p>
+              <span className="text-xs text-white/20 line-through decoration-red-400/50">scattered Airtables + duplicate data</span>
+              {/* Streaming data rows */}
+              <div className="space-y-2 mt-6">
+                {[
+                  { name: "Sarah Chen", domain: "acme.co", status: "Enriched", color: "bg-emerald-500/10 text-emerald-400" },
+                  { name: "Marcus Webb", domain: "initech.io", status: "Verified", color: "bg-brand-blue/10 text-brand-blue" },
+                  { name: "Lena Kowalski", domain: "globex.com", status: "Enriched", color: "bg-emerald-500/10 text-emerald-400" },
+                  { name: "James Park", domain: "wayne.co", status: "New", color: "bg-yellow-500/10 text-yellow-400" },
+                  { name: "Ria Patel", domain: "stark.dev", status: "Verified", color: "bg-brand-blue/10 text-brand-blue" },
+                ].map((row, i) => (
+                  <div
+                    key={i}
+                    className="data-row flex items-center gap-2.5 px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.04]"
+                    style={{ animationDelay: `${0.4 + i * 0.12}s` }}
+                  >
+                    <div className="w-6 h-6 rounded-full bg-brand-blue/20 flex items-center justify-center text-[10px] text-brand-blue font-bold flex-shrink-0">
+                      {row.name[0]}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-xs text-white/60 font-medium">{row.name}</span>
+                      <span className="text-xs text-white/20 ml-1.5">{row.domain}</span>
+                    </div>
+                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${row.color}`}>{row.status}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Master Inbox — with message bubbles */}
+            <div className="reveal-card group p-7 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.08)]" style={{ transitionDelay: '200ms' }}>
+              <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">Master Inbox</h3>
+              <p className="text-white/40 text-sm leading-relaxed mb-1">Every conversation. Every sequencer. One screen.</p>
+              <span className="text-xs text-white/20 line-through decoration-red-400/50">5 tabs + missed replies</span>
+              {/* Message bubbles */}
+              <div className="space-y-2 mt-5">
+                {[
+                  { from: "AJ", msg: "Re: Partnership — let\u2019s do it", side: "left" },
+                  { from: "EN", msg: "Contract signed!", side: "right" },
+                  { from: "TH", msg: "Onboarding docs received", side: "left" },
+                ].map((m, i) => (
+                  <div key={i} className={`msg-bubble flex ${m.side === 'right' ? 'justify-end' : ''}`} style={{ animationDelay: `${0.4 + i * 0.15}s` }}>
+                    <div className={`px-3 py-1.5 rounded-xl text-xs max-w-[85%] ${m.side === 'right' ? 'bg-brand-blue/15 text-brand-blue/80' : 'bg-white/[0.05] text-white/50'}`}>
+                      <span className="font-bold text-white/30 mr-1">{m.from}</span>{m.msg}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Real-Time Data Sync — with pulsing nodes */}
+            <div className="reveal-card group p-7 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.08)]" style={{ transitionDelay: '300ms' }}>
+              <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">Real-Time Data Sync</h3>
+              <p className="text-white/40 text-sm leading-relaxed mb-1">Smartlead, Instantly, EmailBison — all feeding one system. Live.</p>
+              <span className="text-xs text-white/20 line-through decoration-red-400/50">Zapier delays + broken webhooks</span>
+              {/* Sync visualization */}
+              <div className="flex items-center mt-6">
+                <div className="sync-dot w-8 h-8 rounded-lg bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-[10px] font-bold text-brand-blue flex-shrink-0" style={{ animationDelay: '0s' }}>SL</div>
+                <div className="flex-1 h-px bg-gradient-to-r from-brand-blue/20 via-brand-blue/40 to-brand-blue/20 mx-1"></div>
+                <div className="sync-dot w-8 h-8 rounded-lg bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-[10px] font-bold text-brand-blue flex-shrink-0" style={{ animationDelay: '0.4s' }}>IN</div>
+                <div className="flex-1 h-px bg-gradient-to-r from-brand-blue/20 via-brand-blue/40 to-brand-blue/20 mx-1"></div>
+                <div className="sync-dot w-8 h-8 rounded-lg bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-[10px] font-bold text-brand-blue flex-shrink-0" style={{ animationDelay: '0.8s' }}>EB</div>
+                <div className="flex-1 h-px bg-gradient-to-r from-brand-blue/20 via-emerald-400/40 to-emerald-400/20 mx-1"></div>
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                </div>
+              </div>
+            </div>
+
+            {/* Cold Email Infra — wide card with warmup bars */}
+            <div className="reveal-card md:col-span-2 group p-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_60px_rgba(0,102,255,0.1)]" style={{ transitionDelay: '400ms' }}>
+              <div className="flex items-start justify-between gap-6">
+                <div className="flex-1">
+                  <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
+                    <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-white">Cold Email Infrastructure</h3>
+                  <p className="text-white/40 text-sm leading-relaxed mb-1">Domains rotate, warmups run, deliverability monitors itself. You just write the copy.</p>
+                  <span className="text-xs text-white/20">Replaces: <span className="line-through decoration-red-400/50">manual rotation + spreadsheet tracking</span></span>
+                </div>
+                {/* Warmup status bars */}
+                <div className="hidden md:block flex-shrink-0 w-48 pt-4 space-y-3">
+                  {[
+                    { label: "Warmup", value: 94, color: "bg-emerald-400" },
+                    { label: "Deliver.", value: 97, color: "bg-brand-blue" },
+                    { label: "Health", value: 88, color: "bg-brand-sky" },
+                  ].map((bar, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <span className="text-[10px] text-white/25 w-12 text-right">{bar.label}</span>
+                      <div className="flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                        <div className={`warmup-bar h-full rounded-full ${bar.color}`} style={{ '--fill': `${bar.value}%`, animationDelay: `${0.4 + i * 0.15}s` } as React.CSSProperties} />
+                      </div>
+                      <span className="text-[10px] text-white/30 font-medium w-7">{bar.value}%</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* CRM — with pipeline visualization */}
+            <div className="reveal-card group p-7 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.08)]" style={{ transitionDelay: '500ms' }}>
+              <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-white">CRM Integrations</h3>
+              <p className="text-white/40 text-sm leading-relaxed mb-1">HubSpot pipelines that reflect reality. Not duct-taped Make scenarios.</p>
+              <span className="text-xs text-white/20 line-through decoration-red-400/50">manual updates + stale data</span>
+              {/* Pipeline stages */}
+              <div className="flex items-center gap-1.5 mt-5">
+                {[
+                  { label: "Lead", fill: 90 },
+                  { label: "Qual.", fill: 65 },
+                  { label: "Prop.", fill: 40 },
+                  { label: "Won", fill: 25 },
+                ].map((stage, i) => (
+                  <div key={i} className="flex-1">
+                    <div className="text-[9px] text-white/25 mb-1 text-center font-medium">{stage.label}</div>
+                    <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                      <div className="pipeline-bar h-full rounded-full bg-brand-blue" style={{ '--fill': `${stage.fill}%`, animationDelay: `${0.4 + i * 0.15}s` } as React.CSSProperties} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          CASE STUDIES — Light section
+          CASE STUDIES — Proof Wall
       ═══════════════════════════════════════════ */}
       <section id="case-studies" className="relative py-32 px-8 lg:px-12 bg-white">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="text-center mb-20">
+        <div className="max-w-[1400px] mx-auto reveal-section">
+          <div className="text-center mb-10">
             <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-gray-900">
-              Don't take our word for it
+              The scoreboard
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto tracking-tight">
-              Real video testimonials from world-class B2B teams and agencies
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light">
+              Every number is from a real client. Every video is unscripted.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {/* Case Study 1: Enzo Carasso - C17 Lab */}
-            <a
-              href="https://www.youtube.com/watch?v=IJw_o6v4pEc&t=88s"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-brand-blue/40 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <Image
-                  src="/images/testimonials/thumbnail-1.png"
-                  alt="Enzo Carasso - C17 Lab Testimonial"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 bg-brand-black/80 rounded-full flex items-center justify-center cursor-pointer group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
-                    <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </div>
+          {/* Aggregate results strip */}
+          <div className="flex items-center justify-center gap-6 md:gap-12 mb-16 py-6 border-y border-gray-100">
+            {[
+              { value: "$28k+", label: "saved across clients" },
+              { value: "10x", label: "faster than agencies" },
+              { value: "6", label: "video testimonials" },
+              { value: "1 wk", label: "avg time to first results" },
+            ].map((stat, i) => (
+              <div key={i} className="text-center">
+                <p className="text-2xl md:text-3xl font-extrabold tracking-tight text-gray-900">{stat.value}</p>
+                <p className="text-xs text-gray-400 font-medium mt-0.5">{stat.label}</p>
               </div>
-              <div className="p-8">
-                <div className="inline-block px-2 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full mb-3">$7k+/mo SAVED</div>
-                <h3 className="font-bold text-lg mb-3 tracking-tight">They did in 1 week what others took 4 months</h3>
-                <p className="text-gray-600 text-[15px] mb-5 leading-relaxed tracking-tight">
-                  "Delivered in 1 week what others couldn't in 4 months. We cannot live without you guys."
-                </p>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-10 h-10 rounded-full overflow-hidden">
-                    <Image src="/images/testimonials/enzo-carasso.jpg" alt="Enzo Carasso" width={40} height={40} className="object-cover w-full h-full" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 tracking-tight">Enzo Carasso</div>
-                    <div className="text-xs text-gray-500 tracking-tight">CEO, C17 Lab</div>
-                  </div>
-                </div>
-              </div>
-            </a>
+            ))}
+          </div>
 
-            {/* Case Study 2: AJ Cassata */}
-            <a
-              href="https://www.youtube.com/watch?v=3GSPi5y3Kd4&t=1s"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-brand-blue/40 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <Image
-                  src="/images/testimonials/thumbnail-2.png"
-                  alt="AJ Cassata Testimonial"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 bg-brand-black/80 rounded-full flex items-center justify-center cursor-pointer group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
-                    <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+          {/* Proof grid — metric-first compact cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+            {[
+              {
+                metric: "$7k+",
+                metricSub: "/mo saved",
+                result: "1 week to deliver what others took 4 months",
+                quote: "We cannot live without you guys.",
+                name: "Enzo Carasso",
+                role: "CEO, C17 Lab",
+                photo: "/images/testimonials/enzo-carasso.jpg",
+                thumbnail: "/images/testimonials/thumbnail-1.png",
+                video: "https://www.youtube.com/watch?v=IJw_o6v4pEc&t=88s",
+                badgeColor: "bg-emerald-50 text-emerald-700",
+              },
+              {
+                metric: "$7k",
+                metricSub: "/mo saved",
+                result: "Week 1 delivery after 6 months of nothing",
+                quote: "Not one fucking thing got done. Stimuli built our lead database in week one.",
+                name: "Taylor Haren",
+                role: "CEO, Sales Automation Systems",
+                photo: "/images/testimonials/taylor-haren.jpg",
+                thumbnail: "/images/testimonials/thumbnail-3.png",
+                video: "https://www.youtube.com/watch?v=RFEKjpiPl9Q&t=74s",
+                badgeColor: "bg-emerald-50 text-emerald-700",
+              },
+              {
+                metric: "50%",
+                metricSub: "costs cut",
+                result: "Infrastructure costs halved in 3 days",
+                quote: "Charge them triple what you charge us.",
+                name: "Michael Ewald",
+                role: "Co-Founder, Vangates",
+                photo: "/images/testimonials/michael-ewald.jpg",
+                thumbnail: "/images/testimonials/thumbnail-4.png",
+                video: "https://www.youtube.com/watch?v=UxK4lVHdlXs&t=1s",
+                badgeColor: "bg-emerald-50 text-emerald-700",
+              },
+              {
+                metric: "10x",
+                metricSub: "faster",
+                result: "From duct-tape to production-grade",
+                quote: "Real transformation from duct-taped workflows to production-grade systems.",
+                name: "AJ Cassata",
+                role: "Founder, Revenue Boost",
+                photo: "/images/testimonials/aj-cassata.jpg",
+                thumbnail: "/images/testimonials/thumbnail-2.png",
+                video: "https://www.youtube.com/watch?v=3GSPi5y3Kd4&t=1s",
+                badgeColor: "bg-blue-50 text-blue-700",
+              },
+              {
+                metric: "2mo",
+                metricSub: "to build",
+                result: "Full dashboards + command center",
+                quote: "The speed at which you guys work is remarkable.",
+                name: "Naeem Alvi-Assinder",
+                role: "Founder, Avalanche",
+                photo: "/images/testimonials/naeem-alvi.jpg",
+                thumbnail: "/images/testimonials/thumbnail-5.png",
+                video: "https://www.youtube.com/watch?v=NY2uxCKoyEg&t=10s",
+                badgeColor: "bg-blue-50 text-blue-700",
+              },
+              {
+                metric: "\u221E",
+                metricSub: "scale",
+                result: "Enterprise-grade at startup speed",
+                quote: "Built our entire backend infrastructure in record time.",
+                name: "Aleksander Ivanov",
+                role: "CEO, Hypergen",
+                photo: "/images/testimonials/aleksander-ivanov.jpg",
+                thumbnail: "/images/testimonials/hypergen-thumbnail.png",
+                video: "https://www.youtube.com/watch?v=WwxT5F_I1Ig",
+                badgeColor: "bg-purple-50 text-purple-700",
+              },
+            ].map((cs, i) => (
+              <a
+                key={i}
+                href={cs.video}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative rounded-2xl border border-gray-200/60 bg-white overflow-hidden hover:border-brand-blue/40 hover:shadow-xl transition-all duration-300"
+              >
+                {/* Thumbnail with play overlay */}
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image src={cs.thumbnail} alt={`${cs.name} Testimonial`} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                    <div className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300">
+                      <svg className="w-3 h-3 text-brand-black ml-0.5 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                    <span className="text-white/80 text-xs font-medium">Watch video</span>
                   </div>
                 </div>
-              </div>
-              <div className="p-8">
-                <div className="inline-block px-2 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full mb-3">PROVEN RESULTS</div>
-                <h3 className="font-bold text-lg mb-3 tracking-tight">Custom systems that scale operations</h3>
-                <p className="text-gray-600 text-[15px] mb-5 leading-relaxed tracking-tight">
-                  Real transformation from duct-taped workflows to production-grade systems
-                </p>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-10 h-10 rounded-full overflow-hidden">
-                    <Image src="/images/testimonials/aj-cassata.jpg" alt="AJ Cassata" width={40} height={40} className="object-cover w-full h-full" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 tracking-tight">AJ Cassata</div>
-                    <div className="text-xs text-gray-500 tracking-tight">Founder, Revenue Boost</div>
-                  </div>
-                </div>
-              </div>
-            </a>
 
-            {/* Case Study 3: Taylor Haren */}
-            <a
-              href="https://www.youtube.com/watch?v=RFEKjpiPl9Q&t=74s"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-brand-blue/40 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <Image
-                  src="/images/testimonials/thumbnail-3.png"
-                  alt="Taylor Haren - Sales Automation Systems Testimonial"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 bg-brand-black/80 rounded-full flex items-center justify-center cursor-pointer group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
-                    <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+                {/* Metric + content */}
+                <div className="p-6">
+                  <div className="flex items-baseline gap-1.5 mb-3">
+                    <span className="text-4xl font-extrabold tracking-tighter text-gray-900">{cs.metric}</span>
+                    <span className="text-sm font-semibold text-gray-400">{cs.metricSub}</span>
+                  </div>
+                  <p className="font-bold text-[15px] text-gray-900 tracking-tight mb-2">{cs.result}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed mb-4">&ldquo;{cs.quote}&rdquo;</p>
+                  <div className="flex items-center gap-2.5 pt-4 border-t border-gray-100">
+                    <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                      <Image src={cs.photo} alt={cs.name} width={32} height={32} className="object-cover w-full h-full" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-xs text-gray-900 tracking-tight">{cs.name}</p>
+                      <p className="text-[11px] text-gray-400">{cs.role}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="p-8">
-                <div className="inline-block px-2 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full mb-3">$7k/mo SAVED</div>
-                <h3 className="font-bold text-lg mb-3 tracking-tight">Week 1 delivery after 6 months of nothing</h3>
-                <p className="text-gray-600 text-[15px] mb-5 leading-relaxed tracking-tight">
-                  "Spent 6 figures with agencies over 6 months. Not one fucking thing got done. Stimuli built our lead database in week one."
-                </p>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-10 h-10 rounded-full overflow-hidden">
-                    <Image src="/images/testimonials/taylor-haren.jpg" alt="Taylor Haren" width={40} height={40} className="object-cover w-full h-full" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 tracking-tight">Taylor Haren</div>
-                    <div className="text-xs text-gray-500 tracking-tight">CEO, Sales Automation Systems</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-            {/* Case Study 4: Michael Ewald */}
-            <a
-              href="https://www.youtube.com/watch?v=UxK4lVHdlXs&t=1s"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-brand-blue/40 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <Image
-                  src="/images/testimonials/thumbnail-4.png"
-                  alt="Michael Ewald - Vangates Testimonial"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 bg-brand-black/80 rounded-full flex items-center justify-center cursor-pointer group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
-                    <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="p-8">
-                <div className="inline-block px-2 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full mb-3">50% COST CUT</div>
-                <h3 className="font-bold text-lg mb-3 tracking-tight">Infrastructure costs cut 50% in 3 days</h3>
-                <p className="text-gray-600 text-[15px] mb-5 leading-relaxed tracking-tight">
-                  "I don't want other agencies to have you as a partner... charge them triple what you charge us."
-                </p>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-10 h-10 rounded-full overflow-hidden">
-                    <Image src="/images/testimonials/michael-ewald.jpg" alt="Michael Ewald" width={40} height={40} className="object-cover w-full h-full" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 tracking-tight">Michael Ewald</div>
-                    <div className="text-xs text-gray-500 tracking-tight">Co-Founder, Vangates</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-            {/* Case Study 5: Naeem */}
-            <a
-              href="https://www.youtube.com/watch?v=NY2uxCKoyEg&t=10s"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-brand-blue/40 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <Image
-                  src="/images/testimonials/thumbnail-5.png"
-                  alt="Naeem Alvi-Assinder - Avalanche Testimonial"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 bg-brand-black/80 rounded-full flex items-center justify-center cursor-pointer group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
-                    <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="p-8">
-                <div className="inline-block px-2 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full mb-3">REMARKABLE SPEED</div>
-                <h3 className="font-bold text-lg mb-3 tracking-tight">Dashboards + command center in 2 months</h3>
-                <p className="text-gray-600 text-[15px] mb-5 leading-relaxed tracking-tight">
-                  "The speed at which you guys work is remarkable. It's actually quite hard to keep up with at times."
-                </p>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-10 h-10 rounded-full overflow-hidden">
-                    <Image src="/images/testimonials/naeem-alvi.jpg" alt="Naeem Alvi-Assinder" width={40} height={40} className="object-cover w-full h-full" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 tracking-tight">Naeem Alvi-Assinder</div>
-                    <div className="text-xs text-gray-500 tracking-tight">Founder, Avalanche</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-            {/* Case Study 6: Aleksander */}
-            <a
-              href="https://www.youtube.com/watch?v=WwxT5F_I1Ig"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-brand-blue/40 hover:shadow-xl transition-all duration-300"
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <Image
-                  src="/images/testimonials/hypergen-thumbnail.png"
-                  alt="Aleksander Ivanov - Hypergen Testimonial"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 bg-brand-black/80 rounded-full flex items-center justify-center cursor-pointer group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
-                    <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="p-8">
-                <div className="inline-block px-2 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-full mb-3">ENTERPRISE SCALE</div>
-                <h3 className="font-bold text-lg mb-3 tracking-tight">Production-grade infrastructure at startup speed</h3>
-                <p className="text-gray-600 text-[15px] mb-5 leading-relaxed tracking-tight">
-                  "Built our entire backend infrastructure with enterprise-grade quality in record time."
-                </p>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-10 h-10 rounded-full overflow-hidden">
-                    <Image src="/images/testimonials/aleksander-ivanov.jpg" alt="Aleksander Ivanov" width={40} height={40} className="object-cover w-full h-full" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900 tracking-tight">Aleksander Ivanov</div>
-                    <div className="text-xs text-gray-500 tracking-tight">CEO, Hypergen</div>
-                  </div>
-                </div>
-              </div>
-            </a>
+              </a>
+            ))}
           </div>
 
           <div className="text-center">
@@ -1276,83 +1324,91 @@ export default function Home() {
           PRICING — Dark with 3D accent
       ═══════════════════════════════════════════ */}
       <section id="pricing" className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        {/* 3D Ring accent — right side, screen blend */}
-        <div className="absolute -right-40 top-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-50 mix-blend-screen mask-radial pointer-events-none">
-          <Image src="/images/3d/c_2.png" alt="" fill className="object-contain" />
-        </div>
-
         {/* Ambient glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-brand-blue/[0.04] rounded-full blur-[150px]"></div>
 
-        <div className="max-w-[1000px] mx-auto relative">
+        <div className="max-w-[1100px] mx-auto relative reveal-section">
           <div className="text-center mb-20">
             <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-white">
-              Simple, transparent pricing
+              Do the math
             </h2>
             <p className="text-xl text-white/40 max-w-2xl mx-auto font-light">
-              Monthly retainer. No long-term contracts. Weekly sprints with continuous delivery.
+              You&apos;re already spending this. You&apos;re just not getting results.
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto">
-            <div className="relative p-12 rounded-3xl border border-brand-blue/30 bg-white/[0.03] backdrop-blur-sm shadow-[0_0_80px_rgba(0,102,255,0.08)]">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 inline-flex items-center gap-2.5 px-4 py-2 bg-brand-blue text-white text-sm font-bold rounded-full">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                </span>
-                1 of 6 Spots Available
-              </div>
-
-              <div className="text-center mb-10">
-                <div className="flex items-baseline justify-center gap-2 mb-4">
-                  <span className="text-6xl font-bold tracking-tight text-white">Custom</span>
-                </div>
-                <p className="text-white/40 text-lg">
-                  Pricing based on your needs and complexity
-                </p>
-              </div>
-
-              <div className="space-y-5 mb-10">
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
+            {/* LEFT — What you're paying now */}
+            <div className="p-8 rounded-2xl border border-red-500/20 bg-white/[0.02]">
+              <p className="text-xs font-bold text-red-400 uppercase tracking-widest mb-6">What you&apos;re paying now</p>
+              <div className="space-y-4 mb-8">
                 {[
-                  "Fractional CTO + 8+ dedicated engineers",
-                  "Weekly sprints with Monday \u2192 Monday delivery",
-                  "Results visible from the first sprint",
-                  "No long-term contracts, 3-month notice period",
-                  "You own all code and documentation",
-                  "Average ROI: 3-4x within 6 months"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <svg className="w-6 h-6 text-brand-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-white/70 text-lg">{item}</span>
+                  { amount: "$4.2k", label: "/mo on 11 SaaS tools (half overlap)" },
+                  { amount: "$8k", label: "/mo ops person duct-taping them" },
+                  { amount: "$3k", label: "/mo freelance devs fixing what breaks" },
+                ].map((row, i) => (
+                  <div key={i} className="flex items-baseline gap-2">
+                    <span className="text-2xl font-extrabold text-white/80 tracking-tight">{row.amount}</span>
+                    <span className="text-sm text-white/30">{row.label}</span>
                   </div>
                 ))}
+              </div>
+              <div className="border-t border-red-500/10 pt-5">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl font-extrabold text-red-400 tracking-tight">$15.2k</span>
+                  <span className="text-sm text-red-400/60">/mo for a system that breaks every Tuesday</span>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT — What you get with us */}
+            <div className="relative p-8 rounded-2xl border border-brand-blue/30 bg-white/[0.03] shadow-[0_0_60px_rgba(0,102,255,0.06)]">
+              <div className="absolute -top-3 right-6 inline-flex items-center gap-2 px-3 py-1.5 bg-brand-blue text-white text-xs font-bold rounded-full">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span>
+                </span>
+                1 of 6 spots
+              </div>
+              <p className="text-xs font-bold text-brand-blue uppercase tracking-widest mb-6">What you get with Stimuli</p>
+              <div className="space-y-4 mb-8">
+                {[
+                  "Fractional CTO + 8 dedicated engineers",
+                  "One system replacing everything above",
+                  "Results in week one, not month three",
+                  "You own all code. No lock-in. Ever.",
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-brand-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-white/70 text-[15px]">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="border-t border-brand-blue/10 pt-5 mb-8">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl font-extrabold text-white tracking-tight">Custom</span>
+                  <span className="text-sm text-white/30">pricing based on scope</span>
+                </div>
+                <p className="text-sm text-brand-blue/60 mt-1">Average client saves $5-8k/mo from day one</p>
               </div>
 
               <Link
                 href="https://calendly.com/sergi-feq/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center px-8 py-4 bg-brand-blue text-white rounded-xl font-semibold text-lg hover:bg-brand-blue/90 transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,102,255,0.3)]"
+                className="block w-full text-center px-8 py-4 bg-brand-blue text-white rounded-xl font-semibold text-base hover:bg-brand-blue/90 transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,102,255,0.3)]"
               >
-                Book Discovery Call
+                See if the math works for you
               </Link>
-
-              <p className="text-center text-sm text-white/30 mt-6">
-                30-minute call to discuss your needs and explore fit
-              </p>
             </div>
+          </div>
 
-            <div className="mt-12 text-center">
-              <p className="text-white/60 text-lg mb-4">
-                <span className="font-bold text-white">Average client saves $5-8k/month</span> in operational costs
-              </p>
-              <p className="text-white/30 text-sm">
-                Most clients see ROI within 3-6 months through headcount optimization and SaaS consolidation
-              </p>
-            </div>
+          <div className="text-center">
+            <p className="text-white/30 text-sm">
+              Monthly retainer · No long-term contracts · Monday &rarr; Monday delivery sprints
+            </p>
           </div>
         </div>
       </section>
@@ -1361,37 +1417,37 @@ export default function Home() {
           FAQ — Light section
       ═══════════════════════════════════════════ */}
       <section id="faq" className="relative py-32 px-8 lg:px-12 bg-white overflow-hidden">
-        <div className="max-w-[900px] mx-auto relative">
+        <div className="max-w-[900px] mx-auto relative reveal-section">
           <div className="text-center mb-16">
             <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-gray-900">
-              Common questions
+              You&apos;re thinking it. We&apos;ll answer it.
             </h2>
             <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light">
-              Everything you need to know about working with Stimuli
+              The real questions. Not the polite ones.
             </p>
           </div>
 
           <div className="space-y-4">
             {[
               {
-                q: "Why not just hire a developer?",
-                a: "A developer writes code. A fractional CTO brings solution architecture, technical leadership, and a dedicated team. You get the right system design from day one, not trial and error. Plus, hiring a full-time CTO + dev team costs $300k+/year with 6-12 month ramp time."
+                q: "I've been burned before. How is this different?",
+                a: "We know. One of our clients spent 6 figures over 6 months with other agencies. Not one thing got done. Here's how we're different: you see results in week one, not quarter two. We ship weekly sprints, Monday to Monday. If we're not delivering, you leave — no contracts locking you in. Our average retention is 7+ months because clients choose to stay, not because they're trapped."
               },
               {
-                q: "What if I'm locked into your custom system?",
-                a: "You own all the code. Full documentation. No proprietary lock-in. If you ever want to bring development in-house or switch providers, you have everything you need. That said, clients stay an average of 7+ months because the partnership works."
+                q: "Can't I just hire a full-stack dev for $5k/month?",
+                a: "You can. And they'll build something. But who decides what to build? Who designs the architecture? Who makes sure it scales when you go from 10 clients to 100? A dev writes code. You need someone who understands agency operations AND engineering — that's a fractional CTO. Hiring a full-time CTO + dev team costs $300k+/year with 6-12 month ramp time. We're a fraction of that, running from day one."
               },
               {
-                q: "How is this different from SaaS tools?",
-                a: "SaaS tools are built for everyone, which means they're perfect for no one. We build custom systems tailored exactly to your agency's workflow. No feature bloat, no paying for things you don't use, no duct-taping 8 different tools together."
+                q: "What if I'm stuck with your custom system forever?",
+                a: "You own every line of code. Full documentation. Open architecture. If you ever want to bring dev in-house or switch providers, everything is yours. We don't do lock-in. We do work so good you don't want to leave."
               },
               {
-                q: "Do you work with teams and agencies outside the US?",
-                a: "Yes. We work with teams and agencies in the US, UK, Western Europe, Nordics, and Australia. Primarily countries with $30k+ GDP per capita where the economics make sense."
+                q: "We already have tools that kind of work. Why change?",
+                a: "'Kind of works' is the most expensive phrase in agency ops. You're paying $4k+/mo across 11 tools, plus an ops person duct-taping them together, plus the cost of leads slipping through cracks. We replace the entire Frankenstein stack with one system that actually talks to itself. Clients typically save $5-8k/mo immediately."
               },
               {
-                q: "What's the minimum commitment?",
-                a: "We work on monthly retainers with no long-term contracts. Most clients stay 7+ months because we're continuously improving their systems and they see ongoing value."
+                q: "What happens in the first week? Like, actually?",
+                a: "Day 1: We audit your entire stack — every tool, workflow, and integration. Day 2-3: We fix the fires. The broken Zapier flows, the leads stuck in queues, the data that's out of sync. Day 4-5: You have a working quick-win AND an architecture plan for the real system. By Friday, you'll wonder why you waited."
               }
             ].map((faq, i) => (
               <button
@@ -1405,7 +1461,7 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </div>
-                <div className={`overflow-hidden transition-all duration-300 ${openFaq === i ? 'max-h-40 mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
+                <div className={`overflow-hidden transition-all duration-300 ${openFaq === i ? 'max-h-60 mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
                   <p className="text-gray-600 leading-relaxed">{faq.a}</p>
                 </div>
               </button>
@@ -1418,21 +1474,27 @@ export default function Home() {
           FINAL CTA — Dark cinematic with 3D ring
       ═══════════════════════════════════════════ */}
       <section className="relative py-40 px-8 lg:px-12 overflow-hidden bg-brand-black">
-        {/* 3D Ring — massive background element, screen blend */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] opacity-50 mix-blend-screen mask-radial pointer-events-none animate-spin-very-slow">
-          <Image src="/images/3d/c_main.png" alt="" fill className="object-contain" />
-        </div>
-
         {/* Ambient gradients */}
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-brand-blue/[0.08] rounded-full blur-[150px]"></div>
         <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-brand-sky/[0.05] rounded-full blur-[150px]"></div>
 
-        <div className="relative max-w-4xl mx-auto text-center">
+        <div className="relative max-w-4xl mx-auto text-center reveal-section">
+          {/* Lead with the hardest client quote */}
+          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/10 bg-white/[0.03] mb-10">
+            <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0">
+              <img src="/images/testimonials/michael-ewald.jpg" alt="Michael Ewald" className="w-full h-full object-cover" />
+            </div>
+            <p className="text-sm text-white/50 font-medium italic tracking-tight">
+              &ldquo;I don&apos;t want other agencies to have you as a partner.&rdquo;
+            </p>
+            <span className="text-xs text-white/25">— Michael, Vangates</span>
+          </div>
+
           <h2 className="text-5xl lg:text-6xl font-extrabold mb-8 tracking-[-0.02em] text-white text-balance">
-            Ready to transform from<br />people-driven to process-driven?
+            Your competitors are still<br />duct-taping. You don&apos;t have to.
           </h2>
           <p className="text-xl text-white/40 mb-14 max-w-2xl mx-auto leading-[1.6] tracking-tight font-light">
-            Book a discovery call to see if we're the right fit. We'll discuss your challenges, your goals, and whether a fractional CTO + dev team makes sense for your agency.
+            30 minutes. We&apos;ll look at your stack, show you exactly what&apos;s costing you, and map out what week one looks like. No pitch deck. No bullshit.
           </p>
 
           <Link
@@ -1442,7 +1504,7 @@ export default function Home() {
             className="group relative inline-flex items-center gap-2 px-10 py-5 bg-white text-brand-black rounded-full font-bold text-[17px] tracking-tight overflow-hidden transition-all duration-500 hover:bg-brand-blue hover:text-white hover:shadow-[0_0_60px_rgba(0,102,255,0.4)]"
           >
             <span className="relative z-10 flex items-center gap-2">
-              Book Discovery Call
+              Let&apos;s build yours
               <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
@@ -1450,7 +1512,7 @@ export default function Home() {
           </Link>
 
           <p className="text-white/30 text-[15px] mt-10 font-medium tracking-tight">
-            30-minute call · No pressure · No sales pitch · Just a conversation
+            Only 6 agencies at a time · 1 spot open · avg. retention 7+ months
           </p>
         </div>
       </section>
