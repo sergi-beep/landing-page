@@ -101,6 +101,27 @@ export default function Home() {
   const [showVideoOverlay, setShowVideoOverlay] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  // Count-up metrics
+  const [countSaved, setCountSaved] = useState(0);
+  const [countSpeed, setCountSpeed] = useState(0);
+  const [countTeams, setCountTeams] = useState(0);
+  useEffect(() => {
+    const duration = 1800;
+    const steps = 40;
+    const interval = duration / steps;
+    let step = 0;
+    const timer = setInterval(() => {
+      step++;
+      const progress = step / steps;
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setCountSaved(Math.round(ease * 7));
+      setCountSpeed(Math.round(ease * 10));
+      setCountTeams(Math.round(ease * 40));
+      if (step >= steps) clearInterval(timer);
+    }, interval);
+    return () => clearInterval(timer);
+  }, []);
+
   function handleCtaClick() {
     if (checkedCount === 5) {
       setShowVideoOverlay(true);
@@ -109,10 +130,10 @@ export default function Home() {
           videoRef.current.play();
         }
       }, 100);
-      // Redirect after 10 seconds (video loops segment, music plays through)
+      // Redirect after 12 seconds (video loops segment, music plays through)
       setTimeout(() => {
         window.location.href = "https://calendly.com/sergi-feq/30min";
-      }, 10000);
+      }, 12000);
     } else {
       window.open("https://calendly.com/sergi-feq/30min", "_blank");
     }
@@ -205,7 +226,7 @@ export default function Home() {
         <div className="absolute inset-0 hero-grid opacity-[0.03]"></div>
 
         <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-5xl mx-auto text-center">
             {/* Tagline */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-8">
               <span className="relative flex h-2 w-2">
@@ -219,15 +240,12 @@ export default function Home() {
 
             {/* Headline */}
             <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
-              Turn Your Agency<br />
-              Into a <span className="text-gradient">System-Driven</span><br />
-              Machine
+              Turn Your Agency Into a <span className="text-gradient">System-Driven</span> Machine
             </h1>
 
             {/* Subheadline */}
-            <p className="text-xl lg:text-2xl text-white/50 leading-relaxed mb-12 max-w-2xl mx-auto font-light tracking-tight">
-              Retire your Frankenstein system.<br />
-              Save $10K+/month. Scale without hiring.
+            <p className="text-xl lg:text-2xl text-white/50 leading-relaxed mb-12 max-w-3xl mx-auto font-light tracking-tight">
+              Retire your Frankenstein system. Save $10K+/month. Scale without hiring.
             </p>
 
             {/* CTA */}
@@ -251,6 +269,39 @@ export default function Home() {
               >
                 See the proof
               </a>
+            </div>
+
+            {/* Social proof faces */}
+            <div className="flex items-center justify-center gap-3 mt-10">
+              <div className="flex -space-x-2">
+                {testimonials.slice(0, 6).map((t, i) => (
+                  <img
+                    key={i}
+                    src={t.photo}
+                    alt={t.name}
+                    className="w-8 h-8 rounded-full border-2 border-brand-black object-cover"
+                  />
+                ))}
+              </div>
+              <span className="text-sm text-white/40 font-medium">Trusted by 40+ B2B teams</span>
+            </div>
+          </div>
+
+          {/* Metrics strip */}
+          <div className="mt-20 max-w-3xl mx-auto">
+            <div className="grid grid-cols-3 gap-8 border-t border-white/[0.06] pt-10">
+              <div className="text-center">
+                <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white mb-1">${countSaved}k+</p>
+                <p className="text-sm text-white/30 font-medium">/mo saved on average</p>
+              </div>
+              <div className="text-center border-x border-white/[0.06]">
+                <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white mb-1">{countSpeed}x</p>
+                <p className="text-sm text-white/30 font-medium">faster than agencies</p>
+              </div>
+              <div className="text-center">
+                <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white mb-1">{countTeams}+</p>
+                <p className="text-sm text-white/30 font-medium">B2B teams scaled</p>
+              </div>
             </div>
           </div>
 
@@ -469,185 +520,379 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          THE PROBLEM — Dark cinematic section
+          THE PROBLEM — Slack Messages
       ═══════════════════════════════════════════ */}
       <section className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
         {/* Ambient light */}
         <div className="absolute top-0 left-1/3 w-[800px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-[120px]"></div>
 
-        <div className="max-w-[1000px] mx-auto text-center relative">
-          <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-8 text-balance text-white">
-            You've outgrown<br />duct-tape solutions
-          </h2>
-          <p className="text-xl text-white/40 mb-20 max-w-3xl mx-auto leading-[1.6] tracking-tight font-light">
-            Your operations are held together by Zapier workflows, Airtable bases, and manual processes. Things break. Data is unreliable. And scaling means hiring more people instead of building better systems.
-          </p>
+        <div className="max-w-[700px] mx-auto relative">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-8 text-balance text-white">
+              Sound familiar?
+            </h2>
+            <p className="text-xl text-white/40 max-w-2xl mx-auto leading-[1.6] tracking-tight font-light">
+              Every agency Slack looks the same.
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-10 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.05] transition-all duration-300 group">
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:bg-brand-blue/20 transition-colors">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-4 tracking-tight text-white">Workflows break constantly</h3>
-              <p className="text-white/40 text-[15px] leading-relaxed tracking-tight">
-                No-code tools aren't built for complex agency operations. One API change breaks everything.
-              </p>
+          {/* #ops-fires channel */}
+          <div className="rounded-2xl border border-red-500/20 bg-white/[0.02] overflow-hidden">
+            {/* Channel header */}
+            <div className="px-6 py-3.5 border-b border-white/[0.06] flex items-center gap-2">
+              <span className="text-white/30 font-bold text-sm">#</span>
+              <span className="text-white/60 font-semibold text-sm">ops-fires</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-red-400 ml-1 animate-pulse"></span>
+              <span className="ml-auto text-white/20 text-xs">47 unread messages</span>
             </div>
 
-            <div className="p-10 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.05] transition-all duration-300 group">
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:bg-brand-blue/20 transition-colors">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
+            {/* Messages */}
+            <div className="p-6 space-y-5">
+              {/* Message 1 */}
+              <div className="flex gap-3">
+                <div className="w-9 h-9 rounded-lg bg-orange-500/20 flex items-center justify-center flex-shrink-0 text-sm">
+                  🔥
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-white font-bold text-sm">Sarah M.</span>
+                    <span className="text-white/20 text-xs">10:32 AM</span>
+                  </div>
+                  <p className="text-white/60 text-[15px] leading-relaxed">
+                    The Zapier workflow broke again. All leads from last night are stuck. Third time this month.
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">😩 5</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">🔥 3</span>
+                    <span className="text-white/15 text-xs ml-2">12 replies</span>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-bold mb-4 tracking-tight text-white">Knowledge in people's heads</h3>
-              <p className="text-white/40 text-[15px] leading-relaxed tracking-tight">
-                Your best people carry critical knowledge. When they leave, your operations fall apart.
-              </p>
+
+              {/* Message 2 */}
+              <div className="flex gap-3">
+                <div className="w-9 h-9 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0 text-sm">
+                  😩
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-white font-bold text-sm">Mike R.</span>
+                    <span className="text-white/20 text-xs">10:34 AM</span>
+                  </div>
+                  <p className="text-white/60 text-[15px] leading-relaxed">
+                    Who changed the Airtable formula? Half our client data is showing wrong numbers. The CEO just pinged me about the report.
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">👀 7</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">😬 4</span>
+                    <span className="text-white/15 text-xs ml-2">8 replies</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Message 3 */}
+              <div className="flex gap-3">
+                <div className="w-9 h-9 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0 text-sm">
+                  😤
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-white font-bold text-sm">Alex K.</span>
+                    <span className="text-white/20 text-xs">10:41 AM</span>
+                  </div>
+                  <p className="text-white/60 text-[15px] leading-relaxed">
+                    We onboarded 3 new clients this week and I literally cannot keep up. We need to hire another ops person or I'm going to lose it.
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">💯 6</span>
+                    <span className="text-white/15 text-xs ml-2">15 replies</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Message 4 */}
+              <div className="flex gap-3">
+                <div className="w-9 h-9 rounded-lg bg-red-500/20 flex items-center justify-center flex-shrink-0 text-sm">
+                  💸
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-white font-bold text-sm">Jordan T.</span>
+                    <span className="text-white/20 text-xs">10:45 AM</span>
+                  </div>
+                  <p className="text-white/60 text-[15px] leading-relaxed">
+                    Just got the invoice. We're paying $4.2k/mo across 11 different tools and half of them do the same thing.
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">💸 9</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">😭 3</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* The Stimuli Effect */}
+          <div className="flex items-center gap-4 my-12">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-brand-blue/30 to-brand-blue/30"></div>
+            <div className="flex items-center gap-3 px-5 py-3 rounded-full border border-brand-blue/20 bg-brand-blue/[0.06]">
+              <Image
+                src="/images/logo-full.svg"
+                alt="Stimuli"
+                width={100}
+                height={26}
+                className="h-5 w-auto brightness-0 invert opacity-80"
+              />
+              <span className="text-brand-blue text-sm font-semibold tracking-tight">Effect</span>
+              <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </div>
+            <div className="flex-1 h-px bg-gradient-to-l from-transparent via-brand-blue/30 to-brand-blue/30"></div>
+          </div>
+
+          {/* #ops-wins channel */}
+          <div className="rounded-2xl border border-emerald-500/20 bg-white/[0.02] overflow-hidden">
+            {/* Channel header */}
+            <div className="px-6 py-3.5 border-b border-white/[0.06] flex items-center gap-2">
+              <span className="text-white/30 font-bold text-sm">#</span>
+              <span className="text-white/60 font-semibold text-sm">ops-wins</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 ml-1"></span>
+              <span className="ml-auto text-emerald-400/40 text-xs">After Stimuli</span>
             </div>
 
-            <div className="p-10 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.05] transition-all duration-300 group">
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6 mx-auto group-hover:bg-brand-blue/20 transition-colors">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            {/* Messages */}
+            <div className="p-6 space-y-5">
+              {/* Win 1 */}
+              <div className="flex gap-3">
+                <div className="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-sm">
+                  🚀
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-white font-bold text-sm">Sarah M.</span>
+                    <span className="text-white/20 text-xs">9:01 AM</span>
+                  </div>
+                  <p className="text-white/60 text-[15px] leading-relaxed">
+                    All 47 leads from last night auto-synced and enriched. I didn't touch a thing.
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">🎉 8</span>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-bold mb-4 tracking-tight text-white">Expensive to scale</h3>
-              <p className="text-white/40 text-[15px] leading-relaxed tracking-tight">
-                More clients means more specialists, more SaaS subscriptions, more complexity, more cost.
-              </p>
+
+              {/* Win 2 */}
+              <div className="flex gap-3">
+                <div className="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-sm">
+                  📊
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-white font-bold text-sm">Mike R.</span>
+                    <span className="text-white/20 text-xs">9:15 AM</span>
+                  </div>
+                  <p className="text-white/60 text-[15px] leading-relaxed">
+                    Dashboard auto-updated overnight. CEO already has the report. Zero manual work.
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">💪 5</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">🔥 4</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Win 3 */}
+              <div className="flex gap-3">
+                <div className="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-sm">
+                  ⚡
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-white font-bold text-sm">Alex K.</span>
+                    <span className="text-white/20 text-xs">9:30 AM</span>
+                  </div>
+                  <p className="text-white/60 text-[15px] leading-relaxed">
+                    Onboarded 5 clients this week. Didn't even feel it. The system just... handled it.
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">🚀 11</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Win 4 */}
+              <div className="flex gap-3">
+                <div className="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-sm">
+                  💰
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-white font-bold text-sm">Jordan T.</span>
+                    <span className="text-white/20 text-xs">9:45 AM</span>
+                  </div>
+                  <p className="text-white/60 text-[15px] leading-relaxed">
+                    Just cancelled 6 tools. One system handles everything. Saving $3.8k/mo.
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">💰 12</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">🎯 6</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          HOW IT WORKS — Light with 3D accents
+          HOW IT WORKS — Dual-Track Timeline
       ═══════════════════════════════════════════ */}
       <section className="relative py-32 px-8 lg:px-12 bg-white overflow-hidden">
-        <div className="max-w-[1200px] mx-auto relative">
+        <div className="max-w-[800px] mx-auto relative">
           <div className="text-center mb-20">
             <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-gray-900">
-              How it works
+              What actually happens
             </h2>
             <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light">
-              Dual-stream approach: immediate wins while building the right foundation
+              Two tracks running simultaneously. Quick wins <span className="italic">while</span> building the right foundation.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
-            {/* Stream 1 */}
-            <div className="relative p-10 rounded-3xl border border-brand-blue/20 bg-gradient-to-br from-brand-blue/5 to-transparent">
-              <div className="absolute top-6 right-6 text-6xl font-bold text-brand-blue/10">01</div>
-              <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-brand-blue to-brand-sky rounded-2xl flex items-center justify-center mb-6">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-3xl font-bold mb-4">Immediate Wins</h3>
-                <p className="text-gray-600 mb-6 text-lg leading-relaxed">
-                  See working results from the very first week. We identify low-hanging fruit and solve them in the current sprint.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-brand-blue mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <span className="text-gray-700">Fix broken workflows immediately</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-brand-blue mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <span className="text-gray-700">Automate manual tasks</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-brand-blue mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <span className="text-gray-700">Build quick prototypes to test ideas</span>
-                  </li>
-                </ul>
-              </div>
+          {/* Track legend */}
+          <div className="flex items-center justify-center gap-8 mb-14">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-brand-blue"></div>
+              <span className="text-sm font-semibold text-gray-500">Quick Wins</span>
             </div>
-
-            {/* Stream 2 */}
-            <div className="relative p-10 rounded-3xl border border-gray-300 bg-gradient-to-br from-gray-50 to-transparent">
-              <div className="absolute top-6 right-6 text-6xl font-bold text-gray-200">02</div>
-              <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-brand-black to-gray-800 rounded-2xl flex items-center justify-center mb-6">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
-                </div>
-                <h3 className="text-3xl font-bold mb-4">Right Foundation</h3>
-                <p className="text-gray-600 mb-6 text-lg leading-relaxed">
-                  Build the correct architecture from day one. Solid data schema, scalable infrastructure, proper integrations.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-gray-700 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <span className="text-gray-700">Discovery & system architecture design</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-gray-700 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <span className="text-gray-700">Correct data schema from the start</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-gray-700 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <span className="text-gray-700">Production-ready code that scales</span>
-                  </li>
-                </ul>
-              </div>
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-gray-900"></div>
+              <span className="text-sm font-semibold text-gray-500">Foundation</span>
             </div>
           </div>
 
-          {/* Weekly Sprint Process */}
-          <div className="bg-gray-50 rounded-3xl p-10 border border-gray-200/50">
-            <h3 className="text-2xl font-bold mb-8 text-center">Weekly Sprint Cadence</h3>
-            <div className="grid md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-brand-blue font-bold">Mon</span>
+          {/* Timeline */}
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-[27px] top-0 bottom-0 w-px bg-gradient-to-b from-brand-blue via-brand-blue/40 to-emerald-500"></div>
+
+            <div className="space-y-14">
+              {/* Week 1 */}
+              <div className="flex gap-6">
+                <div className="flex-shrink-0 w-14 flex flex-col items-center">
+                  <div className="w-[14px] h-[14px] rounded-full bg-brand-blue ring-4 ring-brand-blue/20"></div>
                 </div>
-                <div className="font-semibold mb-2">Sprint Planning</div>
-                <div className="text-sm text-gray-600">Meet and plan the week's work</div>
+                <div>
+                  <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Week 1</span>
+                  <div className="mt-3 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
+                      <div>
+                        <p className="font-bold text-gray-900">Your broken workflows? Fixed.</p>
+                        <p className="text-gray-500 text-sm mt-0.5">Audit everything, kill the fires, get lead flow running again.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 rounded-full bg-gray-900 mt-2 flex-shrink-0"></div>
+                      <div>
+                        <p className="font-bold text-gray-900">Full system discovery & architecture design.</p>
+                        <p className="text-gray-500 text-sm mt-0.5">Map every workflow, identify the right data schema, plan the real infrastructure.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                  <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                  </svg>
+
+              {/* Week 2 */}
+              <div className="flex gap-6">
+                <div className="flex-shrink-0 w-14 flex flex-col items-center">
+                  <div className="w-[14px] h-[14px] rounded-full bg-brand-blue ring-4 ring-brand-blue/20"></div>
                 </div>
-                <div className="font-semibold mb-2">Development</div>
-                <div className="text-sm text-gray-600">Build, test, iterate throughout the week</div>
+                <div>
+                  <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Week 2</span>
+                  <div className="mt-3 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
+                      <div>
+                        <p className="font-bold text-gray-900">Lead database built. Auto-enriching.</p>
+                        <p className="text-gray-500 text-sm mt-0.5">One source of truth, feeding directly into your outreach.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 rounded-full bg-gray-900 mt-2 flex-shrink-0"></div>
+                      <div>
+                        <p className="font-bold text-gray-900">Core data models & integrations scaffolded.</p>
+                        <p className="text-gray-500 text-sm mt-0.5">Proper schemas, API connections, the backbone that won't break at scale.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                  <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
+
+              {/* Week 3-4 */}
+              <div className="flex gap-6">
+                <div className="flex-shrink-0 w-14 flex flex-col items-center">
+                  <div className="w-[14px] h-[14px] rounded-full bg-brand-blue ring-4 ring-brand-blue/20"></div>
                 </div>
-                <div className="font-semibold mb-2">Delivery</div>
-                <div className="text-sm text-gray-600">Working features deployed</div>
+                <div>
+                  <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Week 3–4</span>
+                  <div className="mt-3 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
+                      <div>
+                        <p className="font-bold text-gray-900">Custom dashboard replaces 6 spreadsheets.</p>
+                        <p className="text-gray-500 text-sm mt-0.5">Real-time metrics, pipeline visibility. Your CEO stops pinging you.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 rounded-full bg-gray-900 mt-2 flex-shrink-0"></div>
+                      <div>
+                        <p className="font-bold text-gray-900">Production-grade system taking shape.</p>
+                        <p className="text-gray-500 text-sm mt-0.5">Automated pipelines, error handling, monitoring. Built to scale, not to patch.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4 mx-auto">
-                  <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
+
+              {/* Month 2 */}
+              <div className="flex gap-6">
+                <div className="flex-shrink-0 w-14 flex flex-col items-center">
+                  <div className="w-[14px] h-[14px] rounded-full bg-brand-blue ring-4 ring-brand-blue/20"></div>
                 </div>
-                <div className="font-semibold mb-2">Next Iteration</div>
-                <div className="text-sm text-gray-600">Plan next sprint, continuous improvement</div>
+                <div>
+                  <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Month 2</span>
+                  <div className="mt-3 space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
+                      <div>
+                        <p className="font-bold text-gray-900">Every manual process automated.</p>
+                        <p className="text-gray-500 text-sm mt-0.5">Onboarding, reporting, data sync, client comms — all hands-free.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 rounded-full bg-gray-900 mt-2 flex-shrink-0"></div>
+                      <div>
+                        <p className="font-bold text-gray-900">Quick wins merged into the real system.</p>
+                        <p className="text-gray-500 text-sm mt-0.5">The two tracks converge. Everything runs on one clean, scalable platform.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Month 3+ */}
+              <div className="flex gap-6">
+                <div className="flex-shrink-0 w-14 flex flex-col items-center">
+                  <div className="w-[14px] h-[14px] rounded-full bg-emerald-500 ring-4 ring-emerald-500/20"></div>
+                </div>
+                <div>
+                  <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest">Month 3+</span>
+                  <h3 className="text-xl font-bold text-gray-900 mt-1">You forgot what manual ops felt like.</h3>
+                  <p className="text-gray-500 text-[15px] leading-relaxed mt-1">
+                    Your team focuses on growth, not firefighting. You scale by adding clients, not headcount. That's the point.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
