@@ -1,8 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { ClientLogosTicker } from "./components/ClientLogosTicker";
+import SlackComparison from "./components/SlackComparison";
+import TimelineSection from "./components/TimelineSection";
+import { ProductsDropdown } from "./components/products-dropdown";
 
 const clientLogos = [
   { src: "/images/logos/clients/coldiq-large.svg", alt: "ColdIQ", w: "w-32" },
@@ -19,182 +24,203 @@ const testimonials = [
   {
     thumbnail: "/images/testimonials/thumbnail-1.png",
     video: "https://www.youtube.com/watch?v=IJw_o6v4pEc&t=88s",
-    badge: "$7k+/mo SAVED",
-    badgeColor: "bg-green-50 text-green-700",
-    metric: "$7k+",
-    metricSub: "/mo saved in first month",
-    quote: "They did in 1 week what others took 4 months for. We cannot live without you guys.",
+    quote: "We cannot live without you guys. I don't even consider you guys as an agency. I almost consider you guys as a fractional CTO.",
     name: "Enzo Carasso",
     role: "CEO, C17 Lab",
     photo: "/images/testimonials/enzo-carasso.jpg",
+    metric: "2.5M",
+    metricSub: "emails/mo with zero failures"
   },
   {
     thumbnail: "/images/testimonials/thumbnail-3.png",
     video: "https://www.youtube.com/watch?v=RFEKjpiPl9Q&t=74s",
-    badge: "$7k/mo SAVED",
-    badgeColor: "bg-green-50 text-green-700",
-    metric: "$7k",
-    metricSub: "/mo saved after 6 months of nothing",
-    quote: "Spent 6 figures with agencies over 6 months. Not one fucking thing got done. Stimuli built our lead database in week one.",
+    quote: "Not one fucking thing got done. Stimuli built our lead database in week one.",
     name: "Taylor Haren",
     role: "CEO, Sales Automation Systems",
     photo: "/images/testimonials/taylor-haren.jpg",
+    metric: "Week 1",
+    metricSub: "delivery after 6 months of nothing"
   },
   {
     thumbnail: "/images/testimonials/thumbnail-4.png",
     video: "https://www.youtube.com/watch?v=UxK4lVHdlXs&t=1s",
-    badge: "50% COST CUT",
-    badgeColor: "bg-green-50 text-green-700",
-    metric: "50%",
-    metricSub: "infrastructure costs cut in 3 days",
-    quote: "I don't want other agencies to have you as a partner... charge them triple what you charge us.",
+    quote: "Charge them triple what you charge us.",
     name: "Michael Ewald",
     role: "Co-Founder, Vangates",
     photo: "/images/testimonials/michael-ewald.jpg",
+    metric: "60+",
+    metricSub: "clients with just 4-5 employees"
   },
   {
     thumbnail: "/images/testimonials/thumbnail-2.png",
     video: "https://www.youtube.com/watch?v=3GSPi5y3Kd4&t=1s",
-    badge: "PROVEN RESULTS",
-    badgeColor: "bg-blue-50 text-blue-700",
-    metric: "10x",
-    metricSub: "faster than traditional agencies",
     quote: "Real transformation from duct-taped workflows to production-grade systems.",
     name: "AJ Cassata",
     role: "Founder, Revenue Boost",
     photo: "/images/testimonials/aj-cassata.jpg",
+    metric: "10x",
+    metricSub: "faster than traditional agencies"
   },
   {
     thumbnail: "/images/testimonials/thumbnail-5.png",
     video: "https://www.youtube.com/watch?v=NY2uxCKoyEg&t=10s",
-    badge: "REMARKABLE SPEED",
-    badgeColor: "bg-blue-50 text-blue-700",
-    metric: "2mo",
-    metricSub: "dashboards + command center built",
-    quote: "The speed at which you guys work is remarkable. It's actually quite hard to keep up with at times.",
+    quote: "The speed at which you guys work is remarkable.",
     name: "Naeem Alvi-Assinder",
     role: "Founder, Avalanche",
     photo: "/images/testimonials/naeem-alvi.jpg",
+    metric: "Full system",
+    metricSub: "in under 2 months"
   },
   {
     thumbnail: "/images/testimonials/hypergen-thumbnail.png",
     video: "https://www.youtube.com/watch?v=WwxT5F_I1Ig",
-    badge: "ENTERPRISE SCALE",
-    badgeColor: "bg-purple-50 text-purple-700",
-    metric: "∞",
-    metricSub: "enterprise-grade at startup speed",
-    quote: "Built our entire backend infrastructure with enterprise-grade quality in record time.",
+    quote: "Built our entire backend infrastructure in record time.",
     name: "Aleksander Ivanov",
     role: "CEO, Hypergen",
     photo: "/images/testimonials/aleksander-ivanov.jpg",
+    metric: "Enterprise",
+    metricSub: "at startup speed"
   },
+];
+
+const faqItems = [
+  {
+    q: "What's different from hiring a dev?",
+    a: "Devs build features. We build operating systems. We've wired 40+ GTM stacks. We know what breaks and why."
+  },
+  {
+    q: "How is this different from automation consultants?",
+    a: "Consultants connect tools with Zapier. We write code. Real databases. Real AI. Real systems that scale past 100 clients."
+  },
+  {
+    q: "Do I own the code?",
+    a: "Yes. Code, schemas, documentation. Everything. No vendor lock."
+  },
+  {
+    q: "What happens in the first week?",
+    a: "Monday: audit what's leaking. Wednesday: biggest fire fixed. Next Monday: software running. Not slides. Software."
+  },
+  {
+    q: "How much does this cost?",
+    a: "$15k/month retainer. Cancel anytime. Most clients ROI in month one from saved time + recovered revenue."
+  },
+  {
+    q: "Is this only for agencies?",
+    a: "No. B2B companies with complex GTM stacks, multiple lead sources, and revenue teams hire us too."
+  },
+  {
+    q: "Can you integrate with [our tool]?",
+    a: "If it has an API or exports data, yes. If it doesn't, we'll find another way."
+  },
+  {
+    q: "Do you replace our CRM?",
+    a: "No. We centralize everything into one data layer, then push clean data back into your CRM. It becomes more useful, not replaced."
+  },
+  {
+    q: "What if we want to stop?",
+    a: "You cancel. You keep the code. It keeps running. No drama."
+  }
 ];
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const servicesRef = useRef<HTMLDivElement | null>(null);
-  const graveyardRef = useRef<HTMLDivElement | null>(null);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
-  const current = testimonials[activeSlide];
-  const [checked, setChecked] = useState<boolean[]>([false, false, false, false, false]);
-  const checkedCount = checked.filter(Boolean).length;
-  const [showVideoOverlay, setShowVideoOverlay] = useState(false);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  // Count-up metrics
-  const [countSaved, setCountSaved] = useState(0);
-  const [countSpeed, setCountSpeed] = useState(0);
-  const [countTeams, setCountTeams] = useState(0);
-  useEffect(() => {
-    const duration = 1800;
-    const steps = 40;
-    const interval = duration / steps;
-    let step = 0;
-    const timer = setInterval(() => {
-      step++;
-      const progress = step / steps;
-      const ease = 1 - Math.pow(1 - progress, 3);
-      setCountSaved(Math.round(ease * 7));
-      setCountSpeed(Math.round(ease * 10));
-      setCountTeams(Math.round(ease * 40));
-      if (step >= steps) clearInterval(timer);
-    }, interval);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Universal scroll reveal — one observer for everything
+  // Intersection Observer for scroll-triggered reveals
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
+            const id = entry.target.getAttribute('data-section-id');
+            if (id) {
+              setVisibleSections(prev => new Set(prev).add(id));
+            }
           }
         });
       },
-      { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
+      { threshold: 0.1 }
     );
-    // Reveal cards (services bento, etc.)
-    document.querySelectorAll('.reveal-card').forEach((el) => observer.observe(el));
-    // Reveal sections (fade-up on scroll)
-    document.querySelectorAll('.reveal-section').forEach((el) => observer.observe(el));
-    // Graveyard
-    const gy = graveyardRef.current;
-    if (gy) {
-      const gyObserver = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) { entry.target.classList.add('graveyard-visible'); gyObserver.disconnect(); } },
-        { threshold: 0.3 }
-      );
-      gyObserver.observe(gy);
-    }
+
+    document.querySelectorAll('[data-section-id]').forEach((el) => {
+      observer.observe(el);
+    });
+
     return () => observer.disconnect();
   }, []);
 
-  function handleCtaClick() {
-    if (checkedCount === 5) {
-      setShowVideoOverlay(true);
-      setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.play();
-        }
-      }, 100);
-      // Redirect after 12 seconds (video loops segment, music plays through)
-      setTimeout(() => {
-        window.location.href = "https://calendly.com/sergi-feq/30min";
-      }, 12000);
-    } else {
-      window.open("https://calendly.com/sergi-feq/30min", "_blank");
-    }
-  }
+  // Testimonial carousel - no auto-rotation for user control
 
-  // Reset auto-play timer whenever slide changes
-  useEffect(() => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, [activeSlide]);
+  // Structured Data for SEO
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
 
-  function goToSlide(i: number) {
-    setActiveSlide(i);
-  }
+  const videoSchemas = testimonials.map(testimonial => ({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": `${testimonial.name} - ${testimonial.role} Testimonial`,
+    "description": testimonial.quote,
+    "thumbnailUrl": `https://stimulidigital.com${testimonial.thumbnail}`,
+    "uploadDate": "2024-01-01",
+    "contentUrl": testimonial.video,
+    "embedUrl": testimonial.video
+  }));
 
-  function goNext() {
-    setActiveSlide((prev) => (prev + 1) % testimonials.length);
-  }
-
-  function goPrev() {
-    setActiveSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  }
+  const reviewSchemas = testimonials.map(testimonial => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "itemReviewed": {
+      "@type": "Organization",
+      "name": "Stimuli Digital"
+    },
+    "author": {
+      "@type": "Person",
+      "name": testimonial.name
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5",
+      "bestRating": "5"
+    },
+    "reviewBody": testimonial.quote
+  }));
 
   return (
-    <main className="min-h-screen bg-brand-black">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 nav-glass border-b border-white/[0.06]">
+    <main className="relative">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      {videoSchemas.map((schema, idx) => (
+        <script
+          key={`video-${idx}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+      {reviewSchemas.map((schema, idx) => (
+        <script
+          key={`review-${idx}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+      {/* ═══════════════════════════════════════════
+          NAVIGATION
+      ═══════════════════════════════════════════ */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-black/95 backdrop-blur-sm border-b border-white/[0.06]">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center">
@@ -211,23 +237,21 @@ export default function Home() {
             </div>
 
             <div className="hidden lg:flex items-center gap-10">
-              <Link href="#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+              <Link href="/#solution" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Services
               </Link>
-              <Link href="#case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+              <Link href="/#case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Client Success
               </Link>
               <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 About
               </Link>
-              <Link href="#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 FAQs
               </Link>
-              <Link href="#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors flex items-center gap-1">
-                Resources
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
+              <ProductsDropdown />
+              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Our History
               </Link>
             </div>
 
@@ -237,50 +261,39 @@ export default function Home() {
               rel="noopener noreferrer"
               className="px-6 py-2.5 bg-white text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white transition-all duration-300"
             >
-              Let's talk
+              Let&apos;s talk
             </Link>
           </div>
         </div>
       </nav>
 
       {/* ═══════════════════════════════════════════
-          HERO SECTION — Dark with 3D Ring
+          SECTION 1: HERO
       ═══════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-brand-black">
         {/* Ambient gradient */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-brand-blue/[0.07] rounded-full blur-[120px]"></div>
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-[100px]"></div>
         </div>
 
         {/* Grid overlay */}
         <div className="absolute inset-0 hero-grid opacity-[0.03]"></div>
 
-        <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full">
+        <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full z-10">
           <div className="max-w-5xl mx-auto text-center">
-            {/* Tagline */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue"></span>
-              </span>
-              <span className="text-sm text-white/60 font-medium tracking-wide uppercase">
-                Tech-Ops for B2B Sales & Marketing
-              </span>
-            </div>
-
             {/* Headline */}
             <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
-              Your agency runs on <span className="text-gradient">duct tape</span>. We fix that.
+              Your GTM Data Is Scattered.<br/>
+              <span className="text-gradient">Your Decisions Are Manual. We Fix Both.</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl lg:text-2xl text-white/50 leading-relaxed mb-12 max-w-3xl mx-auto font-light tracking-tight">
-              Fractional CTO + engineering team that replaces your Frankenstein stack with one system. Results in week one.
+              We centralize your data, surface what's hidden, and build systems that act on it automatically. For revenue teams and the agencies that power them.
             </p>
 
             {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+            <div className="flex items-center justify-center mb-10">
               <Link
                 href="https://calendly.com/sergi-feq/30min"
                 target="_blank"
@@ -288,22 +301,16 @@ export default function Home() {
                 className="group relative px-8 py-4 bg-brand-blue text-white rounded-full font-semibold text-base overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.4)] hover:scale-[1.02]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Let's talk about your systems
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  Show me what I'm missing
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                   </svg>
                 </span>
               </Link>
-              <a
-                href="#case-studies"
-                className="px-8 py-4 text-white/70 border border-white/10 rounded-full font-medium text-base hover:bg-white/[0.05] hover:border-white/20 transition-all duration-300"
-              >
-                See the proof
-              </a>
             </div>
 
-            {/* Social proof faces */}
-            <div className="flex items-center justify-center gap-3 mt-10">
+            {/* Social proof */}
+            <div className="flex items-center justify-center gap-3">
               <div className="flex -space-x-2">
                 {testimonials.slice(0, 6).map((t, i) => (
                   <img
@@ -314,1243 +321,977 @@ export default function Home() {
                   />
                 ))}
               </div>
-              <span className="text-sm text-white/40 font-medium">Trusted by 40+ B2B teams</span>
-            </div>
-          </div>
-
-          {/* Metrics strip */}
-          <div className="mt-20 max-w-3xl mx-auto">
-            <div className="grid grid-cols-3 gap-8 border-t border-white/[0.06] pt-10">
-              <div className="text-center">
-                <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white mb-1">${countSaved}k+</p>
-                <p className="text-sm text-white/30 font-medium">/mo saved on average</p>
-              </div>
-              <div className="text-center border-x border-white/[0.06]">
-                <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white mb-1">{countSpeed}x</p>
-                <p className="text-sm text-white/30 font-medium">faster than agencies</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white mb-1">{countTeams}+</p>
-                <p className="text-sm text-white/30 font-medium">B2B teams scaled</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          CLIENT LOGOS + TESTIMONIAL — White section
-      ═══════════════════════════════════════════ */}
-      <section className="relative pt-16 pb-16 px-8 lg:px-12 bg-white">
-        {/* Client logos */}
-        <div className="max-w-[1200px] mx-auto mb-16">
-          <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-8 text-center">
-            Engineering world class systems for:
-          </p>
-          <div className="relative overflow-hidden max-w-full">
-            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10"></div>
-            <div className="flex w-max animate-scroll">
-              {[...Array(2)].map((_, setIndex) =>
-                clientLogos.map((logo, index) => (
-                  <div key={`logo-${setIndex}-${index}`} className="flex-shrink-0 mx-8">
-                    <div className={`relative ${logo.w} h-14 flex items-center justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300`}>
-                      <Image
-                        src={logo.src}
-                        alt={logo.alt}
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="max-w-[1000px] mx-auto relative">
-          {/* Slider Card */}
-          <div className="rounded-2xl border border-gray-200/60 overflow-hidden shadow-sm hover:border-brand-blue/30 hover:shadow-2xl transition-all duration-500 group">
-            {/* Top: Video Thumbnail - clickable to YouTube */}
-            <div
-              onClick={() => window.open(current.video, '_blank')}
-              className="relative aspect-video overflow-hidden bg-gray-900 cursor-pointer"
-            >
-              {testimonials.map((t, i) => (
-                <div
-                  key={i}
-                  className={`absolute inset-0 transition-opacity duration-700 ${i === activeSlide ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-                >
-                  <Image src={t.thumbnail} alt={`${t.name} Testimonial`} fill className="object-cover" />
-                </div>
-              ))}
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 group-hover:bg-brand-blue transition-all duration-300 shadow-2xl">
-                  <svg className="w-6 h-6 text-brand-black ml-1 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-              </div>
-              <div className="absolute bottom-4 left-4 px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-full text-xs font-bold text-brand-black tracking-tight">
-                Watch testimonial
-              </div>
-              <div className={`absolute top-4 left-4 px-3 py-1.5 rounded-full text-xs font-bold ${current.badgeColor}`}>
-                {current.badge}
-              </div>
-            </div>
-
-            {/* Bottom: Content */}
-            <div className="p-8 md:p-10 bg-gradient-to-br from-white to-gray-50/80">
-              <div className="flex flex-col md:flex-row md:items-center gap-8">
-                {/* Left: Metric + Quote */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-baseline gap-2 mb-4">
-                    <span className="text-5xl font-extrabold tracking-tighter text-brand-black">
-                      {current.metric}
-                    </span>
-                    <span className="text-base font-semibold text-gray-400 tracking-tight">
-                      {current.metricSub}
-                    </span>
-                  </div>
-                  <p className="text-lg text-gray-800 font-semibold leading-snug tracking-tight mb-5 min-h-[56px]">
-                    &ldquo;{current.quote}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-gray-100 flex-shrink-0">
-                      <Image src={current.photo} alt={current.name} width={40} height={40} className="object-cover w-full h-full" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-sm text-gray-900 tracking-tight">{current.name}</p>
-                      <p className="text-xs text-gray-500 tracking-tight">{current.role}</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right: Navigation + faces */}
-                <div className="md:border-l md:border-gray-100 md:pl-8 flex-shrink-0">
-                  <div className="flex gap-2 mb-4">
-                    {testimonials.map((t, i) => (
-                      <div
-                        key={i}
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => goToSlide(i)}
-                        onKeyDown={(e) => { if (e.key === 'Enter') goToSlide(i); }}
-                        className={`w-10 h-10 rounded-full overflow-hidden ring-2 transition-all duration-300 cursor-pointer ${i === activeSlide ? "ring-brand-blue scale-110 shadow-lg" : "ring-gray-200 opacity-50 hover:opacity-80"}`}
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={t.photo} alt={t.name} className="w-full h-full object-cover" />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => goPrev()}
-                      onKeyDown={(e) => { if (e.key === 'Enter') goPrev(); }}
-                      className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors cursor-pointer"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-                    </div>
-                    <div
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => goNext()}
-                      onKeyDown={(e) => { if (e.key === 'Enter') goNext(); }}
-                      className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-brand-blue hover:text-brand-blue transition-colors cursor-pointer"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                    </div>
-                    <span className="text-xs text-gray-400 ml-2">{activeSlide + 1} / {testimonials.length}</span>
-                  </div>
-                </div>
-              </div>
+              <span className="text-sm text-white/40 font-medium">Built 40+ systems across 4 continents</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          WHO THIS IS FOR — Light section
+          SECTION 2: CLIENT LOGOS
       ═══════════════════════════════════════════ */}
-      <section className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-[120px]"></div>
-        <div className="max-w-[700px] mx-auto relative reveal-section">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold tracking-tight mb-6 text-balance text-white">
-              Is this for you?
-            </h2>
-            <p className="text-xl text-white/50 max-w-2xl mx-auto tracking-tight">
-              Check every box that applies
-            </p>
-          </div>
-
-          {/* Interactive checklist */}
-          <div className="space-y-3 mb-10">
-            {[
-              "I run a B2B sales/marketing team or agency doing $5M+ ARR",
-              "I've tried Zapier, Make, Airtable — and hit the ceiling",
-              "My ops manager is duct-taping workflows together",
-              "Scaling means hiring more people, not building better systems",
-              "I need real engineering without full-time CTO overhead",
-            ].map((item, i) => (
-              <div
-                key={i}
-                role="button"
-                tabIndex={0}
-                onClick={() => setChecked(prev => { const next = [...prev]; next[i] = !next[i]; return next; })}
-                onKeyDown={(e) => { if (e.key === 'Enter') setChecked(prev => { const next = [...prev]; next[i] = !next[i]; return next; }); }}
-                className={`flex items-center gap-4 p-5 rounded-xl border cursor-pointer select-none transition-all duration-300 ${
-                  checked[i]
-                    ? "border-brand-blue/30 bg-brand-blue/[0.06]"
-                    : "border-white/[0.08] bg-white/[0.02] hover:border-white/[0.15]"
-                }`}
-              >
-                <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                  checked[i]
-                    ? "bg-brand-blue border-brand-blue"
-                    : "border-white/20"
-                }`}>
-                  {checked[i] && (
-                    <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                  )}
-                </div>
-                <span className={`tracking-tight text-[16px] transition-colors duration-300 ${
-                  checked[i] ? "text-white font-medium" : "text-white/60"
-                }`}>{item}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Progress + CTA */}
-          <div className={`text-center transition-all duration-500 ${checkedCount >= 3 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}>
-            <p className={`text-sm font-semibold mb-4 tracking-tight transition-colors duration-300 ${checkedCount === 5 ? "text-emerald-400" : "text-brand-blue"}`}>
-              {checkedCount === 5 ? "5/5 — Perfect match." : `${checkedCount}/5 — You\u2019re exactly who we built this for.`}
-            </p>
-            <div
-              role="button"
-              tabIndex={0}
-              onClick={handleCtaClick}
-              onKeyDown={(e) => { if (e.key === 'Enter') handleCtaClick(); }}
-              className={`inline-flex items-center gap-2 px-8 py-4 text-white rounded-full font-semibold cursor-pointer transition-all duration-300 ${
-                checkedCount === 5
-                  ? "bg-brand-blue shadow-lg shadow-brand-blue/25 hover:shadow-xl hover:shadow-brand-blue/30 scale-105"
-                  : "bg-brand-blue hover:bg-brand-blue/90"
-              }`}
-            >
-              Let&apos;s talk about your systems
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </div>
-          </div>
-
-        </div>
-      </section>
+      <ClientLogosTicker logos={clientLogos} />
 
       {/* ═══════════════════════════════════════════
-          THE PROBLEM — Slack Messages
+          SECTION 3: SOCIAL PROOF
       ═══════════════════════════════════════════ */}
-      <section className="relative py-32 px-8 lg:px-12 bg-white overflow-hidden">
-
-        <div className="max-w-[700px] mx-auto relative reveal-section">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-8 text-balance text-gray-900">
-              Sound familiar?
-            </h2>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-[1.6] tracking-tight font-light">
-              Every agency Slack looks the same.
-            </p>
-          </div>
-
-          {/* #ops-fires channel */}
-          <div className="rounded-2xl border border-red-500/20 bg-brand-black overflow-hidden">
-            {/* Channel header */}
-            <div className="px-6 py-3.5 border-b border-white/[0.06] flex items-center gap-2">
-              <span className="text-white/30 font-bold text-sm">#</span>
-              <span className="text-white/60 font-semibold text-sm">ops-fires</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-red-400 ml-1 animate-pulse"></span>
-              <span className="ml-auto text-white/20 text-xs">47 unread messages</span>
-            </div>
-
-            {/* Messages */}
-            <div className="p-6 space-y-5">
-              {/* Message 1 */}
-              <div className="flex gap-3">
-                <div className="w-9 h-9 rounded-lg bg-orange-500/20 flex items-center justify-center flex-shrink-0 text-sm">
-                  🔥
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-white font-bold text-sm">Sarah M.</span>
-                    <span className="text-white/20 text-xs">10:32 AM</span>
-                  </div>
-                  <p className="text-white/60 text-[15px] leading-relaxed">
-                    The Zapier workflow broke again. All leads from last night are stuck. Third time this month.
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">😩 5</span>
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">🔥 3</span>
-                    <span className="text-white/15 text-xs ml-2">12 replies</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Message 2 */}
-              <div className="flex gap-3">
-                <div className="w-9 h-9 rounded-lg bg-blue-500/20 flex items-center justify-center flex-shrink-0 text-sm">
-                  😩
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-white font-bold text-sm">Mike R.</span>
-                    <span className="text-white/20 text-xs">10:34 AM</span>
-                  </div>
-                  <p className="text-white/60 text-[15px] leading-relaxed">
-                    Who changed the Airtable formula? Half our client data is showing wrong numbers. The CEO just pinged me about the report.
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">👀 7</span>
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">😬 4</span>
-                    <span className="text-white/15 text-xs ml-2">8 replies</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Message 3 */}
-              <div className="flex gap-3">
-                <div className="w-9 h-9 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0 text-sm">
-                  😤
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-white font-bold text-sm">Alex K.</span>
-                    <span className="text-white/20 text-xs">10:41 AM</span>
-                  </div>
-                  <p className="text-white/60 text-[15px] leading-relaxed">
-                    We onboarded 3 new clients this week and I literally cannot keep up. We need to hire another ops person or I'm going to lose it.
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">💯 6</span>
-                    <span className="text-white/15 text-xs ml-2">15 replies</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Message 4 */}
-              <div className="flex gap-3">
-                <div className="w-9 h-9 rounded-lg bg-red-500/20 flex items-center justify-center flex-shrink-0 text-sm">
-                  💸
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-white font-bold text-sm">Jordan T.</span>
-                    <span className="text-white/20 text-xs">10:45 AM</span>
-                  </div>
-                  <p className="text-white/60 text-[15px] leading-relaxed">
-                    Just got the invoice. We're paying $4.2k/mo across 11 different tools and half of them do the same thing.
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">💸 9</span>
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-xs text-white/40">😭 3</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* The Stimuli Effect */}
-          <div className="flex items-center gap-4 my-12">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-brand-blue/30 to-brand-blue/30"></div>
-            <div className="flex items-center gap-3 px-5 py-3 rounded-full border border-brand-blue/20 bg-brand-blue/[0.06]">
-              <Image
-                src="/images/logo-full.svg"
-                alt="Stimuli"
-                width={100}
-                height={26}
-                className="h-5 w-auto opacity-80"
-              />
-              <span className="text-brand-blue text-sm font-semibold tracking-tight">Effect</span>
-              <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </div>
-            <div className="flex-1 h-px bg-gradient-to-l from-transparent via-brand-blue/30 to-brand-blue/30"></div>
-          </div>
-
-          {/* #ops-wins channel */}
-          <div className="rounded-2xl border border-emerald-500/20 bg-brand-black overflow-hidden">
-            {/* Channel header */}
-            <div className="px-6 py-3.5 border-b border-white/[0.06] flex items-center gap-2">
-              <span className="text-white/30 font-bold text-sm">#</span>
-              <span className="text-white/60 font-semibold text-sm">ops-wins</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 ml-1"></span>
-              <span className="ml-auto text-emerald-400/40 text-xs">After Stimuli</span>
-            </div>
-
-            {/* Messages */}
-            <div className="p-6 space-y-5">
-              {/* Win 1 */}
-              <div className="flex gap-3">
-                <div className="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-sm">
-                  🚀
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-white font-bold text-sm">Sarah M.</span>
-                    <span className="text-white/20 text-xs">9:01 AM</span>
-                  </div>
-                  <p className="text-white/60 text-[15px] leading-relaxed">
-                    All 47 leads from last night auto-synced and enriched. I didn't touch a thing.
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">🎉 8</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Win 2 */}
-              <div className="flex gap-3">
-                <div className="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-sm">
-                  📊
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-white font-bold text-sm">Mike R.</span>
-                    <span className="text-white/20 text-xs">9:15 AM</span>
-                  </div>
-                  <p className="text-white/60 text-[15px] leading-relaxed">
-                    Dashboard auto-updated overnight. CEO already has the report. Zero manual work.
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">💪 5</span>
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">🔥 4</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Win 3 */}
-              <div className="flex gap-3">
-                <div className="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-sm">
-                  ⚡
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-white font-bold text-sm">Alex K.</span>
-                    <span className="text-white/20 text-xs">9:30 AM</span>
-                  </div>
-                  <p className="text-white/60 text-[15px] leading-relaxed">
-                    Onboarded 5 clients this week. Didn't even feel it. The system just... handled it.
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">🚀 11</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Win 4 */}
-              <div className="flex gap-3">
-                <div className="w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 text-sm">
-                  💰
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-white font-bold text-sm">Jordan T.</span>
-                    <span className="text-white/20 text-xs">9:45 AM</span>
-                  </div>
-                  <p className="text-white/60 text-[15px] leading-relaxed">
-                    Just cancelled 6 tools. One system handles everything. Saving $3.8k/mo.
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">💰 12</span>
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400/60">🎯 6</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          HOW IT WORKS — Dual-Track Timeline
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute top-1/4 right-1/4 w-[600px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-[120px]"></div>
-        <div className="max-w-[800px] mx-auto relative reveal-section">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-white">
-              What happens after you say yes
-            </h2>
-            <p className="text-xl text-white/40 max-w-2xl mx-auto font-light">
-              Two tracks running simultaneously. Quick wins <span className="italic">while</span> building the right foundation. You see results before the first invoice.
-            </p>
-          </div>
-
-          {/* Track legend */}
-          <div className="flex items-center justify-center gap-8 mb-14">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-brand-blue"></div>
-              <span className="text-sm font-semibold text-white/50">Quick Wins</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-white"></div>
-              <span className="text-sm font-semibold text-white/50">Foundation</span>
-            </div>
-          </div>
-
-          {/* Timeline */}
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-[27px] top-0 bottom-0 w-px bg-gradient-to-b from-brand-blue via-brand-blue/40 to-emerald-500"></div>
-
-            <div className="space-y-14">
-              {/* Week 1 */}
-              <div className="flex gap-6">
-                <div className="flex-shrink-0 w-14 flex flex-col items-center">
-                  <div className="w-[14px] h-[14px] rounded-full bg-brand-blue ring-4 ring-brand-blue/20"></div>
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Week 1</span>
-                  <div className="mt-3 space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
-                      <div>
-                        <p className="font-bold text-white">Your broken workflows? Fixed.</p>
-                        <p className="text-white/40 text-sm mt-0.5">Audit everything, kill the fires, get lead flow running again.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-white mt-2 flex-shrink-0"></div>
-                      <div>
-                        <p className="font-bold text-white">Full system discovery & architecture design.</p>
-                        <p className="text-white/40 text-sm mt-0.5">Map every workflow, identify the right data schema, plan the real infrastructure.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Week 2 */}
-              <div className="flex gap-6">
-                <div className="flex-shrink-0 w-14 flex flex-col items-center">
-                  <div className="w-[14px] h-[14px] rounded-full bg-brand-blue ring-4 ring-brand-blue/20"></div>
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Week 2</span>
-                  <div className="mt-3 space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
-                      <div>
-                        <p className="font-bold text-white">Lead database built. Auto-enriching.</p>
-                        <p className="text-white/40 text-sm mt-0.5">One source of truth, feeding directly into your outreach.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-white mt-2 flex-shrink-0"></div>
-                      <div>
-                        <p className="font-bold text-white">Core data models & integrations scaffolded.</p>
-                        <p className="text-white/40 text-sm mt-0.5">Proper schemas, API connections, the backbone that won't break at scale.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Week 3-4 */}
-              <div className="flex gap-6">
-                <div className="flex-shrink-0 w-14 flex flex-col items-center">
-                  <div className="w-[14px] h-[14px] rounded-full bg-brand-blue ring-4 ring-brand-blue/20"></div>
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Week 3–4</span>
-                  <div className="mt-3 space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
-                      <div>
-                        <p className="font-bold text-white">Custom dashboard replaces 6 spreadsheets.</p>
-                        <p className="text-white/40 text-sm mt-0.5">Real-time metrics, pipeline visibility. Your CEO stops pinging you.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-white mt-2 flex-shrink-0"></div>
-                      <div>
-                        <p className="font-bold text-white">Production-grade system taking shape.</p>
-                        <p className="text-white/40 text-sm mt-0.5">Automated pipelines, error handling, monitoring. Built to scale, not to patch.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Month 2 */}
-              <div className="flex gap-6">
-                <div className="flex-shrink-0 w-14 flex flex-col items-center">
-                  <div className="w-[14px] h-[14px] rounded-full bg-brand-blue ring-4 ring-brand-blue/20"></div>
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-brand-blue uppercase tracking-widest">Month 2</span>
-                  <div className="mt-3 space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-brand-blue mt-2 flex-shrink-0"></div>
-                      <div>
-                        <p className="font-bold text-white">Every manual process automated.</p>
-                        <p className="text-white/40 text-sm mt-0.5">Onboarding, reporting, data sync, client comms — all hands-free.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-white mt-2 flex-shrink-0"></div>
-                      <div>
-                        <p className="font-bold text-white">Quick wins merged into the real system.</p>
-                        <p className="text-white/40 text-sm mt-0.5">The two tracks converge. Everything runs on one clean, scalable platform.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Month 3+ */}
-              <div className="flex gap-6">
-                <div className="flex-shrink-0 w-14 flex flex-col items-center">
-                  <div className="w-[14px] h-[14px] rounded-full bg-emerald-500 ring-4 ring-emerald-500/20"></div>
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Month 3+</span>
-                  <h3 className="text-xl font-bold text-white mt-1">You forgot what manual ops felt like.</h3>
-                  <p className="text-white/40 text-[15px] leading-relaxed mt-1">
-                    Your team focuses on growth, not firefighting. You scale by adding clients, not headcount. That's the point.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          SERVICES — Tool Graveyard + Bento Grid
-      ═══════════════════════════════════════════ */}
-      <section id="services" className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        {/* 3D S-shape accent — centered behind heading */}
-        <div className="absolute left-1/2 top-16 -translate-x-1/2 w-[700px] h-[700px] opacity-30 mix-blend-screen mask-radial pointer-events-none animate-float-slow">
-          <Image src="/images/3d/s_main.png" alt="" fill className="object-contain" />
-        </div>
-
-        {/* Ambient glow */}
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[400px] bg-brand-blue/[0.05] rounded-full blur-[120px]"></div>
-        <div className="absolute top-1/3 left-1/4 w-[400px] h-[300px] bg-brand-blue/[0.03] rounded-full blur-[100px]"></div>
-
-        <div className="max-w-[1400px] mx-auto relative">
-          <div className="text-center mb-12">
-            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-white">
-              Your new operating system
-            </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto font-light">
-              Built to replace everything that&apos;s breaking.
-            </p>
-          </div>
-
-          {/* ── Tool Graveyard ── */}
-          <div ref={graveyardRef} className="max-w-3xl mx-auto mb-20 py-10 px-8 rounded-2xl border border-white/[0.06] bg-white/[0.02]">
-            <div className="flex flex-wrap justify-center gap-3 mb-8">
-              {["Zapier", "Make", "Airtable", "Google Sheets", "Notion", "Monday.com", "Retool", "n8n"].map((tool, i) => (
-                <span
-                  key={tool}
-                  className="graveyard-tool relative px-5 py-2.5 rounded-full border border-white/[0.1] bg-white/[0.04] text-[15px] text-white/50 font-semibold"
-                  style={{ '--delay': `${i * 0.07}s`, '--strike-delay': `${0.6 + i * 0.05}s` } as React.CSSProperties}
-                >
-                  {tool}
-                </span>
-              ))}
-            </div>
-            <p
-              className="graveyard-line text-center text-lg font-semibold tracking-tight text-white/60"
-              style={{ '--delay': '1.1s' } as React.CSSProperties}
-            >
-              You won&apos;t need these anymore.
-            </p>
-          </div>
-
-          {/* ── Bento Grid ── */}
-          <div ref={servicesRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-
-            {/* Dashboard — wide card with animated chart */}
-            <div className="reveal-card md:col-span-2 group p-8 lg:p-10 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_60px_rgba(0,102,255,0.1)]" style={{ transitionDelay: '0ms' }}>
-              <div className="flex items-start justify-between gap-6">
-                <div className="flex-1">
-                  <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
-                    <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-white">Custom Analytics Dashboards</h3>
-                  <p className="text-white/40 text-sm leading-relaxed mb-1">Your CEO gets the numbers before you wake up. Pipeline, revenue, client health — one screen.</p>
-                  <span className="text-xs text-white/20">Replaces: <span className="line-through decoration-red-400/50">6 spreadsheets + manual exports</span></span>
-                </div>
-                {/* Mini animated chart */}
-                <div className="hidden md:flex items-end gap-1 h-24 flex-shrink-0 pt-4">
-                  {[35, 55, 40, 70, 50, 85, 60, 92, 48, 78, 65, 88].map((h, i) => (
-                    <div
-                      key={i}
-                      className="chart-bar w-2.5 rounded-sm bg-brand-blue/60 group-hover:bg-brand-blue transition-colors"
-                      style={{ '--bar-height': `${h}%`, animationDelay: `${i * 0.06}s` } as React.CSSProperties}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Lead DB — tall card with streaming data rows */}
-            <div className="reveal-card lg:row-span-2 group p-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_60px_rgba(0,102,255,0.1)]" style={{ transitionDelay: '100ms' }}>
-              <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-white">Lead Database</h3>
-              <p className="text-white/40 text-sm leading-relaxed mb-2">One source of truth. Auto-enriched, deduplicated, ready the moment it lands.</p>
-              <span className="text-xs text-white/20 line-through decoration-red-400/50">scattered Airtables + duplicate data</span>
-              {/* Streaming data rows */}
-              <div className="space-y-2 mt-6">
-                {[
-                  { name: "Sarah Chen", domain: "acme.co", status: "Enriched", color: "bg-emerald-500/10 text-emerald-400" },
-                  { name: "Marcus Webb", domain: "initech.io", status: "Verified", color: "bg-brand-blue/10 text-brand-blue" },
-                  { name: "Lena Kowalski", domain: "globex.com", status: "Enriched", color: "bg-emerald-500/10 text-emerald-400" },
-                  { name: "James Park", domain: "wayne.co", status: "New", color: "bg-yellow-500/10 text-yellow-400" },
-                  { name: "Ria Patel", domain: "stark.dev", status: "Verified", color: "bg-brand-blue/10 text-brand-blue" },
-                ].map((row, i) => (
-                  <div
-                    key={i}
-                    className="data-row flex items-center gap-2.5 px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.04]"
-                    style={{ animationDelay: `${0.4 + i * 0.12}s` }}
-                  >
-                    <div className="w-6 h-6 rounded-full bg-brand-blue/20 flex items-center justify-center text-[10px] text-brand-blue font-bold flex-shrink-0">
-                      {row.name[0]}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <span className="text-xs text-white/60 font-medium">{row.name}</span>
-                      <span className="text-xs text-white/20 ml-1.5">{row.domain}</span>
-                    </div>
-                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${row.color}`}>{row.status}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Master Inbox — with message bubbles */}
-            <div className="reveal-card group p-7 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.08)]" style={{ transitionDelay: '200ms' }}>
-              <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold mb-2 text-white">Master Inbox</h3>
-              <p className="text-white/40 text-sm leading-relaxed mb-1">Every conversation. Every sequencer. One screen.</p>
-              <span className="text-xs text-white/20 line-through decoration-red-400/50">5 tabs + missed replies</span>
-              {/* Message bubbles */}
-              <div className="space-y-2 mt-5">
-                {[
-                  { from: "AJ", msg: "Re: Partnership — let\u2019s do it", side: "left" },
-                  { from: "EN", msg: "Contract signed!", side: "right" },
-                  { from: "TH", msg: "Onboarding docs received", side: "left" },
-                ].map((m, i) => (
-                  <div key={i} className={`msg-bubble flex ${m.side === 'right' ? 'justify-end' : ''}`} style={{ animationDelay: `${0.4 + i * 0.15}s` }}>
-                    <div className={`px-3 py-1.5 rounded-xl text-xs max-w-[85%] ${m.side === 'right' ? 'bg-brand-blue/15 text-brand-blue/80' : 'bg-white/[0.05] text-white/50'}`}>
-                      <span className="font-bold text-white/30 mr-1">{m.from}</span>{m.msg}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Real-Time Data Sync — with pulsing nodes */}
-            <div className="reveal-card group p-7 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.08)]" style={{ transitionDelay: '300ms' }}>
-              <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold mb-2 text-white">Real-Time Data Sync</h3>
-              <p className="text-white/40 text-sm leading-relaxed mb-1">Smartlead, Instantly, EmailBison — all feeding one system. Live.</p>
-              <span className="text-xs text-white/20 line-through decoration-red-400/50">Zapier delays + broken webhooks</span>
-              {/* Sync visualization */}
-              <div className="flex items-center mt-6">
-                <div className="sync-dot w-8 h-8 rounded-lg bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-[10px] font-bold text-brand-blue flex-shrink-0" style={{ animationDelay: '0s' }}>SL</div>
-                <div className="flex-1 h-px bg-gradient-to-r from-brand-blue/20 via-brand-blue/40 to-brand-blue/20 mx-1"></div>
-                <div className="sync-dot w-8 h-8 rounded-lg bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-[10px] font-bold text-brand-blue flex-shrink-0" style={{ animationDelay: '0.4s' }}>IN</div>
-                <div className="flex-1 h-px bg-gradient-to-r from-brand-blue/20 via-brand-blue/40 to-brand-blue/20 mx-1"></div>
-                <div className="sync-dot w-8 h-8 rounded-lg bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-[10px] font-bold text-brand-blue flex-shrink-0" style={{ animationDelay: '0.8s' }}>EB</div>
-                <div className="flex-1 h-px bg-gradient-to-r from-brand-blue/20 via-emerald-400/40 to-emerald-400/20 mx-1"></div>
-                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
-                </div>
-              </div>
-            </div>
-
-            {/* Cold Email Infra — wide card with warmup bars */}
-            <div className="reveal-card md:col-span-2 group p-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_60px_rgba(0,102,255,0.1)]" style={{ transitionDelay: '400ms' }}>
-              <div className="flex items-start justify-between gap-6">
-                <div className="flex-1">
-                  <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
-                    <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 text-white">Cold Email Infrastructure</h3>
-                  <p className="text-white/40 text-sm leading-relaxed mb-1">Domains rotate, warmups run, deliverability monitors itself. You just write the copy.</p>
-                  <span className="text-xs text-white/20">Replaces: <span className="line-through decoration-red-400/50">manual rotation + spreadsheet tracking</span></span>
-                </div>
-                {/* Warmup status bars */}
-                <div className="hidden md:block flex-shrink-0 w-48 pt-4 space-y-3">
-                  {[
-                    { label: "Warmup", value: 94, color: "bg-emerald-400" },
-                    { label: "Deliver.", value: 97, color: "bg-brand-blue" },
-                    { label: "Health", value: 88, color: "bg-brand-sky" },
-                  ].map((bar, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <span className="text-[10px] text-white/25 w-12 text-right">{bar.label}</span>
-                      <div className="flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                        <div className={`warmup-bar h-full rounded-full ${bar.color}`} style={{ '--fill': `${bar.value}%`, animationDelay: `${0.4 + i * 0.15}s` } as React.CSSProperties} />
-                      </div>
-                      <span className="text-[10px] text-white/30 font-medium w-7">{bar.value}%</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* CRM — with pipeline visualization */}
-            <div className="reveal-card group p-7 rounded-2xl bg-white/[0.03] border border-white/[0.06] hover:border-brand-blue/30 hover:bg-white/[0.06] transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.08)]" style={{ transitionDelay: '500ms' }}>
-              <div className="w-11 h-11 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold mb-2 text-white">CRM Integrations</h3>
-              <p className="text-white/40 text-sm leading-relaxed mb-1">HubSpot pipelines that reflect reality. Not duct-taped Make scenarios.</p>
-              <span className="text-xs text-white/20 line-through decoration-red-400/50">manual updates + stale data</span>
-              {/* Pipeline stages */}
-              <div className="flex items-center gap-1.5 mt-5">
-                {[
-                  { label: "Lead", fill: 90 },
-                  { label: "Qual.", fill: 65 },
-                  { label: "Prop.", fill: 40 },
-                  { label: "Won", fill: 25 },
-                ].map((stage, i) => (
-                  <div key={i} className="flex-1">
-                    <div className="text-[9px] text-white/25 mb-1 text-center font-medium">{stage.label}</div>
-                    <div className="h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
-                      <div className="pipeline-bar h-full rounded-full bg-brand-blue" style={{ '--fill': `${stage.fill}%`, animationDelay: `${0.4 + i * 0.15}s` } as React.CSSProperties} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          CASE STUDIES — Proof Wall
-      ═══════════════════════════════════════════ */}
-      <section id="case-studies" className="relative py-32 px-8 lg:px-12 bg-white">
-        <div className="max-w-[1400px] mx-auto reveal-section">
+      <section
+        data-section-id="testimonials"
+        className={`relative py-16 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('testimonials') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1100px] mx-auto">
+          {/* Section label */}
           <div className="text-center mb-10">
-            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-gray-900">
-              The scoreboard
-            </h2>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light">
-              Every number is from a real client. Every video is unscripted.
+            <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-3">
+              Don't Take Our Word For It
             </p>
+            <h2 className="text-3xl lg:text-4xl font-extrabold text-brand-black tracking-tight">
+              Hear It From <span className="text-brand-blue">the People Who Switched.</span>
+            </h2>
           </div>
 
-          {/* Aggregate results strip */}
-          <div className="flex items-center justify-center gap-6 md:gap-12 mb-16 py-6 border-y border-gray-100">
-            {[
-              { value: "$28k+", label: "saved across clients" },
-              { value: "10x", label: "faster than agencies" },
-              { value: "6", label: "video testimonials" },
-              { value: "1 wk", label: "avg time to first results" },
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <p className="text-2xl md:text-3xl font-extrabold tracking-tight text-gray-900">{stat.value}</p>
-                <p className="text-xs text-gray-400 font-medium mt-0.5">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Proof grid — metric-first compact cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
-            {[
-              {
-                metric: "$7k+",
-                metricSub: "/mo saved",
-                result: "1 week to deliver what others took 4 months",
-                quote: "We cannot live without you guys.",
-                name: "Enzo Carasso",
-                role: "CEO, C17 Lab",
-                photo: "/images/testimonials/enzo-carasso.jpg",
-                thumbnail: "/images/testimonials/thumbnail-1.png",
-                video: "https://www.youtube.com/watch?v=IJw_o6v4pEc&t=88s",
-                badgeColor: "bg-emerald-50 text-emerald-700",
-              },
-              {
-                metric: "$7k",
-                metricSub: "/mo saved",
-                result: "Week 1 delivery after 6 months of nothing",
-                quote: "Not one fucking thing got done. Stimuli built our lead database in week one.",
-                name: "Taylor Haren",
-                role: "CEO, Sales Automation Systems",
-                photo: "/images/testimonials/taylor-haren.jpg",
-                thumbnail: "/images/testimonials/thumbnail-3.png",
-                video: "https://www.youtube.com/watch?v=RFEKjpiPl9Q&t=74s",
-                badgeColor: "bg-emerald-50 text-emerald-700",
-              },
-              {
-                metric: "50%",
-                metricSub: "costs cut",
-                result: "Infrastructure costs halved in 3 days",
-                quote: "Charge them triple what you charge us.",
-                name: "Michael Ewald",
-                role: "Co-Founder, Vangates",
-                photo: "/images/testimonials/michael-ewald.jpg",
-                thumbnail: "/images/testimonials/thumbnail-4.png",
-                video: "https://www.youtube.com/watch?v=UxK4lVHdlXs&t=1s",
-                badgeColor: "bg-emerald-50 text-emerald-700",
-              },
-              {
-                metric: "10x",
-                metricSub: "faster",
-                result: "From duct-tape to production-grade",
-                quote: "Real transformation from duct-taped workflows to production-grade systems.",
-                name: "AJ Cassata",
-                role: "Founder, Revenue Boost",
-                photo: "/images/testimonials/aj-cassata.jpg",
-                thumbnail: "/images/testimonials/thumbnail-2.png",
-                video: "https://www.youtube.com/watch?v=3GSPi5y3Kd4&t=1s",
-                badgeColor: "bg-blue-50 text-blue-700",
-              },
-              {
-                metric: "2mo",
-                metricSub: "to build",
-                result: "Full dashboards + command center",
-                quote: "The speed at which you guys work is remarkable.",
-                name: "Naeem Alvi-Assinder",
-                role: "Founder, Avalanche",
-                photo: "/images/testimonials/naeem-alvi.jpg",
-                thumbnail: "/images/testimonials/thumbnail-5.png",
-                video: "https://www.youtube.com/watch?v=NY2uxCKoyEg&t=10s",
-                badgeColor: "bg-blue-50 text-blue-700",
-              },
-              {
-                metric: "\u221E",
-                metricSub: "scale",
-                result: "Enterprise-grade at startup speed",
-                quote: "Built our entire backend infrastructure in record time.",
-                name: "Aleksander Ivanov",
-                role: "CEO, Hypergen",
-                photo: "/images/testimonials/aleksander-ivanov.jpg",
-                thumbnail: "/images/testimonials/hypergen-thumbnail.png",
-                video: "https://www.youtube.com/watch?v=WwxT5F_I1Ig",
-                badgeColor: "bg-purple-50 text-purple-700",
-              },
-            ].map((cs, i) => (
-              <a
-                key={i}
-                href={cs.video}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative rounded-2xl border border-gray-200/60 bg-white overflow-hidden hover:border-brand-blue/40 hover:shadow-xl transition-all duration-300"
-              >
-                {/* Thumbnail with play overlay */}
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image src={cs.thumbnail} alt={`${cs.name} Testimonial`} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute bottom-3 left-4 flex items-center gap-2">
-                    <div className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300">
-                      <svg className="w-3 h-3 text-brand-black ml-0.5 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                    <span className="text-white/80 text-xs font-medium">Watch video</span>
-                  </div>
-                </div>
-
-                {/* Metric + content */}
-                <div className="p-6">
-                  <div className="flex items-baseline gap-1.5 mb-3">
-                    <span className="text-4xl font-extrabold tracking-tighter text-gray-900">{cs.metric}</span>
-                    <span className="text-sm font-semibold text-gray-400">{cs.metricSub}</span>
-                  </div>
-                  <p className="font-bold text-[15px] text-gray-900 tracking-tight mb-2">{cs.result}</p>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-4">&ldquo;{cs.quote}&rdquo;</p>
-                  <div className="flex items-center gap-2.5 pt-4 border-t border-gray-100">
-                    <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
-                      <Image src={cs.photo} alt={cs.name} width={32} height={32} className="object-cover w-full h-full" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-xs text-gray-900 tracking-tight">{cs.name}</p>
-                      <p className="text-[11px] text-gray-400">{cs.role}</p>
-                    </div>
+          <div className="relative">
+            {/* Video thumbnail */}
+            <div className="relative aspect-video rounded-xl overflow-hidden mb-6 group cursor-pointer border border-gray-200">
+              <a href={testimonials[activeSlide].video} target="_blank" rel="noopener noreferrer">
+                <Image
+                  key={`thumb-${activeSlide}`}
+                  src={testimonials[activeSlide].thumbnail}
+                  alt={testimonials[activeSlide].name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg">
+                    <svg className="w-6 h-6 text-brand-blue ml-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
                   </div>
                 </div>
               </a>
-            ))}
-          </div>
+            </div>
 
-          <div className="text-center">
-            <Link
-              href="https://calendly.com/sergi-feq/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative inline-flex items-center gap-2 px-8 py-4 bg-brand-black text-white rounded-full font-semibold text-[15px] tracking-tight overflow-hidden transition-all duration-500 hover:bg-brand-blue hover:shadow-xl hover:shadow-brand-blue/20"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                See If We Can Help Your Agency
-                <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                </svg>
-              </span>
-            </Link>
-          </div>
-        </div>
-      </section>
+            {/* Quote + Metric */}
+            <div className="max-w-2xl mx-auto text-center mb-6">
+              {/* Metric badge */}
+              <div key={`metric-${activeSlide}`} className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue/5 border border-brand-blue/10 rounded-full mb-4 animate-fadeIn">
+                <span className="text-2xl font-extrabold text-brand-blue">{testimonials[activeSlide].metric}</span>
+                <span className="text-sm text-gray-600">{testimonials[activeSlide].metricSub}</span>
+              </div>
 
-      {/* ═══════════════════════════════════════════
-          PRICING — Dark with 3D accent
-      ═══════════════════════════════════════════ */}
-      <section id="pricing" className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        {/* Ambient glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-brand-blue/[0.04] rounded-full blur-[150px]"></div>
+              {/* Quote */}
+              <p key={activeSlide} className="text-xl lg:text-2xl font-semibold text-brand-black leading-tight mb-4 animate-fadeIn">
+                "{testimonials[activeSlide].quote}"
+              </p>
 
-        <div className="max-w-[1100px] mx-auto relative reveal-section">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-white">
-              Do the math
-            </h2>
-            <p className="text-xl text-white/40 max-w-2xl mx-auto font-light">
-              You&apos;re already spending this. You&apos;re just not getting results.
-            </p>
-          </div>
+              {/* Author */}
+              <div key={`author-${activeSlide}`} className="flex items-center justify-center gap-3 animate-fadeIn">
+                <img
+                  src={testimonials[activeSlide].photo}
+                  alt={testimonials[activeSlide].name}
+                  className="w-10 h-10 rounded-full object-cover ring-2 ring-brand-blue/20"
+                />
+                <div className="text-left">
+                  <p className="font-semibold text-brand-black text-sm">{testimonials[activeSlide].name}</p>
+                  <p className="text-xs text-gray-500">{testimonials[activeSlide].role}</p>
+                </div>
+              </div>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
-            {/* LEFT — What you're paying now */}
-            <div className="p-8 rounded-2xl border border-red-500/20 bg-white/[0.02]">
-              <p className="text-xs font-bold text-red-400 uppercase tracking-widest mb-6">What you&apos;re paying now</p>
-              <div className="space-y-4 mb-8">
-                {[
-                  { amount: "$4.2k", label: "/mo on 11 SaaS tools (half overlap)" },
-                  { amount: "$8k", label: "/mo ops person duct-taping them" },
-                  { amount: "$3k", label: "/mo freelance devs fixing what breaks" },
-                ].map((row, i) => (
-                  <div key={i} className="flex items-baseline gap-2">
-                    <span className="text-2xl font-extrabold text-white/80 tracking-tight">{row.amount}</span>
-                    <span className="text-sm text-white/30">{row.label}</span>
+            {/* Rotating faces indicator */}
+            <div className="flex items-center justify-center gap-2.5">
+              {testimonials.map((t, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveSlide(idx)}
+                  className={`relative transition-all duration-500 ${
+                    idx === activeSlide
+                      ? 'scale-110 -translate-y-0.5'
+                      : 'opacity-40 hover:opacity-100 hover:scale-105'
+                  }`}
+                  aria-label={`View testimonial from ${t.name}`}
+                  aria-current={idx === activeSlide}
+                >
+                  <div className={`rounded-full ${idx === activeSlide ? 'shadow-[0_0_0_3px_rgba(0,102,255,0.15),0_6px_12px_rgba(0,102,255,0.15)]' : ''}`}>
+                    <img
+                      src={t.photo}
+                      alt={t.name}
+                      className="w-11 h-11 rounded-full object-cover ring-2 ring-white"
+                    />
                   </div>
-                ))}
-              </div>
-              <div className="border-t border-red-500/10 pt-5">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-extrabold text-red-400 tracking-tight">$15.2k</span>
-                  <span className="text-sm text-red-400/60">/mo for a system that breaks every Tuesday</span>
-                </div>
-              </div>
+                  {idx === activeSlide && (
+                    <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-brand-blue rounded-full"></div>
+                  )}
+                </button>
+              ))}
             </div>
-
-            {/* RIGHT — What you get with us */}
-            <div className="relative p-8 rounded-2xl border border-brand-blue/30 bg-white/[0.03] shadow-[0_0_60px_rgba(0,102,255,0.06)]">
-              <div className="absolute -top-3 right-6 inline-flex items-center gap-2 px-3 py-1.5 bg-brand-blue text-white text-xs font-bold rounded-full">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span>
-                </span>
-                1 of 6 spots
-              </div>
-              <p className="text-xs font-bold text-brand-blue uppercase tracking-widest mb-6">What you get with Stimuli</p>
-              <div className="space-y-4 mb-8">
-                {[
-                  "Fractional CTO + 8 dedicated engineers",
-                  "One system replacing everything above",
-                  "Results in week one, not month three",
-                  "You own all code. No lock-in. Ever.",
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-brand-blue mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-white/70 text-[15px]">{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="border-t border-brand-blue/10 pt-5 mb-8">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-extrabold text-white tracking-tight">Custom</span>
-                  <span className="text-sm text-white/30">pricing based on scope</span>
-                </div>
-                <p className="text-sm text-brand-blue/60 mt-1">Average client saves $5-8k/mo from day one</p>
-              </div>
-
-              <Link
-                href="https://calendly.com/sergi-feq/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center px-8 py-4 bg-brand-blue text-white rounded-xl font-semibold text-base hover:bg-brand-blue/90 transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,102,255,0.3)]"
-              >
-                See if the math works for you
-              </Link>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <p className="text-white/30 text-sm">
-              Monthly retainer · No long-term contracts · Monday &rarr; Monday delivery sprints
-            </p>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          FAQ — Light section
+          SECTION 4: THE PROBLEM
       ═══════════════════════════════════════════ */}
-      <section id="faq" className="relative py-32 px-8 lg:px-12 bg-white overflow-hidden">
-        <div className="max-w-[900px] mx-auto relative reveal-section">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-balance text-gray-900">
-              You&apos;re thinking it. We&apos;ll answer it.
-            </h2>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light">
-              The real questions. Not the polite ones.
-            </p>
-          </div>
+      <section
+        id="problem"
+        data-section-id="problem"
+        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('problem') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1600px] mx-auto">
+          {/* Section label */}
+          <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4 text-center">
+            Still Running Blind?
+          </p>
 
-          <div className="space-y-4">
-            {[
-              {
-                q: "I've been burned before. How is this different?",
-                a: "We know. One of our clients spent 6 figures over 6 months with other agencies. Not one thing got done. Here's how we're different: you see results in week one, not quarter two. We ship weekly sprints, Monday to Monday. If we're not delivering, you leave — no contracts locking you in. Our average retention is 7+ months because clients choose to stay, not because they're trapped."
-              },
-              {
-                q: "Can't I just hire a full-stack dev for $5k/month?",
-                a: "You can. And they'll build something. But who decides what to build? Who designs the architecture? Who makes sure it scales when you go from 10 clients to 100? A dev writes code. You need someone who understands agency operations AND engineering — that's a fractional CTO. Hiring a full-time CTO + dev team costs $300k+/year with 6-12 month ramp time. We're a fraction of that, running from day one."
-              },
-              {
-                q: "What if I'm stuck with your custom system forever?",
-                a: "You own every line of code. Full documentation. Open architecture. If you ever want to bring dev in-house or switch providers, everything is yours. We don't do lock-in. We do work so good you don't want to leave."
-              },
-              {
-                q: "We already have tools that kind of work. Why change?",
-                a: "'Kind of works' is the most expensive phrase in agency ops. You're paying $4k+/mo across 11 tools, plus an ops person duct-taping them together, plus the cost of leads slipping through cracks. We replace the entire Frankenstein stack with one system that actually talks to itself. Clients typically save $5-8k/mo immediately."
-              },
-              {
-                q: "What happens in the first week? Like, actually?",
-                a: "Day 1: We audit your entire stack — every tool, workflow, and integration. Day 2-3: We fix the fires. The broken Zapier flows, the leads stuck in queues, the data that's out of sync. Day 4-5: You have a working quick-win AND an architecture plan for the real system. By Friday, you'll wonder why you waited."
-              }
-            ].map((faq, i) => (
-              <button
-                key={i}
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="w-full text-left p-8 rounded-2xl border border-gray-200/50 hover:border-gray-300 bg-white transition-all duration-300"
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <h3 className="text-xl font-bold tracking-tight">{faq.q}</h3>
-                  <svg className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-                <div className={`overflow-hidden transition-all duration-300 ${openFaq === i ? 'max-h-60 mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <p className="text-gray-600 leading-relaxed">{faq.a}</p>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          FINAL CTA — Dark cinematic with 3D ring
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-40 px-8 lg:px-12 overflow-hidden bg-brand-black">
-        {/* Ambient gradients */}
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-brand-blue/[0.08] rounded-full blur-[150px]"></div>
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-brand-sky/[0.05] rounded-full blur-[150px]"></div>
-
-        <div className="relative max-w-4xl mx-auto text-center reveal-section">
-          {/* Lead with the hardest client quote */}
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/10 bg-white/[0.03] mb-10">
-            <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0">
-              <img src="/images/testimonials/michael-ewald.jpg" alt="Michael Ewald" className="w-full h-full object-cover" />
-            </div>
-            <p className="text-sm text-white/50 font-medium italic tracking-tight">
-              &ldquo;I don&apos;t want other agencies to have you as a partner.&rdquo;
-            </p>
-            <span className="text-xs text-white/25">— Michael, Vangates</span>
-          </div>
-
-          <h2 className="text-5xl lg:text-6xl font-extrabold mb-8 tracking-[-0.02em] text-white text-balance">
-            Your competitors are still<br />duct-taping. You don&apos;t have to.
+          {/* Headline */}
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black text-center mb-16 tracking-tight">
+            Your Data Lives in 10 Places.<br/>
+            <span className="text-brand-blue">None of Them Agree.</span>
           </h2>
-          <p className="text-xl text-white/40 mb-14 max-w-2xl mx-auto leading-[1.6] tracking-tight font-light">
-            30 minutes. We&apos;ll look at your stack, show you exactly what&apos;s costing you, and map out what week one looks like. No pitch deck. No bullshit.
-          </p>
 
-          <Link
-            href="https://calendly.com/sergi-feq/30min"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-2 px-10 py-5 bg-white text-brand-black rounded-full font-bold text-[17px] tracking-tight overflow-hidden transition-all duration-500 hover:bg-brand-blue hover:text-white hover:shadow-[0_0_60px_rgba(0,102,255,0.4)]"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              Let&apos;s build yours
-              <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          </Link>
-
-          <p className="text-white/30 text-[15px] mt-10 font-medium tracking-tight">
-            Only 6 agencies at a time · 1 spot open · avg. retention 7+ months
-          </p>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-20 px-8 lg:px-12 bg-brand-black border-t border-white/[0.06]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            <div className="flex items-center">
-              <Image
-                src="/images/logo-full.svg"
-                alt="Stimuli Digital"
-                width={160}
-                height={42}
-                className="h-11 w-auto brightness-0 invert"
-              />
+          {/* Problem cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {/* Card 1: Scattered */}
+            <div
+              data-section-id="problem-card-1"
+              className={`p-8 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has('problem-card-1') ? 'visible' : ''}`}
+            >
+              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-brand-black mb-4">Scattered</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Your leads are in Instantly. Your pipeline is in HubSpot. Your revenue reports are in Google Sheets. Your ops person is the only person who knows how it all connects.
+              </p>
             </div>
-            <div className="text-sm text-center md:text-right">
-              <p className="text-white/40 font-medium tracking-tight">&copy; 2025 Stimuli Digital. All rights reserved.</p>
-              <p className="mt-2 text-white/25 tracking-tight">
-                Fractional CTO for B2B sales & marketing teams and agencies
+
+            {/* Card 2: Invisible */}
+            <div
+              data-section-id="problem-card-2"
+              className={`p-8 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has('problem-card-2') ? 'visible' : ''}`}
+            >
+              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-brand-black mb-4">Invisible</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Which campaigns convert? Which channels drive revenue? Where do leads stall? The answers are in your data—you just can't access them without pulling five exports.
+              </p>
+            </div>
+
+            {/* Card 3: Manual */}
+            <div
+              data-section-id="problem-card-3"
+              className={`p-8 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has('problem-card-3') ? 'visible' : ''}`}
+            >
+              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-brand-black mb-4">Manual</h3>
+              <p className="text-gray-700 leading-relaxed">
+                When something breaks, someone has to notice, interpret it, then manually fix it. By the time they do, you've already lost deals or sent 600 emails to the wrong people.
+              </p>
+            </div>
+
+            {/* Card 4: Breaking at Scale */}
+            <div
+              data-section-id="problem-card-4"
+              className={`p-8 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has('problem-card-4') ? 'visible' : ''}`}
+            >
+              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-brand-black mb-4">Breaking at Scale</h3>
+              <p className="text-gray-700 leading-relaxed">
+                You hit 100 clients. Your manual workflows can't keep up. Your ops person is buried. The system that got you here will not get you there.
               </p>
             </div>
           </div>
         </div>
-      </footer>
+      </section>
 
-      {/* Fullscreen Video Overlay */}
-      {showVideoOverlay && (
-        <div className="fixed inset-0 z-[100] bg-black flex items-center justify-center">
-          <video
-            ref={videoRef}
-            src="/3d_logo_with_audio.mp4"
-            playsInline
-            className="w-full h-full object-contain"
-          />
+      {/* ═══════════════════════════════════════════
+          SECTION 5: CENTRALIZE > SEE > ACT
+      ═══════════════════════════════════════════ */}
+      <section
+        id="solution"
+        data-section-id="solution"
+        className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('solution') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1600px] mx-auto">
+          {/* Section label */}
+          <p className="text-[13px] text-white/40 uppercase tracking-widest font-semibold mb-4 text-center">
+            How We Make Data Actionable
+          </p>
+
+          {/* Headline */}
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-white text-center mb-20 tracking-tight">
+            Three Layers. <span className="text-gradient">One System.</span>
+          </h2>
+
+          {/* Layer 1: CENTRALIZE */}
+          <div
+            data-section-id="layer-1"
+            className={`mb-20 reveal-card ${visibleSections.has('layer-1') ? 'visible' : ''}`}
+          >
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
+                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Layer 1</span>
+                </div>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-4">CENTRALIZE</h3>
+                <p className="text-xl text-white/60 mb-6">Unify your stack.</p>
+                <p className="text-white/70 leading-relaxed mb-6">
+                  We pull everything into one unified data model. CRM, email platforms, enrichment tools, agency SaaS, spreadsheets. Structured, clean, real-time.
+                </p>
+                <p className="text-white/70 leading-relaxed">
+                  No more conflicting numbers. No more ops-person dependency. One place, one schema, always current.
+                </p>
+              </div>
+              <div className="relative h-80 bg-white/[0.03] border border-white/10 rounded-2xl p-8 flex items-center justify-center">
+                {/* Visual: scattered tools flowing into unified DB */}
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-3 mb-8 flex-wrap">
+                    <div className="px-4 py-2 bg-white/10 border border-brand-blue/20 rounded-lg text-xs font-mono">HubSpot</div>
+                    <div className="px-4 py-2 bg-white/10 border border-brand-blue/20 rounded-lg text-xs font-mono">Instantly</div>
+                    <div className="px-4 py-2 bg-white/10 border border-brand-blue/20 rounded-lg text-xs font-mono">Clay</div>
+                    <div className="px-4 py-2 bg-white/10 border border-brand-blue/20 rounded-lg text-xs font-mono">Sheets</div>
+                  </div>
+                  <svg className="w-8 h-8 mx-auto mb-8 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                  <div className="w-32 h-32 mx-auto bg-brand-blue/20 border-2 border-brand-blue rounded-2xl flex items-center justify-center">
+                    <svg className="w-16 h-16 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Layer 2: SEE */}
+          <div
+            data-section-id="layer-2"
+            className={`mb-20 reveal-card ${visibleSections.has('layer-2') ? 'visible' : ''}`}
+          >
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="order-2 lg:order-1 relative h-80 bg-white/[0.03] border border-white/10 rounded-2xl p-6">
+                {/* Visual: AI surfacing insights */}
+                <div className="space-y-3">
+                  <div className="p-3 bg-brand-blue/10 border border-brand-blue/30 rounded-lg">
+                    <p className="text-xs font-mono text-brand-blue">⚠️ 37 leads leaked this week</p>
+                  </div>
+                  <div className="p-3 bg-brand-blue/10 border border-brand-blue/30 rounded-lg">
+                    <p className="text-xs font-mono text-brand-blue">✓ Campaign B has 4x the close rate</p>
+                  </div>
+                  <div className="p-3 bg-brand-blue/10 border border-brand-blue/30 rounded-lg">
+                    <p className="text-xs font-mono text-brand-blue">⏰ 3 deals at risk, no follow-up in 7 days</p>
+                  </div>
+                </div>
+              </div>
+              <div className="order-1 lg:order-2">
+                <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
+                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Layer 2</span>
+                </div>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-4">SEE</h3>
+                <p className="text-xl text-white/60 mb-6">Surface what matters.</p>
+                <p className="text-white/70 leading-relaxed mb-6">
+                  Claude AI analyzes your unified data to surface what you'd never catch manually. Patterns, anomalies, opportunities buried in the noise.
+                </p>
+                <p className="text-white/70 leading-relaxed">
+                  Which leads leaked. Which campaigns convert vs. just look busy. Where deals stall. What's breaking before you notice. The insights dashboards can't show because you didn't know to ask.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Layer 3: ACT */}
+          <div
+            data-section-id="layer-3"
+            className={`reveal-card ${visibleSections.has('layer-3') ? 'visible' : ''}`}
+          >
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
+                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Layer 3</span>
+                </div>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-4">ACT</h3>
+                <p className="text-xl text-white/60 mb-6">Automate the response.</p>
+                <p className="text-white/70 leading-relaxed mb-6">
+                  Most tools stop at insights. We build systems that act. Lead routing. Pipeline nudges. Re-engagement flows. Data correction. Enrichment triggers.
+                </p>
+                <p className="text-white/70 leading-relaxed">
+                  The AI detects it. The system fixes it. Your team works on what actually needs a human.
+                </p>
+              </div>
+              <div className="relative h-80 bg-white/[0.03] border border-white/10 rounded-2xl p-6">
+                {/* Visual: insights flowing into actions */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
+                      High-value lead detected
+                    </div>
+                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
+                      Lead routed
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
+                      Deal at risk
+                    </div>
+                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
+                      Alert sent
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
+                      Stale lead found
+                    </div>
+                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
+                      Sequence triggered
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      )}
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 7: THE SYMPTOM
+      ═══════════════════════════════════════════ */}
+      <SlackComparison />
+
+      {/* ═══════════════════════════════════════════
+          SECTION 8: WHAT HAPPENS AFTER YOU SAY YES
+      ═══════════════════════════════════════════ */}
+      <TimelineSection />
+
+      {/* ═══════════════════════════════════════════
+          SECTION 9: PRODUCTS (What We Build)
+      ═══════════════════════════════════════════ */}
+      <section
+        id="products"
+        data-section-id="operating-system"
+        className={`relative py-20 px-8 lg:px-12 bg-gray-50 reveal-section ${visibleSections.has('operating-system') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1400px] mx-auto">
+          {/* Headline */}
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black text-center mb-16 tracking-tight">
+            What <span className="text-brand-blue">We Build.</span>
+          </h2>
+
+          {/* Grid of capabilities */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {/* Card 1: Centralized Data Platform */}
+            <div
+              data-section-id="cap-1"
+              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-1') ? 'visible' : ''}`}
+            >
+              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                </svg>
+              </div>
+              <h3 className="font-bold text-lg text-brand-black mb-3">Centralized Data Platform</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                Every data source. One schema. One truth.
+              </p>
+              <p className="text-xs text-gray-500 italic">
+                Replaces: Scattered spreadsheets, Zapier chains, manual exports.
+              </p>
+            </div>
+
+            {/* Card 2: AI Intelligence Layer */}
+            <div
+              data-section-id="cap-2"
+              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-2') ? 'visible' : ''}`}
+            >
+              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <h3 className="font-bold text-lg text-brand-black mb-3">AI Intelligence Layer</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                Claude AI surfaces patterns, flags risks, and spots opportunities no dashboard would show.
+              </p>
+              <p className="text-xs text-gray-500 italic">
+                Replaces: Manual reporting, BI dashboards that only answer what you ask.
+              </p>
+            </div>
+
+            {/* Card 3: Automated Action Systems */}
+            <div
+              data-section-id="cap-3"
+              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-3') ? 'visible' : ''}`}
+            >
+              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="font-bold text-lg text-brand-black mb-3">Automated Actions</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                Lead routing, pipeline alerts, re-engagement triggers. The system acts automatically.
+              </p>
+              <p className="text-xs text-gray-500 italic">
+                Replaces: Manual follow-ups, forgotten leads, inconsistent processes.
+              </p>
+            </div>
+
+            {/* Card 4: Lead Database */}
+            <div
+              data-section-id="cap-4"
+              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-4') ? 'visible' : ''}`}
+            >
+              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="font-bold text-lg text-brand-black mb-3">Lead Database</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                Auto-enriched, deduplicated, scored. Every lead in one place the moment it lands.
+              </p>
+              <p className="text-xs text-gray-500 italic">
+                Replaces: Clay tables, fragmented lead lists, messy CRM imports.
+              </p>
+            </div>
+
+            {/* Card 5: Real-Time Data Sync */}
+            <div
+              data-section-id="cap-5"
+              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-5') ? 'visible' : ''}`}
+            >
+              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h3 className="font-bold text-lg text-brand-black mb-3">Real-Time Data Sync</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                Smartlead, Instantly, HubSpot, your agency's tools. All feeding one system. Live.
+              </p>
+              <p className="text-xs text-gray-500 italic">
+                Replaces: Zapier webhooks, CSV imports, overnight batch jobs.
+              </p>
+            </div>
+
+            {/* Card 6: Agency-to-CRM Bridge */}
+            <div
+              data-section-id="cap-6"
+              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-6') ? 'visible' : ''}`}
+            >
+              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </div>
+              <h3 className="font-bold text-lg text-brand-black mb-3">Agency-to-CRM Bridge</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                Agency leads land in your pipeline correctly. Attributed, scored, routed. Zero leakage.
+              </p>
+              <p className="text-xs text-gray-500 italic">
+                Replaces: Email handoffs, lost leads, attribution guesswork.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 10: THE SCOREBOARD
+      ═══════════════════════════════════════════ */}
+      <section
+        id="case-studies"
+        data-section-id="scoreboard"
+        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('scoreboard') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1400px] mx-auto">
+          {/* Headline */}
+          <div className="text-center mb-12">
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black mb-3 tracking-tight">
+              The <span className="text-brand-blue">Scoreboard.</span>
+            </h2>
+            <p className="text-lg text-gray-600">Real results from real clients.</p>
+          </div>
+
+          {/* Horizontal Scrollable Carousel */}
+          <div className="relative">
+            {/* Scroll container */}
+            <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-6">
+              <div className="flex gap-5 w-max px-4">
+                {testimonials.map((testimonial, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="group bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden hover:border-brand-blue/30 hover:shadow-xl transition-all duration-300 snap-start flex-shrink-0 w-[340px]"
+                  >
+                    {/* Thumbnail */}
+                    <div className="relative aspect-video overflow-hidden">
+                      <a href={testimonial.video} target="_blank" rel="noopener noreferrer">
+                        <Image
+                          src={testimonial.thumbnail}
+                          alt={testimonial.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg className="w-5 h-5 text-brand-blue ml-0.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                              <path d="M8 5v14l11-7z"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-5">
+                      {/* Metric */}
+                      <div className="mb-3">
+                        <p className="text-2xl font-extrabold text-brand-blue mb-1">{testimonial.metric}</p>
+                        <p className="text-xs text-gray-600">{testimonial.metricSub}</p>
+                      </div>
+
+                      {/* Quote */}
+                      <p className="text-sm text-gray-700 italic mb-3 leading-relaxed line-clamp-3">
+                        "{testimonial.quote}"
+                      </p>
+
+                      {/* Author */}
+                      <div className="flex items-center gap-2.5">
+                        <img
+                          src={testimonial.photo}
+                          alt={testimonial.name}
+                          className="w-9 h-9 rounded-full object-cover"
+                        />
+                        <div>
+                          <p className="font-semibold text-sm text-brand-black">{testimonial.name}</p>
+                          <p className="text-xs text-gray-500">{testimonial.role}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Scroll indicator */}
+            <div className="flex items-center justify-center gap-2 mt-6">
+              {testimonials.map((_, idx) => (
+                <div
+                  key={idx}
+                  className="w-2 h-2 rounded-full bg-gray-300 transition-all duration-300"
+                ></div>
+              ))}
+            </div>
+
+            {/* Gradient fades on edges */}
+            <div className="absolute top-0 left-0 bottom-6 w-12 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
+            <div className="absolute top-0 right-0 bottom-6 w-12 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+          </div>
+
+          {/* Scroll hint */}
+          <div className="text-center mt-4">
+            <p className="text-sm text-gray-400 flex items-center justify-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+              </svg>
+              Scroll to see more
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 11: HOW WE WORK TOGETHER
+      ═══════════════════════════════════════════ */}
+      <section
+        data-section-id="how-we-work"
+        className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('how-we-work') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1200px] mx-auto">
+          {/* Section label + Headline */}
+          <div className="text-center mb-16">
+            <p className="text-[13px] text-white/40 uppercase tracking-widest font-semibold mb-4">
+              How We Work
+            </p>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-3">
+              No Templates. <span className="text-gradient">Built for You.</span>
+            </h2>
+            <p className="text-lg text-white/60 max-w-2xl mx-auto">
+              Every engagement is custom-designed for your GTM stack and business model.
+            </p>
+          </div>
+
+          {/* What every engagement includes */}
+          <div className="mb-14 p-8 bg-white/[0.03] border border-white/10 rounded-2xl max-w-3xl mx-auto">
+            <p className="text-sm text-white/40 uppercase tracking-wide mb-6">What every engagement includes:</p>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white/90">Solution architect + dedicated engineering team (8+ developers)</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white/90">Weekly sprints: Monday plan, Monday deliver</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white/90">You own all code and documentation</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white/90">No lock-in contracts</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white/90">Results from the first sprint</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* How it starts */}
+          <div>
+            <p className="text-lg font-semibold text-white mb-8 text-center">How it starts:</p>
+            <div className="max-w-2xl mx-auto space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-9 h-9 bg-brand-blue rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                <div>
+                  <p className="text-white font-semibold mb-1">Discovery call (30 min)</p>
+                  <p className="text-white/70 text-sm">We look at your stack, your data, and where things break. No pitch deck. Just diagnosis.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-9 h-9 bg-brand-blue rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                <div>
+                  <p className="text-white font-semibold mb-1">Architecture audit + roadmap</p>
+                  <p className="text-white/70 text-sm">We design the system, map the data schema, and show you exactly what we'll build and why.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-9 h-9 bg-brand-blue rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                <div>
+                  <p className="text-white font-semibold mb-1">Sprint one kicks off</p>
+                  <p className="text-white/70 text-sm">Working software by the first Monday.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION: PRICING
+      ═══════════════════════════════════════════ */}
+      <section
+        data-section-id="pricing"
+        className={`relative py-32 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('pricing') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1200px] mx-auto">
+          {/* Headline */}
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-6 tracking-tight">
+              Simple Pricing. Real Transparency.
+            </h2>
+            <p className="text-xl text-white/60 max-w-2xl mx-auto">
+              Monthly retainer. Cancel anytime. You own the code, the docs, the data model. Everything.
+            </p>
+          </div>
+
+          {/* Pricing Card */}
+          <div className="relative max-w-2xl mx-auto">
+            <div className="relative bg-white/[0.03] border-2 border-white/20 rounded-3xl p-12">
+                {/* Price - HUGE */}
+                <div className="text-center mb-12">
+                  <div className="text-7xl lg:text-8xl font-black text-white mb-4">$15k<span className="text-3xl text-white/50 font-normal">/mo</span></div>
+                  <p className="text-white/50 text-lg">Full-stack AI data infrastructure team</p>
+                </div>
+
+                {/* What's included - clean list */}
+                <div className="space-y-4 mb-12">
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <p className="text-white/80">Weekly sprints, working software every Monday</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <p className="text-white/80">You own all code and documentation</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <p className="text-white/80">Cancel anytime, no lock-in</p>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <div className="text-center">
+                  <Link
+                    href="https://calendly.com/sergi-feq/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-10 py-5 bg-white text-brand-black rounded-full font-bold text-lg hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-shadow duration-300"
+                  >
+                    Book a diagnostic call
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                  <p className="text-sm text-white/40 mt-6">Free 30-min review. We'll show you what's leaking.</p>
+                </div>
+              </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 12: FAQ
+      ═══════════════════════════════════════════ */}
+      <section
+        id="faq"
+        data-section-id="faq"
+        className={`relative py-20 px-8 lg:px-12 bg-gray-50 reveal-section ${visibleSections.has('faq') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1200px] mx-auto">
+          {/* Headline */}
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black text-center mb-16 tracking-tight">
+            <span className="text-brand-blue">Questions.</span>
+          </h2>
+
+          {/* FAQ Items - Enhanced with Spring Physics */}
+          <div className="space-y-4">
+            {faqItems.map((item, idx) => (
+              <motion.div
+                key={idx}
+                data-section-id={`faq-${idx}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 15,
+                  delay: idx * 0.05,
+                }}
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden"
+              >
+                <motion.button
+                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left"
+                  whileHover={{
+                    backgroundColor: 'rgba(249, 250, 251, 1)',
+                  }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 400,
+                    damping: 25,
+                  }}
+                  aria-expanded={openFaq === idx}
+                >
+                  <span className="font-semibold text-brand-black pr-4">{item.q}</span>
+                  <motion.svg
+                    className="w-5 h-5 text-brand-blue flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    animate={{
+                      rotate: openFaq === idx ? 180 : 0,
+                    }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 200,
+                      damping: 20,
+                    }}
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </motion.svg>
+                </motion.button>
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: openFaq === idx ? 'auto' : 0,
+                    opacity: openFaq === idx ? 1 : 0,
+                  }}
+                  transition={{
+                    height: {
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 30,
+                    },
+                    opacity: {
+                      duration: 0.2,
+                    },
+                  }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-6 pb-5 pt-2 text-gray-700 leading-relaxed">
+                    {item.a}
+                  </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 13: FINAL CTA
+      ═══════════════════════════════════════════ */}
+      <section
+        data-section-id="final-cta"
+        className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('final-cta') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1400px] mx-auto text-center">
+          {/* Headline */}
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-6 tracking-tight">
+            Your Data Is Broken. <span className="text-gradient">We Know How to Fix It.</span>
+          </h2>
+
+          {/* Body */}
+          <p className="text-xl text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
+            30 minutes. Free audit. We'll show you what's leaking, what it's costing you, and exactly how we'd fix it.
+          </p>
+
+          {/* CTA */}
+          <motion.div
+            className="inline-block mb-6"
+            whileHover={{ scale: 1.05 }}
+            transition={{
+              type: 'spring',
+              stiffness: 400,
+              damping: 25,
+            }}
+          >
+            <Link
+              href="https://calendly.com/sergi-feq/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-10 py-5 bg-brand-blue text-white rounded-full font-bold text-lg hover:shadow-[0_0_50px_rgba(0,102,255,0.5)] transition-shadow duration-300"
+            >
+              Book your free audit
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </motion.div>
+
+          {/* Subtext */}
+          <p className="text-sm text-white/40">
+            Free diagnostic. No pitch. Just a real technical breakdown of what's broken.
+          </p>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 14: FOOTER
+      ═══════════════════════════════════════════ */}
+      <footer className="bg-brand-black text-white py-16 px-8 border-t border-white/[0.06]">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
+            {/* Company */}
+            <div>
+              <Image
+                src="/images/logo-full.svg"
+                alt="Stimuli Digital"
+                width={140}
+                height={36}
+                className="h-8 w-auto brightness-0 invert mb-4"
+              />
+              <p className="text-white/40 text-sm leading-relaxed">
+                Your GTM Tech Partner.<br/>
+                Centralize &gt; See &gt; Act.
+              </p>
+            </div>
+
+            {/* Navigation */}
+            <div>
+              <p className="text-white font-semibold mb-4 text-sm">Navigation</p>
+              <div className="space-y-2">
+                <Link href="#problem" className="block text-white/40 hover:text-white text-sm transition-colors">
+                  The Problem
+                </Link>
+                <Link href="#solution" className="block text-white/40 hover:text-white text-sm transition-colors">
+                  Our Approach
+                </Link>
+                <Link href="#case-studies" className="block text-white/40 hover:text-white text-sm transition-colors">
+                  The Scoreboard
+                </Link>
+                <Link href="#faq" className="block text-white/40 hover:text-white text-sm transition-colors">
+                  FAQs
+                </Link>
+              </div>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <p className="text-white font-semibold mb-4 text-sm">Get Started</p>
+              <Link
+                href="https://calendly.com/sergi-feq/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/40 rounded-full text-sm font-medium transition-all duration-300"
+              >
+                Book a call
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="pt-8 border-t border-white/[0.06] text-center">
+            <p className="text-white/30 text-xs">
+              © 2025 Stimuli Digital. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
