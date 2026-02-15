@@ -46,3 +46,8 @@ brand_assets/
 /Company*.png
 /Personal*.png
 /Stimuli*.png
+
+deploy.tar.gz
+deploy.zip
+*.zip
+*.tar.gz
