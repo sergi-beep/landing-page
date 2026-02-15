@@ -1,78 +1,45 @@
 'use client';
 
-import { useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { ProductsDropdown } from "../../components/products-dropdown";
+import { useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { MockUnifiedInbox, MockCampaignDashboard, MockAttribution, MockClientView } from './mock-ui';
 
-const stats = [
-  { label: "Active clients managed", value: "62+" },
-  { label: "Emails sent monthly", value: "3.6M+" },
-  { label: "Prospects reached monthly", value: "3.0M+" },
-  { label: "Replies tracked monthly", value: "36.9K+" },
-  { label: "Contacts in lead database", value: "10M+" },
-  { label: "Blacklist entries", value: "780K+" },
-  { label: "Time to first feature", value: "1 week" },
-  { label: "Monthly cost savings", value: "$7K+" },
-];
-
-export default function OutFoundPage() {
+export default function OutfoundPage() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+            entry.target.classList.add('visible');
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+      { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
     );
-    document
-      .querySelectorAll(".reveal-section, .reveal-card")
-      .forEach((el) => observer.observe(el));
+    document.querySelectorAll('.reveal-section, .mock-field, .mock-row, .mock-tag, .mock-pulse').forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
   return (
     <main className="min-h-screen bg-brand-black">
-      {/* Navigation */}
+      {/* ═══════════════════════════════════════════
+          NAVIGATION
+      ═══════════════════════════════════════════ */}
       <nav className="fixed top-0 left-0 right-0 z-50 nav-glass border-b border-white/[0.06]">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
           <div className="flex items-center justify-between h-20">
-            <div className="flex items-center">
-              <Link href="/">
-                <Image
-                  src="/images/logo-full.svg"
-                  alt="Stimuli Digital"
-                  width={160}
-                  height={42}
-                  className="h-10 w-auto cursor-pointer brightness-0 invert"
-                  priority
-                />
-              </Link>
-            </div>
-
-            <div className="hidden lg:flex items-center gap-10">
-              <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Services
-              </Link>
-              <Link href="/#case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Client Success
-              </Link>
-              <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                About
-              </Link>
-              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                FAQs
-              </Link>
-              <ProductsDropdown />
-              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Our History
-              </Link>
-            </div>
-
+            <Link href="/">
+              <Image
+                src="/images/logo-full.svg"
+                alt="Stimuli Digital"
+                width={160}
+                height={42}
+                className="h-10 w-auto cursor-pointer brightness-0 invert"
+                priority
+              />
+            </Link>
             <Link
               href="https://calendly.com/sergi-feq/30min"
               target="_blank"
@@ -88,489 +55,229 @@ export default function OutFoundPage() {
       {/* ═══════════════════════════════════════════
           HERO
       ═══════════════════════════════════════════ */}
-      <section className="relative pt-40 pb-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute inset-0 hero-grid opacity-40"></div>
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[700px] bg-brand-blue/[0.07] rounded-full blur-[160px] animate-pulse-slower"></div>
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-brand-sky/[0.04] rounded-full blur-[100px]"></div>
+      <section className="relative pt-40 pb-20 px-8 lg:px-12 bg-brand-black overflow-hidden">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-blue/[0.06] rounded-full blur-[120px]"></div>
 
         <div className="max-w-[1100px] mx-auto relative">
-          <div className="text-center max-w-[900px] mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-8 hero-fade-up hero-fade-up-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span className="text-sm text-white/60 font-medium tracking-wide uppercase">
-                Case Study
-              </span>
-            </div>
-
-            <h1 className="text-5xl lg:text-[4.8rem] font-extrabold tracking-[-0.03em] leading-[0.92] mb-8 text-white hero-fade-up hero-fade-up-2">
-              The Operating System<br />
-              <span className="text-gradient">for Cold Email Agencies.</span>
-            </h1>
-
-            <p className="text-xl text-white/40 leading-relaxed max-w-3xl mx-auto font-light tracking-tight mb-6 hero-fade-up hero-fade-up-3">
-              Born from running the infrastructure behind 62+ agencies sending 3.6 million emails per month. Battle-tested at the highest scale in the industry.
-            </p>
-
-            <p className="text-[15px] text-white/20 max-w-2xl mx-auto leading-relaxed hero-fade-up hero-fade-up-4">
-              Built alongside Taylor Haren of Sales Automation Systems. Co-developed with the operator managing one of the largest cold email operations in the US.
-            </p>
-
-            {/* Quick stats */}
-            <div className="grid grid-cols-3 gap-6 mt-12 max-w-2xl mx-auto hero-fade-up hero-fade-up-5">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-brand-blue">62+</div>
-                <div className="text-white/40 text-sm mt-1">Active Clients</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-brand-blue">3.6M</div>
-                <div className="text-white/40 text-sm mt-1">Emails/Month</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-brand-blue">1 week</div>
-                <div className="text-white/40 text-sm mt-1">First Feature Live</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          THE PROBLEM - Duct Tape Infrastructure
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-28 px-8 lg:px-12 bg-white overflow-hidden">
-        <div className="max-w-[900px] mx-auto">
-          <div className="reveal-section text-center mb-16">
-            <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-6">The problem</p>
-            <h2 className="text-3xl lg:text-[2.8rem] font-extrabold tracking-[-0.02em] leading-tight mb-6 text-gray-900">
-              The cold email industry<br />
-              <span className="text-gray-300">runs on duct tape.</span>
-            </h2>
-            <p className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto font-light tracking-tight">
-              Agencies stitch together Instantly or Smartlead for sending, Google Sheets for tracking, random dashboards for analytics, and Slack threads for client communication. It works until it doesn&apos;t.
-            </p>
-          </div>
-
-          {/* Duct tape stack visualization */}
-          <div className="reveal-section space-y-4 mb-16">
-            {[
-              { tool: "Instantly / Smartlead", purpose: "Sending emails" },
-              { tool: "Google Sheets", purpose: "Campaign tracking" },
-              { tool: "Random dashboards", purpose: "Analytics that don't match" },
-              { tool: "Slack threads", purpose: "Client communication" },
-              { tool: "Clay", purpose: "Lead enrichment" },
-              { tool: "HubSpot", purpose: "CRM (but nothing syncs right)" },
-            ].map((item, i) => (
-              <div key={i} className="flex items-center justify-between p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">{item.tool}</div>
-                    <div className="text-sm text-gray-500">{item.purpose}</div>
-                  </div>
-                </div>
-                <div className="text-gray-300">+</div>
-              </div>
-            ))}
-            <div className="text-center pt-4">
-              <p className="text-gray-400 text-sm font-medium">= Infrastructure held together with duct tape and hope</p>
+          {/* Product badge */}
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <Image
+              src="/images/products/outfound/outfound symbol full color0.png"
+              alt="OutFound"
+              width={48}
+              height={48}
+              className="w-12 h-12"
+            />
+            <div>
+              <h2 className="text-[15px] font-black text-white tracking-tight">OutFound</h2>
+              <p className="text-[11px] text-white/40 font-medium">Outbound Infrastructure Platform</p>
             </div>
           </div>
 
-          {/* What breaks */}
-          <div className="reveal-section bg-red-50 border border-red-100 rounded-xl p-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">What breaks at scale:</h3>
-            <ul className="space-y-3 text-gray-700">
-              <li className="flex items-start gap-3">
-                <svg className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-                <span>Analytics don&apos;t match. Instantly says 500 replies. HubSpot says 342. Nobody knows which is true.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <svg className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-                <span>Leads get double-contacted across campaigns. Same prospect hit 3 times because nothing talks to each other.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <svg className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-                <span>Replies fall through the cracks. Inbox across 62 clients means checking dozens of email accounts manually.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <svg className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-                <span>Clients lose visibility. Agency founders spend nights firefighting infrastructure instead of closing deals.</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+          {/* Headline */}
+          <h1 className="text-5xl lg:text-[4.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-center text-white">
+            62 Agencies.<br/>
+            <span className="text-gradient">One Outbound Infrastructure.</span>
+          </h1>
 
-      {/* ═══════════════════════════════════════════
-          TAYLOR'S STORY - The Breaking Point
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute inset-0 hero-grid opacity-30"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-brand-blue/[0.06] rounded-full blur-[160px]"></div>
-
-        <div className="max-w-[700px] mx-auto relative reveal-section">
-          <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-6 text-center">The breaking point</p>
-
-          <h2 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white mb-4 text-center">
-            Taylor spent six months<br />and six figures.
-          </h2>
-          <p className="text-2xl lg:text-3xl font-extrabold tracking-tight text-white/25 mb-10 text-center">
-            Nothing got done.
+          <p className="text-xl text-white/40 leading-relaxed max-w-3xl mx-auto font-light tracking-tight text-center mb-4">
+            Born from running outbound for 62+ lead gen agencies. Unified inbox, real-time attribution, multi-client management. The platform that saved $7K/month and handles 3.6M emails without breaking.
           </p>
 
-          <div className="space-y-6 text-left max-w-xl mx-auto">
-            <p className="text-white/40 text-[16px] leading-relaxed">
-              <strong className="text-white">Taylor Haren</strong> runs <strong className="text-white">Sales Automation Systems (SAS)</strong>, one of the largest cold email operations in the US. 62+ clients. 3.6 million emails per month. Scale most agencies will never see.
-            </p>
-            <p className="text-white/40 text-[16px] leading-relaxed">
-              He&apos;d spent six months trying to get custom development done with other agencies. Analytics dashboards. Tracking systems. Custom infrastructure. Multiple projects started. None finished.
-            </p>
-            <div className="p-6 rounded-xl border border-red-500/20 bg-red-500/[0.04]">
-              <p className="text-white/70 text-lg leading-relaxed font-semibold italic">
-                &quot;Not one fucking thing got done.&quot;
-              </p>
-              <p className="text-white/40 text-sm mt-2">Taylor Haren, Sales Automation Systems</p>
+          <div className="flex items-center justify-center gap-2 mb-12">
+            <div className="px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+              <span className="text-[11px] font-bold text-emerald-400">Live • 3.6M emails/month</span>
             </div>
-            <p className="text-white/40 text-[16px] leading-relaxed">
-              Projects would reach 98% completion and die. Requirements would change. Back to square one. Six months. Six figures. Zero working software.
-            </p>
-            <p className="text-white/40 text-[16px] leading-relaxed">
-              When Taylor connected with us, he was skeptical. He screenshot our first conversation and sent it to a buddy: <em className="text-white">&quot;Are these guys legit?&quot;</em>
-            </p>
-            <p className="text-white/40 text-[16px] leading-relaxed">
-              The answer: <em className="text-white">&quot;Very legit. You&apos;ll love them.&quot;</em>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          THE TEST - One Week
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-28 px-8 lg:px-12 bg-white overflow-hidden">
-        <div className="max-w-[900px] mx-auto">
-          <div className="reveal-section text-center mb-16">
-            <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-6">The test</p>
-            <h2 className="text-3xl lg:text-[2.8rem] font-extrabold tracking-[-0.02em] leading-tight mb-6 text-gray-900">
-              &quot;Take as long as you need.&quot;
-            </h2>
-            <p className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto font-light tracking-tight">
-              His test was simple: build the lead database. No deadline. No pressure. Just prove you can actually ship.
-            </p>
+            <div className="px-3 py-1.5 rounded-full bg-brand-blue/10 border border-brand-blue/20">
+              <span className="text-[11px] font-bold text-brand-blue">62 Active Clients</span>
+            </div>
           </div>
 
+          {/* Hero mock UI */}
           <div className="reveal-section">
-            {/* Timeline */}
-            <div className="relative">
-              {/* Vertical line */}
-              <div className="absolute left-[31px] top-0 bottom-0 w-0.5 bg-gray-200"></div>
-
-              {/* Day 1 */}
-              <div className="relative pl-16 pb-12">
-                <div className="absolute left-0 top-0 w-16 h-16 rounded-full bg-gray-100 border-4 border-white flex items-center justify-center">
-                  <span className="text-sm font-bold text-gray-400">Day 1</span>
-                </div>
-                <div className="pt-4">
-                  <p className="text-gray-600 text-sm">Taylor sends the test: &quot;Build the lead database. Take as long as you need.&quot;</p>
-                </div>
-              </div>
-
-              {/* Day 7 */}
-              <div className="relative pl-16">
-                <div className="absolute left-0 top-0 w-16 h-16 rounded-full bg-brand-blue border-4 border-white flex items-center justify-center">
-                  <span className="text-sm font-bold text-white">Day 7</span>
-                </div>
-                <div className="pt-4 bg-green-50 border border-green-200 rounded-xl p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Live. Working. Saving money.</h3>
-                  <p className="text-gray-700 mb-4">
-                    Lead database was live and plugged straight into Clay. 10M+ contacts. Auto-deduplicated. Accessible via API.
-                  </p>
-                  <div className="flex items-center gap-2 text-green-700 font-semibold">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span>$7,000/month saved immediately</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="reveal-section mt-12 text-center">
-            <div className="inline-block p-6 rounded-xl border border-brand-blue/20 bg-brand-blue/[0.04]">
-              <p className="text-gray-900 text-lg leading-relaxed font-semibold max-w-xl">
-                Most agencies spend 6 months and get nothing. Taylor got working software in 7 days that immediately paid for itself.
-              </p>
-            </div>
+            <MockUnifiedInbox />
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          WHAT WE BUILT - Show the Platform
+          THE PROBLEM
       ═══════════════════════════════════════════ */}
-      <section className="relative py-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="reveal-section text-center mb-16">
-            <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-6">What we built</p>
-            <h2 className="text-3xl lg:text-5xl font-extrabold tracking-[-0.02em] text-white mb-6">
-              Everything a cold email agency<br />needs to run at scale.
-            </h2>
-            <p className="text-xl text-white/40 leading-relaxed max-w-2xl mx-auto font-light tracking-tight">
-              One platform. All the infrastructure. Battle-tested managing 62+ clients and 3.6M emails per month.
-            </p>
-          </div>
-
-          {/* Feature showcases with REAL screenshots */}
-          <div className="space-y-24">
-            {/* Unified Inbox */}
-            <div className="reveal-card">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h3 className="text-3xl font-bold text-white mb-4">Unified Inbox</h3>
-                  <p className="text-lg text-white/60 leading-relaxed mb-6">
-                    247 unread replies across 62 clients. All in one place. Filterable by client, campaign, status. No more jumping between dozens of inboxes.
-                  </p>
-                  <ul className="space-y-3">
-                    {[
-                      "Every client, every campaign, one view",
-                      "Filter by positive, interested, meeting booked",
-                      "Never miss a reply that matters",
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-center gap-3 text-white/60">
-                        <svg className="w-5 h-5 text-brand-blue flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                  <Image
-                    src="/images/products/outfound/01-Inbox.png"
-                    alt="Unified Inbox"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Campaign Management */}
-            <div className="reveal-card">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="order-2 lg:order-1 rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                  <Image
-                    src="/images/products/outfound/02-Campaigns.png"
-                    alt="Campaign Management"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto"
-                  />
-                </div>
-                <div className="order-1 lg:order-2">
-                  <h3 className="text-3xl font-bold text-white mb-4">Campaign Management</h3>
-                  <p className="text-lg text-white/60 leading-relaxed mb-6">
-                    247 campaigns across 62 clients. Status tracking, batch operations, real-time metrics. Manage millions of prospects from one dashboard.
-                  </p>
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <div className="text-2xl font-bold text-brand-blue">247</div>
-                      <div className="text-white/40 text-sm">Active campaigns</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-brand-blue">62+</div>
-                      <div className="text-white/40 text-sm">Clients</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-brand-blue">3.6M</div>
-                      <div className="text-white/40 text-sm">Monthly sends</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Analytics Engine */}
-            <div className="reveal-card">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h3 className="text-3xl font-bold text-white mb-4">Analytics Engine</h3>
-                  <p className="text-lg text-white/60 leading-relaxed mb-6">
-                    Real-time performance tracking. Reply rates, positive rates, human rates. See exactly what&apos;s working across your entire portfolio.
-                  </p>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg">
-                      <span className="text-white/60">Reply Rate</span>
-                      <span className="text-xl font-bold text-brand-blue">2.8%</span>
-                    </div>
-                    <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg">
-                      <span className="text-white/60">Positive Rate</span>
-                      <span className="text-xl font-bold text-green-400">1.2%</span>
-                    </div>
-                    <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg">
-                      <span className="text-white/60">Monthly Replies</span>
-                      <span className="text-xl font-bold text-purple-400">36.9K</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                  <Image
-                    src="/images/products/outfound/03-Analytics.png"
-                    alt="Analytics Engine"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Attribution Tracking */}
-            <div className="reveal-card">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="order-2 lg:order-1 rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                  <Image
-                    src="/images/products/outfound/04-Attribution.png"
-                    alt="Attribution Tracking"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto"
-                  />
-                </div>
-                <div className="order-1 lg:order-2">
-                  <h3 className="text-3xl font-bold text-white mb-4">Attribution Tracking</h3>
-                  <p className="text-lg text-white/60 leading-relaxed mb-6">
-                    Cold email → reply → meeting → closed deal. Track the full journey. Show your clients exactly what their money is buying.
-                  </p>
-                  <p className="text-white/40 text-sm">
-                    Company-level and person-level views. End-to-end attribution connecting emails to meetings, sign-ups, and payments. The data your clients actually care about.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Lead Database */}
-            <div className="reveal-card">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h3 className="text-3xl font-bold text-white mb-4">Lead Database</h3>
-                  <p className="text-lg text-white/60 leading-relaxed mb-6">
-                    10M+ contacts. Auto-deduplicated. Accessible via API. Every lead contacted across any campaign, stored and reusable.
-                  </p>
-                  <div className="p-6 rounded-xl border border-green-500/20 bg-green-500/[0.04]">
-                    <p className="text-white/70 text-lg leading-relaxed font-semibold">
-                      Saved Taylor $7,000/month immediately by replacing Clay for lead storage and deduplication.
-                    </p>
-                  </div>
-                </div>
-                <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                  <Image
-                    src="/images/products/outfound/06-LeadDB.png"
-                    alt="Lead Database"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Auto-Responders */}
-            <div className="reveal-card">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className="order-2 lg:order-1 rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                  <Image
-                    src="/images/products/outfound/07-AutoResponders.png"
-                    alt="Auto-Responders"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto"
-                  />
-                </div>
-                <div className="order-1 lg:order-2">
-                  <h3 className="text-3xl font-bold text-white mb-4">Auto-Responders</h3>
-                  <p className="text-lg text-white/60 leading-relaxed mb-6">
-                    When a prospect replies &quot;interested,&quot; the system fires back instantly with booking links and next steps. No human delay. No missed leads.
-                  </p>
-                  <p className="text-white/40 text-sm">
-                    15+ active automation rules. Campaign-level configuration. Per-client customization. Zero delay between reply and response.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          THE PARTNERSHIP
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-28 px-8 lg:px-12 bg-white overflow-hidden">
+      <section className="relative py-24 px-8 lg:px-12 bg-white">
         <div className="max-w-[900px] mx-auto">
-          <div className="reveal-section text-center mb-16">
-            <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-6">The partnership</p>
-            <h2 className="text-3xl lg:text-[2.8rem] font-extrabold tracking-[-0.02em] leading-tight mb-6 text-gray-900">
-              That week-one win turned into<br />
-              <span className="text-gray-300">a deep partnership.</span>
+          <div className="text-center mb-16 reveal-section">
+            <p className="text-[11px] text-gray-400 uppercase tracking-widest font-semibold mb-4">The Breaking Point</p>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight mb-6">
+              The Duct Tape<br/>
+              <span className="text-brand-blue">Finally Broke.</span>
             </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Running outbound for 62 agencies meant duct-taping 8+ tools together. Smartlead. Instantly. Clay. Apollo. HubSpot. Zapier webhooks holding it all together with prayers.
+            </p>
           </div>
 
-          <div className="reveal-section space-y-6 text-lg text-gray-600 leading-relaxed">
-            <p>
-              Taylor became our co-builder. Every feature stress-tested at a scale most agencies will never reach. His operation managing 62+ clients became the proving ground for OutFound.
-            </p>
-            <p className="text-gray-900 font-semibold">
-              If it works for 62 clients and 3.6 million emails per month, it works for anyone.
-            </p>
-            <div className="p-6 rounded-xl border border-emerald-500/20 bg-emerald-50">
-              <p className="text-gray-900 text-xl leading-relaxed font-semibold italic mb-2">
-                &quot;It&apos;s night and day different... Everyone else just fucking sucked.&quot;
-              </p>
-              <p className="text-gray-600 text-sm">Taylor Haren, Sales Automation Systems</p>
+          {/* The Stack Visualization */}
+          <div className="reveal-section mb-16">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {['Smartlead', 'Instantly', 'Clay', 'Apollo', 'HubSpot', 'Zapier', 'Sheets', 'Make'].map((tool, i) => (
+                <div
+                  key={i}
+                  className="p-4 border-2 border-red-200 rounded-xl bg-red-50 text-center mock-field"
+                  style={{ animationDelay: `${i * 50}ms` }}
+                >
+                  <p className="text-[13px] font-bold text-red-600">{tool}</p>
+                  <p className="text-[10px] text-red-400 mt-1">$${Math.floor(Math.random() * 400 + 200)}/mo</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 p-6 rounded-xl bg-red-500/10 border-2 border-red-500/30 text-center reveal-section">
+              <p className="text-[13px] font-bold text-red-600 mb-2">Total Monthly Cost: $4,200</p>
+              <p className="text-[11px] text-red-500">+ 40 hours/month keeping it from falling apart</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          THE NUMBERS
+          TAYLOR'S STORY
       ═══════════════════════════════════════════ */}
-      <section className="relative py-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
+      <section className="relative py-24 px-8 lg:px-12 bg-gray-50">
+        <div className="max-w-[800px] mx-auto reveal-section">
+          <div className="p-8 rounded-2xl border-2 border-gray-200 bg-white">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-blue to-brand-sky flex items-center justify-center text-white font-bold text-xl">
+                TH
+              </div>
+              <div>
+                <p className="font-bold text-brand-black text-lg">Taylor Haren</p>
+                <p className="text-sm text-gray-500">COO • Lead Gen Agency</p>
+              </div>
+            </div>
+
+            <div className="space-y-4 text-gray-700 leading-relaxed">
+              <p className="text-[15px]">
+                <span className="font-bold text-brand-black">"I spent 6 months"</span> trying to build something that would unify our outbound stack across all our clients. Failed. Too complex. Too many edge cases.
+              </p>
+
+              <p className="text-[15px]">
+                <span className="font-bold text-brand-black">Sergi built it in 1 week.</span>
+              </p>
+
+              <p className="text-[15px]">
+                Unified inbox. Real attribution. Multi-client management. Lead database. Auto-enrichment. The whole thing.
+              </p>
+
+              <p className="text-[15px] font-semibold text-brand-blue">
+                We went from $4.2K/month in tool costs to one platform. Saved $7K/month when you count the tools we cancelled plus the time saved.
+              </p>
+            </div>
+          </div>
+
+          {/* Day 1 → Day 7 Timeline */}
+          <div className="mt-12 grid md:grid-cols-2 gap-6">
+            <div className="p-6 rounded-xl border-2 border-red-200 bg-red-50 reveal-section">
+              <p className="text-[10px] font-bold text-red-600 uppercase tracking-widest mb-3">Day 1</p>
+              <p className="text-[13px] text-red-700 font-semibold mb-4">8 tools. 47 broken Zapier webhooks. 3 clients complaining about missing leads.</p>
+              <div className="text-[11px] text-red-600 space-y-1">
+                <p>• $4,200/month tool spend</p>
+                <p>• 40 hrs/month maintenance</p>
+                <p>• Zero attribution clarity</p>
+              </div>
+            </div>
+
+            <div className="p-6 rounded-xl border-2 border-emerald-200 bg-emerald-50 reveal-section">
+              <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-3">Day 7</p>
+              <p className="text-[13px] text-emerald-700 font-semibold mb-4">One platform. Zero leaks. Real-time attribution. 62 clients running clean.</p>
+              <div className="text-[11px] text-emerald-600 space-y-1">
+                <p>• $0 external tool spend</p>
+                <p>• 4 hrs/month maintenance</p>
+                <p>• Full attribution visibility</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          THE PLATFORM
+      ═══════════════════════════════════════════ */}
+      <section className="relative py-24 px-8 lg:px-12 bg-brand-black">
         <div className="max-w-[1100px] mx-auto">
-          <div className="reveal-section text-center mb-16">
-            <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-6">The proof</p>
-            <h2 className="text-3xl lg:text-5xl font-extrabold tracking-[-0.02em] text-white mb-6">
-              Battle-tested at the<br />highest scale in the industry.
+          <div className="text-center mb-20 reveal-section">
+            <p className="text-[11px] text-white/40 uppercase tracking-widest font-semibold mb-4">What We Built</p>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-6">
+              One Platform.<br/>
+              <span className="text-gradient">Everything Unified.</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 reveal-section">
-            {stats.map((stat, index) => (
+          {/* Feature 1: Campaign Management */}
+          <div className="mb-24 reveal-section">
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-white mb-3">Live Campaign Dashboard</h3>
+              <p className="text-white/60 leading-relaxed max-w-2xl">
+                Real-time metrics across all campaigns, all clients. See what's working, what's not, and where your replies are coming from.
+              </p>
+            </div>
+            <MockCampaignDashboard />
+          </div>
+
+          {/* Feature 2: Attribution */}
+          <div className="mb-24 reveal-section">
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-white mb-3">True Attribution</h3>
+              <p className="text-white/60 leading-relaxed max-w-2xl">
+                Finally know which campaigns actually drive revenue. Not opens. Not clicks. Revenue.
+              </p>
+            </div>
+            <MockAttribution />
+          </div>
+
+          {/* Feature 3: Multi-Client Management */}
+          <div className="reveal-section">
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-white mb-3">Built for Scale</h3>
+              <p className="text-white/60 leading-relaxed max-w-2xl">
+                62 agencies. Same infrastructure. Isolated data. Zero cross-contamination.
+              </p>
+            </div>
+            <MockClientView />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          THE PROOF
+      ═══════════════════════════════════════════ */}
+      <section className="relative py-24 px-8 lg:px-12 bg-white">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-16 reveal-section">
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight mb-6">
+              Built to Scale.<br/>
+              <span className="text-brand-blue">Proven at Scale.</span>
+            </h2>
+          </div>
+
+          {/* Metrics Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { label: 'Active Clients', value: '62', sublabel: 'Lead gen agencies' },
+              { label: 'Monthly Volume', value: '3.6M', sublabel: 'Emails sent' },
+              { label: 'Cost Savings', value: '$7K', sublabel: 'Per month average' },
+              { label: 'Uptime', value: '99.9%', sublabel: 'Last 12 months' },
+              { label: 'Campaigns Live', value: '240+', sublabel: 'Running simultaneously' },
+              { label: 'Reply Rate', value: '4.1%', sublabel: 'Platform average' },
+              { label: 'Lead Leakage', value: '0%', sublabel: 'Perfect sync' },
+              { label: 'Tools Replaced', value: '8', sublabel: 'Average per client' },
+            ].map((metric, i) => (
               <div
-                key={index}
-                className="p-6 bg-white/[0.02] border border-white/10 rounded-xl text-center hover:bg-white/[0.04] transition-all duration-300"
+                key={i}
+                className="p-6 rounded-xl border-2 border-gray-200 bg-gray-50 text-center reveal-section"
               >
-                <div className="text-3xl font-bold text-brand-blue mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-white/40 text-sm">
-                  {stat.label}
-                </div>
+                <p className="text-4xl font-black text-brand-black mb-2">{metric.value}</p>
+                <p className="text-[13px] font-bold text-gray-700 mb-1">{metric.label}</p>
+                <p className="text-[11px] text-gray-500">{metric.sublabel}</p>
               </div>
             ))}
           </div>
@@ -580,65 +287,31 @@ export default function OutFoundPage() {
       {/* ═══════════════════════════════════════════
           BUILT BY OPERATORS
       ═══════════════════════════════════════════ */}
-      <section className="relative py-28 px-8 lg:px-12 bg-white overflow-hidden">
-        <div className="max-w-[900px] mx-auto">
-          <div className="reveal-section text-center">
-            <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-6">The difference</p>
-            <h2 className="text-3xl lg:text-[2.8rem] font-extrabold tracking-[-0.02em] leading-tight mb-6 text-gray-900">
-              Built by operators,<br />
-              <span className="text-gray-300">not developers who read blog posts.</span>
-            </h2>
-            <div className="space-y-6 text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
-              <p>
-                Most SaaS tools in this space are built by developers who read about cold email in a blog post. OutFound was built by the team that runs the infrastructure behind dozens of agencies and co-developed with an operator managing 62+ clients at scale.
-              </p>
-              <p className="text-gray-900 font-semibold text-xl">
-                We understand the flesh and bone of this industry. We skip the theater and just build.
-              </p>
-              <p className="text-3xl text-gray-900 font-bold mt-8">
-                That&apos;s OutFound.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          CTA
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-brand-blue/[0.05] rounded-full blur-[120px]"></div>
-
-        <div className="max-w-3xl mx-auto text-center relative reveal-section">
-          <h2 className="text-3xl lg:text-[2.8rem] font-extrabold tracking-[-0.02em] leading-tight mb-6 text-white">
-            Ready to stop running<br />on duct tape?
+      <section className="relative py-24 px-8 lg:px-12 bg-brand-black">
+        <div className="max-w-[800px] mx-auto text-center reveal-section">
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-6">
+            Built by Operators.<br/>
+            <span className="text-gradient">For Operators.</span>
           </h2>
-          <p className="text-xl text-white/35 mb-12 max-w-2xl mx-auto leading-relaxed font-light tracking-tight">
-            Built for operators managing multiple clients at scale. If your infrastructure is held together with hope and Zapier, let&apos;s talk.
+
+          <p className="text-xl text-white/60 leading-relaxed mb-12">
+            We didn't build this in a vacuum. We built it while running infrastructure for 62 agencies sending 3.6M emails/month. Every feature exists because we needed it to survive.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="https://calendly.com/sergi-feq/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-brand-black rounded-full font-bold text-[16px] tracking-tight hover:bg-brand-blue hover:text-white transition-all duration-500 hover:shadow-[0_0_60px_rgba(0,102,255,0.4)]"
-            >
-              Let&apos;s talk
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 px-8 py-4 border border-white/[0.1] text-white/50 rounded-full font-bold text-[16px] tracking-tight hover:border-brand-blue/30 hover:text-white transition-all duration-300"
-            >
-              See all products
-            </Link>
-          </div>
+          <Link
+            href="https://calendly.com/sergi-feq/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-10 py-5 bg-white text-brand-black rounded-full font-bold text-lg hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-shadow duration-300"
+          >
+            See it in action
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
 
-          <p className="text-white/30 text-[15px] mt-10 font-medium tracking-tight">
-            30-minute call · No pitch deck · No bullshit
+          <p className="text-sm text-white/30 mt-6">
+            30-minute platform walkthrough • Live demo • Your use case
           </p>
         </div>
       </section>
@@ -647,7 +320,7 @@ export default function OutFoundPage() {
       <footer className="py-20 px-8 lg:px-12 bg-brand-black border-t border-white/[0.06]">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            <div className="flex items-center">
+            <Link href="/">
               <Image
                 src="/images/logo-full.svg"
                 alt="Stimuli Digital"
@@ -655,86 +328,16 @@ export default function OutFoundPage() {
                 height={42}
                 className="h-11 w-auto brightness-0 invert"
               />
-            </div>
+            </Link>
             <div className="text-sm text-center md:text-right">
               <p className="text-white/40 font-medium tracking-tight">&copy; 2025 Stimuli Digital. All rights reserved.</p>
               <p className="mt-2 text-white/25 tracking-tight">
-                GTM infrastructure for revenue teams and agencies
+                Outbound infrastructure for lead generation agencies
               </p>
             </div>
           </div>
         </div>
       </footer>
-
-      <style jsx global>{`
-        .reveal-section,
-        .reveal-card {
-          opacity: 0;
-          transform: translateY(30px);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .reveal-section.visible,
-        .reveal-card.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .nav-glass {
-          background: rgba(0, 0, 0, 0.8);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-        }
-
-        .hero-fade-up {
-          opacity: 0;
-          animation: fadeUp 0.8s ease-out forwards;
-        }
-
-        .hero-fade-up-1 { animation-delay: 0.1s; }
-        .hero-fade-up-2 { animation-delay: 0.2s; }
-        .hero-fade-up-3 { animation-delay: 0.3s; }
-        .hero-fade-up-4 { animation-delay: 0.4s; }
-        .hero-fade-up-5 { animation-delay: 0.5s; }
-
-        @keyframes fadeUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .text-gradient {
-          background: linear-gradient(135deg, #0066ff 0%, #00a3ff 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        .hero-grid {
-          background-image:
-            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-          background-size: 50px 50px;
-        }
-
-        @keyframes pulse-slower {
-          0%, 100% {
-            opacity: 0.4;
-          }
-          50% {
-            opacity: 0.6;
-          }
-        }
-
-        .animate-pulse-slower {
-          animation: pulse-slower 8s ease-in-out infinite;
-        }
-      `}</style>
     </main>
   );
 }
