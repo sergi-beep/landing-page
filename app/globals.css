@@ -184,6 +184,59 @@
     transform: translateY(0);
   }
 
+  /* Directional slide-ins for timeline */
+  .slide-in-left {
+    opacity: 0;
+    transform: translateX(-60px) translateY(20px) rotate(-2deg);
+    transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+
+  .slide-in-right {
+    opacity: 0;
+    transform: translateX(60px) translateY(20px) rotate(2deg);
+    transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .slide-in-right.visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+
+  /* Converge animation - both tracks moving toward center */
+  .converge-left {
+    opacity: 0;
+    transform: translateX(-40px) scale(0.95);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .converge-left.visible {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  .converge-right {
+    opacity: 0;
+    transform: translateX(40px) scale(0.95);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .converge-right.visible {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  /* Epic entrance for final card */
+  .epic-reveal {
+    opacity: 0;
+    transform: scale(0.9) translateY(40px);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .epic-reveal.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
   /* ── Tool Graveyard ── */
   .graveyard-tool {
     position: relative;
@@ -378,4 +431,365 @@
 
 @keyframes bar-fill {
   to { width: var(--fill); }
+}
+
+/* ── Mock UI — Live Component Animations ── */
+.mock-row {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: mock-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mock-field {
+  opacity: 0;
+  transform: translateY(4px);
+  animation: mock-reveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mock-tag {
+  opacity: 0;
+  transform: scale(0.85);
+  animation: mock-tag-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.mock-check {
+  transform: scale(0);
+  animation: mock-check-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.mock-cursor {
+  animation: mock-blink 1s step-end infinite;
+}
+
+.mock-pulse {
+  animation: mock-dot-pulse 2s ease-in-out infinite;
+}
+
+.mock-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.mock-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,102,255,0.025), transparent);
+  animation: mock-sweep 4s ease-in-out infinite;
+  animation-delay: 2s;
+  pointer-events: none;
+}
+
+.mock-step-enter {
+  animation: mock-step-in 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes mock-reveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mock-tag-pop {
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes mock-check-pop {
+  to { transform: scale(1); }
+}
+
+@keyframes mock-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes mock-dot-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes mock-sweep {
+  0% { left: -100%; }
+  40% { left: 200%; }
+  100% { left: 200%; }
+}
+
+@keyframes mock-step-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Pipeline flow dots ── */
+.flow-dot {
+  animation: flow-across 2.5s linear infinite;
+}
+
+@keyframes flow-across {
+  0% { left: -4px; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { left: calc(100% - 2px); opacity: 0; }
+}
+
+/* ── 3D Hero Element ── */
+.hero-3d-float {
+  animation: hero-3d-motion 20s ease-in-out infinite;
+}
+
+@keyframes hero-3d-motion {
+  0%, 100% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(-50%, -55%) rotate(5deg) scale(1.05);
+  }
+  66% {
+    transform: translate(-50%, -45%) rotate(-5deg) scale(0.95);
+  }
+}
+
+/* ── Number counting ── */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Typing effect ── */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: currentColor; }
+}
+
+/* ── Tool badge float-in ── */
+.tool-badge-float {
+  animation: tool-float-down 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes tool-float-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Alert card pulse ── */
+.alert-pulse-in {
+  animation: alert-pulse 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes alert-pulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Flow dot animation for ACT layer ── */
+.flow-dot-animated {
+  position: relative;
+  overflow: hidden;
+}
+
+.flow-dot-animated::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  width: 8px;
+  height: 8px;
+  background: currentColor;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  animation: flow-dot-travel 2s linear infinite;
+}
+
+@keyframes flow-dot-travel {
+  0% {
+    left: -8px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% + 8px);
+    opacity: 0;
+  }
+}
+
+/* ── Message typing effect ── */
+.message-typing {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: expand-width 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes expand-width {
+  from {
+    max-width: 0;
+    opacity: 0;
+  }
+  to {
+    max-width: 100%;
+    opacity: 1;
+  }
+}
+
+/* ── Enhanced card lift ── */
+.card-lift {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-lift:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Icon bounce ── */
+.icon-bounce {
+  animation: icon-bounce-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes icon-bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  60% {
+    transform: scale(1.1) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ── Progress bar fill ── */
+.progress-fill {
+  animation: progress-grow 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: left;
+}
+
+@keyframes progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ── Glow pulse ── */
+.glow-pulse {
+  animation: glow-pulse-anim 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse-anim {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 102, 255, 0.6), 0 0 60px rgba(0, 102, 255, 0.3);
+  }
+}
+
+/* ── Video thumbnail enhance ── */
+.video-thumbnail-enhance {
+  position: relative;
+  overflow: hidden;
+}
+
+.video-thumbnail-enhance::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 102, 255, 0) 0%, rgba(0, 102, 255, 0.3) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.video-thumbnail-enhance:hover::before {
+  opacity: 1;
+}
+
+/* ── Timeline dot pulse ── */
+.timeline-dot-pulse {
+  animation: timeline-dot 2s ease-in-out infinite;
+}
+
+@keyframes timeline-dot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.7;
+  }
+}
+
+/* ── Hide scrollbar but keep scroll functionality ── */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+/* ============================================
+   ACCESSIBILITY: Reduced Motion Support
+   ============================================ */
+
+/**
+ * Respect user's motion preferences
+ * Disables/simplifies all animations for users who prefer reduced motion
+ * This is critical for accessibility and preventing motion sickness
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable parallax and transforms */
+  [style*="transform"] {
+    transform: none !important;
+  }
+
+  /* Keep only opacity transitions for essential feedback */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    transition: opacity 0.2s ease !important;
+  }
 }

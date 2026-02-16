@@ -40,7 +40,7 @@ const beforeMessages: SlackMessage[] = [
   },
   {
     id: '2',
-    avatarUrl: 'https://i.pravatar.cc/150?img=33',
+    avatarUrl: 'https://i.pravatar.cc/150?img=52',
     initials: 'HS',
     name: 'HEAD OF SALES',
     time: '11:23 AM',
@@ -55,9 +55,9 @@ const beforeMessages: SlackMessage[] = [
   },
   {
     id: '3',
-    avatarUrl: 'https://i.pravatar.cc/150?img=47',
-    initials: 'MD',
-    name: 'MARKETING DIRECTOR',
+    avatarUrl: 'https://i.pravatar.cc/150?img=36',
+    initials: 'GTM',
+    name: 'HEAD OF GTM',
     time: '2:34 PM',
     message: '"We got 200 leads from the agency last week. I can only find 130 in HubSpot. Where are the other 70?"',
     reactions: [
@@ -103,7 +103,7 @@ const afterMessages: SlackMessage[] = [
   },
   {
     id: '2',
-    avatarUrl: 'https://i.pravatar.cc/150?img=33',
+    avatarUrl: 'https://i.pravatar.cc/150?img=52',
     initials: 'HS',
     name: 'HEAD OF SALES',
     time: '9:15 AM',
@@ -117,9 +117,9 @@ const afterMessages: SlackMessage[] = [
   },
   {
     id: '3',
-    avatarUrl: 'https://i.pravatar.cc/150?img=47',
-    initials: 'MD',
-    name: 'MARKETING DIRECTOR',
+    avatarUrl: 'https://i.pravatar.cc/150?img=36',
+    initials: 'GTM',
+    name: 'HEAD OF GTM',
     time: '10:08 AM',
     message: '"300 leads in. 300 in HubSpot. Zero leakage."',
     reactions: [

@@ -27,9 +27,7 @@ const testimonials = [
     quote: "We cannot live without you guys. I don't even consider you guys as an agency. I almost consider you guys as a fractional CTO.",
     name: "Enzo Carasso",
     role: "CEO, C17 Lab",
-    photo: "/images/testimonials/enzo-carasso.jpg",
-    metric: "2.5M",
-    metricSub: "emails/mo with zero failures"
+    photo: "/images/testimonials/enzo-carasso.jpg"
   },
   {
     thumbnail: "/images/testimonials/thumbnail-3.png",
@@ -37,9 +35,7 @@ const testimonials = [
     quote: "Not one fucking thing got done. Stimuli built our lead database in week one.",
     name: "Taylor Haren",
     role: "CEO, Sales Automation Systems",
-    photo: "/images/testimonials/taylor-haren.jpg",
-    metric: "Week 1",
-    metricSub: "delivery after 6 months of nothing"
+    photo: "/images/testimonials/taylor-haren.jpg"
   },
   {
     thumbnail: "/images/testimonials/thumbnail-4.png",
@@ -47,9 +43,7 @@ const testimonials = [
     quote: "Charge them triple what you charge us.",
     name: "Michael Ewald",
     role: "Co-Founder, Vangates",
-    photo: "/images/testimonials/michael-ewald.jpg",
-    metric: "60+",
-    metricSub: "clients with just 4-5 employees"
+    photo: "/images/testimonials/michael-ewald.jpg"
   },
   {
     thumbnail: "/images/testimonials/thumbnail-2.png",
@@ -57,9 +51,7 @@ const testimonials = [
     quote: "Real transformation from duct-taped workflows to production-grade systems.",
     name: "AJ Cassata",
     role: "Founder, Revenue Boost",
-    photo: "/images/testimonials/aj-cassata.jpg",
-    metric: "10x",
-    metricSub: "faster than traditional agencies"
+    photo: "/images/testimonials/aj-cassata.jpg"
   },
   {
     thumbnail: "/images/testimonials/thumbnail-5.png",
@@ -67,9 +59,7 @@ const testimonials = [
     quote: "The speed at which you guys work is remarkable.",
     name: "Naeem Alvi-Assinder",
     role: "Founder, Avalanche",
-    photo: "/images/testimonials/naeem-alvi.jpg",
-    metric: "Full system",
-    metricSub: "in under 2 months"
+    photo: "/images/testimonials/naeem-alvi.jpg"
   },
   {
     thumbnail: "/images/testimonials/hypergen-thumbnail.png",
@@ -77,9 +67,7 @@ const testimonials = [
     quote: "Built our entire backend infrastructure in record time.",
     name: "Aleksander Ivanov",
     role: "CEO, Hypergen",
-    photo: "/images/testimonials/aleksander-ivanov.jpg",
-    metric: "Enterprise",
-    metricSub: "at startup speed"
+    photo: "/images/testimonials/aleksander-ivanov.jpg"
   },
 ];
 
@@ -102,7 +90,7 @@ const faqItems = [
   },
   {
     q: "How much does this cost?",
-    a: "$15k/month retainer. Cancel anytime. Most clients ROI in month one from saved time + recovered revenue."
+    a: "€6K-€10K/month depending on team size. 2 months prior notice to cancel. Most clients ROI in month one from saved time + recovered revenue."
   },
   {
     q: "Is this only for agencies?",
@@ -371,14 +359,8 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Quote + Metric */}
-            <div className="max-w-2xl mx-auto text-center mb-6">
-              {/* Metric badge */}
-              <div key={`metric-${activeSlide}`} className="inline-flex items-center gap-2 px-4 py-2 bg-brand-blue/5 border border-brand-blue/10 rounded-full mb-4 animate-fadeIn">
-                <span className="text-2xl font-extrabold text-brand-blue">{testimonials[activeSlide].metric}</span>
-                <span className="text-sm text-gray-600">{testimonials[activeSlide].metricSub}</span>
-              </div>
-
+            {/* Quote */}
+            <div className="max-w-2xl mx-auto text-center mb-6 min-h-[180px] flex flex-col justify-center">
               {/* Quote */}
               <p key={activeSlide} className="text-xl lg:text-2xl font-semibold text-brand-black leading-tight mb-4 animate-fadeIn">
                 "{testimonials[activeSlide].quote}"
@@ -514,6 +496,24 @@ export default function Home() {
                 You hit 100 clients. Your manual workflows can't keep up. Your ops person is buried. The system that got you here will not get you there.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Client Quote - Taylor Haren */}
+      <section className="relative py-16 px-8 lg:px-12 bg-gray-50">
+        <div className="max-w-[900px] mx-auto">
+          <div className="p-8 lg:p-12 rounded-2xl border-2 border-gray-200 bg-white">
+            <div className="flex items-start gap-4 mb-6">
+              <img src="/images/testimonials/taylor-haren.jpg" alt="Taylor Haren" className="w-16 h-16 rounded-full object-cover flex-shrink-0" />
+              <div>
+                <p className="font-bold text-brand-black text-lg">Taylor Haren</p>
+                <p className="text-sm text-gray-500">CEO, Sales Automation Systems</p>
+              </div>
+            </div>
+            <p className="text-2xl lg:text-3xl font-semibold text-brand-black leading-tight italic">
+              "Spent 6 figures with agencies over 6 months. Not one fucking thing got done. Stimuli built our lead database in week one."
+            </p>
           </div>
         </div>
       </section>
@@ -820,7 +820,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 10: THE SCOREBOARD
+          SECTION 10: TESTIMONIALS
       ═══════════════════════════════════════════ */}
       <section
         id="case-studies"
@@ -831,7 +831,7 @@ export default function Home() {
           {/* Headline */}
           <div className="text-center mb-12">
             <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black mb-3 tracking-tight">
-              The <span className="text-brand-blue">Scoreboard.</span>
+              <span className="text-brand-blue">Testimonials.</span>
             </h2>
             <p className="text-lg text-gray-600">Real results from real clients.</p>
           </div>
@@ -842,12 +842,8 @@ export default function Home() {
             <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-6">
               <div className="flex gap-5 w-max px-4">
                 {testimonials.map((testimonial, idx) => (
-                  <motion.div
+                  <div
                     key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
                     className="group bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden hover:border-brand-blue/30 hover:shadow-xl transition-all duration-300 snap-start flex-shrink-0 w-[340px]"
                   >
                     {/* Thumbnail */}
@@ -871,12 +867,6 @@ export default function Home() {
 
                     {/* Content */}
                     <div className="p-5">
-                      {/* Metric */}
-                      <div className="mb-3">
-                        <p className="text-2xl font-extrabold text-brand-blue mb-1">{testimonial.metric}</p>
-                        <p className="text-xs text-gray-600">{testimonial.metricSub}</p>
-                      </div>
-
                       {/* Quote */}
                       <p className="text-sm text-gray-700 italic mb-3 leading-relaxed line-clamp-3">
                         "{testimonial.quote}"
@@ -895,7 +885,7 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -927,6 +917,29 @@ export default function Home() {
               </svg>
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* CTA after Testimonials */}
+      <section className="relative py-16 px-8 lg:px-12 bg-white">
+        <div className="max-w-[700px] mx-auto text-center">
+          <h3 className="text-3xl lg:text-4xl font-bold text-brand-black mb-6">
+            Ready to see what we can build for you?
+          </h3>
+          <p className="text-lg text-gray-600 mb-8">
+            Book a 30-minute diagnostic. We'll show you what's leaking.
+          </p>
+          <Link
+            href="https://calendly.com/sergi-feq/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-brand-black text-white rounded-full font-bold text-lg hover:shadow-[0_0_40px_rgba(0,0,0,0.15)] transition-shadow duration-300"
+          >
+            Book a call
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
         </div>
       </section>
 
@@ -1033,58 +1046,183 @@ export default function Home() {
               Simple Pricing. Real Transparency.
             </h2>
             <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Monthly retainer. Cancel anytime. You own the code, the docs, the data model. Everything.
+              Monthly retainer. 2 months prior notice. You own the code, the docs, the data model. Everything.
             </p>
           </div>
 
-          {/* Pricing Card */}
-          <div className="relative max-w-2xl mx-auto">
-            <div className="relative bg-white/[0.03] border-2 border-white/20 rounded-3xl p-12">
-                {/* Price - HUGE */}
-                <div className="text-center mb-12">
-                  <div className="text-7xl lg:text-8xl font-black text-white mb-4">$15k<span className="text-3xl text-white/50 font-normal">/mo</span></div>
-                  <p className="text-white/50 text-lg">Full-stack AI data infrastructure team</p>
-                </div>
+          {/* Pricing Cards - 3 Tiers */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-[1200px] mx-auto">
+            {/* Tier 1: €6K */}
+            <div className="relative bg-white/[0.03] border-2 border-white/20 rounded-3xl p-8">
+              <div className="text-center mb-8">
+                <div className="text-5xl font-black text-white mb-3">€6k<span className="text-xl text-white/50 font-normal">/mo</span></div>
+                <p className="text-white/50 text-sm">Starter Team</p>
+              </div>
 
-                {/* What's included - clean list */}
-                <div className="space-y-4 mb-12">
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <p className="text-white/80">Weekly sprints, working software every Monday</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <p className="text-white/80">You own all code and documentation</p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <p className="text-white/80">Cancel anytime, no lock-in</p>
-                  </div>
+              <div className="space-y-3 mb-8">
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">1 Solutions Architect</p>
                 </div>
-
-                {/* CTA */}
-                <div className="text-center">
-                  <Link
-                    href="https://calendly.com/sergi-feq/30min"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 px-10 py-5 bg-white text-brand-black rounded-full font-bold text-lg hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] transition-shadow duration-300"
-                  >
-                    Book a diagnostic call
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                  <p className="text-sm text-white/40 mt-6">Free 30-min review. We'll show you what's leaking.</p>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">1 Developer</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">Weekly sprints</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">You own all code</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">2 months prior notice</p>
                 </div>
               </div>
+
+              <div className="text-center">
+                <Link
+                  href="https://calendly.com/sergi-feq/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-brand-black rounded-full font-semibold text-sm hover:bg-brand-blue hover:text-white transition-all duration-300 w-full justify-center"
+                >
+                  Book a call
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Tier 2: €8K - Popular */}
+            <div className="relative bg-white/[0.06] border-2 border-brand-blue rounded-3xl p-8 shadow-[0_0_40px_rgba(0,102,255,0.15)]">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-blue rounded-full">
+                <span className="text-xs font-bold text-white uppercase tracking-wider">Most Popular</span>
+              </div>
+
+              <div className="text-center mb-8">
+                <div className="text-5xl font-black text-white mb-3">€8k<span className="text-xl text-white/50 font-normal">/mo</span></div>
+                <p className="text-white/50 text-sm">Growth Team</p>
+              </div>
+
+              <div className="space-y-3 mb-8">
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">1 Solutions Architect</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm font-semibold">2 Developers</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">Weekly sprints</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">You own all code</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">2 months prior notice</p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <Link
+                  href="https://calendly.com/sergi-feq/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue text-white rounded-full font-semibold text-sm hover:shadow-[0_0_40px_rgba(0,102,255,0.3)] transition-all duration-300 w-full justify-center"
+                >
+                  Book a call
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Tier 3: €10K */}
+            <div className="relative bg-white/[0.03] border-2 border-white/20 rounded-3xl p-8">
+              <div className="text-center mb-8">
+                <div className="text-5xl font-black text-white mb-3">€10k<span className="text-xl text-white/50 font-normal">/mo</span></div>
+                <p className="text-white/50 text-sm">Scale Team</p>
+              </div>
+
+              <div className="space-y-3 mb-8">
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">1 Solutions Architect</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm font-semibold">3 Developers</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">Weekly sprints</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">You own all code</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <p className="text-white/80 text-sm">2 months prior notice</p>
+                </div>
+              </div>
+
+              <div className="text-center">
+                <Link
+                  href="https://calendly.com/sergi-feq/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-brand-black rounded-full font-semibold text-sm hover:bg-brand-blue hover:text-white transition-all duration-300 w-full justify-center"
+                >
+                  Book a call
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
           </div>
+
+          <p className="text-center text-white/40 text-sm mt-8">Free 30-min review. We'll show you what's leaking.</p>
         </div>
       </section>
 

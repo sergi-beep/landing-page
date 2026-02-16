@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SmoothScrollWrapper } from "./components/SmoothScrollWrapper";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://stimulidigital.com'),
-  title: "Stimuli Digital | Fractional CTO + Dev Team for B2B Sales & Marketing Agencies",
-  description: "Transform your B2B agency from people-driven to process-driven. Fractional CTO + dedicated engineering team building custom internal systems. Save $12k/month. 7+ month avg retention. Only 6 agencies at a time.",
+  title: "Stimuli Digital | GTM Data Intelligence + AI for Revenue Teams",
+  description: "Centralize scattered GTM data, surface hidden insights with AI, and automate action systems for revenue teams and agencies. Stop losing leads in broken workflows. Start making data-driven decisions with confidence.",
   keywords: [
-    "fractional CTO",
-    "B2B agency development",
-    "sales agency technology",
-    "marketing agency systems",
-    "agency operations optimization",
-    "custom agency software",
-    "outbound infrastructure",
-    "email automation systems",
-    "CRM integration",
-    "agency tech partner"
+    "GTM data centralization",
+    "revenue operations AI",
+    "go-to-market data intelligence",
+    "sales data automation",
+    "marketing attribution fix",
+    "CRM data synchronization",
+    "lead tracking systems",
+    "revenue team operations",
+    "GTM tech stack optimization",
+    "automated data workflows",
+    "AI sales intelligence",
+    "marketing data platform"
   ],
   authors: [{ name: "Stimuli Digital" }],
   creator: "Stimuli Digital",
@@ -36,21 +39,21 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://stimulidigital.com",
     siteName: "Stimuli Digital",
-    title: "Fractional CTO + Dev Team for B2B Sales & Marketing Agencies | Stimuli Digital",
-    description: "Transform your agency from people-driven to process-driven. Custom internal systems that replace duct-taped no-code stacks. Save $12k/month, serve 30-50% more clients.",
+    title: "GTM Data Intelligence + AI for Revenue Teams | Stimuli Digital",
+    description: "Your GTM data is telling you everything. You just can't hear it. Centralize scattered data, surface hidden insights with AI, and automate action systems for revenue teams.",
     images: [
       {
         url: "/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Stimuli Digital - Fractional CTO for B2B Agencies",
+        alt: "Stimuli Digital - GTM Data Intelligence Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fractional CTO + Dev Team for B2B Agencies | Stimuli Digital",
-    description: "Transform your agency from people-driven to process-driven. Custom systems that replace duct-taped no-code stacks.",
+    title: "GTM Data Intelligence + AI for Revenue Teams | Stimuli Digital",
+    description: "Centralize scattered GTM data, surface insights with AI, and automate action. Stop losing leads in broken workflows.",
     images: ["/images/og-image.png"],
     creator: "@stimulidigital",
   },
@@ -72,9 +75,9 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Stimuli Digital",
-    "description": "Fractional CTO + dedicated engineering team exclusively for B2B sales & marketing agencies",
+    "description": "GTM data intelligence platform that centralizes scattered data, surfaces insights with AI, and automates action systems for revenue teams and agencies",
     "url": "https://stimulidigital.com",
-    "logo": "https://stimulidigital.com/images/logo-full.png",
+    "logo": "https://stimulidigital.com/images/logo-full.svg",
     "foundingDate": "2023",
     "founders": [
       {
@@ -104,15 +107,22 @@ export default function RootLayout({
       "contactType": "Sales",
       "url": "https://calendly.com/sergi-feq/30min"
     },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "6",
+      "bestRating": "5",
+      "worstRating": "5"
+    },
     "service": {
       "@type": "Service",
-      "name": "Fractional CTO Services",
-      "description": "Custom internal systems development for B2B sales and marketing agencies",
+      "name": "GTM Data Intelligence & Automation",
+      "description": "Centralize scattered GTM data, deploy AI-powered intelligence layer, and build automated action systems for revenue teams",
       "provider": {
         "@type": "Organization",
         "name": "Stimuli Digital"
       },
-      "serviceType": "Software Development",
+      "serviceType": "Data Intelligence Platform",
       "areaServed": {
         "@type": "Place",
         "name": "Global - Countries with $30k+ GDP per capita"
@@ -128,7 +138,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
+      </body>
     </html>
   );
 }

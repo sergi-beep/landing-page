@@ -160,7 +160,7 @@ function Convergence() {
       ref={ref}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={isInView ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       className="relative mt-32 mb-16"
     >
       {/* Visual Convergence */}
@@ -180,7 +180,7 @@ function Convergence() {
             fill="none"
             initial={{ pathLength: 0 }}
             animate={isInView ? { pathLength: 1 } : {}}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           />
 
           {/* Right track (Foundation) converging */}
@@ -191,7 +191,7 @@ function Convergence() {
             fill="none"
             initial={{ pathLength: 0 }}
             animate={isInView ? { pathLength: 1 } : {}}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           />
 
           {/* Merged single track going forward */}
@@ -202,7 +202,7 @@ function Convergence() {
             fill="none"
             initial={{ pathLength: 0 }}
             animate={isInView ? { pathLength: 1 } : {}}
-            transition={{ duration: 0.6, delay: 1.2, ease: "easeInOut" }}
+            transition={{ duration: 0.3, delay: 0.5, ease: "easeInOut" }}
           />
 
           {/* Convergence point */}
@@ -213,7 +213,7 @@ function Convergence() {
             fill="#0066FF"
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
-            transition={{ duration: 0.3, delay: 1.2 }}
+            transition={{ duration: 0.2, delay: 0.5 }}
           />
 
           <defs>
@@ -233,7 +233,7 @@ function Convergence() {
           <motion.h3
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1.4 }}
+            transition={{ duration: 0.4, delay: 0.6 }}
             className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight"
           >
             One Platform. Running Everything.
@@ -241,7 +241,7 @@ function Convergence() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 1.6 }}
+            transition={{ duration: 0.4, delay: 0.7 }}
             className="text-xl text-white/60 max-w-2xl mx-auto mb-8"
           >
             Quick wins merged into foundation. One system runs your data, insights, and actions. Built to scale with you.
@@ -249,7 +249,7 @@ function Convergence() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1.8 }}
+            transition={{ duration: 0.4, delay: 0.8 }}
             className="inline-flex items-center gap-3 px-8 py-4 bg-brand-blue/10 border border-brand-blue/30 rounded-lg"
           >
             <span className="text-brand-blue font-semibold">Month 5+</span>

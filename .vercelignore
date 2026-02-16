@@ -1,0 +1,10 @@
+# Ignore source files and large assets
+*.ai
+*.pptx
+*.zip
+*.tar.gz
+stimuli_final.ai
+deploy.*
+Hello!.pptx
+Brand 3d elements/
+/Thumbnail*.png
