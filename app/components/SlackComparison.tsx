@@ -306,7 +306,7 @@ export default function SlackComparison() {
               </div>
 
               <div className="mb-6">
-                <h3 className="text-3xl lg:text-4xl font-bold mb-2 font-mono text-red-50">#data-fires</h3>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-2 font-mono text-red-50">#escalations</h3>
                 <div className="flex items-center gap-3 text-white/50">
                   <span className="text-lg font-semibold text-red-300/80">47 unread messages</span>
                   <span className="text-sm">•</span>
@@ -321,7 +321,7 @@ export default function SlackComparison() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-red-400/80 text-sm">#</span>
-                      <span className="font-semibold text-white text-sm">data-fires</span>
+                      <span className="font-semibold text-white text-sm">escalations</span>
                     </div>
                     <div className="flex items-center gap-1 text-white/40">
                       <span className="text-xs">47 members</span>
@@ -362,7 +362,7 @@ export default function SlackComparison() {
               </div>
 
               <div className="mb-6">
-                <h3 className="text-3xl lg:text-4xl font-bold mb-2 font-mono text-green-50">#data-wins</h3>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-2 font-mono text-green-50">#automations</h3>
                 <div className="flex items-center gap-3 text-white/50">
                   <span className="text-lg font-semibold text-green-300/80">System running quietly</span>
                   <span className="text-sm">•</span>
@@ -377,7 +377,7 @@ export default function SlackComparison() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-green-400/80 text-sm">#</span>
-                      <span className="font-semibold text-white text-sm">data-wins</span>
+                      <span className="font-semibold text-white text-sm">automations</span>
                     </div>
                     <div className="flex items-center gap-1 text-white/40">
                       <span className="text-xs">47 members</span>
