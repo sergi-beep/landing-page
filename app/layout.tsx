@@ -4,21 +4,21 @@ import { SmoothScrollWrapper } from "./components/SmoothScrollWrapper";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://stimulidigital.com'),
-  title: "Stimuli Digital | GTM Data Intelligence + AI for Revenue Teams",
-  description: "Centralize scattered GTM data, surface hidden insights with AI, and automate action systems for revenue teams and agencies. Stop losing leads in broken workflows. Start making data-driven decisions with confidence.",
+  title: "Stimuli Digital | The Technical Backbone for Outbound Agencies",
+  description: "We warehouse your campaign data, automate your operations, and give you AI that answers any question in seconds. 40+ agencies across 4 continents.",
   keywords: [
-    "GTM data centralization",
-    "revenue operations AI",
-    "go-to-market data intelligence",
-    "sales data automation",
-    "marketing attribution fix",
-    "CRM data synchronization",
-    "lead tracking systems",
-    "revenue team operations",
-    "GTM tech stack optimization",
-    "automated data workflows",
-    "AI sales intelligence",
-    "marketing data platform"
+    "fractional CTO for agencies",
+    "cold email agency infrastructure",
+    "outbound agency automation",
+    "campaign data warehouse",
+    "agency operations system",
+    "client reporting automation",
+    "scale agency without hiring",
+    "agency tech stack",
+    "cold email operations",
+    "campaign intelligence",
+    "agency data engineering",
+    "MCP campaign data"
   ],
   authors: [{ name: "Stimuli Digital" }],
   creator: "Stimuli Digital",
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://stimulidigital.com",
     siteName: "Stimuli Digital",
-    title: "GTM Data Intelligence + AI for Revenue Teams | Stimuli Digital",
-    description: "Your GTM data is telling you everything. You just can't hear it. Centralize scattered data, surface hidden insights with AI, and automate action systems for revenue teams.",
+    title: "The Technical Backbone for Outbound Agencies | Stimuli Digital",
+    description: "We warehouse your campaign data, automate operations, and make it all queryable with AI. 40+ agencies. 4 continents.",
     images: [
       {
         url: "/images/og-image.png",
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "GTM Data Intelligence + AI for Revenue Teams | Stimuli Digital",
-    description: "Centralize scattered GTM data, surface insights with AI, and automate action. Stop losing leads in broken workflows.",
+    title: "The Technical Backbone for Outbound Agencies | Stimuli Digital",
+    description: "We warehouse campaign data, automate operations, and make it queryable with AI. 40+ agencies. 4 continents.",
     images: ["/images/og-image.png"],
     creator: "@stimulidigital",
   },
@@ -75,7 +75,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Stimuli Digital",
-    "description": "GTM data intelligence platform that centralizes scattered data, surfaces insights with AI, and automates action systems for revenue teams and agencies",
+    "description": "Technical infrastructure partner for outbound agencies. Data centralization, operations automation, and AI — so you scale clients without scaling headcount.",
     "url": "https://stimulidigital.com",
     "logo": "https://stimulidigital.com/images/logo-full.svg",
     "foundingDate": "2023",
@@ -116,13 +116,13 @@ export default function RootLayout({
     },
     "service": {
       "@type": "Service",
-      "name": "GTM Data Intelligence & Automation",
-      "description": "Centralize scattered GTM data, deploy AI-powered intelligence layer, and build automated action systems for revenue teams",
+      "name": "Agency Infrastructure & Automation",
+      "description": "Centralize campaign data, automate agency operations, and deploy AI over your own raw data",
       "provider": {
         "@type": "Organization",
         "name": "Stimuli Digital"
       },
-      "serviceType": "Data Intelligence Platform",
+      "serviceType": "Agency Infrastructure Partner",
       "areaServed": {
         "@type": "Place",
         "name": "Global - Countries with $30k+ GDP per capita"

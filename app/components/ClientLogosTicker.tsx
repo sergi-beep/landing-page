@@ -57,7 +57,7 @@ export function ClientLogosTicker({ logos }: ClientLogosTickerProps) {
       <section ref={sectionRef} className="relative py-16 px-8 lg:px-12 bg-white">
         <div className="max-w-[1600px] mx-auto">
           <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-10 text-center">
-            Building GTM infrastructure for:
+            We ran our own agency first. Now we build the infrastructure.
           </p>
 
           <div className="relative overflow-hidden">
@@ -94,7 +94,7 @@ export function ClientLogosTicker({ logos }: ClientLogosTickerProps) {
           transition={{ duration: 0.6 }}
           className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-10 text-center"
         >
-          Building GTM infrastructure for:
+          We ran our own agency first. Now we build the infrastructure.
         </motion.p>
 
         <div className="relative overflow-hidden">

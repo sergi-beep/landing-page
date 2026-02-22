@@ -23,11 +23,11 @@ const milestones: TimelineMilestone[] = [
     scale: 1,
     quickWin: {
       title: 'Stop the Bleeding',
-      description: 'Audit every campaign channel. Find where leads leak. Fix the biggest fire.',
+      description: 'Audit your stack. Biggest fire fixed by Wednesday.',
     },
     foundation: {
-      title: 'Map Every Channel',
-      description: 'Document every tool, every data flow, every gap between your campaign systems.',
+      title: 'Map Every Process',
+      description: 'Every tool, every data flow, every manual step documented. We understand how you run before we build.',
     },
   },
   {
@@ -35,12 +35,12 @@ const milestones: TimelineMilestone[] = [
     week: 'Month 2-3',
     scale: 1.15,
     quickWin: {
-      title: 'Centralized Campaign Database',
-      description: 'All campaign data, every channel, flowing into one live schema.',
+      title: 'Data Warehouse Live',
+      description: 'All raw data flowing into one warehouse you own.',
     },
     foundation: {
       title: 'Build the Data Backbone',
-      description: 'Production-grade APIs connecting every campaign tool. Structured to never break.',
+      description: 'Production-grade APIs connecting every tool. Infrastructure, not scripts.',
     },
   },
   {
@@ -49,11 +49,11 @@ const milestones: TimelineMilestone[] = [
     scale: 1.3,
     quickWin: {
       title: 'Automations Go Live',
-      description: 'Predetermined actions fire on every campaign event. Lead routing, alerts, stage updates.',
+      description: 'Predetermined actions on every event. No human bottleneck.',
     },
     foundation: {
-      title: 'MCP Intelligence Layer',
-      description: 'Ask your campaign data any question. Real-time answers from your live unified database.',
+      title: 'Intelligence Layer',
+      description: 'Any question. Real answer. Seconds.',
     },
   },
   {
@@ -61,12 +61,12 @@ const milestones: TimelineMilestone[] = [
     week: 'Month 5-7',
     scale: 1.5,
     quickWin: {
-      title: 'Multi-Channel Orchestration',
-      description: 'Every campaign channel coordinated. One system managing email, CRM, enrichment, outbound.',
+      title: 'Multi-Client Orchestration',
+      description: 'Every client, every campaign, one system. Learnings compound across your base.',
     },
     foundation: {
-      title: 'Predictive Campaign Actions',
-      description: 'System learns from campaign patterns. Flags risks before they become problems.',
+      title: 'Predictive Actions',
+      description: 'Flags risks before they become fires.',
     },
   },
   {
@@ -74,12 +74,12 @@ const milestones: TimelineMilestone[] = [
     week: 'Month 7-9',
     scale: 1.7,
     quickWin: {
-      title: 'Full Scale Operations',
-      description: 'Multiple campaigns, multiple clients, same system. Scales clean without adding headcount.',
+      title: 'Full Scale',
+      description: 'Double your clients without doubling your team.',
     },
     foundation: {
       title: 'Zero Manual Intervention',
-      description: 'End-to-end automation across every channel. Your team focuses on strategy, not operations.',
+      description: 'End-to-end. Your team drives results, not data.',
     },
   },
 ];
@@ -249,7 +249,7 @@ function Convergence() {
             transition={{ duration: 0.4, delay: 0.6 }}
             className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight"
           >
-            One Campaign Operating System.
+            One Operating System.
           </motion.h3>
           <motion.p
             initial={{ opacity: 0 }}
@@ -257,7 +257,7 @@ function Convergence() {
             transition={{ duration: 0.4, delay: 0.7 }}
             className="text-xl text-white/60 max-w-2xl mx-auto mb-8"
           >
-            Quick wins merged into foundation. One system owns your campaign data, automations, and intelligence layer. Built to scale with every channel you add.
+            Quick wins merged into foundation. One system — data, automations, intelligence. Every client makes it smarter.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -267,7 +267,7 @@ function Convergence() {
           >
             <span className="text-realm-orchid font-semibold">Month 9+</span>
             <span className="text-white/40">&#8594;</span>
-            <span className="text-white font-semibold">Fully autonomous. Scales itself.</span>
+            <span className="text-white font-semibold">Fully autonomous. Compounds daily.</span>
           </motion.div>
         </div>
       </div>
@@ -288,10 +288,10 @@ export default function TimelineSection() {
             Two Tracks. Running <span className="text-gradient">Simultaneously.</span>
           </h2>
           <p className="text-xl text-white/60 mb-3">
-            Results now. Foundation later. Full campaign operating system in 5-9 months.
+            Quick wins week one. Full operating system in 5–9 months.
           </p>
           <p className="text-brand-blue font-semibold text-lg">
-            You see results before the first invoice.
+            Every client sees results in the first 1–4 weeks.
           </p>
         </div>
 

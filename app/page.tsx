@@ -75,11 +75,11 @@ const testimonials = [
 const faqItems = [
   {
     q: "What's different from hiring a dev?",
-    a: "Devs build features. We build campaign operating systems. We've wired 40+ marketing and sales stacks. We know what breaks and why."
+    a: "A dev builds what you spec. We've wired 40+ agency stacks and know what breaks, what scales, and what wastes money. We ran our own agency — that's the difference."
   },
   {
     q: "How is this different from automation consultants?",
-    a: "Consultants connect tools with Zapier. We write code. Real databases. Real AI. Real systems that scale past 100 clients."
+    a: "Consultants connect tools with Zapier. We write code. Real databases. Real AI. Zapier breaks at scale — we don't."
   },
   {
     q: "Do I own the code?",
@@ -87,15 +87,15 @@ const faqItems = [
   },
   {
     q: "What happens in the first week?",
-    a: "Monday: audit what's leaking. Wednesday: biggest fire fixed. Next Monday: software running. Not slides. Software."
+    a: "Monday: audit. Wednesday: biggest fire fixed. Next Monday: software. Not slides."
   },
   {
     q: "How much does this cost?",
-    a: "€6K-€10K/month depending on team size. 2 months prior notice to cancel. Most clients ROI in month one from saved time + recovered revenue."
+    a: "€6K–€10K/month. 2 months notice. You own everything. Most clients ROI month one."
   },
   {
     q: "Is this only for agencies?",
-    a: "No. B2B companies with complex campaign stacks, multiple channels, and revenue teams hire us too."
+    a: "Primarily yes — we built this because we ran one. B2B companies with complex outbound stacks work with us too."
   },
   {
     q: "Can you integrate with [our tool]?",
@@ -112,8 +112,9 @@ const faqItems = [
 ];
 
 export default function Home() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
   // Intersection Observer for scroll-triggered reveals
@@ -209,7 +210,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           NAVIGATION
       ═══════════════════════════════════════════ */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-realm-twilight/90 backdrop-blur-xl border-b border-realm-orchid/[0.08]">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-black/90 backdrop-blur-xl border-b border-brand-blue/[0.08]">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center">
@@ -248,7 +249,7 @@ export default function Home() {
               href="https://calendly.com/sergi-feq/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2.5 bg-realm-cream text-realm-twilight rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white hover:shadow-realm-glow-sm transition-all duration-300"
+              className="px-6 py-2.5 bg-gray-50 text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white hover:shadow-lg transition-all duration-300"
             >
               Let&apos;s talk
             </Link>
@@ -259,37 +260,27 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           SECTION 1: HERO
       ═══════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Twilight sky gradient */}
-        <div className="absolute inset-0 bg-realm-sky"></div>
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-brand-black">
+        {/* Ambient gradient */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-brand-blue/[0.07] rounded-full blur-[120px]"></div>
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-[100px]"></div>
+        </div>
 
-        {/* Large floating orb — the "moon" */}
-        <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[250px] h-[250px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] realm-orb realm-orb-glow realm-orb-float realm-orb-pulse opacity-60"></div>
-
-        {/* Secondary smaller orb */}
-        <div className="absolute top-[60%] right-[10%] w-[80px] h-[80px] md:w-[120px] md:h-[120px] realm-orb realm-orb-glow realm-orb-float-slow opacity-30"></div>
-
-        {/* Infinite ground plane */}
-        <div className="realm-ground-plane"></div>
-        <div className="realm-ground-grid"></div>
-
-        {/* Grid overlay — lavender tint */}
+        {/* Grid overlay */}
         <div className="absolute inset-0 hero-grid opacity-[0.03]"></div>
 
-        {/* Atmospheric fog */}
-        <div className="realm-fog"></div>
-
-        <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full z-10">
+        <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full">
           <div className="max-w-5xl mx-auto text-center">
             {/* Headline */}
             <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
-              Your Campaign Data Is Scattered.<br/>
-              <span className="text-gradient">Your Decisions Are Manual. We Fix All of It.</span>
+              Your Data Lives in 10 Different Tools.<br/>
+              <span className="text-gradient">Your Decisions Are Manual. We Fix Both.</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl lg:text-2xl text-white/50 leading-relaxed mb-12 max-w-3xl mx-auto font-light tracking-tight">
-              We centralize your raw data, build automations based on predetermined correct operations, and give you the ability to have real-time conversations with your campaign data through MCP.
+              We warehouse your raw data, automate the operations you run by hand, and give you AI that answers any question in seconds.
             </p>
 
             {/* CTA */}
@@ -321,7 +312,7 @@ export default function Home() {
                   />
                 ))}
               </div>
-              <span className="text-sm text-white/50 font-medium">Built 40+ systems across 4 continents</span>
+              <span className="text-sm text-white/50 font-medium">40+ agencies across 4 continents</span>
             </div>
           </div>
         </div>
@@ -333,26 +324,26 @@ export default function Home() {
       <ClientLogosTicker logos={clientLogos} />
 
       {/* ═══════════════════════════════════════════
-          SECTION 3: SOCIAL PROOF
+          SECTION 3: VIDEO TESTIMONIALS
       ═══════════════════════════════════════════ */}
       <section
+        id="case-studies"
         data-section-id="testimonials"
-        className={`relative py-12 px-8 lg:px-12 bg-realm-cream reveal-section ${visibleSections.has('testimonials') ? 'visible' : ''}`}
+        className={`relative py-16 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('testimonials') ? 'visible' : ''}`}
       >
         <div className="max-w-[900px] mx-auto">
-          {/* Section label */}
           <div className="text-center mb-8">
-            <p className="text-[12px] text-realm-mauve uppercase tracking-widest font-semibold mb-2">
-              Don't Take Our Word For It
+            <p className="text-[12px] text-gray-400 uppercase tracking-widest font-semibold mb-2">
+              Don&apos;t Take Our Word For It
             </p>
-            <h2 className="text-2xl lg:text-3xl font-extrabold text-realm-twilight tracking-tight">
-              Hear It From <span className="text-brand-blue">the Industry Leaders.</span>
+            <h2 className="text-2xl lg:text-3xl font-extrabold text-brand-black tracking-tight">
+              Hear It From <span className="text-brand-blue">the Operators Who Run on It.</span>
             </h2>
           </div>
 
           <div className="relative max-w-[680px] mx-auto">
             {/* Video thumbnail */}
-            <div className="relative aspect-video rounded-xl overflow-hidden mb-5 group cursor-pointer border border-realm-mauve/20">
+            <div className="relative aspect-video rounded-xl overflow-hidden mb-5 group cursor-pointer border border-gray-200">
               <a href={testimonials[activeSlide].video} target="_blank" rel="noopener noreferrer">
                 <Image
                   key={`thumb-${activeSlide}`}
@@ -372,49 +363,41 @@ export default function Home() {
             </div>
 
             {/* Quote */}
-            <div className="max-w-lg mx-auto text-center mb-5 min-h-[120px] flex flex-col justify-center">
-              <p key={activeSlide} className="text-lg lg:text-xl font-semibold text-realm-twilight leading-snug mb-3 animate-fadeIn">
-                "{testimonials[activeSlide].quote}"
+            <div className="max-w-lg mx-auto text-center mb-5 min-h-[100px] flex flex-col justify-center">
+              <p key={activeSlide} className="text-lg font-semibold text-brand-black leading-snug mb-3">
+                &ldquo;{testimonials[activeSlide].quote}&rdquo;
               </p>
-
-              {/* Author */}
-              <div key={`author-${activeSlide}`} className="flex items-center justify-center gap-2.5 animate-fadeIn">
+              <div key={`author-${activeSlide}`} className="flex items-center justify-center gap-2.5">
                 <img
                   src={testimonials[activeSlide].photo}
                   alt={testimonials[activeSlide].name}
-                  className="w-10 h-10 rounded-full object-cover ring-2 ring-realm-orchid/30 shadow-[0_0_12px_rgba(232,180,200,0.2)]"
+                  className="w-9 h-9 rounded-full object-cover"
                 />
                 <div className="text-left">
-                  <p className="font-semibold text-realm-twilight text-sm">{testimonials[activeSlide].name}</p>
-                  <p className="text-xs text-realm-mauve">{testimonials[activeSlide].role}</p>
+                  <p className="font-semibold text-brand-black text-sm">{testimonials[activeSlide].name}</p>
+                  <p className="text-xs text-gray-500">{testimonials[activeSlide].role}</p>
                 </div>
               </div>
             </div>
 
-            {/* Rotating faces indicator */}
+            {/* Face selector */}
             <div className="flex items-center justify-center gap-2">
               {testimonials.map((t, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveSlide(idx)}
-                  className={`relative transition-all duration-500 ${
+                  className={`transition-all duration-300 ${
                     idx === activeSlide
-                      ? 'scale-110 -translate-y-0.5'
+                      ? 'scale-110'
                       : 'opacity-40 hover:opacity-100 hover:scale-105'
                   }`}
                   aria-label={`View testimonial from ${t.name}`}
-                  aria-current={idx === activeSlide}
                 >
-                  <div className={`rounded-full transition-shadow duration-500 ${idx === activeSlide ? 'shadow-[0_0_0_2px_rgba(232,180,200,0.35),0_0_12px_rgba(183,148,246,0.2)]' : ''}`}>
-                    <img
-                      src={t.photo}
-                      alt={t.name}
-                      className={`w-10 h-10 rounded-full object-cover transition-all duration-500 ${idx === activeSlide ? 'ring-2 ring-realm-orchid/40' : 'ring-1.5 ring-white/60'}`}
-                    />
-                  </div>
-                  {idx === activeSlide && (
-                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-realm-orchid rounded-full shadow-[0_0_6px_rgba(183,148,246,0.4)]"></div>
-                  )}
+                  <img
+                    src={t.photo}
+                    alt={t.name}
+                    className={`w-10 h-10 rounded-full object-cover ${idx === activeSlide ? 'ring-2 ring-brand-blue' : 'ring-1 ring-gray-200'}`}
+                  />
                 </button>
               ))}
             </div>
@@ -428,33 +411,24 @@ export default function Home() {
       <section
         id="problem"
         data-section-id="problem"
-        className={`relative py-20 px-8 lg:px-12 bg-realm-cream reveal-section ${visibleSections.has('problem') ? 'visible' : ''}`}
+        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('problem') ? 'visible' : ''}`}
       >
         <div className="max-w-[1200px] mx-auto">
           {/* Section label */}
-          <p className="text-[13px] text-realm-mauve uppercase tracking-widest font-semibold mb-4 text-center">
+          <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4 text-center">
             The Real Problem
           </p>
 
           {/* Headline */}
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-realm-twilight text-center mb-8 tracking-tight">
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black text-center mb-8 tracking-tight">
             Your Campaigns Are Talking.<br/>
             <span className="text-brand-blue">You Just Can't Hear Them.</span>
           </h2>
 
           {/* Main problem narrative */}
           <div className="max-w-4xl mx-auto mb-16">
-            <p className="text-lg text-realm-twilight/80 leading-relaxed mb-6">
-              Your marketing and sales campaigns are constantly generating signals about what to do next. But you can't see them, and therefore can't act on them.
-            </p>
-            <p className="text-lg text-realm-twilight/80 leading-relaxed mb-6">
-              Your campaign data is scattered across channels. Decisions are manual. And the most important questions your business generates every day go unanswered.
-            </p>
-            <p className="text-lg text-realm-twilight/70 leading-relaxed mb-6">
-              Marketing and sales teams generate the answers to their most critical business questions every single day, but never actually capture or own this data. Instead, they rely on whatever summarized, pre-aggregated view each tool decides to show them. Making decisions based on surface-level snapshots with no way to structure or use the full picture.
-            </p>
-            <p className="text-lg text-realm-twilight/70 leading-relaxed">
-              And when someone does try to make a data-driven decision, it comes with massive logistical cost. First you have to pull raw information from multiple channels and tools, which takes days. Then it needs to be normalized and transformed, which takes more time. And if multiple people across the company are doing this independently, each applying their own methods, the same data tells different stories depending on who touched it. You end up with two problems at once: you don't have easy access to your own raw campaign data, and when you do get to it, there's no single version of truth.
+            <p className="text-lg text-brand-black/80 leading-relaxed">
+              Every tool you use generates raw data you never see. You get summaries someone else chose for you.
             </p>
           </div>
 
@@ -462,46 +436,46 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <div
               data-section-id="problem-card-1"
-              className={`p-8 bg-realm-pearl/80 rounded-3xl border border-realm-mauve/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-1') ? 'visible' : ''}`}
+              className={`p-8 bg-gray-100/80 rounded-3xl border border-gray-400/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-1') ? 'visible' : ''}`}
             >
               <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-realm-twilight mb-4">Scattered Across Channels</h3>
-              <p className="text-realm-twilight/70 leading-relaxed">
-                Campaign data lives in 10 different tools. Email sequences in one place, CRM in another, enrichment data somewhere else. No single source of truth across your channels.
+              <h3 className="text-2xl font-bold text-brand-black mb-4">No Source of Truth</h3>
+              <p className="text-brand-black/70 leading-relaxed">
+                Smartlead says one thing. HubSpot says another. Five tools, five versions of the truth.
               </p>
             </div>
 
             <div
               data-section-id="problem-card-2"
-              className={`p-8 bg-realm-pearl/80 rounded-3xl border border-realm-mauve/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-2') ? 'visible' : ''}`}
+              className={`p-8 bg-gray-100/80 rounded-3xl border border-gray-400/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-2') ? 'visible' : ''}`}
             >
               <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-realm-twilight mb-4">Decisions Are Manual</h3>
-              <p className="text-realm-twilight/70 leading-relaxed">
-                Every campaign decision requires someone to manually pull data, interpret it, and act. By the time they do, the window has closed. Deals lost, wrong emails sent, opportunities missed.
+              <h3 className="text-2xl font-bold text-brand-black mb-4">Every Answer Costs Days</h3>
+              <p className="text-brand-black/70 leading-relaxed">
+                Someone pulls exports, cleans data, stitches a spreadsheet. A seconds-long question becomes a days-long project. Then the data goes stale.
               </p>
             </div>
 
             <div
               data-section-id="problem-card-3"
-              className={`p-8 bg-realm-pearl/80 rounded-3xl border border-realm-mauve/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-3') ? 'visible' : ''}`}
+              className={`p-8 bg-gray-100/80 rounded-3xl border border-gray-400/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-3') ? 'visible' : ''}`}
             >
               <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-realm-twilight mb-4">Questions Without Answers</h3>
-              <p className="text-realm-twilight/70 leading-relaxed">
-                Which channel actually drives revenue? Which campaign sequence converts? Where do leads stall in the funnel? The answers exist in your data, but you have no way to ask the questions in real time.
+              <h3 className="text-2xl font-bold text-brand-black mb-4">Invisible Waste</h3>
+              <p className="text-brand-black/70 leading-relaxed">
+                Which campaigns are quietly unprofitable? Which clients eat margin? The answers are in your raw data — but nobody captured it. What wasn&apos;t collected is gone.
               </p>
             </div>
           </div>
@@ -509,18 +483,18 @@ export default function Home() {
       </section>
 
       {/* Client Quote - Taylor Haren */}
-      <section className="relative py-16 px-8 lg:px-12 bg-realm-pearl">
-        <div className="max-w-[900px] mx-auto">
-          <div className="p-8 lg:p-12 rounded-3xl border-2 border-realm-mauve/15 bg-realm-cream shadow-[0_8px_40px_rgba(201,160,184,0.12)]">
-            <div className="flex items-start gap-4 mb-6">
-              <img src="/images/testimonials/taylor-haren.jpg" alt="Taylor Haren" className="w-18 h-18 rounded-full object-cover flex-shrink-0 ring-3 ring-realm-orchid/20 shadow-[0_0_24px_rgba(232,180,200,0.25)]" />
+      <section className="relative py-10 px-8 lg:px-12 bg-white">
+        <div className="max-w-[600px] mx-auto">
+          <div className="p-6 rounded-2xl border border-gray-200 bg-gray-50">
+            <div className="flex items-center gap-3 mb-4">
+              <img src="/images/testimonials/taylor-haren.jpg" alt="Taylor Haren" className="w-10 h-10 rounded-full object-cover flex-shrink-0" />
               <div>
-                <p className="font-bold text-realm-twilight text-lg">Taylor Haren</p>
-                <p className="text-sm text-realm-mauve">CEO, Sales Automation Systems</p>
+                <p className="font-semibold text-brand-black text-sm">Taylor Haren</p>
+                <p className="text-xs text-gray-500">CEO, Sales Automation Systems</p>
               </div>
             </div>
-            <p className="text-2xl lg:text-3xl font-semibold text-realm-twilight leading-tight italic">
-              "Spent 6 figures with agencies over 6 months. Not one fucking thing got done. Stimuli built our lead database in week one."
+            <p className="text-lg font-semibold text-brand-black leading-snug italic">
+              &ldquo;Spent 6 figures with agencies over 6 months. Not one fucking thing got done. Stimuli built our lead database in week one.&rdquo;
             </p>
           </div>
         </div>
@@ -532,7 +506,7 @@ export default function Home() {
       <section
         id="solution"
         data-section-id="solution"
-        className={`relative py-20 px-8 lg:px-12 bg-realm-twilight text-white reveal-section ${visibleSections.has('solution') ? 'visible' : ''}`}
+        className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('solution') ? 'visible' : ''}`}
       >
         {/* Ambient orb */}
         <div className="absolute top-[20%] left-[20%] w-[300px] h-[300px] realm-orb realm-orb-float-slow opacity-[0.06]"></div>
@@ -544,7 +518,7 @@ export default function Home() {
 
           {/* Headline */}
           <h2 className="text-4xl lg:text-5xl font-extrabold text-white text-center mb-20 tracking-tight">
-            Three Pillars. <span className="text-gradient">One Campaign Operating System.</span>
+            Three Pillars. <span className="text-gradient">One Operating System.</span>
           </h2>
 
           {/* Pillar 1: Real-time Centralized Raw Data */}
@@ -557,22 +531,22 @@ export default function Home() {
                 <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
                   <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Pillar 1</span>
                 </div>
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Real-Time Centralized Raw Data</h3>
-                <p className="text-xl text-white/60 mb-6">Every channel. Every campaign. One live database.</p>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Centralized Data Warehouse</h3>
+                <p className="text-xl text-white/60 mb-6">Every tool. Every campaign. One truth.</p>
                 <p className="text-white/70 leading-relaxed mb-6">
-                  We pull raw data from every campaign channel and tool into one unified schema. Email sequences, CRM, enrichment platforms, ad channels, spreadsheets. Structured, clean, updating in real time.
+                  Raw data from Instantly, Smartlead, HubSpot, Clay, ad platforms — one structured warehouse. Always current. Your actual data, not pre-aggregated summaries.
                 </p>
                 <p className="text-white/70 leading-relaxed">
-                  No more conflicting numbers between teams. No more pulling five exports to answer one question. One place, one truth, always current.
+                  No conflicting numbers. No five exports for one answer. You own the raw data — not someone else&apos;s summary.
                 </p>
               </div>
-              <div className="relative h-80 bg-realm-night/40 border border-realm-orchid/10 rounded-2xl p-8 flex items-center justify-center">
+              <div className="relative h-80 bg-brand-black/80/40 border border-brand-blue/10 rounded-2xl p-8 flex items-center justify-center">
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-3 mb-8 flex-wrap">
-                    <div className="px-4 py-2 bg-realm-night/60 border border-realm-orchid/15 rounded-lg text-xs font-mono">HubSpot</div>
-                    <div className="px-4 py-2 bg-realm-night/60 border border-realm-orchid/15 rounded-lg text-xs font-mono">Instantly</div>
-                    <div className="px-4 py-2 bg-realm-night/60 border border-realm-orchid/15 rounded-lg text-xs font-mono">Smartlead</div>
-                    <div className="px-4 py-2 bg-realm-night/60 border border-realm-orchid/15 rounded-lg text-xs font-mono">Clay</div>
+                    <div className="px-4 py-2 bg-brand-black/80/60 border border-brand-blue/15 rounded-lg text-xs font-mono">HubSpot</div>
+                    <div className="px-4 py-2 bg-brand-black/80/60 border border-brand-blue/15 rounded-lg text-xs font-mono">Instantly</div>
+                    <div className="px-4 py-2 bg-brand-black/80/60 border border-brand-blue/15 rounded-lg text-xs font-mono">Smartlead</div>
+                    <div className="px-4 py-2 bg-brand-black/80/60 border border-brand-blue/15 rounded-lg text-xs font-mono">Clay</div>
                   </div>
                   <svg className="w-8 h-8 mx-auto mb-8 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -587,13 +561,13 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Pillar 2: Automated Predeterministic Actions */}
+          {/* Pillar 2: Automated Predetermined Actions */}
           <div
             data-section-id="layer-2"
             className={`mb-20 reveal-card ${visibleSections.has('layer-2') ? 'visible' : ''}`}
           >
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="order-2 lg:order-1 relative h-80 bg-realm-night/40 border border-realm-orchid/10 rounded-2xl p-6">
+              <div className="order-2 lg:order-1 relative h-80 bg-brand-black/80/40 border border-brand-blue/10 rounded-2xl p-6">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
@@ -634,13 +608,13 @@ export default function Home() {
                 <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
                   <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Pillar 2</span>
                 </div>
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Automated Predeterministic Actions</h3>
-                <p className="text-xl text-white/60 mb-6">If X happens, Y fires. Every time. No human needed.</p>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Automated Predetermined Actions</h3>
+                <p className="text-xl text-white/60 mb-6">If X happens, Y fires. No one in the loop.</p>
                 <p className="text-white/70 leading-relaxed mb-6">
-                  We define the correct operation for every campaign scenario before it happens. Lead routing, channel alerts, sequence pauses, pipeline nudges, re-engagement triggers. All predetermined, all automated.
+                  Bounce detection, sequence pauses, lead routing, pipeline updates — defined before they happen, running 24/7 without being touched.
                 </p>
                 <p className="text-white/70 leading-relaxed">
-                  Your campaigns run on rules you set once. The system executes perfectly, at scale, while your team focuses on strategy instead of firefighting.
+                  Your team stops moving data between tools and starts driving results.
                 </p>
               </div>
             </div>
@@ -656,29 +630,29 @@ export default function Home() {
                 <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
                   <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Pillar 3</span>
                 </div>
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Ask Your Campaigns Anything</h3>
-                <p className="text-xl text-white/60 mb-6">Real-time conversation with your campaign data via MCP.</p>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Ask Your Data Anything</h3>
+                <p className="text-xl text-white/60 mb-6">Type a question. Get a real answer in seconds.</p>
                 <p className="text-white/70 leading-relaxed mb-6">
-                  &quot;Which email sequence has the highest reply-to-meeting rate this month?&quot; &quot;What channel is producing the most qualified leads for Client X?&quot; &quot;Show me every campaign that underperformed last week and why.&quot;
+                  &quot;Cost-per-qualified-lead for Client X?&quot; &quot;Which sequence step is losing people?&quot; &quot;Why did Campaign 7 underperform this week?&quot;
                 </p>
                 <p className="text-white/70 leading-relaxed">
-                  Ask any question, get an instant answer from your live campaign data. No exports. No dashboards. No waiting. Just a direct conversation with the truth.
+                  No exports. No dashboards. No waiting for a report. The raw data is already there — just ask.
                 </p>
               </div>
-              <div className="relative h-80 bg-realm-night/40 border border-realm-orchid/10 rounded-2xl p-6">
+              <div className="relative h-80 bg-brand-black/80/40 border border-brand-blue/10 rounded-2xl p-6">
                 {/* Visual: MCP conversation */}
                 <div className="space-y-3">
                   <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
                     <p className="text-xs font-mono text-white/50 mb-1">You:</p>
-                    <p className="text-sm font-mono text-white/80">Which campaign channel drove the most revenue this quarter?</p>
+                    <p className="text-sm font-mono text-white/80">Which clients are unprofitable right now?</p>
                   </div>
                   <div className="p-3 bg-brand-blue/10 border border-brand-blue/30 rounded-lg">
                     <p className="text-xs font-mono text-brand-blue mb-1">MCP:</p>
-                    <p className="text-sm font-mono text-brand-blue">Email Sequence B via Instantly generated $247K across 3 channels. 4.2x higher conversion than LinkedIn outbound.</p>
+                    <p className="text-sm font-mono text-brand-blue">3 clients are margin-negative. Client X costs $4.2K/mo to serve, generated $1.8K. Recommend pausing Sequence C and reallocating to Sequence A.</p>
                   </div>
                   <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
                     <p className="text-xs font-mono text-white/50 mb-1">You:</p>
-                    <p className="text-sm font-mono text-white/80">Break it down by campaign stage.</p>
+                    <p className="text-sm font-mono text-white/80">What if we cut those three and doubled down on the top 5?</p>
                   </div>
                 </div>
               </div>
@@ -698,15 +672,15 @@ export default function Home() {
       <section
         id="comparison"
         data-section-id="comparison"
-        className={`relative py-20 px-8 lg:px-12 bg-realm-pearl reveal-section ${visibleSections.has('comparison') ? 'visible' : ''}`}
+        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('comparison') ? 'visible' : ''}`}
       >
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-16">
-            <p className="text-[13px] text-realm-mauve uppercase tracking-widest font-semibold mb-4">
+            <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4">
               How We Compare
             </p>
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-realm-twilight tracking-tight">
-              Why Teams <span className="text-brand-blue">Switch to Stimuli.</span>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight">
+              Why Agencies <span className="text-brand-blue">Switch to Stimuli.</span>
             </h2>
           </div>
 
@@ -715,9 +689,9 @@ export default function Home() {
             <table className="w-full border-collapse">
               <thead>
                 <tr>
-                  <th className="text-left p-4 text-sm font-semibold text-realm-twilight/60 uppercase tracking-wider border-b-2 border-realm-mauve/20 w-1/4"></th>
-                  <th className="p-4 text-sm font-semibold text-realm-twilight/40 uppercase tracking-wider border-b-2 border-realm-mauve/20 text-center">DIY / Internal</th>
-                  <th className="p-4 text-sm font-semibold text-realm-twilight/40 uppercase tracking-wider border-b-2 border-realm-mauve/20 text-center">Automation Consultants</th>
+                  <th className="text-left p-4 text-sm font-semibold text-brand-black/60 uppercase tracking-wider border-b-2 border-gray-400/20 w-1/4"></th>
+                  <th className="p-4 text-sm font-semibold text-brand-black/40 uppercase tracking-wider border-b-2 border-gray-400/20 text-center">DIY / Internal</th>
+                  <th className="p-4 text-sm font-semibold text-brand-black/40 uppercase tracking-wider border-b-2 border-gray-400/20 text-center">Automation Consultants</th>
                   <th className="p-4 text-sm font-bold text-brand-blue uppercase tracking-wider border-b-2 border-brand-blue text-center bg-brand-blue/5 rounded-t-xl">Stimuli</th>
                 </tr>
               </thead>
@@ -726,17 +700,17 @@ export default function Home() {
                   { feature: "Raw data ownership", diy: "Partial", consultant: "No", stimuli: "Full ownership" },
                   { feature: "Real-time campaign data", diy: "Manual exports", consultant: "Batch updates", stimuli: "Live sync" },
                   { feature: "Cross-channel visibility", diy: "Spreadsheets", consultant: "Dashboard only", stimuli: "Unified schema" },
-                  { feature: "Automated campaign actions", diy: "Zapier chains", consultant: "Basic triggers", stimuli: "Predeterministic rules" },
+                  { feature: "Automated actions", diy: "Zapier chains", consultant: "Basic triggers", stimuli: "Predetermined rules" },
                   { feature: "Ask questions in real time", diy: "Not possible", consultant: "Not possible", stimuli: "MCP-powered" },
                   { feature: "Custom to your stack", diy: "You build it", consultant: "Templates", stimuli: "Engineered for you" },
-                  { feature: "Scales past 100 clients", diy: "Breaks", consultant: "Breaks", stimuli: "Built for scale" },
+                  { feature: "Scales past 50+ clients", diy: "Breaks", consultant: "Breaks", stimuli: "Built for scale" },
                   { feature: "Time to first result", diy: "Months", consultant: "Weeks", stimuli: "Week 1" },
                 ].map((row, idx) => (
-                  <tr key={idx} className={idx % 2 === 0 ? 'bg-realm-cream/50' : ''}>
-                    <td className="p-4 text-sm font-semibold text-realm-twilight border-b border-realm-mauve/10">{row.feature}</td>
-                    <td className="p-4 text-sm text-realm-twilight/50 text-center border-b border-realm-mauve/10">{row.diy}</td>
-                    <td className="p-4 text-sm text-realm-twilight/50 text-center border-b border-realm-mauve/10">{row.consultant}</td>
-                    <td className="p-4 text-sm font-semibold text-brand-blue text-center border-b border-realm-mauve/10 bg-brand-blue/5">{row.stimuli}</td>
+                  <tr key={idx} className={idx % 2 === 0 ? 'bg-gray-50/50' : ''}>
+                    <td className="p-4 text-sm font-semibold text-brand-black border-b border-gray-400/10">{row.feature}</td>
+                    <td className="p-4 text-sm text-brand-black/50 text-center border-b border-gray-400/10">{row.diy}</td>
+                    <td className="p-4 text-sm text-brand-black/50 text-center border-b border-gray-400/10">{row.consultant}</td>
+                    <td className="p-4 text-sm font-semibold text-brand-blue text-center border-b border-gray-400/10 bg-brand-blue/5">{row.stimuli}</td>
                   </tr>
                 ))}
               </tbody>
@@ -746,19 +720,19 @@ export default function Home() {
       </section>
 
       {/* CTA after Comparison */}
-      <section className="relative py-16 px-8 lg:px-12 bg-realm-cream">
+      <section className="relative py-16 px-8 lg:px-12 bg-brand-black">
         <div className="max-w-[700px] mx-auto text-center">
-          <h3 className="text-3xl lg:text-4xl font-bold text-realm-twilight mb-6">
-            Ready to see what your campaigns are really telling you?
+          <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+            Ready to see what your data is hiding?
           </h3>
-          <p className="text-lg text-realm-twilight/60 mb-8">
-            Book a 30-minute diagnostic. We&apos;ll show you what your campaign data is hiding.
+          <p className="text-lg text-white/60 mb-8">
+            30 minutes. We audit your stack and show you what&apos;s broken. No pitch.
           </p>
           <Link
             href="https://calendly.com/sergi-feq/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-realm-twilight text-realm-cream rounded-full font-bold text-lg hover:shadow-realm-glow transition-shadow duration-300"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-brand-blue text-white rounded-full font-bold text-lg hover:shadow-[0_0_40px_rgba(0,102,255,0.4)] transition-shadow duration-300"
           >
             Book a call
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -773,7 +747,7 @@ export default function Home() {
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="how-we-work"
-        className={`relative py-20 px-8 lg:px-12 bg-realm-twilight text-white reveal-section ${visibleSections.has('how-we-work') ? 'visible' : ''}`}
+        className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('how-we-work') ? 'visible' : ''}`}
       >
         {/* Ambient orb */}
         <div className="absolute bottom-[10%] right-[5%] w-[150px] h-[150px] realm-orb realm-orb-float-slow opacity-[0.12]"></div>
@@ -784,28 +758,28 @@ export default function Home() {
               How We Work
             </p>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-3">
-              No Templates. <span className="text-gradient">Built for You.</span>
+              No Templates. <span className="text-gradient">Engineered for Your Stack.</span>
             </h2>
             <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              Every engagement is custom-designed for your campaign channels and business model.
+              Every system is engineered for your tools, your processes, and how you actually operate.
             </p>
           </div>
 
           {/* What every engagement includes */}
-          <div className="mb-14 p-8 bg-realm-night/40 border border-realm-orchid/10 rounded-2xl max-w-3xl mx-auto">
+          <div className="mb-14 p-8 bg-brand-black/80/40 border border-brand-blue/10 rounded-2xl max-w-3xl mx-auto">
             <p className="text-sm text-white/40 uppercase tracking-wide mb-6">What every engagement includes:</p>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-white/90">Solution architect + dedicated engineering team (8+ developers)</span>
+                <span className="text-white/90">Solutions architect + dev team (8+ engineers)</span>
               </li>
               <li className="flex items-start gap-3">
                 <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-white/90">Weekly sprints: Monday plan, Monday deliver</span>
+                <span className="text-white/90">Weekly sprints: plan Monday, ship Monday</span>
               </li>
               <li className="flex items-start gap-3">
                 <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -823,7 +797,7 @@ export default function Home() {
                 <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                <span className="text-white/90">Results from the first sprint</span>
+                <span className="text-white/90">Working software from sprint one</span>
               </li>
             </ul>
           </div>
@@ -836,21 +810,21 @@ export default function Home() {
                 <div className="flex-shrink-0 w-9 h-9 bg-brand-blue rounded-full flex items-center justify-center text-sm font-bold">1</div>
                 <div>
                   <p className="text-white font-semibold mb-1">Discovery call (30 min)</p>
-                  <p className="text-white/70 text-sm">We look at your stack, your data, and where things break. No pitch deck. Just diagnosis.</p>
+                  <p className="text-white/70 text-sm">Your stack, your data flows, where things break. No slides.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 w-9 h-9 bg-brand-blue rounded-full flex items-center justify-center text-sm font-bold">2</div>
                 <div>
                   <p className="text-white font-semibold mb-1">Architecture audit + roadmap</p>
-                  <p className="text-white/70 text-sm">We design the system, map the data schema, and show you exactly what we'll build and why.</p>
+                  <p className="text-white/70 text-sm">Schema mapped. System designed. You see exactly what gets built and why.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 w-9 h-9 bg-brand-blue rounded-full flex items-center justify-center text-sm font-bold">3</div>
                 <div>
                   <p className="text-white font-semibold mb-1">Sprint one kicks off</p>
-                  <p className="text-white/70 text-sm">Working software by the first Monday.</p>
+                  <p className="text-white/70 text-sm">Software. Not a proposal — software.</p>
                 </div>
               </div>
             </div>
@@ -864,7 +838,7 @@ export default function Home() {
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="pricing"
-        className={`relative py-32 px-8 lg:px-12 bg-realm-twilight text-white reveal-section ${visibleSections.has('pricing') ? 'visible' : ''}`}
+        className={`relative py-32 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('pricing') ? 'visible' : ''}`}
       >
         {/* Ambient orb behind pricing */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] realm-orb realm-orb-float-slow opacity-[0.06]"></div>
@@ -872,17 +846,17 @@ export default function Home() {
           {/* Headline */}
           <div className="text-center mb-20">
             <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-6 tracking-tight">
-              Simple Pricing. Real Transparency.
+              Simple Pricing. Full Ownership.
             </h2>
             <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Monthly retainer. 2 months prior notice. You own the code, the docs, the data model. Everything.
+              Monthly retainer. 2 months notice. You own the code, schemas, docs, and data. No lock-in.
             </p>
           </div>
 
           {/* Pricing Cards - 3 Tiers */}
           <div className="grid md:grid-cols-3 gap-6 max-w-[1200px] mx-auto">
             {/* Tier 1: €6K */}
-            <div className="relative bg-realm-night/30 border-2 border-realm-orchid/20 rounded-3xl p-8">
+            <div className="relative bg-brand-black/80/30 border-2 border-brand-blue/20 rounded-3xl p-8">
               <div className="text-center mb-8">
                 <div className="text-5xl font-black text-white mb-3">€6k<span className="text-xl text-white/50 font-normal">/mo</span></div>
                 <p className="text-white/50 text-sm">Starter Team</p>
@@ -926,7 +900,7 @@ export default function Home() {
                   href="https://calendly.com/sergi-feq/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-realm-cream text-realm-twilight rounded-full font-semibold text-sm hover:bg-brand-blue hover:text-white transition-all duration-300 w-full justify-center"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gray-50 text-brand-black rounded-full font-semibold text-sm hover:bg-brand-blue hover:text-white transition-all duration-300 w-full justify-center"
                 >
                   Book a call
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -937,7 +911,7 @@ export default function Home() {
             </div>
 
             {/* Tier 2: €8K - Popular */}
-            <div className="relative bg-realm-night/50 border-2 border-brand-blue rounded-3xl p-8 shadow-[0_0_40px_rgba(0,102,255,0.15)]">
+            <div className="relative bg-brand-black/80/50 border-2 border-brand-blue rounded-3xl p-8 shadow-[0_0_40px_rgba(0,102,255,0.15)]">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-blue rounded-full">
                 <span className="text-xs font-bold text-white uppercase tracking-wider">Most Popular</span>
               </div>
@@ -996,7 +970,7 @@ export default function Home() {
             </div>
 
             {/* Tier 3: €10K */}
-            <div className="relative bg-realm-night/30 border-2 border-realm-orchid/20 rounded-3xl p-8">
+            <div className="relative bg-brand-black/80/30 border-2 border-brand-blue/20 rounded-3xl p-8">
               <div className="text-center mb-8">
                 <div className="text-5xl font-black text-white mb-3">€10k<span className="text-xl text-white/50 font-normal">/mo</span></div>
                 <p className="text-white/50 text-sm">Scale Team</p>
@@ -1040,7 +1014,7 @@ export default function Home() {
                   href="https://calendly.com/sergi-feq/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-realm-cream text-realm-twilight rounded-full font-semibold text-sm hover:bg-brand-blue hover:text-white transition-all duration-300 w-full justify-center"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gray-50 text-brand-black rounded-full font-semibold text-sm hover:bg-brand-blue hover:text-white transition-all duration-300 w-full justify-center"
                 >
                   Book a call
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1051,7 +1025,7 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="text-center text-white/40 text-sm mt-8">Free 30-min review. We'll show you what's leaking.</p>
+          <p className="text-center text-white/40 text-sm mt-8">Free 30-min diagnostic. We show you what&apos;s broken and what it costs.</p>
         </div>
       </section>
 
@@ -1061,11 +1035,11 @@ export default function Home() {
       <section
         id="faq"
         data-section-id="faq"
-        className={`relative py-20 px-8 lg:px-12 bg-realm-pearl reveal-section ${visibleSections.has('faq') ? 'visible' : ''}`}
+        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('faq') ? 'visible' : ''}`}
       >
         <div className="max-w-[1200px] mx-auto">
           {/* Headline */}
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-realm-twilight text-center mb-16 tracking-tight">
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black text-center mb-16 tracking-tight">
             <span className="text-brand-blue">Questions.</span>
           </h2>
 
@@ -1084,7 +1058,7 @@ export default function Home() {
                   damping: 15,
                   delay: idx * 0.05,
                 }}
-                className="bg-realm-cream border border-realm-mauve/20 rounded-xl overflow-hidden"
+                className="bg-gray-50 border border-gray-400/20 rounded-xl overflow-hidden"
               >
                 <motion.button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
@@ -1099,7 +1073,7 @@ export default function Home() {
                   }}
                   aria-expanded={openFaq === idx}
                 >
-                  <span className="font-semibold text-realm-twilight pr-4">{item.q}</span>
+                  <span className="font-semibold text-brand-black pr-4">{item.q}</span>
                   <motion.svg
                     className="w-5 h-5 text-brand-blue flex-shrink-0"
                     fill="none"
@@ -1136,7 +1110,7 @@ export default function Home() {
                   }}
                   className="overflow-hidden"
                 >
-                  <div className="px-6 pb-5 pt-2 text-realm-twilight/70 leading-relaxed">
+                  <div className="px-6 pb-5 pt-2 text-brand-black/70 leading-relaxed">
                     {item.a}
                   </div>
                 </motion.div>
@@ -1151,57 +1125,31 @@ export default function Home() {
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="final-cta"
-        className={`relative min-h-[60vh] flex items-center py-20 px-8 lg:px-12 text-white overflow-hidden reveal-section ${visibleSections.has('final-cta') ? 'visible' : ''}`}
+        className={`relative py-24 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('final-cta') ? 'visible' : ''}`}
       >
-        {/* Sky gradient background */}
-        <div className="absolute inset-0 bg-realm-sky"></div>
-
-        {/* Large floating orb — the "moon" */}
-        <div className="absolute top-[10%] left-1/2 -translate-x-[30%] w-[250px] h-[250px] md:w-[350px] md:h-[350px] realm-orb realm-orb-glow realm-orb-float realm-orb-pulse opacity-40"></div>
-
-        {/* Ground plane */}
-        <div className="realm-ground-plane"></div>
-
-        {/* Fog */}
-        <div className="realm-fog"></div>
-
-        <div className="max-w-[1400px] mx-auto text-center relative z-10 w-full">
-          {/* Headline */}
+        <div className="max-w-[1400px] mx-auto text-center">
           <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-6 tracking-tight">
-            Your Campaign Data Is Broken. <span className="text-gradient">We Know How to Fix It.</span>
+            Your Infrastructure Is the Bottleneck. <span className="text-brand-blue">We&apos;ve Fixed It 40+ Times.</span>
           </h2>
 
-          {/* Body */}
-          <p className="text-xl text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-            30 minutes. Free audit. We&apos;ll show you what your campaigns are hiding, what it&apos;s costing you, and exactly how we&apos;d fix it.
+          <p className="text-xl text-white/60 mb-10 max-w-2xl mx-auto leading-relaxed">
+            30 minutes. What&apos;s broken, what it costs, and how we&apos;d fix it. No pitch.
           </p>
 
-          {/* CTA */}
-          <motion.div
-            className="inline-block mb-6"
-            whileHover={{ scale: 1.05 }}
-            transition={{
-              type: 'spring',
-              stiffness: 400,
-              damping: 25,
-            }}
+          <Link
+            href="https://calendly.com/sergi-feq/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-10 py-5 bg-brand-blue text-white rounded-full font-bold text-lg hover:shadow-[0_0_40px_rgba(0,102,255,0.4)] transition-shadow duration-300"
           >
-            <Link
-              href="https://calendly.com/sergi-feq/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-10 py-5 bg-brand-blue text-white rounded-full font-bold text-lg hover:shadow-[0_0_50px_rgba(0,102,255,0.4),0_0_100px_rgba(183,148,246,0.2)] transition-shadow duration-300"
-            >
-              Book your free audit
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </motion.div>
+            Book your free diagnostic
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
 
-          {/* Subtext */}
-          <p className="text-sm text-white/40">
-            Free diagnostic. No pitch. Just a real technical breakdown of what's broken.
+          <p className="text-sm text-white/40 mt-6">
+            Free diagnostic from people who&apos;ve run the same agency you&apos;re running.
           </p>
         </div>
       </section>
@@ -1209,7 +1157,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           SECTION 14: FOOTER
       ═══════════════════════════════════════════ */}
-      <footer className="bg-realm-twilight text-white py-16 px-8 border-t border-realm-orchid/[0.08]">
+      <footer className="bg-brand-black text-white py-16 px-8 border-t border-brand-blue/[0.08]">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             {/* Company */}
@@ -1222,8 +1170,8 @@ export default function Home() {
                 className="h-8 w-auto brightness-0 invert mb-4"
               />
               <p className="text-white/40 text-sm leading-relaxed">
-                Your Campaign Intelligence Partner.<br/>
-                Centralize. Automate. Ask.
+                Your Technical Backbone.<br/>
+                Centralize. Automate. Query.
               </p>
             </div>
 
@@ -1264,7 +1212,7 @@ export default function Home() {
           </div>
 
           {/* Copyright */}
-          <div className="pt-8 border-t border-realm-orchid/[0.06] text-center">
+          <div className="pt-8 border-t border-brand-blue/[0.06] text-center">
             <p className="text-white/30 text-xs">
               © 2025 Stimuli Digital. All rights reserved.
             </p>
