@@ -68,18 +68,40 @@ const testimonials = [
     role: "CEO, Hypergen",
     photo: "/images/testimonials/aleksander-ivanov.jpg"
   },
-  // TODO: Add Felix, Alex Vacca, and Harrison Waid testimonials
-  // once photos, quotes, roles, and video links are available
+  {
+    thumbnail: "/images/testimonials/alex-vacca-thumbnail.jpg",
+    video: "https://www.youtube.com/watch?v=wqFzqYYMvVU",
+    quote: "We tested two or three automation agencies before. Stimuli had impact from month one because they actually understand the lead gen industry.",
+    name: "Alex Vacca",
+    role: "CEO, Cold IQ",
+    photo: "/images/testimonials/alex-vacca.jpg"
+  },
+  {
+    thumbnail: "",
+    video: "",
+    quote: "I tried vibe coding it myself with Claude and Cursor. Stimuli built the full client portal, clients love it, and bug fixes happen in Slack in minutes.",
+    name: "Harrison Waid",
+    role: "Founder, Succession",
+    photo: "/images/testimonials/harrison-waid.jpeg"
+  },
+  {
+    thumbnail: "/images/testimonials/felix-frank-thumbnail.jpg",
+    video: "https://www.youtube.com/watch?v=vm-AaFYqu5I",
+    quote: "We were hitting Airtable's limits with bad data across the board. Stimuli took our entire operations up a level, now we can scale from 30 to 60 clients without adding headcount.",
+    name: "Felix Frank",
+    role: "Founder, Stack Optimize",
+    photo: "/images/testimonials/felix-frank.jpeg"
+  },
 ];
 
 const faqItems = [
   {
     q: "What's different from hiring a dev?",
-    a: "A dev builds what you spec. We've wired 40+ agency stacks and know what breaks, what scales, and what wastes money. We ran our own agency — that's the difference."
+    a: "A dev builds what you spec. We've wired 40+ agency stacks and know what breaks, what scales, and what wastes money. We ran our own agency. That's the difference."
   },
   {
     q: "How is this different from automation consultants?",
-    a: "Consultants connect tools with Zapier. We write code. Real databases. Real AI. Zapier breaks at scale — we don't."
+    a: "Consultants connect tools with Zapier. We write code. Real databases. Real AI. Zapier breaks at scale. We don't."
   },
   {
     q: "Do I own the code?",
@@ -95,7 +117,7 @@ const faqItems = [
   },
   {
     q: "Is this only for agencies?",
-    a: "Primarily yes — we built this because we ran one. B2B companies with complex outbound stacks work with us too."
+    a: "Primarily yes. We built this because we ran one. B2B companies with complex outbound stacks work with us too."
   },
   {
     q: "Can you integrate with [our tool]?",
@@ -156,12 +178,12 @@ export default function Home() {
     }))
   };
 
-  const videoSchemas = testimonials.map(testimonial => ({
+  const videoSchemas = testimonials.filter(t => t.video).map(testimonial => ({
     "@context": "https://schema.org",
     "@type": "VideoObject",
     "name": `${testimonial.name} - ${testimonial.role} Testimonial`,
     "description": testimonial.quote,
-    "thumbnailUrl": `https://stimulidigital.com${testimonial.thumbnail}`,
+    "thumbnailUrl": testimonial.thumbnail ? `https://stimulidigital.com${testimonial.thumbnail}` : undefined,
     "uploadDate": "2024-01-01",
     "contentUrl": testimonial.video,
     "embedUrl": testimonial.video
@@ -303,7 +325,7 @@ export default function Home() {
             {/* Social proof — human faces front and center */}
             <div className="flex flex-col items-center gap-4">
               <div className="flex -space-x-3">
-                {testimonials.slice(0, 6).map((t, i) => (
+                {testimonials.map((t, i) => (
                   <img
                     key={i}
                     src={t.photo}
@@ -343,24 +365,36 @@ export default function Home() {
 
           <div className="relative max-w-[680px] mx-auto">
             {/* Video thumbnail */}
-            <div className="relative aspect-video rounded-xl overflow-hidden mb-5 group cursor-pointer border border-gray-200">
-              <a href={testimonials[activeSlide].video} target="_blank" rel="noopener noreferrer">
+            {testimonials[activeSlide].video ? (
+              <div className="relative aspect-video rounded-xl overflow-hidden mb-5 group cursor-pointer border border-gray-200">
+                <a href={testimonials[activeSlide].video} target="_blank" rel="noopener noreferrer">
+                  <Image
+                    key={`thumb-${activeSlide}`}
+                    src={testimonials[activeSlide].thumbnail || testimonials[activeSlide].photo}
+                    alt={testimonials[activeSlide].name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                    <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg">
+                      <svg className="w-5 h-5 text-brand-blue ml-0.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            ) : (
+              <div className="relative aspect-video rounded-xl overflow-hidden mb-5 border border-gray-200 flex items-center justify-center bg-gray-50">
                 <Image
                   key={`thumb-${activeSlide}`}
-                  src={testimonials[activeSlide].thumbnail}
+                  src={testimonials[activeSlide].photo}
                   alt={testimonials[activeSlide].name}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover"
                 />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                  <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg">
-                    <svg className="w-5 h-5 text-brand-blue ml-0.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </div>
-                </div>
-              </a>
-            </div>
+              </div>
+            )}
 
             {/* Quote */}
             <div className="max-w-lg mx-auto text-center mb-5 min-h-[100px] flex flex-col justify-center">
@@ -475,7 +509,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-brand-black mb-4">Invisible Waste</h3>
               <p className="text-brand-black/70 leading-relaxed">
-                Which campaigns are quietly unprofitable? Which clients eat margin? The answers are in your raw data — but nobody captured it. What wasn&apos;t collected is gone.
+                Which campaigns are quietly unprofitable? Which clients eat margin? The answers are in your raw data, but nobody captured it. What wasn&apos;t collected is gone.
               </p>
             </div>
           </div>
@@ -508,8 +542,6 @@ export default function Home() {
         data-section-id="solution"
         className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('solution') ? 'visible' : ''}`}
       >
-        {/* Ambient orb */}
-        <div className="absolute top-[20%] left-[20%] w-[300px] h-[300px] realm-orb realm-orb-float-slow opacity-[0.06]"></div>
         <div className="max-w-[1600px] mx-auto relative z-10">
           {/* Section label */}
           <p className="text-[13px] text-white/40 uppercase tracking-widest font-semibold mb-4 text-center">
@@ -534,10 +566,10 @@ export default function Home() {
                 <h3 className="text-3xl lg:text-4xl font-bold mb-4">Centralized Data Warehouse</h3>
                 <p className="text-xl text-white/60 mb-6">Every tool. Every campaign. One truth.</p>
                 <p className="text-white/70 leading-relaxed mb-6">
-                  Raw data from Instantly, Smartlead, HubSpot, Clay, ad platforms — one structured warehouse. Always current. Your actual data, not pre-aggregated summaries.
+                  Raw data from Instantly, Smartlead, HubSpot, Clay, ad platforms. One structured warehouse. Always current. Your actual data, not pre-aggregated summaries.
                 </p>
                 <p className="text-white/70 leading-relaxed">
-                  No conflicting numbers. No five exports for one answer. You own the raw data — not someone else&apos;s summary.
+                  No conflicting numbers. No five exports for one answer. You own the raw data. Not someone else&apos;s summary.
                 </p>
               </div>
               <div className="relative h-80 bg-brand-black/80/40 border border-brand-blue/10 rounded-2xl p-8 flex items-center justify-center">
@@ -611,7 +643,7 @@ export default function Home() {
                 <h3 className="text-3xl lg:text-4xl font-bold mb-4">Automated Predetermined Actions</h3>
                 <p className="text-xl text-white/60 mb-6">If X happens, Y fires. No one in the loop.</p>
                 <p className="text-white/70 leading-relaxed mb-6">
-                  Bounce detection, sequence pauses, lead routing, pipeline updates — defined before they happen, running 24/7 without being touched.
+                  Bounce detection, sequence pauses, lead routing, pipeline updates. Defined before they happen, running 24/7 without being touched.
                 </p>
                 <p className="text-white/70 leading-relaxed">
                   Your team stops moving data between tools and starts driving results.
@@ -636,7 +668,7 @@ export default function Home() {
                   &quot;Cost-per-qualified-lead for Client X?&quot; &quot;Which sequence step is losing people?&quot; &quot;Why did Campaign 7 underperform this week?&quot;
                 </p>
                 <p className="text-white/70 leading-relaxed">
-                  No exports. No dashboards. No waiting for a report. The raw data is already there — just ask.
+                  No exports. No dashboards. No waiting for a report. The raw data is already there. Just ask.
                 </p>
               </div>
               <div className="relative h-80 bg-brand-black/80/40 border border-brand-blue/10 rounded-2xl p-6">
@@ -749,8 +781,6 @@ export default function Home() {
         data-section-id="how-we-work"
         className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('how-we-work') ? 'visible' : ''}`}
       >
-        {/* Ambient orb */}
-        <div className="absolute bottom-[10%] right-[5%] w-[150px] h-[150px] realm-orb realm-orb-float-slow opacity-[0.12]"></div>
         <div className="max-w-[1200px] mx-auto relative z-10">
           {/* Section label + Headline */}
           <div className="text-center mb-16">
@@ -824,7 +854,7 @@ export default function Home() {
                 <div className="flex-shrink-0 w-9 h-9 bg-brand-blue rounded-full flex items-center justify-center text-sm font-bold">3</div>
                 <div>
                   <p className="text-white font-semibold mb-1">Sprint one kicks off</p>
-                  <p className="text-white/70 text-sm">Software. Not a proposal — software.</p>
+                  <p className="text-white/70 text-sm">Software. Not a proposal. Software.</p>
                 </div>
               </div>
             </div>
@@ -840,8 +870,6 @@ export default function Home() {
         data-section-id="pricing"
         className={`relative py-32 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('pricing') ? 'visible' : ''}`}
       >
-        {/* Ambient orb behind pricing */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] realm-orb realm-orb-float-slow opacity-[0.06]"></div>
         <div className="max-w-[1200px] mx-auto relative z-10">
           {/* Headline */}
           <div className="text-center mb-20">

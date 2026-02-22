@@ -257,7 +257,7 @@ function Convergence() {
             transition={{ duration: 0.4, delay: 0.7 }}
             className="text-xl text-white/60 max-w-2xl mx-auto mb-8"
           >
-            Quick wins merged into foundation. One system — data, automations, intelligence. Every client makes it smarter.
+            Quick wins merged into foundation. One system. Data, automations, intelligence. Every client makes it smarter.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
