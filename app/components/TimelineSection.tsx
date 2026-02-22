@@ -13,72 +13,85 @@ interface TimelineMilestone {
   week: string;
   quickWin: TimelineCard;
   foundation: TimelineCard;
-  scale: number; // 1 = smallest, 3 = largest
+  scale: number;
 }
 
 const milestones: TimelineMilestone[] = [
   {
-    label: 'Week 1',
-    week: 'Week 1',
+    label: 'Month 1',
+    week: 'Month 1',
     scale: 1,
     quickWin: {
       title: 'Stop the Bleeding',
-      description: 'Fixed. Caught. Dead.',
+      description: 'Audit every campaign channel. Find where leads leak. Fix the biggest fire.',
     },
     foundation: {
-      title: 'Map the Territory',
-      description: 'Every system. Every gap.',
+      title: 'Map Every Channel',
+      description: 'Document every tool, every data flow, every gap between your campaign systems.',
     },
   },
   {
-    label: 'Week 2-3',
-    week: 'Week 2-3',
-    scale: 1.2,
+    label: 'Month 2-3',
+    week: 'Month 2-3',
+    scale: 1.15,
     quickWin: {
-      title: 'One Database Live',
-      description: 'Every lead, one place.',
+      title: 'Centralized Campaign Database',
+      description: 'All campaign data, every channel, flowing into one live schema.',
     },
     foundation: {
-      title: 'Build the Backbone',
-      description: "APIs built. Won't break.",
+      title: 'Build the Data Backbone',
+      description: 'Production-grade APIs connecting every campaign tool. Structured to never break.',
     },
   },
   {
-    label: 'Month 1-2',
-    week: 'Month 1-2',
+    label: 'Month 3-5',
+    week: 'Month 3-5',
+    scale: 1.3,
+    quickWin: {
+      title: 'Automations Go Live',
+      description: 'Predetermined actions fire on every campaign event. Lead routing, alerts, stage updates.',
+    },
+    foundation: {
+      title: 'MCP Intelligence Layer',
+      description: 'Ask your campaign data any question. Real-time answers from your live unified database.',
+    },
+  },
+  {
+    label: 'Month 5-7',
+    week: 'Month 5-7',
     scale: 1.5,
     quickWin: {
-      title: 'AI Wakes Up',
-      description: 'Intelligence surfaces. Risk flagged.',
+      title: 'Multi-Channel Orchestration',
+      description: 'Every campaign channel coordinated. One system managing email, CRM, enrichment, outbound.',
     },
     foundation: {
-      title: 'Production Ready',
-      description: 'Pipelines automated. System scales.',
+      title: 'Predictive Campaign Actions',
+      description: 'System learns from campaign patterns. Flags risks before they become problems.',
     },
   },
   {
-    label: 'Month 3-4',
-    week: 'Month 3-4',
-    scale: 1.8,
+    label: 'Month 7-9',
+    week: 'Month 7-9',
+    scale: 1.7,
     quickWin: {
-      title: 'Multiple Agencies Running',
-      description: 'Same system. Scales clean.',
+      title: 'Full Scale Operations',
+      description: 'Multiple campaigns, multiple clients, same system. Scales clean without adding headcount.',
     },
     foundation: {
-      title: 'Zero Manual Work',
-      description: 'Automated end-to-end.',
+      title: 'Zero Manual Intervention',
+      description: 'End-to-end automation across every channel. Your team focuses on strategy, not operations.',
     },
   },
 ];
 
 function Card({ card, scale }: { card: TimelineCard; scale: number }) {
-  const baseSize = 16; // Base font size
+  const baseSize = 16;
   const titleSize = Math.round(baseSize * scale);
   const padding = Math.round(24 * scale);
 
   return (
     <div
-      className={`relative border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-colors duration-300`}
+      className={`relative border border-realm-orchid/10 bg-realm-night/30 hover:bg-realm-night/50 transition-colors duration-300`}
       style={{
         padding: `${padding}px`,
         borderRadius: `${Math.round(12 * scale)}px`,
@@ -115,7 +128,7 @@ function Milestone({ milestone }: { milestone: TimelineMilestone }) {
       {/* Week Label */}
       <div className="text-center mb-8">
         <span
-          className="inline-block px-4 py-1 bg-brand-blue/10 text-brand-blue font-semibold"
+          className="inline-block px-4 py-1 bg-brand-blue/10 text-realm-orchid font-semibold"
           style={{
             fontSize: `${Math.round(12 * milestone.scale)}px`,
             borderRadius: `${Math.round(6 * milestone.scale)}px`,
@@ -130,7 +143,7 @@ function Milestone({ milestone }: { milestone: TimelineMilestone }) {
         {/* LEFT TRACK: Quick Wins */}
         <div className="text-right">
           <div className="inline-block text-left max-w-sm ml-auto">
-            <div className="text-xs font-semibold text-brand-blue/60 uppercase tracking-wider mb-2">
+            <div className="text-xs font-semibold text-realm-orchid/60 uppercase tracking-wider mb-2">
               Quick Wins
             </div>
             <Card card={milestone.quickWin} scale={milestone.scale} />
@@ -140,7 +153,7 @@ function Milestone({ milestone }: { milestone: TimelineMilestone }) {
         {/* RIGHT TRACK: Foundation */}
         <div className="text-left">
           <div className="inline-block text-left max-w-sm">
-            <div className="text-xs font-semibold text-brand-blue/60 uppercase tracking-wider mb-2">
+            <div className="text-xs font-semibold text-realm-orchid/60 uppercase tracking-wider mb-2">
               Foundation
             </div>
             <Card card={milestone.foundation} scale={milestone.scale} />
@@ -197,7 +210,7 @@ function Convergence() {
           {/* Merged single track going forward */}
           <motion.path
             d="M 400 60 L 400 100"
-            stroke="#0066FF"
+            stroke="#8B7EC8"
             strokeWidth="4"
             fill="none"
             initial={{ pathLength: 0 }}
@@ -210,7 +223,7 @@ function Convergence() {
             cx="400"
             cy="60"
             r="6"
-            fill="#0066FF"
+            fill="#B794F6"
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.2, delay: 0.5 }}
@@ -218,12 +231,12 @@ function Convergence() {
 
           <defs>
             <linearGradient id="gradient1" x1="50" y1="0" x2="400" y2="0">
-              <stop offset="0%" stopColor="#0066FF" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#0066FF" stopOpacity="1" />
+              <stop offset="0%" stopColor="#8B7EC8" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#8B7EC8" stopOpacity="1" />
             </linearGradient>
             <linearGradient id="gradient2" x1="750" y1="0" x2="400" y2="0">
-              <stop offset="0%" stopColor="#0066FF" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#0066FF" stopOpacity="1" />
+              <stop offset="0%" stopColor="#8B7EC8" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#8B7EC8" stopOpacity="1" />
             </linearGradient>
           </defs>
         </svg>
@@ -236,7 +249,7 @@ function Convergence() {
             transition={{ duration: 0.4, delay: 0.6 }}
             className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight"
           >
-            One Platform. Running Everything.
+            One Campaign Operating System.
           </motion.h3>
           <motion.p
             initial={{ opacity: 0 }}
@@ -244,17 +257,17 @@ function Convergence() {
             transition={{ duration: 0.4, delay: 0.7 }}
             className="text-xl text-white/60 max-w-2xl mx-auto mb-8"
           >
-            Quick wins merged into foundation. One system runs your data, insights, and actions. Built to scale with you.
+            Quick wins merged into foundation. One system owns your campaign data, automations, and intelligence layer. Built to scale with every channel you add.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.8 }}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-brand-blue/10 border border-brand-blue/30 rounded-lg"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-realm-orchid/10 border border-realm-orchid/30 rounded-lg"
           >
-            <span className="text-brand-blue font-semibold">Month 5+</span>
-            <span className="text-white/40">→</span>
-            <span className="text-white font-semibold">Built to scale. Runs itself.</span>
+            <span className="text-realm-orchid font-semibold">Month 9+</span>
+            <span className="text-white/40">&#8594;</span>
+            <span className="text-white font-semibold">Fully autonomous. Scales itself.</span>
           </motion.div>
         </div>
       </div>
@@ -264,9 +277,9 @@ function Convergence() {
 
 export default function TimelineSection() {
   return (
-    <section className="relative py-32 bg-brand-black text-white">
+    <section className="relative py-32 bg-realm-twilight text-white">
       {/* Single, subtle background element */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-blue/[0.02] to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-realm-orchid/[0.02] to-transparent" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
@@ -275,7 +288,7 @@ export default function TimelineSection() {
             Two Tracks. Running <span className="text-gradient">Simultaneously.</span>
           </h2>
           <p className="text-xl text-white/60 mb-3">
-            Results now. Foundation later.
+            Results now. Foundation later. Full campaign operating system in 5-9 months.
           </p>
           <p className="text-brand-blue font-semibold text-lg">
             You see results before the first invoice.
@@ -289,7 +302,7 @@ export default function TimelineSection() {
           ))}
         </div>
 
-        {/* THE CONVERGENCE - This is the moment */}
+        {/* THE CONVERGENCE */}
         <Convergence />
       </div>
     </section>

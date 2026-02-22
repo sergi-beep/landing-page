@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ProductsDropdown } from "../components/products-dropdown";
+import { SolutionsDropdown } from "../components/solutions-dropdown";
 
 const clientLogos = [
   { src: "/images/logos/clients/coldiq-large.svg", alt: "ColdIQ", w: "w-32" },
@@ -66,7 +66,7 @@ export default function AboutPage() {
               <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 FAQs
               </Link>
-              <ProductsDropdown />
+              <SolutionsDropdown />
               <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Our History
               </Link>
@@ -129,7 +129,7 @@ export default function AboutPage() {
               <p className="text-6xl font-extrabold text-brand-blue/10 mb-4 tracking-tighter">04</p>
               <p className="text-xl font-bold text-white tracking-tight mb-3">Serve it cold on a hot summer day</p>
               <p className="text-white/40 leading-relaxed text-[15px]">
-                Deliver a system that just works&nbsp;&mdash; when you need it most. Like giving ice-cold lemonade to someone who&apos;s never tasted anything other than water.
+                Deliver a system that just works, when you need it most. Like giving ice-cold lemonade to someone who&apos;s never tasted anything other than water.
               </p>
             </div>
           </div>

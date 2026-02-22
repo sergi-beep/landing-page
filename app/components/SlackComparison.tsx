@@ -213,8 +213,8 @@ function SlackMessage({ message, delay, side }: { message: SlackMessage; delay: 
           {message.replies && message.replies > 0 && (
             <button className="flex items-center gap-2 mt-1 text-sm text-blue-400 hover:text-blue-300 font-medium transition-colors">
               <div className="flex -space-x-1">
-                <div className={`w-5 h-5 rounded bg-gradient-to-br ${message.gradientFrom} ${message.gradientTo} ring-2 ring-[#1a1d21]`} />
-                <div className="w-5 h-5 rounded bg-gradient-to-br from-purple-500 to-pink-500 ring-2 ring-[#1a1d21]" />
+                <div className={`w-5 h-5 rounded bg-gradient-to-br ${message.gradientFrom} ${message.gradientTo} ring-2 ring-realm-night`} />
+                <div className="w-5 h-5 rounded bg-gradient-to-br from-purple-500 to-pink-500 ring-2 ring-realm-night" />
               </div>
               <span>{message.replies} {message.replies === 1 ? 'reply' : 'replies'}</span>
               <span className="text-white/40 font-normal">Last reply 2m ago</span>
@@ -227,12 +227,12 @@ function SlackMessage({ message, delay, side }: { message: SlackMessage; delay: 
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="absolute -top-4 right-0 flex items-center gap-1 bg-brand-black border border-white/10 rounded-lg shadow-2xl p-1"
+            className="absolute -top-4 right-0 flex items-center gap-1 bg-realm-twilight border border-white/10 rounded-lg shadow-2xl p-1"
           >
             {['💬', '⚡', '😊', '⋯'].map((icon, idx) => (
               <button
                 key={idx}
-                className="w-7 h-7 flex items-center justify-center rounded hover:bg-brand-blue/20 transition-colors text-sm"
+                className="w-7 h-7 flex items-center justify-center rounded hover:bg-realm-orchid/20 transition-colors text-sm"
               >
                 {icon}
               </button>
@@ -246,11 +246,11 @@ function SlackMessage({ message, delay, side }: { message: SlackMessage; delay: 
 
 export default function SlackComparison() {
   return (
-    <section className="py-32 relative overflow-hidden bg-brand-black">
+    <section className="py-32 relative overflow-hidden bg-realm-twilight">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-blue/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-sky/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-realm-orchid/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-realm-blush/10 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -315,9 +315,9 @@ export default function SlackComparison() {
               </div>
 
               {/* Slack Container */}
-              <div className="relative bg-[#1a1d21] border border-red-500/20 rounded-xl overflow-hidden shadow-2xl shadow-red-950/50 ring-1 ring-red-500/10">
+              <div className="relative bg-realm-night/80 border border-red-500/20 rounded-xl overflow-hidden shadow-2xl shadow-red-950/50 ring-1 ring-red-500/10">
                 {/* Channel Header */}
-                <div className="border-b border-red-500/10 px-5 py-3 bg-gradient-to-b from-red-950/20 to-brand-black/50">
+                <div className="border-b border-red-500/10 px-5 py-3 bg-gradient-to-b from-red-950/20 to-realm-twilight/50">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-red-400/80 text-sm">#</span>
@@ -371,9 +371,9 @@ export default function SlackComparison() {
               </div>
 
               {/* Slack Container */}
-              <div className="relative bg-[#1a1d21] border border-green-500/20 rounded-xl overflow-hidden shadow-2xl shadow-green-950/50 ring-1 ring-green-500/10">
+              <div className="relative bg-realm-night/80 border border-green-500/20 rounded-xl overflow-hidden shadow-2xl shadow-green-950/50 ring-1 ring-green-500/10">
                 {/* Channel Header */}
-                <div className="border-b border-green-500/10 px-5 py-3 bg-gradient-to-b from-green-950/20 to-brand-black/50">
+                <div className="border-b border-green-500/10 px-5 py-3 bg-gradient-to-b from-green-950/20 to-realm-twilight/50">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-green-400/80 text-sm">#</span>

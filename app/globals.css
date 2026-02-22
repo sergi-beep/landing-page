@@ -44,7 +44,10 @@
   }
 
   body {
-    @apply bg-brand-black text-brand-black antialiased;
+    background-color: #0D0B1A;
+    color: #F5F0EB;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-family: 'Sloth', system-ui, -apple-system, sans-serif;
   }
 
@@ -66,7 +69,7 @@
 
   /* Gradient text for hero headline */
   .text-gradient {
-    background: linear-gradient(135deg, #0066FF 0%, #38BDF8 50%, #0066FF 100%);
+    background: linear-gradient(135deg, #0066FF 0%, #B794F6 50%, #0066FF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -89,7 +92,7 @@
 
   /* Dark glassmorphism nav */
   .nav-glass {
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(13, 11, 26, 0.85);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
@@ -97,8 +100,8 @@
   /* Hero grid pattern */
   .hero-grid {
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      linear-gradient(rgba(183, 148, 246, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(183, 148, 246, 0.04) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
@@ -111,9 +114,9 @@
 
   /* Smooth gradient backgrounds */
   .gradient-mesh {
-    background: radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.03) 0px, transparent 50%),
-                radial-gradient(at 97% 21%, hsla(197, 91%, 60%, 0.03) 0px, transparent 50%),
-                radial-gradient(at 52% 99%, hsla(218, 100%, 50%, 0.03) 0px, transparent 50%);
+    background: radial-gradient(at 27% 37%, rgba(183, 148, 246, 0.05) 0px, transparent 50%),
+                radial-gradient(at 97% 21%, rgba(232, 180, 200, 0.05) 0px, transparent 50%),
+                radial-gradient(at 52% 99%, rgba(108, 93, 183, 0.04) 0px, transparent 50%);
   }
 
   /* Radial fade mask for 3D elements — dissolves edges */
@@ -383,10 +386,10 @@
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 102, 255, 0.1);
+    box-shadow: 0 0 20px rgba(183, 148, 246, 0.1);
   }
   50% {
-    box-shadow: 0 0 40px rgba(0, 102, 255, 0.3);
+    box-shadow: 0 0 40px rgba(183, 148, 246, 0.3);
   }
 }
 
@@ -476,7 +479,7 @@
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0,102,255,0.025), transparent);
+  background: linear-gradient(90deg, transparent, rgba(183,148,246,0.025), transparent);
   animation: mock-sweep 4s ease-in-out infinite;
   animation-delay: 2s;
   pointer-events: none;
@@ -663,7 +666,7 @@
 
 .card-lift:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(183, 148, 246, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* ── Icon bounce ── */
@@ -708,10 +711,10 @@
 
 @keyframes glow-pulse-anim {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+    box-shadow: 0 0 20px rgba(183, 148, 246, 0.3);
   }
   50% {
-    box-shadow: 0 0 40px rgba(0, 102, 255, 0.6), 0 0 60px rgba(0, 102, 255, 0.3);
+    box-shadow: 0 0 40px rgba(183, 148, 246, 0.6), 0 0 60px rgba(183, 148, 246, 0.3);
   }
 }
 
@@ -725,7 +728,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(0, 102, 255, 0) 0%, rgba(0, 102, 255, 0.3) 100%);
+  background: linear-gradient(135deg, rgba(183, 148, 246, 0) 0%, rgba(183, 148, 246, 0.3) 100%);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -761,6 +764,128 @@
 }
 
 /* ============================================
+   MAGICAL REALISM: Orbs, Ground Plane, Fog
+   ============================================ */
+
+/* ── Floating Orb / Moon — warmer, more luminous ── */
+.realm-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFF8F0, #F0E4FF 30%, rgba(232, 180, 200, 0.35) 55%, transparent 75%);
+  pointer-events: none;
+}
+
+.realm-orb-glow {
+  box-shadow: 0 0 100px rgba(240, 228, 255, 0.6),
+              0 0 200px rgba(232, 180, 200, 0.25),
+              0 0 300px rgba(183, 148, 246, 0.1),
+              inset 0 0 60px rgba(255, 248, 240, 0.4);
+}
+
+.realm-orb-float {
+  animation: realm-orb-drift 20s ease-in-out infinite;
+}
+
+.realm-orb-float-slow {
+  animation: realm-orb-drift 30s ease-in-out infinite;
+}
+
+.realm-orb-pulse {
+  animation: realm-orb-breathe 8s ease-in-out infinite;
+}
+
+@keyframes realm-orb-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(15px, -25px) scale(1.03);
+  }
+  50% {
+    transform: translate(-10px, -15px) scale(0.97);
+  }
+  75% {
+    transform: translate(20px, 10px) scale(1.02);
+  }
+}
+
+@keyframes realm-orb-breathe {
+  0%, 100% {
+    opacity: 0.7;
+    box-shadow: 0 0 80px rgba(240, 228, 255, 0.4), 0 0 160px rgba(232, 180, 200, 0.15);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 120px rgba(240, 228, 255, 0.6), 0 0 250px rgba(232, 180, 200, 0.25), 0 0 400px rgba(183, 148, 246, 0.1);
+  }
+}
+
+/* ── Infinite Ground Plane — warm salt flat ── */
+.realm-ground-plane {
+  position: absolute;
+  bottom: 0;
+  left: -10%;
+  right: -10%;
+  height: 45%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(212, 137, 106, 0.04) 20%,
+    rgba(201, 160, 184, 0.1) 40%,
+    rgba(232, 180, 200, 0.18) 65%,
+    rgba(245, 200, 180, 0.22) 100%
+  );
+  mask-image: linear-gradient(180deg, transparent 0%, black 30%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 30%);
+  pointer-events: none;
+}
+
+.realm-ground-grid {
+  position: absolute;
+  bottom: 0;
+  left: -10%;
+  right: -10%;
+  height: 45%;
+  background-image:
+    linear-gradient(rgba(232, 180, 200, 0.07) 1px, transparent 1px);
+  background-size: 100% 35px;
+  transform: perspective(500px) rotateX(50deg);
+  transform-origin: center bottom;
+  mask-image: linear-gradient(180deg, transparent 0%, black 40%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 40%);
+  pointer-events: none;
+}
+
+/* ── Atmospheric Fog — warm, cinematic haze ── */
+.realm-fog {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 75%, rgba(232, 180, 200, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 30% 60%, rgba(214, 204, 230, 0.06) 0%, transparent 40%),
+    radial-gradient(ellipse at 70% 40%, rgba(212, 137, 106, 0.04) 0%, transparent 35%);
+  pointer-events: none;
+}
+
+/* ── Warm glow behind human elements (photos, avatars) ── */
+.realm-human-glow {
+  box-shadow: 0 0 30px rgba(232, 180, 200, 0.35), 0 0 60px rgba(183, 148, 246, 0.12);
+}
+
+/* ── Warm ambient pulse for human-centered elements ── */
+.realm-warm-pulse {
+  animation: realm-warm-breathe 6s ease-in-out infinite;
+}
+
+@keyframes realm-warm-breathe {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(232, 180, 200, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(232, 180, 200, 0.4), 0 0 80px rgba(183, 148, 246, 0.1);
+  }
+}
+
+/* ============================================
    ACCESSIBILITY: Reduced Motion Support
    ============================================ */
 
@@ -791,5 +916,12 @@
   select,
   textarea {
     transition: opacity 0.2s ease !important;
+  }
+
+  /* Disable magical realism animations */
+  .realm-orb-float,
+  .realm-orb-float-slow,
+  .realm-orb-pulse {
+    animation: none !important;
   }
 }

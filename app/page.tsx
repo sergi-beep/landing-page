@@ -5,9 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ClientLogosTicker } from "./components/ClientLogosTicker";
-import SlackComparison from "./components/SlackComparison";
 import TimelineSection from "./components/TimelineSection";
-import { ProductsDropdown } from "./components/products-dropdown";
+import { SolutionsDropdown } from "./components/solutions-dropdown";
 
 const clientLogos = [
   { src: "/images/logos/clients/coldiq-large.svg", alt: "ColdIQ", w: "w-32" },
@@ -69,12 +68,14 @@ const testimonials = [
     role: "CEO, Hypergen",
     photo: "/images/testimonials/aleksander-ivanov.jpg"
   },
+  // TODO: Add Felix, Alex Vacca, and Harrison Waid testimonials
+  // once photos, quotes, roles, and video links are available
 ];
 
 const faqItems = [
   {
     q: "What's different from hiring a dev?",
-    a: "Devs build features. We build operating systems. We've wired 40+ GTM stacks. We know what breaks and why."
+    a: "Devs build features. We build campaign operating systems. We've wired 40+ marketing and sales stacks. We know what breaks and why."
   },
   {
     q: "How is this different from automation consultants?",
@@ -94,7 +95,7 @@ const faqItems = [
   },
   {
     q: "Is this only for agencies?",
-    a: "No. B2B companies with complex GTM stacks, multiple lead sources, and revenue teams hire us too."
+    a: "No. B2B companies with complex campaign stacks, multiple channels, and revenue teams hire us too."
   },
   {
     q: "Can you integrate with [our tool]?",
@@ -102,7 +103,7 @@ const faqItems = [
   },
   {
     q: "Do you replace our CRM?",
-    a: "No. We centralize everything into one data layer, then push clean data back into your CRM. It becomes more useful, not replaced."
+    a: "No. We centralize all your campaign and channel data into one layer, then push clean data back into your CRM. It becomes more useful, not replaced."
   },
   {
     q: "What if we want to stop?",
@@ -208,7 +209,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           NAVIGATION
       ═══════════════════════════════════════════ */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-brand-black/95 backdrop-blur-sm border-b border-white/[0.06]">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-realm-twilight/90 backdrop-blur-xl border-b border-realm-orchid/[0.08]">
         <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center">
@@ -237,7 +238,7 @@ export default function Home() {
               <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 FAQs
               </Link>
-              <ProductsDropdown />
+              <SolutionsDropdown />
               <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Our History
               </Link>
@@ -247,7 +248,7 @@ export default function Home() {
               href="https://calendly.com/sergi-feq/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2.5 bg-white text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white transition-all duration-300"
+              className="px-6 py-2.5 bg-realm-cream text-realm-twilight rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white hover:shadow-realm-glow-sm transition-all duration-300"
             >
               Let&apos;s talk
             </Link>
@@ -258,26 +259,37 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           SECTION 1: HERO
       ═══════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-brand-black">
-        {/* Ambient gradient */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-brand-blue/[0.07] rounded-full blur-[120px]"></div>
-        </div>
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Twilight sky gradient */}
+        <div className="absolute inset-0 bg-realm-sky"></div>
 
-        {/* Grid overlay */}
+        {/* Large floating orb — the "moon" */}
+        <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[250px] h-[250px] md:w-[400px] md:h-[400px] lg:w-[500px] lg:h-[500px] realm-orb realm-orb-glow realm-orb-float realm-orb-pulse opacity-60"></div>
+
+        {/* Secondary smaller orb */}
+        <div className="absolute top-[60%] right-[10%] w-[80px] h-[80px] md:w-[120px] md:h-[120px] realm-orb realm-orb-glow realm-orb-float-slow opacity-30"></div>
+
+        {/* Infinite ground plane */}
+        <div className="realm-ground-plane"></div>
+        <div className="realm-ground-grid"></div>
+
+        {/* Grid overlay — lavender tint */}
         <div className="absolute inset-0 hero-grid opacity-[0.03]"></div>
+
+        {/* Atmospheric fog */}
+        <div className="realm-fog"></div>
 
         <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full z-10">
           <div className="max-w-5xl mx-auto text-center">
             {/* Headline */}
             <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
-              Your GTM Data Is Scattered.<br/>
-              <span className="text-gradient">Your Decisions Are Manual. We Fix Both.</span>
+              Your Campaign Data Is Scattered.<br/>
+              <span className="text-gradient">Your Decisions Are Manual. We Fix All of It.</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl lg:text-2xl text-white/50 leading-relaxed mb-12 max-w-3xl mx-auto font-light tracking-tight">
-              We centralize your data, surface what's hidden, and build systems that act on it automatically. For revenue teams and the agencies that power them.
+              We centralize your raw data, build automations based on predetermined correct operations, and give you the ability to have real-time conversations with your campaign data through MCP.
             </p>
 
             {/* CTA */}
@@ -286,7 +298,7 @@ export default function Home() {
                 href="https://calendly.com/sergi-feq/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative px-8 py-4 bg-brand-blue text-white rounded-full font-semibold text-base overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.4)] hover:scale-[1.02]"
+                className="group relative px-8 py-4 bg-brand-blue text-white rounded-full font-semibold text-base overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.4),0_0_80px_rgba(183,148,246,0.2)] hover:scale-[1.02]"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Show me what I'm missing
@@ -297,19 +309,19 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Social proof */}
-            <div className="flex items-center justify-center gap-3">
-              <div className="flex -space-x-2">
+            {/* Social proof — human faces front and center */}
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex -space-x-3">
                 {testimonials.slice(0, 6).map((t, i) => (
                   <img
                     key={i}
                     src={t.photo}
                     alt={t.name}
-                    className="w-8 h-8 rounded-full border-2 border-brand-black object-cover"
+                    className="w-11 h-11 rounded-full border-2 border-white/20 object-cover shadow-[0_0_20px_rgba(232,180,200,0.2)] hover:scale-110 hover:z-10 transition-transform duration-300"
                   />
                 ))}
               </div>
-              <span className="text-sm text-white/40 font-medium">Built 40+ systems across 4 continents</span>
+              <span className="text-sm text-white/50 font-medium">Built 40+ systems across 4 continents</span>
             </div>
           </div>
         </div>
@@ -325,22 +337,22 @@ export default function Home() {
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="testimonials"
-        className={`relative py-16 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('testimonials') ? 'visible' : ''}`}
+        className={`relative py-12 px-8 lg:px-12 bg-realm-cream reveal-section ${visibleSections.has('testimonials') ? 'visible' : ''}`}
       >
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[900px] mx-auto">
           {/* Section label */}
-          <div className="text-center mb-10">
-            <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-3">
+          <div className="text-center mb-8">
+            <p className="text-[12px] text-realm-mauve uppercase tracking-widest font-semibold mb-2">
               Don't Take Our Word For It
             </p>
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-brand-black tracking-tight">
-              Hear It From <span className="text-brand-blue">the People Who Switched.</span>
+            <h2 className="text-2xl lg:text-3xl font-extrabold text-realm-twilight tracking-tight">
+              Hear It From <span className="text-brand-blue">the Industry Leaders.</span>
             </h2>
           </div>
 
-          <div className="relative">
+          <div className="relative max-w-[680px] mx-auto">
             {/* Video thumbnail */}
-            <div className="relative aspect-video rounded-xl overflow-hidden mb-6 group cursor-pointer border border-gray-200">
+            <div className="relative aspect-video rounded-xl overflow-hidden mb-5 group cursor-pointer border border-realm-mauve/20">
               <a href={testimonials[activeSlide].video} target="_blank" rel="noopener noreferrer">
                 <Image
                   key={`thumb-${activeSlide}`}
@@ -350,8 +362,8 @@ export default function Home() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg">
-                    <svg className="w-6 h-6 text-brand-blue ml-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg">
+                    <svg className="w-5 h-5 text-brand-blue ml-0.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M8 5v14l11-7z"/>
                     </svg>
                   </div>
@@ -360,28 +372,27 @@ export default function Home() {
             </div>
 
             {/* Quote */}
-            <div className="max-w-2xl mx-auto text-center mb-6 min-h-[180px] flex flex-col justify-center">
-              {/* Quote */}
-              <p key={activeSlide} className="text-xl lg:text-2xl font-semibold text-brand-black leading-tight mb-4 animate-fadeIn">
+            <div className="max-w-lg mx-auto text-center mb-5 min-h-[120px] flex flex-col justify-center">
+              <p key={activeSlide} className="text-lg lg:text-xl font-semibold text-realm-twilight leading-snug mb-3 animate-fadeIn">
                 "{testimonials[activeSlide].quote}"
               </p>
 
               {/* Author */}
-              <div key={`author-${activeSlide}`} className="flex items-center justify-center gap-3 animate-fadeIn">
+              <div key={`author-${activeSlide}`} className="flex items-center justify-center gap-2.5 animate-fadeIn">
                 <img
                   src={testimonials[activeSlide].photo}
                   alt={testimonials[activeSlide].name}
-                  className="w-10 h-10 rounded-full object-cover ring-2 ring-brand-blue/20"
+                  className="w-10 h-10 rounded-full object-cover ring-2 ring-realm-orchid/30 shadow-[0_0_12px_rgba(232,180,200,0.2)]"
                 />
                 <div className="text-left">
-                  <p className="font-semibold text-brand-black text-sm">{testimonials[activeSlide].name}</p>
-                  <p className="text-xs text-gray-500">{testimonials[activeSlide].role}</p>
+                  <p className="font-semibold text-realm-twilight text-sm">{testimonials[activeSlide].name}</p>
+                  <p className="text-xs text-realm-mauve">{testimonials[activeSlide].role}</p>
                 </div>
               </div>
             </div>
 
             {/* Rotating faces indicator */}
-            <div className="flex items-center justify-center gap-2.5">
+            <div className="flex items-center justify-center gap-2">
               {testimonials.map((t, idx) => (
                 <button
                   key={idx}
@@ -394,15 +405,15 @@ export default function Home() {
                   aria-label={`View testimonial from ${t.name}`}
                   aria-current={idx === activeSlide}
                 >
-                  <div className={`rounded-full ${idx === activeSlide ? 'shadow-[0_0_0_3px_rgba(0,102,255,0.15),0_6px_12px_rgba(0,102,255,0.15)]' : ''}`}>
+                  <div className={`rounded-full transition-shadow duration-500 ${idx === activeSlide ? 'shadow-[0_0_0_2px_rgba(232,180,200,0.35),0_0_12px_rgba(183,148,246,0.2)]' : ''}`}>
                     <img
                       src={t.photo}
                       alt={t.name}
-                      className="w-11 h-11 rounded-full object-cover ring-2 ring-white"
+                      className={`w-10 h-10 rounded-full object-cover transition-all duration-500 ${idx === activeSlide ? 'ring-2 ring-realm-orchid/40' : 'ring-1.5 ring-white/60'}`}
                     />
                   </div>
                   {idx === activeSlide && (
-                    <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-brand-blue rounded-full"></div>
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-realm-orchid rounded-full shadow-[0_0_6px_rgba(183,148,246,0.4)]"></div>
                   )}
                 </button>
               ))}
@@ -417,83 +428,80 @@ export default function Home() {
       <section
         id="problem"
         data-section-id="problem"
-        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('problem') ? 'visible' : ''}`}
+        className={`relative py-20 px-8 lg:px-12 bg-realm-cream reveal-section ${visibleSections.has('problem') ? 'visible' : ''}`}
       >
-        <div className="max-w-[1600px] mx-auto">
+        <div className="max-w-[1200px] mx-auto">
           {/* Section label */}
-          <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4 text-center">
-            Still Running Blind?
+          <p className="text-[13px] text-realm-mauve uppercase tracking-widest font-semibold mb-4 text-center">
+            The Real Problem
           </p>
 
           {/* Headline */}
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black text-center mb-16 tracking-tight">
-            Your Data Lives in 10 Places.<br/>
-            <span className="text-brand-blue">None of Them Agree.</span>
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-realm-twilight text-center mb-8 tracking-tight">
+            Your Campaigns Are Talking.<br/>
+            <span className="text-brand-blue">You Just Can't Hear Them.</span>
           </h2>
 
+          {/* Main problem narrative */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <p className="text-lg text-realm-twilight/80 leading-relaxed mb-6">
+              Your marketing and sales campaigns are constantly generating signals about what to do next. But you can't see them, and therefore can't act on them.
+            </p>
+            <p className="text-lg text-realm-twilight/80 leading-relaxed mb-6">
+              Your campaign data is scattered across channels. Decisions are manual. And the most important questions your business generates every day go unanswered.
+            </p>
+            <p className="text-lg text-realm-twilight/70 leading-relaxed mb-6">
+              Marketing and sales teams generate the answers to their most critical business questions every single day, but never actually capture or own this data. Instead, they rely on whatever summarized, pre-aggregated view each tool decides to show them. Making decisions based on surface-level snapshots with no way to structure or use the full picture.
+            </p>
+            <p className="text-lg text-realm-twilight/70 leading-relaxed">
+              And when someone does try to make a data-driven decision, it comes with massive logistical cost. First you have to pull raw information from multiple channels and tools, which takes days. Then it needs to be normalized and transformed, which takes more time. And if multiple people across the company are doing this independently, each applying their own methods, the same data tells different stories depending on who touched it. You end up with two problems at once: you don't have easy access to your own raw campaign data, and when you do get to it, there's no single version of truth.
+            </p>
+          </div>
+
           {/* Problem cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {/* Card 1: Scattered */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <div
               data-section-id="problem-card-1"
-              className={`p-8 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has('problem-card-1') ? 'visible' : ''}`}
+              className={`p-8 bg-realm-pearl/80 rounded-3xl border border-realm-mauve/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-1') ? 'visible' : ''}`}
             >
               <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-brand-black mb-4">Scattered</h3>
-              <p className="text-gray-700 leading-relaxed">
-                Your leads are in Instantly. Your pipeline is in HubSpot. Your revenue reports are in Google Sheets. Your ops person is the only person who knows how it all connects.
+              <h3 className="text-2xl font-bold text-realm-twilight mb-4">Scattered Across Channels</h3>
+              <p className="text-realm-twilight/70 leading-relaxed">
+                Campaign data lives in 10 different tools. Email sequences in one place, CRM in another, enrichment data somewhere else. No single source of truth across your channels.
               </p>
             </div>
 
-            {/* Card 2: Invisible */}
             <div
               data-section-id="problem-card-2"
-              className={`p-8 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has('problem-card-2') ? 'visible' : ''}`}
-            >
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-brand-black mb-4">Invisible</h3>
-              <p className="text-gray-700 leading-relaxed">
-                Which campaigns convert? Which channels drive revenue? Where do leads stall? The answers are in your data—you just can't access them without pulling five exports.
-              </p>
-            </div>
-
-            {/* Card 3: Manual */}
-            <div
-              data-section-id="problem-card-3"
-              className={`p-8 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has('problem-card-3') ? 'visible' : ''}`}
+              className={`p-8 bg-realm-pearl/80 rounded-3xl border border-realm-mauve/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-2') ? 'visible' : ''}`}
             >
               <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-brand-black mb-4">Manual</h3>
-              <p className="text-gray-700 leading-relaxed">
-                When something breaks, someone has to notice, interpret it, then manually fix it. By the time they do, you've already lost deals or sent 600 emails to the wrong people.
+              <h3 className="text-2xl font-bold text-realm-twilight mb-4">Decisions Are Manual</h3>
+              <p className="text-realm-twilight/70 leading-relaxed">
+                Every campaign decision requires someone to manually pull data, interpret it, and act. By the time they do, the window has closed. Deals lost, wrong emails sent, opportunities missed.
               </p>
             </div>
 
-            {/* Card 4: Breaking at Scale */}
             <div
-              data-section-id="problem-card-4"
-              className={`p-8 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has('problem-card-4') ? 'visible' : ''}`}
+              data-section-id="problem-card-3"
+              className={`p-8 bg-realm-pearl/80 rounded-3xl border border-realm-mauve/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-3') ? 'visible' : ''}`}
             >
               <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-brand-black mb-4">Breaking at Scale</h3>
-              <p className="text-gray-700 leading-relaxed">
-                You hit 100 clients. Your manual workflows can't keep up. Your ops person is buried. The system that got you here will not get you there.
+              <h3 className="text-2xl font-bold text-realm-twilight mb-4">Questions Without Answers</h3>
+              <p className="text-realm-twilight/70 leading-relaxed">
+                Which channel actually drives revenue? Which campaign sequence converts? Where do leads stall in the funnel? The answers exist in your data, but you have no way to ask the questions in real time.
               </p>
             </div>
           </div>
@@ -501,17 +509,17 @@ export default function Home() {
       </section>
 
       {/* Client Quote - Taylor Haren */}
-      <section className="relative py-16 px-8 lg:px-12 bg-gray-50">
+      <section className="relative py-16 px-8 lg:px-12 bg-realm-pearl">
         <div className="max-w-[900px] mx-auto">
-          <div className="p-8 lg:p-12 rounded-2xl border-2 border-gray-200 bg-white">
+          <div className="p-8 lg:p-12 rounded-3xl border-2 border-realm-mauve/15 bg-realm-cream shadow-[0_8px_40px_rgba(201,160,184,0.12)]">
             <div className="flex items-start gap-4 mb-6">
-              <img src="/images/testimonials/taylor-haren.jpg" alt="Taylor Haren" className="w-16 h-16 rounded-full object-cover flex-shrink-0" />
+              <img src="/images/testimonials/taylor-haren.jpg" alt="Taylor Haren" className="w-18 h-18 rounded-full object-cover flex-shrink-0 ring-3 ring-realm-orchid/20 shadow-[0_0_24px_rgba(232,180,200,0.25)]" />
               <div>
-                <p className="font-bold text-brand-black text-lg">Taylor Haren</p>
-                <p className="text-sm text-gray-500">CEO, Sales Automation Systems</p>
+                <p className="font-bold text-realm-twilight text-lg">Taylor Haren</p>
+                <p className="text-sm text-realm-mauve">CEO, Sales Automation Systems</p>
               </div>
             </div>
-            <p className="text-2xl lg:text-3xl font-semibold text-brand-black leading-tight italic">
+            <p className="text-2xl lg:text-3xl font-semibold text-realm-twilight leading-tight italic">
               "Spent 6 figures with agencies over 6 months. Not one fucking thing got done. Stimuli built our lead database in week one."
             </p>
           </div>
@@ -524,20 +532,22 @@ export default function Home() {
       <section
         id="solution"
         data-section-id="solution"
-        className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('solution') ? 'visible' : ''}`}
+        className={`relative py-20 px-8 lg:px-12 bg-realm-twilight text-white reveal-section ${visibleSections.has('solution') ? 'visible' : ''}`}
       >
-        <div className="max-w-[1600px] mx-auto">
+        {/* Ambient orb */}
+        <div className="absolute top-[20%] left-[20%] w-[300px] h-[300px] realm-orb realm-orb-float-slow opacity-[0.06]"></div>
+        <div className="max-w-[1600px] mx-auto relative z-10">
           {/* Section label */}
           <p className="text-[13px] text-white/40 uppercase tracking-widest font-semibold mb-4 text-center">
-            How We Make Data Actionable
+            How We Fix It
           </p>
 
           {/* Headline */}
           <h2 className="text-4xl lg:text-5xl font-extrabold text-white text-center mb-20 tracking-tight">
-            Three Layers. <span className="text-gradient">One System.</span>
+            Three Pillars. <span className="text-gradient">One Campaign Operating System.</span>
           </h2>
 
-          {/* Layer 1: CENTRALIZE */}
+          {/* Pillar 1: Real-time Centralized Raw Data */}
           <div
             data-section-id="layer-1"
             className={`mb-20 reveal-card ${visibleSections.has('layer-1') ? 'visible' : ''}`}
@@ -545,25 +555,24 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
-                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Layer 1</span>
+                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Pillar 1</span>
                 </div>
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4">CENTRALIZE</h3>
-                <p className="text-xl text-white/60 mb-6">Unify your stack.</p>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Real-Time Centralized Raw Data</h3>
+                <p className="text-xl text-white/60 mb-6">Every channel. Every campaign. One live database.</p>
                 <p className="text-white/70 leading-relaxed mb-6">
-                  We pull everything into one unified data model. CRM, email platforms, enrichment tools, agency SaaS, spreadsheets. Structured, clean, real-time.
+                  We pull raw data from every campaign channel and tool into one unified schema. Email sequences, CRM, enrichment platforms, ad channels, spreadsheets. Structured, clean, updating in real time.
                 </p>
                 <p className="text-white/70 leading-relaxed">
-                  No more conflicting numbers. No more ops-person dependency. One place, one schema, always current.
+                  No more conflicting numbers between teams. No more pulling five exports to answer one question. One place, one truth, always current.
                 </p>
               </div>
-              <div className="relative h-80 bg-white/[0.03] border border-white/10 rounded-2xl p-8 flex items-center justify-center">
-                {/* Visual: scattered tools flowing into unified DB */}
+              <div className="relative h-80 bg-realm-night/40 border border-realm-orchid/10 rounded-2xl p-8 flex items-center justify-center">
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-3 mb-8 flex-wrap">
-                    <div className="px-4 py-2 bg-white/10 border border-brand-blue/20 rounded-lg text-xs font-mono">HubSpot</div>
-                    <div className="px-4 py-2 bg-white/10 border border-brand-blue/20 rounded-lg text-xs font-mono">Instantly</div>
-                    <div className="px-4 py-2 bg-white/10 border border-brand-blue/20 rounded-lg text-xs font-mono">Clay</div>
-                    <div className="px-4 py-2 bg-white/10 border border-brand-blue/20 rounded-lg text-xs font-mono">Sheets</div>
+                    <div className="px-4 py-2 bg-realm-night/60 border border-realm-orchid/15 rounded-lg text-xs font-mono">HubSpot</div>
+                    <div className="px-4 py-2 bg-realm-night/60 border border-realm-orchid/15 rounded-lg text-xs font-mono">Instantly</div>
+                    <div className="px-4 py-2 bg-realm-night/60 border border-realm-orchid/15 rounded-lg text-xs font-mono">Smartlead</div>
+                    <div className="px-4 py-2 bg-realm-night/60 border border-realm-orchid/15 rounded-lg text-xs font-mono">Clay</div>
                   </div>
                   <svg className="w-8 h-8 mx-auto mb-8 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -578,43 +587,66 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Layer 2: SEE */}
+          {/* Pillar 2: Automated Predeterministic Actions */}
           <div
             data-section-id="layer-2"
             className={`mb-20 reveal-card ${visibleSections.has('layer-2') ? 'visible' : ''}`}
           >
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="order-2 lg:order-1 relative h-80 bg-white/[0.03] border border-white/10 rounded-2xl p-6">
-                {/* Visual: AI surfacing insights */}
-                <div className="space-y-3">
-                  <div className="p-3 bg-brand-blue/10 border border-brand-blue/30 rounded-lg">
-                    <p className="text-xs font-mono text-brand-blue">⚠️ 37 leads leaked this week</p>
+              <div className="order-2 lg:order-1 relative h-80 bg-realm-night/40 border border-realm-orchid/10 rounded-2xl p-6">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
+                      Campaign bounce rate spikes
+                    </div>
+                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
+                      Auto-pause + alert
+                    </div>
                   </div>
-                  <div className="p-3 bg-brand-blue/10 border border-brand-blue/30 rounded-lg">
-                    <p className="text-xs font-mono text-brand-blue">✓ Campaign B has 4x the close rate</p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
+                      High-intent lead detected
+                    </div>
+                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
+                      Routed to closer
+                    </div>
                   </div>
-                  <div className="p-3 bg-brand-blue/10 border border-brand-blue/30 rounded-lg">
-                    <p className="text-xs font-mono text-brand-blue">⏰ 3 deals at risk, no follow-up in 7 days</p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
+                      Sequence reply positive
+                    </div>
+                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
+                      CRM stage updated
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="order-1 lg:order-2">
                 <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
-                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Layer 2</span>
+                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Pillar 2</span>
                 </div>
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4">SEE</h3>
-                <p className="text-xl text-white/60 mb-6">Surface what matters.</p>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Automated Predeterministic Actions</h3>
+                <p className="text-xl text-white/60 mb-6">If X happens, Y fires. Every time. No human needed.</p>
                 <p className="text-white/70 leading-relaxed mb-6">
-                  Claude AI analyzes your unified data to surface what you'd never catch manually. Patterns, anomalies, opportunities buried in the noise.
+                  We define the correct operation for every campaign scenario before it happens. Lead routing, channel alerts, sequence pauses, pipeline nudges, re-engagement triggers. All predetermined, all automated.
                 </p>
                 <p className="text-white/70 leading-relaxed">
-                  Which leads leaked. Which campaigns convert vs. just look busy. Where deals stall. What's breaking before you notice. The insights dashboards can't show because you didn't know to ask.
+                  Your campaigns run on rules you set once. The system executes perfectly, at scale, while your team focuses on strategy instead of firefighting.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Layer 3: ACT */}
+          {/* Pillar 3: Ask Your Campaigns Unique Questions */}
           <div
             data-section-id="layer-3"
             className={`reveal-card ${visibleSections.has('layer-3') ? 'visible' : ''}`}
@@ -622,52 +654,31 @@ export default function Home() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
-                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Layer 3</span>
+                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Pillar 3</span>
                 </div>
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4">ACT</h3>
-                <p className="text-xl text-white/60 mb-6">Automate the response.</p>
+                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Ask Your Campaigns Anything</h3>
+                <p className="text-xl text-white/60 mb-6">Real-time conversation with your campaign data via MCP.</p>
                 <p className="text-white/70 leading-relaxed mb-6">
-                  Most tools stop at insights. We build systems that act. Lead routing. Pipeline nudges. Re-engagement flows. Data correction. Enrichment triggers.
+                  &quot;Which email sequence has the highest reply-to-meeting rate this month?&quot; &quot;What channel is producing the most qualified leads for Client X?&quot; &quot;Show me every campaign that underperformed last week and why.&quot;
                 </p>
                 <p className="text-white/70 leading-relaxed">
-                  The AI detects it. The system fixes it. Your team works on what actually needs a human.
+                  Ask any question, get an instant answer from your live campaign data. No exports. No dashboards. No waiting. Just a direct conversation with the truth.
                 </p>
               </div>
-              <div className="relative h-80 bg-white/[0.03] border border-white/10 rounded-2xl p-6">
-                {/* Visual: insights flowing into actions */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
-                      High-value lead detected
-                    </div>
-                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
-                      Lead routed
-                    </div>
+              <div className="relative h-80 bg-realm-night/40 border border-realm-orchid/10 rounded-2xl p-6">
+                {/* Visual: MCP conversation */}
+                <div className="space-y-3">
+                  <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
+                    <p className="text-xs font-mono text-white/50 mb-1">You:</p>
+                    <p className="text-sm font-mono text-white/80">Which campaign channel drove the most revenue this quarter?</p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
-                      Deal at risk
-                    </div>
-                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
-                      Alert sent
-                    </div>
+                  <div className="p-3 bg-brand-blue/10 border border-brand-blue/30 rounded-lg">
+                    <p className="text-xs font-mono text-brand-blue mb-1">MCP:</p>
+                    <p className="text-sm font-mono text-brand-blue">Email Sequence B via Instantly generated $247K across 3 channels. 4.2x higher conversion than LinkedIn outbound.</p>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
-                      Stale lead found
-                    </div>
-                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
-                      Sequence triggered
-                    </div>
+                  <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
+                    <p className="text-xs font-mono text-white/50 mb-1">You:</p>
+                    <p className="text-sm font-mono text-white/80">Break it down by campaign stage.</p>
                   </div>
                 </div>
               </div>
@@ -677,263 +688,77 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 7: THE SYMPTOM
-      ═══════════════════════════════════════════ */}
-      <SlackComparison />
-
-      {/* ═══════════════════════════════════════════
-          SECTION 8: WHAT HAPPENS AFTER YOU SAY YES
+          SECTION 7: WHAT HAPPENS AFTER YOU SAY YES
       ═══════════════════════════════════════════ */}
       <TimelineSection />
 
       {/* ═══════════════════════════════════════════
-          SECTION 9: PRODUCTS (What We Build)
+          SECTION 9: COMPARISON
       ═══════════════════════════════════════════ */}
       <section
-        id="products"
-        data-section-id="operating-system"
-        className={`relative py-20 px-8 lg:px-12 bg-gray-50 reveal-section ${visibleSections.has('operating-system') ? 'visible' : ''}`}
+        id="comparison"
+        data-section-id="comparison"
+        className={`relative py-20 px-8 lg:px-12 bg-realm-pearl reveal-section ${visibleSections.has('comparison') ? 'visible' : ''}`}
       >
-        <div className="max-w-[1400px] mx-auto">
-          {/* Headline */}
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black text-center mb-16 tracking-tight">
-            What <span className="text-brand-blue">We Build.</span>
-          </h2>
-
-          {/* Grid of capabilities */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {/* Card 1: Centralized Data Platform */}
-            <div
-              data-section-id="cap-1"
-              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-1') ? 'visible' : ''}`}
-            >
-              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
-                </svg>
-              </div>
-              <h3 className="font-bold text-lg text-brand-black mb-3">Centralized Data Platform</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                Every data source. One schema. One truth.
-              </p>
-              <p className="text-xs text-gray-500 italic">
-                Replaces: Scattered spreadsheets, Zapier chains, manual exports.
-              </p>
-            </div>
-
-            {/* Card 2: AI Intelligence Layer */}
-            <div
-              data-section-id="cap-2"
-              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-2') ? 'visible' : ''}`}
-            >
-              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <h3 className="font-bold text-lg text-brand-black mb-3">AI Intelligence Layer</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                Claude AI surfaces patterns, flags risks, and spots opportunities no dashboard would show.
-              </p>
-              <p className="text-xs text-gray-500 italic">
-                Replaces: Manual reporting, BI dashboards that only answer what you ask.
-              </p>
-            </div>
-
-            {/* Card 3: Automated Action Systems */}
-            <div
-              data-section-id="cap-3"
-              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-3') ? 'visible' : ''}`}
-            >
-              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h3 className="font-bold text-lg text-brand-black mb-3">Automated Actions</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                Lead routing, pipeline alerts, re-engagement triggers. The system acts automatically.
-              </p>
-              <p className="text-xs text-gray-500 italic">
-                Replaces: Manual follow-ups, forgotten leads, inconsistent processes.
-              </p>
-            </div>
-
-            {/* Card 4: Lead Database */}
-            <div
-              data-section-id="cap-4"
-              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-4') ? 'visible' : ''}`}
-            >
-              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 className="font-bold text-lg text-brand-black mb-3">Lead Database</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                Auto-enriched, deduplicated, scored. Every lead in one place the moment it lands.
-              </p>
-              <p className="text-xs text-gray-500 italic">
-                Replaces: Clay tables, fragmented lead lists, messy CRM imports.
-              </p>
-            </div>
-
-            {/* Card 5: Real-Time Data Sync */}
-            <div
-              data-section-id="cap-5"
-              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-5') ? 'visible' : ''}`}
-            >
-              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-              </div>
-              <h3 className="font-bold text-lg text-brand-black mb-3">Real-Time Data Sync</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                Smartlead, Instantly, HubSpot, your agency's tools. All feeding one system. Live.
-              </p>
-              <p className="text-xs text-gray-500 italic">
-                Replaces: Zapier webhooks, CSV imports, overnight batch jobs.
-              </p>
-            </div>
-
-            {/* Card 6: Agency-to-CRM Bridge */}
-            <div
-              data-section-id="cap-6"
-              className={`p-6 bg-white border border-gray-200 rounded-2xl reveal-card ${visibleSections.has('cap-6') ? 'visible' : ''}`}
-            >
-              <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                </svg>
-              </div>
-              <h3 className="font-bold text-lg text-brand-black mb-3">Agency-to-CRM Bridge</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                Agency leads land in your pipeline correctly. Attributed, scored, routed. Zero leakage.
-              </p>
-              <p className="text-xs text-gray-500 italic">
-                Replaces: Email handoffs, lost leads, attribution guesswork.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          SECTION 10: TESTIMONIALS
-      ═══════════════════════════════════════════ */}
-      <section
-        id="case-studies"
-        data-section-id="scoreboard"
-        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('scoreboard') ? 'visible' : ''}`}
-      >
-        <div className="max-w-[1400px] mx-auto">
-          {/* Headline */}
-          <div className="text-center mb-12">
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black mb-3 tracking-tight">
-              <span className="text-brand-blue">Testimonials.</span>
-            </h2>
-            <p className="text-lg text-gray-600">Real results from real clients.</p>
-          </div>
-
-          {/* Horizontal Scrollable Carousel */}
-          <div className="relative">
-            {/* Scroll container */}
-            <div className="overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-6">
-              <div className="flex gap-5 w-max px-4">
-                {testimonials.map((testimonial, idx) => (
-                  <div
-                    key={idx}
-                    className="group bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden hover:border-brand-blue/30 hover:shadow-xl transition-all duration-300 snap-start flex-shrink-0 w-[340px]"
-                  >
-                    {/* Thumbnail */}
-                    <div className="relative aspect-video overflow-hidden">
-                      <a href={testimonial.video} target="_blank" rel="noopener noreferrer">
-                        <Image
-                          src={testimonial.thumbnail}
-                          alt={testimonial.name}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <svg className="w-5 h-5 text-brand-blue ml-0.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                              <path d="M8 5v14l11-7z"/>
-                            </svg>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-5">
-                      {/* Quote */}
-                      <p className="text-sm text-gray-700 italic mb-3 leading-relaxed line-clamp-3">
-                        "{testimonial.quote}"
-                      </p>
-
-                      {/* Author */}
-                      <div className="flex items-center gap-2.5">
-                        <img
-                          src={testimonial.photo}
-                          alt={testimonial.name}
-                          className="w-9 h-9 rounded-full object-cover"
-                        />
-                        <div>
-                          <p className="font-semibold text-sm text-brand-black">{testimonial.name}</p>
-                          <p className="text-xs text-gray-500">{testimonial.role}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Scroll indicator */}
-            <div className="flex items-center justify-center gap-2 mt-6">
-              {testimonials.map((_, idx) => (
-                <div
-                  key={idx}
-                  className="w-2 h-2 rounded-full bg-gray-300 transition-all duration-300"
-                ></div>
-              ))}
-            </div>
-
-            {/* Gradient fades on edges */}
-            <div className="absolute top-0 left-0 bottom-6 w-12 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
-            <div className="absolute top-0 right-0 bottom-6 w-12 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
-          </div>
-
-          {/* Scroll hint */}
-          <div className="text-center mt-4">
-            <p className="text-sm text-gray-400 flex items-center justify-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-              </svg>
-              Scroll to see more
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-[13px] text-realm-mauve uppercase tracking-widest font-semibold mb-4">
+              How We Compare
             </p>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-realm-twilight tracking-tight">
+              Why Teams <span className="text-brand-blue">Switch to Stimuli.</span>
+            </h2>
+          </div>
+
+          {/* Comparison Table */}
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr>
+                  <th className="text-left p-4 text-sm font-semibold text-realm-twilight/60 uppercase tracking-wider border-b-2 border-realm-mauve/20 w-1/4"></th>
+                  <th className="p-4 text-sm font-semibold text-realm-twilight/40 uppercase tracking-wider border-b-2 border-realm-mauve/20 text-center">DIY / Internal</th>
+                  <th className="p-4 text-sm font-semibold text-realm-twilight/40 uppercase tracking-wider border-b-2 border-realm-mauve/20 text-center">Automation Consultants</th>
+                  <th className="p-4 text-sm font-bold text-brand-blue uppercase tracking-wider border-b-2 border-brand-blue text-center bg-brand-blue/5 rounded-t-xl">Stimuli</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { feature: "Raw data ownership", diy: "Partial", consultant: "No", stimuli: "Full ownership" },
+                  { feature: "Real-time campaign data", diy: "Manual exports", consultant: "Batch updates", stimuli: "Live sync" },
+                  { feature: "Cross-channel visibility", diy: "Spreadsheets", consultant: "Dashboard only", stimuli: "Unified schema" },
+                  { feature: "Automated campaign actions", diy: "Zapier chains", consultant: "Basic triggers", stimuli: "Predeterministic rules" },
+                  { feature: "Ask questions in real time", diy: "Not possible", consultant: "Not possible", stimuli: "MCP-powered" },
+                  { feature: "Custom to your stack", diy: "You build it", consultant: "Templates", stimuli: "Engineered for you" },
+                  { feature: "Scales past 100 clients", diy: "Breaks", consultant: "Breaks", stimuli: "Built for scale" },
+                  { feature: "Time to first result", diy: "Months", consultant: "Weeks", stimuli: "Week 1" },
+                ].map((row, idx) => (
+                  <tr key={idx} className={idx % 2 === 0 ? 'bg-realm-cream/50' : ''}>
+                    <td className="p-4 text-sm font-semibold text-realm-twilight border-b border-realm-mauve/10">{row.feature}</td>
+                    <td className="p-4 text-sm text-realm-twilight/50 text-center border-b border-realm-mauve/10">{row.diy}</td>
+                    <td className="p-4 text-sm text-realm-twilight/50 text-center border-b border-realm-mauve/10">{row.consultant}</td>
+                    <td className="p-4 text-sm font-semibold text-brand-blue text-center border-b border-realm-mauve/10 bg-brand-blue/5">{row.stimuli}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
 
-      {/* CTA after Testimonials */}
-      <section className="relative py-16 px-8 lg:px-12 bg-white">
+      {/* CTA after Comparison */}
+      <section className="relative py-16 px-8 lg:px-12 bg-realm-cream">
         <div className="max-w-[700px] mx-auto text-center">
-          <h3 className="text-3xl lg:text-4xl font-bold text-brand-black mb-6">
-            Ready to see what we can build for you?
+          <h3 className="text-3xl lg:text-4xl font-bold text-realm-twilight mb-6">
+            Ready to see what your campaigns are really telling you?
           </h3>
-          <p className="text-lg text-gray-600 mb-8">
-            Book a 30-minute diagnostic. We'll show you what's leaking.
+          <p className="text-lg text-realm-twilight/60 mb-8">
+            Book a 30-minute diagnostic. We&apos;ll show you what your campaign data is hiding.
           </p>
           <Link
             href="https://calendly.com/sergi-feq/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-brand-black text-white rounded-full font-bold text-lg hover:shadow-[0_0_40px_rgba(0,0,0,0.15)] transition-shadow duration-300"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-realm-twilight text-realm-cream rounded-full font-bold text-lg hover:shadow-realm-glow transition-shadow duration-300"
           >
             Book a call
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -948,9 +773,11 @@ export default function Home() {
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="how-we-work"
-        className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('how-we-work') ? 'visible' : ''}`}
+        className={`relative py-20 px-8 lg:px-12 bg-realm-twilight text-white reveal-section ${visibleSections.has('how-we-work') ? 'visible' : ''}`}
       >
-        <div className="max-w-[1200px] mx-auto">
+        {/* Ambient orb */}
+        <div className="absolute bottom-[10%] right-[5%] w-[150px] h-[150px] realm-orb realm-orb-float-slow opacity-[0.12]"></div>
+        <div className="max-w-[1200px] mx-auto relative z-10">
           {/* Section label + Headline */}
           <div className="text-center mb-16">
             <p className="text-[13px] text-white/40 uppercase tracking-widest font-semibold mb-4">
@@ -960,12 +787,12 @@ export default function Home() {
               No Templates. <span className="text-gradient">Built for You.</span>
             </h2>
             <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              Every engagement is custom-designed for your GTM stack and business model.
+              Every engagement is custom-designed for your campaign channels and business model.
             </p>
           </div>
 
           {/* What every engagement includes */}
-          <div className="mb-14 p-8 bg-white/[0.03] border border-white/10 rounded-2xl max-w-3xl mx-auto">
+          <div className="mb-14 p-8 bg-realm-night/40 border border-realm-orchid/10 rounded-2xl max-w-3xl mx-auto">
             <p className="text-sm text-white/40 uppercase tracking-wide mb-6">What every engagement includes:</p>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
@@ -1037,9 +864,11 @@ export default function Home() {
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="pricing"
-        className={`relative py-32 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('pricing') ? 'visible' : ''}`}
+        className={`relative py-32 px-8 lg:px-12 bg-realm-twilight text-white reveal-section ${visibleSections.has('pricing') ? 'visible' : ''}`}
       >
-        <div className="max-w-[1200px] mx-auto">
+        {/* Ambient orb behind pricing */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] realm-orb realm-orb-float-slow opacity-[0.06]"></div>
+        <div className="max-w-[1200px] mx-auto relative z-10">
           {/* Headline */}
           <div className="text-center mb-20">
             <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-6 tracking-tight">
@@ -1053,7 +882,7 @@ export default function Home() {
           {/* Pricing Cards - 3 Tiers */}
           <div className="grid md:grid-cols-3 gap-6 max-w-[1200px] mx-auto">
             {/* Tier 1: €6K */}
-            <div className="relative bg-white/[0.03] border-2 border-white/20 rounded-3xl p-8">
+            <div className="relative bg-realm-night/30 border-2 border-realm-orchid/20 rounded-3xl p-8">
               <div className="text-center mb-8">
                 <div className="text-5xl font-black text-white mb-3">€6k<span className="text-xl text-white/50 font-normal">/mo</span></div>
                 <p className="text-white/50 text-sm">Starter Team</p>
@@ -1097,7 +926,7 @@ export default function Home() {
                   href="https://calendly.com/sergi-feq/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-brand-black rounded-full font-semibold text-sm hover:bg-brand-blue hover:text-white transition-all duration-300 w-full justify-center"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-realm-cream text-realm-twilight rounded-full font-semibold text-sm hover:bg-brand-blue hover:text-white transition-all duration-300 w-full justify-center"
                 >
                   Book a call
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1108,7 +937,7 @@ export default function Home() {
             </div>
 
             {/* Tier 2: €8K - Popular */}
-            <div className="relative bg-white/[0.06] border-2 border-brand-blue rounded-3xl p-8 shadow-[0_0_40px_rgba(0,102,255,0.15)]">
+            <div className="relative bg-realm-night/50 border-2 border-brand-blue rounded-3xl p-8 shadow-[0_0_40px_rgba(0,102,255,0.15)]">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-blue rounded-full">
                 <span className="text-xs font-bold text-white uppercase tracking-wider">Most Popular</span>
               </div>
@@ -1167,7 +996,7 @@ export default function Home() {
             </div>
 
             {/* Tier 3: €10K */}
-            <div className="relative bg-white/[0.03] border-2 border-white/20 rounded-3xl p-8">
+            <div className="relative bg-realm-night/30 border-2 border-realm-orchid/20 rounded-3xl p-8">
               <div className="text-center mb-8">
                 <div className="text-5xl font-black text-white mb-3">€10k<span className="text-xl text-white/50 font-normal">/mo</span></div>
                 <p className="text-white/50 text-sm">Scale Team</p>
@@ -1211,7 +1040,7 @@ export default function Home() {
                   href="https://calendly.com/sergi-feq/30min"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-brand-black rounded-full font-semibold text-sm hover:bg-brand-blue hover:text-white transition-all duration-300 w-full justify-center"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-realm-cream text-realm-twilight rounded-full font-semibold text-sm hover:bg-brand-blue hover:text-white transition-all duration-300 w-full justify-center"
                 >
                   Book a call
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1232,11 +1061,11 @@ export default function Home() {
       <section
         id="faq"
         data-section-id="faq"
-        className={`relative py-20 px-8 lg:px-12 bg-gray-50 reveal-section ${visibleSections.has('faq') ? 'visible' : ''}`}
+        className={`relative py-20 px-8 lg:px-12 bg-realm-pearl reveal-section ${visibleSections.has('faq') ? 'visible' : ''}`}
       >
         <div className="max-w-[1200px] mx-auto">
           {/* Headline */}
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black text-center mb-16 tracking-tight">
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-realm-twilight text-center mb-16 tracking-tight">
             <span className="text-brand-blue">Questions.</span>
           </h2>
 
@@ -1255,13 +1084,13 @@ export default function Home() {
                   damping: 15,
                   delay: idx * 0.05,
                 }}
-                className="bg-white border border-gray-200 rounded-xl overflow-hidden"
+                className="bg-realm-cream border border-realm-mauve/20 rounded-xl overflow-hidden"
               >
                 <motion.button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
                   className="w-full px-6 py-5 flex items-center justify-between text-left"
                   whileHover={{
-                    backgroundColor: 'rgba(249, 250, 251, 1)',
+                    backgroundColor: 'rgba(237, 229, 221, 1)',
                   }}
                   transition={{
                     type: 'spring',
@@ -1270,7 +1099,7 @@ export default function Home() {
                   }}
                   aria-expanded={openFaq === idx}
                 >
-                  <span className="font-semibold text-brand-black pr-4">{item.q}</span>
+                  <span className="font-semibold text-realm-twilight pr-4">{item.q}</span>
                   <motion.svg
                     className="w-5 h-5 text-brand-blue flex-shrink-0"
                     fill="none"
@@ -1307,7 +1136,7 @@ export default function Home() {
                   }}
                   className="overflow-hidden"
                 >
-                  <div className="px-6 pb-5 pt-2 text-gray-700 leading-relaxed">
+                  <div className="px-6 pb-5 pt-2 text-realm-twilight/70 leading-relaxed">
                     {item.a}
                   </div>
                 </motion.div>
@@ -1322,17 +1151,29 @@ export default function Home() {
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="final-cta"
-        className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('final-cta') ? 'visible' : ''}`}
+        className={`relative min-h-[60vh] flex items-center py-20 px-8 lg:px-12 text-white overflow-hidden reveal-section ${visibleSections.has('final-cta') ? 'visible' : ''}`}
       >
-        <div className="max-w-[1400px] mx-auto text-center">
+        {/* Sky gradient background */}
+        <div className="absolute inset-0 bg-realm-sky"></div>
+
+        {/* Large floating orb — the "moon" */}
+        <div className="absolute top-[10%] left-1/2 -translate-x-[30%] w-[250px] h-[250px] md:w-[350px] md:h-[350px] realm-orb realm-orb-glow realm-orb-float realm-orb-pulse opacity-40"></div>
+
+        {/* Ground plane */}
+        <div className="realm-ground-plane"></div>
+
+        {/* Fog */}
+        <div className="realm-fog"></div>
+
+        <div className="max-w-[1400px] mx-auto text-center relative z-10 w-full">
           {/* Headline */}
           <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-6 tracking-tight">
-            Your Data Is Broken. <span className="text-gradient">We Know How to Fix It.</span>
+            Your Campaign Data Is Broken. <span className="text-gradient">We Know How to Fix It.</span>
           </h2>
 
           {/* Body */}
           <p className="text-xl text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-            30 minutes. Free audit. We'll show you what's leaking, what it's costing you, and exactly how we'd fix it.
+            30 minutes. Free audit. We&apos;ll show you what your campaigns are hiding, what it&apos;s costing you, and exactly how we&apos;d fix it.
           </p>
 
           {/* CTA */}
@@ -1349,7 +1190,7 @@ export default function Home() {
               href="https://calendly.com/sergi-feq/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-10 py-5 bg-brand-blue text-white rounded-full font-bold text-lg hover:shadow-[0_0_50px_rgba(0,102,255,0.5)] transition-shadow duration-300"
+              className="inline-flex items-center gap-2 px-10 py-5 bg-brand-blue text-white rounded-full font-bold text-lg hover:shadow-[0_0_50px_rgba(0,102,255,0.4),0_0_100px_rgba(183,148,246,0.2)] transition-shadow duration-300"
             >
               Book your free audit
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -1368,7 +1209,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           SECTION 14: FOOTER
       ═══════════════════════════════════════════ */}
-      <footer className="bg-brand-black text-white py-16 px-8 border-t border-white/[0.06]">
+      <footer className="bg-realm-twilight text-white py-16 px-8 border-t border-realm-orchid/[0.08]">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             {/* Company */}
@@ -1381,8 +1222,8 @@ export default function Home() {
                 className="h-8 w-auto brightness-0 invert mb-4"
               />
               <p className="text-white/40 text-sm leading-relaxed">
-                Your GTM Tech Partner.<br/>
-                Centralize &gt; See &gt; Act.
+                Your Campaign Intelligence Partner.<br/>
+                Centralize. Automate. Ask.
               </p>
             </div>
 
@@ -1423,7 +1264,7 @@ export default function Home() {
           </div>
 
           {/* Copyright */}
-          <div className="pt-8 border-t border-white/[0.06] text-center">
+          <div className="pt-8 border-t border-realm-orchid/[0.06] text-center">
             <p className="text-white/30 text-xs">
               © 2025 Stimuli Digital. All rights reserved.
             </p>

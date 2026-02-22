@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ProductsDropdown } from "../components/products-dropdown";
+import { SolutionsDropdown } from "../components/solutions-dropdown";
 
 const giants = [
   {
@@ -87,7 +87,7 @@ export default function HistoryPage() {
               <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 FAQs
               </Link>
-              <ProductsDropdown />
+              <SolutionsDropdown />
               <Link href="/history" className="text-[15px] font-medium text-white transition-colors">
                 Our History
               </Link>

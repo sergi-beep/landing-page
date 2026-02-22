@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: 'https://stimulidigital.com/products',
+      url: 'https://stimulidigital.com/solutions',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
