@@ -77,8 +77,8 @@ const testimonials = [
     photo: "/images/testimonials/alex-vacca.jpg"
   },
   {
-    thumbnail: "",
-    video: "",
+    thumbnail: "/images/testimonials/harrison-waid-thumbnail.jpg",
+    video: "https://www.youtube.com/watch?v=-BTRoVtp9bI",
     quote: "I tried vibe coding it myself with Claude and Cursor. Stimuli built the full client portal, clients love it, and bug fixes happen in Slack in minutes.",
     name: "Harrison Waid",
     role: "Founder, Succession",
