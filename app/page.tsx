@@ -328,7 +328,7 @@ export default function Home() {
 
             {/* Subheadline */}
             <p className="hero-fade-up hero-fade-up-2 text-lg lg:text-xl text-white/55 leading-relaxed mb-10 max-w-2xl mx-auto font-light tracking-tight text-balance">
-              We capture your raw campaign data, store it the right way, then build the automations and AI that run on it.
+              We capture your raw data, store it the right way, then build the automations and AI that run on it.
             </p>
 
             {/* CTA */}
