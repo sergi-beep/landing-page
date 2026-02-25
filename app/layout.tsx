@@ -4,6 +4,10 @@ import { SmoothScrollWrapper } from "./components/SmoothScrollWrapper";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://stimulidigital.com'),
+  icons: {
+    icon: '/images/logo-symbol.png',
+    apple: '/images/logo-symbol.png',
+  },
   title: "Stimuli Digital | The Technical Backbone for Outbound Agencies",
   description: "We warehouse your campaign data, automate your operations, and give you AI that answers any question in seconds. 40+ agencies across 4 continents.",
   keywords: [
