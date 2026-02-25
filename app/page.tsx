@@ -322,8 +322,8 @@ export default function Home() {
         <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full">
           <div className="max-w-5xl mx-auto text-center">
             {/* Headline */}
-            <h1 className="hero-fade-up hero-fade-up-1 text-[2.5rem] sm:text-5xl lg:text-[5rem] font-extrabold tracking-[-0.03em] leading-[1.05] mb-6 text-white text-balance">
-              We build the software your <RotatingWord /> stack is missing.
+            <h1 className="hero-fade-up hero-fade-up-1 text-[2.5rem] sm:text-5xl lg:text-[5rem] font-extrabold tracking-[-0.03em] leading-[1.05] mb-6 text-white">
+              We build the software<br/>your <span className="text-brand-blue">Revenue Operations</span> stack is missing
             </h1>
 
             {/* Subheadline */}
