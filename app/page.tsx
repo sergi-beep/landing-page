@@ -360,7 +360,7 @@ export default function Home() {
                   />
                 ))}
               </div>
-              <span className="text-sm text-white/50 font-medium">trusted by 40+ Revenue teams</span>
+              <span className="text-sm text-white/50 font-medium">Trusted by 40+ Revenue teams</span>
             </div>
           </div>
         </div>
