@@ -91,7 +91,7 @@ function Card({ card, scale }: { card: TimelineCard; scale: number }) {
 
   return (
     <div
-      className={`relative border border-realm-orchid/10 bg-realm-night/30 hover:bg-realm-night/50 transition-colors duration-300`}
+      className={`relative border border-brand-blue/10 bg-brand-black/30 hover:bg-brand-black/50 transition-colors duration-300`}
       style={{
         padding: `${padding}px`,
         borderRadius: `${Math.round(12 * scale)}px`,
@@ -128,7 +128,7 @@ function Milestone({ milestone }: { milestone: TimelineMilestone }) {
       {/* Week Label */}
       <div className="text-center mb-8">
         <span
-          className="inline-block px-4 py-1 bg-brand-blue/10 text-realm-orchid font-semibold"
+          className="inline-block px-4 py-1 bg-brand-blue/10 text-brand-blue font-semibold"
           style={{
             fontSize: `${Math.round(12 * milestone.scale)}px`,
             borderRadius: `${Math.round(6 * milestone.scale)}px`,
@@ -143,7 +143,7 @@ function Milestone({ milestone }: { milestone: TimelineMilestone }) {
         {/* LEFT TRACK: Quick Wins */}
         <div className="text-right">
           <div className="inline-block text-left max-w-sm ml-auto">
-            <div className="text-xs font-semibold text-realm-orchid/60 uppercase tracking-wider mb-2">
+            <div className="text-xs font-semibold text-brand-blue/60 uppercase tracking-wider mb-2">
               Quick Wins
             </div>
             <Card card={milestone.quickWin} scale={milestone.scale} />
@@ -153,7 +153,7 @@ function Milestone({ milestone }: { milestone: TimelineMilestone }) {
         {/* RIGHT TRACK: Foundation */}
         <div className="text-left">
           <div className="inline-block text-left max-w-sm">
-            <div className="text-xs font-semibold text-realm-orchid/60 uppercase tracking-wider mb-2">
+            <div className="text-xs font-semibold text-brand-blue/60 uppercase tracking-wider mb-2">
               Foundation
             </div>
             <Card card={milestone.foundation} scale={milestone.scale} />
@@ -210,7 +210,7 @@ function Convergence() {
           {/* Merged single track going forward */}
           <motion.path
             d="M 400 60 L 400 100"
-            stroke="#8B7EC8"
+            stroke="#0066FF"
             strokeWidth="4"
             fill="none"
             initial={{ pathLength: 0 }}
@@ -223,7 +223,7 @@ function Convergence() {
             cx="400"
             cy="60"
             r="6"
-            fill="#B794F6"
+            fill="#0066FF"
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.2, delay: 0.5 }}
@@ -231,12 +231,12 @@ function Convergence() {
 
           <defs>
             <linearGradient id="gradient1" x1="50" y1="0" x2="400" y2="0">
-              <stop offset="0%" stopColor="#8B7EC8" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#8B7EC8" stopOpacity="1" />
+              <stop offset="0%" stopColor="#0066FF" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#0066FF" stopOpacity="1" />
             </linearGradient>
             <linearGradient id="gradient2" x1="750" y1="0" x2="400" y2="0">
-              <stop offset="0%" stopColor="#8B7EC8" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#8B7EC8" stopOpacity="1" />
+              <stop offset="0%" stopColor="#0066FF" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#0066FF" stopOpacity="1" />
             </linearGradient>
           </defs>
         </svg>
@@ -263,9 +263,9 @@ function Convergence() {
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.8 }}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-realm-orchid/10 border border-realm-orchid/30 rounded-lg"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-brand-blue/10 border border-brand-blue/30 rounded-lg"
           >
-            <span className="text-realm-orchid font-semibold">Month 9+</span>
+            <span className="text-brand-blue font-semibold">Month 9+</span>
             <span className="text-white/40">&#8594;</span>
             <span className="text-white font-semibold">Fully autonomous. Compounds daily.</span>
           </motion.div>
@@ -277,15 +277,12 @@ function Convergence() {
 
 export default function TimelineSection() {
   return (
-    <section className="relative py-32 bg-realm-twilight text-white">
-      {/* Single, subtle background element */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-realm-orchid/[0.02] to-transparent" />
-
+    <section className="relative py-32 bg-brand-black text-white">
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-24 max-w-4xl mx-auto">
           <h2 className="text-5xl lg:text-6xl font-black text-white mb-6">
-            Two Tracks. Running <span className="text-gradient">Simultaneously.</span>
+            Two Tracks. Running <span className="text-brand-blue">Simultaneously.</span>
           </h2>
           <p className="text-xl text-white/60 mb-3">
             Quick wins week one. Full operating system in 5–9 months.
