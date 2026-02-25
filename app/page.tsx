@@ -323,7 +323,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto text-center">
             {/* Headline */}
             <h1 className="hero-fade-up hero-fade-up-1 text-[2.5rem] sm:text-5xl lg:text-[5rem] font-extrabold tracking-[-0.03em] leading-[1.05] mb-6 text-white">
-              We build the software<br/>your <span className="text-brand-blue">Revenue Operations</span> stack is missing
+              We build the software<br/>your <span className="text-brand-blue">Revenue</span> stack is missing
             </h1>
 
             {/* Subheadline */}
