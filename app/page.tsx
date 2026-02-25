@@ -299,13 +299,13 @@ export default function Home() {
           <div className="max-w-5xl mx-auto text-center">
             {/* Headline */}
             <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
-              Your Data Lives in 10 Different Tools.<br/>
-              <span className="text-gradient">Your Decisions Are Manual. We Fix Both.</span>
+              Your campaigns tell you exactly where the money is.<br/>
+              <span className="text-gradient">Your tools make sure you never find out.</span>
             </h1>
 
             {/* Subheadline */}
             <p className="text-xl lg:text-2xl text-white/50 leading-relaxed mb-12 max-w-3xl mx-auto font-light tracking-tight">
-              We warehouse your raw data, automate the operations you run by hand, and give you AI that answers any question in seconds.
+              You scale campaigns that lose money. Debate which dashboard is lying less. Report numbers you can&apos;t verify. And call it data-driven.
             </p>
 
             {/* CTA */}
