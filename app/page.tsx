@@ -1,10 +1,34 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ClientLogosTicker } from "./components/ClientLogosTicker";
+
+const rotatingWords = ["marketing", "sales", "RevOps", "GTM"];
+
+function RotatingWord() {
+  const [index, setIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % rotatingWords.length);
+        setVisible(true);
+      }, 300);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className={`text-brand-blue transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+      {rotatingWords[index]}
+    </span>
+  );
+}
 import TimelineSection from "./components/TimelineSection";
 import { SolutionsDropdown } from "./components/solutions-dropdown";
 
@@ -298,18 +322,17 @@ export default function Home() {
         <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full">
           <div className="max-w-5xl mx-auto text-center">
             {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
-              Your campaigns tell you exactly where the money is.<br/>
-              <span className="text-gradient">Your tools make sure you never find out.</span>
+            <h1 className="hero-fade-up hero-fade-up-1 text-[2.5rem] sm:text-5xl lg:text-[5rem] font-extrabold tracking-[-0.03em] leading-[1.05] mb-6 text-white text-balance">
+              We build the software your <RotatingWord /> stack is missing.
             </h1>
 
             {/* Subheadline */}
-            <p className="text-xl lg:text-2xl text-white/50 leading-relaxed mb-12 max-w-3xl mx-auto font-light tracking-tight">
-              You scale campaigns that lose money. Debate which dashboard is lying less. Report numbers you can&apos;t verify. And call it data-driven.
+            <p className="hero-fade-up hero-fade-up-2 text-lg lg:text-xl text-white/55 leading-relaxed mb-10 max-w-2xl mx-auto font-light tracking-tight text-balance">
+              We capture your raw campaign data, store it the right way, then build the automations and AI that run on it.
             </p>
 
             {/* CTA */}
-            <div className="flex items-center justify-center mb-10">
+            <div className="hero-fade-up hero-fade-up-3 flex items-center justify-center mb-8">
               <Link
                 href="https://calendly.com/sergi-feq/30min"
                 target="_blank"
@@ -317,7 +340,7 @@ export default function Home() {
                 className="group relative px-8 py-4 bg-brand-blue text-white rounded-full font-semibold text-base overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.4),0_0_80px_rgba(183,148,246,0.2)] hover:scale-[1.02]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Show me what I'm missing
+                  See how we&apos;d rebuild your stack
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                   </svg>
@@ -326,7 +349,7 @@ export default function Home() {
             </div>
 
             {/* Social proof — human faces front and center */}
-            <div className="flex flex-col items-center gap-4">
+            <div className="hero-fade-up hero-fade-up-4 flex flex-col items-center gap-4">
               <div className="flex -space-x-3">
                 {testimonials.map((t, i) => (
                   <img
