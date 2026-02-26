@@ -40,7 +40,8 @@ const clientLogos = [
   { src: "/images/logos/clients/revenueboost.png", alt: "Revenue Boost", w: "w-28" },
   { src: "/images/logos/clients/hypergen.webp", alt: "Hypergen", w: "w-28" },
   { src: "/images/logos/clients/vangates-large.jpg", alt: "Vangates", w: "w-28" },
-  { src: "/images/logos/clients/succession.png", alt: "Succession", w: "w-28" }
+  { src: "/images/logos/clients/succession.png", alt: "Succession", w: "w-28" },
+  { src: "/images/logos/clients/oneaway.jpeg", alt: "OneAway", w: "w-28" }
 ];
 
 const testimonials = [
