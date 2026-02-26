@@ -67,7 +67,7 @@ export function ProductsDropdown({ active = false }: { active?: boolean }) {
             : 'opacity-0 -translate-y-1 pointer-events-none'
         }`}
       >
-        <div className="w-[280px] rounded-xl border border-white/[0.08] bg-[#0c1425]/95 backdrop-blur-xl shadow-2xl shadow-black/50 overflow-hidden">
+        <div className="w-[280px] rounded-xl border border-realm-orchid/[0.08] bg-realm-night/95 backdrop-blur-xl shadow-2xl shadow-black/50 overflow-hidden">
           {products.map((product) => {
             const inner = (
               <div className="flex items-start justify-between gap-3 px-4 py-3 hover:bg-white/[0.04] transition-colors">
@@ -88,7 +88,7 @@ export function ProductsDropdown({ active = false }: { active?: boolean }) {
             );
           })}
 
-          <div className="border-t border-white/[0.06]">
+          <div className="border-t border-realm-orchid/[0.06]">
             <Link
               href="/products"
               className="flex items-center justify-between px-4 py-2.5 hover:bg-white/[0.04] transition-colors"

@@ -41,7 +41,7 @@ const clientLogos = [
   { src: "/images/logos/clients/hypergen.webp", alt: "Hypergen", w: "w-28" },
   { src: "/images/logos/clients/vangates-large.jpg", alt: "Vangates", w: "w-28" },
   { src: "/images/logos/clients/succession.png", alt: "Succession", w: "w-28" },
-  { src: "/images/logos/clients/oneaway.jpeg", alt: "OneAway", w: "w-28" }
+  { src: "/images/logos/clients/oneaway.jpeg", alt: "OneAway", w: "w-48" }
 ];
 
 const testimonials = [
@@ -341,7 +341,7 @@ export default function Home() {
                 className="group relative px-8 py-4 bg-brand-blue text-white rounded-full font-semibold text-base overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.4),0_0_80px_rgba(183,148,246,0.2)] hover:scale-[1.02]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  See how we&apos;d rebuild your stack
+                  Show me the gaps
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                   </svg>
@@ -361,7 +361,7 @@ export default function Home() {
                   />
                 ))}
               </div>
-              <span className="text-sm text-white/50 font-medium">Trusted by 40+ Revenue teams</span>
+              <span className="text-sm text-white/50 font-medium">Trusted by 40+ Revenue teams and agencies</span>
             </div>
           </div>
         </div>
@@ -386,7 +386,7 @@ export default function Home() {
               Don&apos;t Take Our Word For It
             </p>
             <h2 className="text-2xl lg:text-3xl font-extrabold text-brand-black tracking-tight">
-              Hear It From <span className="text-brand-blue">the Operators Who Run on It.</span>
+              Hear It From <span className="text-brand-blue">the Leaders Who Run on It.</span>
             </h2>
           </div>
 

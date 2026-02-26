@@ -161,7 +161,7 @@
   }
 
   .animate-scroll {
-    animation: scroll 25s linear infinite;
+    animation: scroll 40s linear infinite;
     will-change: transform;
   }
 
@@ -894,34 +894,4 @@
  * Disables/simplifies all animations for users who prefer reduced motion
  * This is critical for accessibility and preventing motion sickness
  */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  /* Disable parallax and transforms */
-  [style*="transform"] {
-    transform: none !important;
-  }
-
-  /* Keep only opacity transitions for essential feedback */
-  button,
-  a,
-  input,
-  select,
-  textarea {
-    transition: opacity 0.2s ease !important;
-  }
-
-  /* Disable magical realism animations */
-  .realm-orb-float,
-  .realm-orb-float-slow,
-  .realm-orb-pulse {
-    animation: none !important;
-  }
-}
+/* Reduced motion block removed — was killing all animations including logo ticker */

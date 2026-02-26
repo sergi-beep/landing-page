@@ -51,3 +51,4 @@ deploy.tar.gz
 deploy.zip
 *.zip
 *.tar.gz
+.gmail_creds.json
