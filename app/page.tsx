@@ -48,7 +48,7 @@ const testimonials = [
   {
     thumbnail: "/images/testimonials/thumbnail-1.png",
     video: "https://www.youtube.com/watch?v=IJw_o6v4pEc&t=88s",
-    quote: "We cannot live without you guys. I don't even consider you guys as an agency. I almost consider you guys as a fractional CTO.",
+    quote: "We cannot live without you guys. I don't even consider you guys as an agency. I almost consider you guys as a fractional CTO. You guys delivered in a week what I tried to build in four months with another company. You're saving us probably $5,000+ a month just in tools alone.",
     name: "Enzo Carasso",
     role: "CEO, C17 Lab",
     photo: "/images/testimonials/enzo-carasso.jpg"
@@ -56,7 +56,7 @@ const testimonials = [
   {
     thumbnail: "/images/testimonials/thumbnail-3.png",
     video: "https://www.youtube.com/watch?v=RFEKjpiPl9Q&t=74s",
-    quote: "Not one fucking thing got done. Stimuli built our lead database in week one.",
+    quote: "These other guys told me 4 months and $42,000 and you guys built the whole damn thing in a week. We saved $8,000+ on data costs from month one. Everyone else just sucked. It's like night and day different compared to everyone else we've tried.",
     name: "Taylor Haren",
     role: "CEO, Sales Automation Systems",
     photo: "/images/testimonials/taylor-haren.jpg"
@@ -64,23 +64,23 @@ const testimonials = [
   {
     thumbnail: "/images/testimonials/thumbnail-4.png",
     video: "https://www.youtube.com/watch?v=UxK4lVHdlXs&t=1s",
-    quote: "Charge them triple what you charge us.",
+    quote: "The first 3 days he saved like 50% of the cost that he brings with him. We scaled up to over 60 clients and we have 4 to 5 people in the real fulfillment team. What he built up there could be state-of-the-art. I didn't want to have this interview in the first place because I don't want others to have you as a partner.",
     name: "Michael Ewald",
-    role: "Co-Founder, Vangates",
+    role: "Founder, Vangates",
     photo: "/images/testimonials/michael-ewald.jpg"
   },
   {
     thumbnail: "/images/testimonials/thumbnail-2.png",
     video: "https://www.youtube.com/watch?v=3GSPi5y3Kd4&t=1s",
-    quote: "Real transformation from duct-taped workflows to production-grade systems.",
+    quote: "There hasn't really been anything that we've asked them to do that they haven't been able to figure out a way to solve. The dashboards make us look like miles ahead of everyone else. 10 out of 10 to work with.",
     name: "AJ Cassata",
-    role: "Founder, Revenue Boost",
+    role: "Co-founder, Revenue Boost",
     photo: "/images/testimonials/aj-cassata.jpg"
   },
   {
     thumbnail: "/images/testimonials/thumbnail-5.png",
     video: "https://www.youtube.com/watch?v=NY2uxCKoyEg&t=10s",
-    quote: "The speed at which you guys work is remarkable.",
+    quote: "If we look back on where we were 2 months ago, we were an agency that was doing everything manually. Now we're like a scalable company largely driven by technology and saving hours a day across all of our departments.",
     name: "Naeem Alvi-Assinder",
     role: "Founder, Avalanche",
     photo: "/images/testimonials/naeem-alvi.jpg"
@@ -88,7 +88,7 @@ const testimonials = [
   {
     thumbnail: "/images/testimonials/hypergen-thumbnail.png",
     video: "https://www.youtube.com/watch?v=WwxT5F_I1Ig",
-    quote: "Built our entire backend infrastructure in record time.",
+    quote: "Because they were a B2B lead generation agency before they started working with us they understood our process very easily. They immediately implement the stuff that they had done for their others. The communication has been so easy. They respond super fast. They're very very very hardworking guys.",
     name: "Aleksander Ivanov",
     role: "CEO, Hypergen",
     photo: "/images/testimonials/aleksander-ivanov.jpg"
@@ -96,7 +96,7 @@ const testimonials = [
   {
     thumbnail: "/images/testimonials/alex-vacca-thumbnail.jpg",
     video: "https://www.youtube.com/watch?v=wqFzqYYMvVU",
-    quote: "We tested two or three automation agencies before. Stimuli had impact from month one because they actually understand the lead gen industry.",
+    quote: "We had tested like 2-3 different automation agencies and it was always very difficult to make them really embedded in the team. With you guys it was completely different. From month one you were directly able to have an impact on the business. We've been managing 70 clients at the same time.",
     name: "Alex Vacca",
     role: "CEO, Cold IQ",
     photo: "/images/testimonials/alex-vacca.jpg"
@@ -104,7 +104,7 @@ const testimonials = [
   {
     thumbnail: "/images/testimonials/harrison-waid-thumbnail.jpg",
     video: "https://www.youtube.com/watch?v=-BTRoVtp9bI",
-    quote: "I tried vibe coding it myself with Claude and Cursor. Stimuli built the full client portal, clients love it, and bug fixes happen in Slack in minutes.",
+    quote: "Found this bug. Cool. Fixed. Hey, we want to build out this new feature. Cool. It's implemented. The iteration cycles are very quick. We were about 20 clients per client operations manager. Clients love it. Having a single place to go for everything.",
     name: "Harrison Waid",
     role: "Founder, Succession",
     photo: "/images/testimonials/harrison-waid.jpeg"
@@ -112,7 +112,7 @@ const testimonials = [
   {
     thumbnail: "/images/testimonials/felix-frank-thumbnail.jpg",
     video: "https://www.youtube.com/watch?v=vm-AaFYqu5I",
-    quote: "We were hitting Airtable's limits with bad data across the board. Stimuli took our entire operations up a level, now we can scale from 30 to 60 clients without adding headcount.",
+    quote: "The speed of delivery is exceptional. We set new projects each week and the turnaround time is always extremely fast. Right now we have 30 clients on our books. With the delivery team that you guys have basically enabled us to unlock, we probably have capacity for around 50-60 clients. Our entire operations have just gone up an entire new level.",
     name: "Felix Frank",
     role: "Founder, Stack Optimize",
     photo: "/images/testimonials/felix-frank.jpeg"
