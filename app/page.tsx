@@ -162,6 +162,14 @@ export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  // Auto-advance testimonials every 7 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlide(prev => (prev + 1) % testimonials.length);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, []);
+
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
   // Intersection Observer for scroll-triggered reveals
@@ -390,77 +398,82 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="relative max-w-[680px] mx-auto">
-            {/* Video thumbnail */}
-            {testimonials[activeSlide].video ? (
-              <div className="relative aspect-video rounded-xl overflow-hidden mb-5 group cursor-pointer border border-gray-200">
-                <a href={testimonials[activeSlide].video} target="_blank" rel="noopener noreferrer">
+          <div className="relative">
+
+            {/* Single card: video top, quote bottom */}
+            <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm mb-6">
+
+              {/* TOP — video thumbnail, full 16:9 */}
+              <div className="relative w-full cursor-pointer group" style={{ aspectRatio: '16/9' }}>
+                {testimonials[activeSlide].video ? (
+                  <a href={testimonials[activeSlide].video} target="_blank" rel="noopener noreferrer" className="block absolute inset-0">
+                    <Image
+                      key={`thumb-${activeSlide}`}
+                      src={testimonials[activeSlide].thumbnail || testimonials[activeSlide].photo}
+                      alt={testimonials[activeSlide].name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/25 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                      <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg">
+                        <svg className="w-5 h-5 text-brand-blue ml-0.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </a>
+                ) : (
                   <Image
                     key={`thumb-${activeSlide}`}
-                    src={testimonials[activeSlide].thumbnail || testimonials[activeSlide].photo}
+                    src={testimonials[activeSlide].photo}
                     alt={testimonials[activeSlide].name}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover object-top"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                    <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg">
-                      <svg className="w-5 h-5 text-brand-blue ml-0.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                    </div>
-                  </div>
-                </a>
+                )}
               </div>
-            ) : (
-              <div className="relative aspect-video rounded-xl overflow-hidden mb-5 border border-gray-200 flex items-center justify-center bg-gray-50">
-                <Image
-                  key={`thumb-${activeSlide}`}
-                  src={testimonials[activeSlide].photo}
-                  alt={testimonials[activeSlide].name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
 
-            {/* Quote */}
-            <div className="max-w-lg mx-auto text-center mb-5 min-h-[100px] flex flex-col justify-center">
-              <p key={activeSlide} className="text-lg font-semibold text-brand-black leading-snug mb-3">
-                &ldquo;{testimonials[activeSlide].quote}&rdquo;
-              </p>
-              <div key={`author-${activeSlide}`} className="flex items-center justify-center gap-2.5">
-                <img
-                  src={testimonials[activeSlide].photo}
-                  alt={testimonials[activeSlide].name}
-                  className="w-9 h-9 rounded-full object-cover"
-                />
-                <div className="text-left">
-                  <p className="font-semibold text-brand-black text-sm">{testimonials[activeSlide].name}</p>
-                  <p className="text-xs text-gray-500">{testimonials[activeSlide].role}</p>
+              {/* BOTTOM — quote + author */}
+              <div className="bg-white px-8 py-7">
+                {/* Quote — invisible spacer sets height to longest quote, active quote overlays it */}
+                <div className="relative mb-6">
+                  <p className="invisible text-[17px] font-semibold leading-relaxed" aria-hidden="true">
+                    &ldquo;{testimonials.reduce((a, b) => a.quote.length > b.quote.length ? a : b).quote}&rdquo;
+                  </p>
+                  <p key={activeSlide} className="absolute inset-0 text-[17px] font-semibold text-brand-black leading-relaxed">
+                    &ldquo;{testimonials[activeSlide].quote}&rdquo;
+                  </p>
+                </div>
+                {/* Face selector + author name — one unified row */}
+                <div className="flex items-center justify-between pt-5 border-t border-gray-100">
+                  <div className="flex items-center gap-2">
+                    {testimonials.map((t, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          setActiveSlide(idx);
+                        }}
+                        className={`transition-all duration-300 ${
+                          idx === activeSlide
+                            ? 'scale-110'
+                            : 'opacity-35 hover:opacity-100 hover:scale-105'
+                        }`}
+                        aria-label={`View testimonial from ${t.name}`}
+                      >
+                        <img
+                          src={t.photo}
+                          alt={t.name}
+                          className={`w-9 h-9 rounded-full object-cover ${idx === activeSlide ? 'ring-2 ring-brand-blue' : 'ring-1 ring-gray-200'}`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                  <div key={`author-${activeSlide}`} className="text-right">
+                    <p className="font-bold text-brand-black text-sm">{testimonials[activeSlide].name}</p>
+                    <p className="text-xs text-gray-500">{testimonials[activeSlide].role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Face selector */}
-            <div className="flex items-center justify-center gap-2">
-              {testimonials.map((t, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveSlide(idx)}
-                  className={`transition-all duration-300 ${
-                    idx === activeSlide
-                      ? 'scale-110'
-                      : 'opacity-40 hover:opacity-100 hover:scale-105'
-                  }`}
-                  aria-label={`View testimonial from ${t.name}`}
-                >
-                  <img
-                    src={t.photo}
-                    alt={t.name}
-                    className={`w-10 h-10 rounded-full object-cover ${idx === activeSlide ? 'ring-2 ring-brand-blue' : 'ring-1 ring-gray-200'}`}
-                  />
-                </button>
-              ))}
             </div>
           </div>
         </div>
