@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { ClientLogosTicker } from "./components/ClientLogosTicker";
 
-const rotatingWords = ["marketing", "sales", "RevOps", "GTM"];
+const rotatingWords = ["Rev", "Marketing", "Sales"];
 
 function RotatingWord() {
   const [index, setIndex] = useState(0);
@@ -24,13 +23,71 @@ function RotatingWord() {
   }, []);
 
   return (
-    <span className={`text-brand-blue transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-      {rotatingWords[index]}
+    <span className="inline-block text-brand-blue relative">
+      {/* Invisible spacer — widest word sets the width */}
+      <span className="invisible" aria-hidden="true">Marketing</span>
+      {/* Visible word, right-aligned so "Ops" stays anchored */}
+      <span className={`absolute inset-0 text-right transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}>
+        {rotatingWords[index]}
+      </span>
     </span>
   );
 }
-import TimelineSection from "./components/TimelineSection";
-import { SolutionsDropdown } from "./components/solutions-dropdown";
+
+const engineers = [
+  {
+    name: "Giorgi Nadareishvili",
+    photo: "/images/team/giorgi-nadareishvili.jpg",
+    headline: "IOI Bronze Medalist",
+    sub: "EJOI Silver · RMI Silver · 5 International Medals",
+    linkedin: "https://www.linkedin.com/in/giorgi-nadareishvili-661794187/",
+    profiles: [
+      { label: "CPHOF", url: "https://cphof.org/profile/codeforces:binpaw" },
+      { label: "IOI Stats", url: "https://stats.ioinformatics.org/people/7457" },
+      { label: "CLIST", url: "https://clist.by/coder/%E2%88%A83884967/" },
+      { label: "IOI 2021", url: "https://ioirankings.com/ioi-2021/" },
+      { label: "IOI Results", url: "https://scoreboard.bc-pf.org/en/results/informatics/international-olympiad-in-informatics/2021" },
+    ],
+  },
+  {
+    name: "Gega Abashidze",
+    photo: "/images/team/gega-abashidze.png",
+    headline: "20+ Olympiad Wins",
+    sub: "ICPC Semifinalist · Millennium Innovation Award",
+    linkedin: "https://www.linkedin.com/in/gega-abashidze-1168b728b/",
+  },
+  {
+    name: "Luka Liklikadze",
+    photo: "/images/team/luka-liklikadze.jpeg",
+    headline: "National Champion",
+    sub: "ICPC Semifinalist · \"Smartest Kid in the Country\"",
+    linkedin: "https://www.linkedin.com/in/luka-liklikadze-571bb4324/",
+    profiles: [
+      { label: "TV Final", url: "https://www.youtube.com/watch?v=T5l27Jsgb2M" },
+    ],
+  },
+  {
+    name: "Lasha Gorgodze",
+    photo: "/images/team/lasha-gorgodze.jpeg",
+    headline: "Math Teacher → Engineer",
+    sub: "ML Certified · Automation Architect · Backend Pipelines",
+    linkedin: "https://www.linkedin.com/in/lasha-gorgodze/",
+  },
+  {
+    name: "Dimitri Takavadze",
+    photo: "/images/team/dimitri-takavadze.jpeg",
+    headline: "The Algorithmist",
+    sub: "Algorithms Specialist · Free University CS & Math",
+    linkedin: "https://www.linkedin.com/in/dimitri-tkavadze/",
+  },
+  {
+    name: "Ketevan Arevadze",
+    photo: "/images/team/ketevan-arevadze.png",
+    headline: "Full-Stack Engineer",
+    sub: "Physics Background · Frontend & Backend Systems",
+    linkedin: "https://www.linkedin.com/in/ketevan-arevadze-1a60b2339/",
+  },
+];
 
 const clientLogos = [
   { src: "/images/logos/clients/coldiq-large.svg", alt: "ColdIQ", w: "w-32" },
@@ -43,6 +100,10 @@ const clientLogos = [
   { src: "/images/logos/clients/succession.png", alt: "Succession", w: "w-28" },
   { src: "/images/logos/clients/oneaway.jpeg", alt: "OneAway", w: "w-48" }
 ];
+
+function highlightQuote(text: string): React.ReactNode {
+  return text;
+}
 
 const testimonials = [
   {
@@ -119,48 +180,23 @@ const testimonials = [
   },
 ];
 
-const faqItems = [
-  {
-    q: "What's different from hiring a dev?",
-    a: "A dev builds what you spec. We've wired 40+ agency stacks and know what breaks, what scales, and what wastes money. We ran our own agency. That's the difference."
-  },
-  {
-    q: "How is this different from automation consultants?",
-    a: "Consultants connect tools with Zapier. We write code. Real databases. Real AI. Zapier breaks at scale. We don't."
-  },
-  {
-    q: "Do I own the code?",
-    a: "Yes. Code, schemas, documentation. Everything. No vendor lock."
-  },
-  {
-    q: "What happens in the first week?",
-    a: "Monday: audit. Wednesday: biggest fire fixed. Next Monday: software. Not slides."
-  },
-  {
-    q: "How much does this cost?",
-    a: "€6K–€10K/month. 2 months notice. You own everything. Most clients ROI month one."
-  },
-  {
-    q: "Is this only for agencies?",
-    a: "Primarily yes. We built this because we ran one. B2B companies with complex outbound stacks work with us too."
-  },
-  {
-    q: "Can you integrate with [our tool]?",
-    a: "If it has an API or exports data, yes. If it doesn't, we'll find another way."
-  },
-  {
-    q: "Do you replace our CRM?",
-    a: "No. We centralize all your campaign and channel data into one layer, then push clean data back into your CRM. It becomes more useful, not replaced."
-  },
-  {
-    q: "What if we want to stop?",
-    a: "You cancel. You keep the code. It keeps running. No drama."
-  }
-];
+const testimonialResults: Record<string, { stat: string; label: string }[]> = {
+  "Enzo Carasso": [{ stat: "$5K+", label: "saved/mo" }, { stat: "4mo → 1wk", label: "delivery" }],
+  "Taylor Haren": [{ stat: "$8K+", label: "saved/mo" }, { stat: "2 employees", label: "30+ clients" }],
+  "Michael Ewald": [{ stat: "50%", label: "cost saved in 3 days" }, { stat: "60+", label: "clients managed" }],
+  "AJ Cassata": [{ stat: "10/10", label: "to work with" }, { stat: "Miles ahead", label: "of competition" }],
+  "Naeem Alvi-Assinder": [{ stat: "2 months", label: "full transformation" }, { stat: "Hours/day", label: "saved across depts" }],
+  "Aleksander Ivanov": [{ stat: "Super fast", label: "response time" }, { stat: "Instant", label: "implementation" }],
+  "Alex Vacca": [{ stat: "70", label: "clients managed" }, { stat: "Month 1", label: "business impact" }],
+  "Harrison Waid": [{ stat: "20 clients", label: "per ops manager" }, { stat: "Quick", label: "iteration cycles" }],
+  "Felix Frank": [{ stat: "30 → 60", label: "client capacity" }, { stat: "Exceptional", label: "delivery speed" }],
+};
+
+
 
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
   // Auto-advance testimonials every 7 seconds
   useEffect(() => {
@@ -170,9 +206,6 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
-  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
-
-  // Intersection Observer for scroll-triggered reveals
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -195,73 +228,8 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  // Testimonial carousel - no auto-rotation for user control
-
-  // Structured Data for SEO
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqItems.map(item => ({
-      "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.a
-      }
-    }))
-  };
-
-  const videoSchemas = testimonials.filter(t => t.video).map(testimonial => ({
-    "@context": "https://schema.org",
-    "@type": "VideoObject",
-    "name": `${testimonial.name} - ${testimonial.role} Testimonial`,
-    "description": testimonial.quote,
-    "thumbnailUrl": testimonial.thumbnail ? `https://stimulidigital.com${testimonial.thumbnail}` : undefined,
-    "uploadDate": "2024-01-01",
-    "contentUrl": testimonial.video,
-    "embedUrl": testimonial.video
-  }));
-
-  const reviewSchemas = testimonials.map(testimonial => ({
-    "@context": "https://schema.org",
-    "@type": "Review",
-    "itemReviewed": {
-      "@type": "Organization",
-      "name": "Stimuli Digital"
-    },
-    "author": {
-      "@type": "Person",
-      "name": testimonial.name
-    },
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": "5",
-      "bestRating": "5"
-    },
-    "reviewBody": testimonial.quote
-  }));
-
   return (
     <main className="relative">
-      {/* Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      {videoSchemas.map((schema, idx) => (
-        <script
-          key={`video-${idx}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
-      {reviewSchemas.map((schema, idx) => (
-        <script
-          key={`review-${idx}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
       {/* ═══════════════════════════════════════════
           NAVIGATION
       ═══════════════════════════════════════════ */}
@@ -282,22 +250,21 @@ export default function Home() {
             </div>
 
             <div className="hidden lg:flex items-center gap-10">
-              <Link href="/#solution" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+              <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Services
               </Link>
-              <Link href="/#case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Client Success
+              <Link href="/#videos" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Case Studies
               </Link>
               <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 About
               </Link>
-              <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+              <Link href="/database#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Pricing
               </Link>
-              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+              <Link href="/database#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 FAQs
               </Link>
-              <SolutionsDropdown />
               <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Our History
               </Link>
@@ -319,29 +286,21 @@ export default function Home() {
           SECTION 1: HERO
       ═══════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-brand-black">
-        {/* Ambient gradient */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-brand-blue/[0.07] rounded-full blur-[120px]"></div>
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-[100px]"></div>
         </div>
-
-        {/* Grid overlay */}
         <div className="absolute inset-0 hero-grid opacity-[0.03]"></div>
 
         <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full">
           <div className="max-w-5xl mx-auto text-center">
-            {/* Headline */}
-            <h1 className="hero-fade-up hero-fade-up-1 text-[2.5rem] sm:text-5xl lg:text-[5rem] font-extrabold tracking-[-0.03em] leading-[1.05] mb-6 text-white">
-              We build the software<br/>your <span className="text-brand-blue">Revenue</span> stack is missing
+            <h1 className="hero-fade-up hero-fade-up-1 text-[2.5rem] sm:text-5xl lg:text-[4.5rem] font-extrabold tracking-[-0.03em] leading-[1.05] mb-6 text-white">
+              <RotatingWord />Ops Veterans.<br/>Olympiad-Winning Engineers.
             </h1>
-
-            {/* Subheadline */}
             <p className="hero-fade-up hero-fade-up-2 text-lg lg:text-xl text-white/55 leading-relaxed mb-10 max-w-2xl mx-auto font-light tracking-tight text-balance">
-              We capture your raw data, store it the right way, then build the automations and AI that run on it.
+              Building operational systems your stack is missing.
             </p>
-
-            {/* CTA */}
-            <div className="hero-fade-up hero-fade-up-3 flex items-center justify-center mb-8">
+            <div className="hero-fade-up hero-fade-up-3 flex items-center justify-center gap-4 mb-8">
               <Link
                 href="https://calendly.com/sergi-feq/30min"
                 target="_blank"
@@ -349,15 +308,13 @@ export default function Home() {
                 className="group relative px-8 py-4 bg-brand-blue text-white rounded-full font-semibold text-base overflow-hidden transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,102,255,0.4),0_0_80px_rgba(183,148,246,0.2)] hover:scale-[1.02]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Show me the gaps
+                  Book a discovery call
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                   </svg>
                 </span>
               </Link>
             </div>
-
-            {/* Social proof — human faces front and center */}
             <div className="hero-fade-up hero-fade-up-4 flex flex-col items-center gap-4">
               <div className="flex -space-x-3">
                 {testimonials.map((t, i) => (
@@ -369,7 +326,7 @@ export default function Home() {
                   />
                 ))}
               </div>
-              <span className="text-sm text-white/50 font-medium">Trusted by 40+ Revenue teams and agencies</span>
+              <span className="text-sm text-white/50 font-medium">Trusted by 40+ Revenue teams across 4 continents</span>
             </div>
           </div>
         </div>
@@ -399,10 +356,8 @@ export default function Home() {
           </div>
 
           <div className="relative">
-
             {/* Single card: video top, quote bottom */}
             <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-sm mb-6">
-
               {/* TOP — video thumbnail, full 16:9 */}
               <div className="relative w-full cursor-pointer group" style={{ aspectRatio: '16/9' }}>
                 {testimonials[activeSlide].video ? (
@@ -435,24 +390,34 @@ export default function Home() {
 
               {/* BOTTOM — quote + author */}
               <div className="bg-white px-8 py-7">
-                {/* Quote — invisible spacer sets height to longest quote, active quote overlays it */}
+                {testimonialResults[testimonials[activeSlide].name] && (
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {testimonialResults[testimonials[activeSlide].name].map((r, j) => (
+                      <div
+                        key={j}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-blue/[0.06] border border-brand-blue/10"
+                      >
+                        <span className="text-brand-blue font-extrabold text-[14px] tracking-tight">{r.stat}</span>
+                        <span className="text-gray-500 text-[11px] font-medium whitespace-nowrap">{r.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 <div className="relative mb-6">
                   <p className="invisible text-[17px] font-semibold leading-relaxed" aria-hidden="true">
                     &ldquo;{testimonials.reduce((a, b) => a.quote.length > b.quote.length ? a : b).quote}&rdquo;
                   </p>
                   <p key={activeSlide} className="absolute inset-0 text-[17px] font-semibold text-brand-black leading-relaxed">
-                    &ldquo;{testimonials[activeSlide].quote}&rdquo;
+                    &ldquo;{highlightQuote(testimonials[activeSlide].quote)}&rdquo;
                   </p>
                 </div>
-                {/* Face selector + author name — one unified row */}
+                {/* Face selector + author name */}
                 <div className="flex items-center justify-between pt-5 border-t border-gray-100">
                   <div className="flex items-center gap-2">
                     {testimonials.map((t, idx) => (
                       <button
                         key={idx}
-                        onClick={() => {
-                          setActiveSlide(idx);
-                        }}
+                        onClick={() => setActiveSlide(idx)}
                         className={`transition-all duration-300 ${
                           idx === activeSlide
                             ? 'scale-110'
@@ -479,531 +444,509 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Inline CTA — after Video Testimonials */}
+      <div className="flex justify-center py-8 bg-white">
+        <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue text-white rounded-full font-semibold text-sm hover:shadow-[0_0_30px_rgba(0,102,255,0.4)] transition-all duration-300">
+          Book a call
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+        </Link>
+      </div>
+
       {/* ═══════════════════════════════════════════
-          SECTION 4: THE PROBLEM
+          SECTION 4: SOUND FAMILIAR?
       ═══════════════════════════════════════════ */}
       <section
-        id="problem"
-        data-section-id="problem"
-        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('problem') ? 'visible' : ''}`}
+        data-section-id="sound-familiar"
+        className={`relative py-20 px-8 lg:px-12 bg-gray-50 reveal-section ${visibleSections.has('sound-familiar') ? 'visible' : ''}`}
       >
-        <div className="max-w-[1200px] mx-auto">
-          {/* Section label */}
-          <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4 text-center">
-            The Real Problem
-          </p>
-
-          {/* Headline */}
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black text-center mb-8 tracking-tight">
-            Your Campaigns Are Talking.<br/>
-            <span className="text-brand-blue">You Just Can't Hear Them.</span>
-          </h2>
-
-          {/* Main problem narrative */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <p className="text-lg text-brand-black/80 leading-relaxed">
-              Every tool you use generates raw data you never see. You get summaries someone else chose for you.
-            </p>
-          </div>
-
-          {/* Problem cards */}
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <div
-              data-section-id="problem-card-1"
-              className={`p-8 bg-gray-100/80 rounded-3xl border border-gray-400/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-1') ? 'visible' : ''}`}
-            >
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-brand-black mb-4">No Source of Truth</h3>
-              <p className="text-brand-black/70 leading-relaxed">
-                Smartlead says one thing. HubSpot says another. Five tools, five versions of the truth.
-              </p>
-            </div>
-
-            <div
-              data-section-id="problem-card-2"
-              className={`p-8 bg-gray-100/80 rounded-3xl border border-gray-400/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-2') ? 'visible' : ''}`}
-            >
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-brand-black mb-4">Every Answer Costs Days</h3>
-              <p className="text-brand-black/70 leading-relaxed">
-                Someone pulls exports, cleans data, stitches a spreadsheet. A seconds-long question becomes a days-long project. Then the data goes stale.
-              </p>
-            </div>
-
-            <div
-              data-section-id="problem-card-3"
-              className={`p-8 bg-gray-100/80 rounded-3xl border border-gray-400/15 shadow-[0_4px_24px_rgba(201,160,184,0.08)] reveal-card ${visibleSections.has('problem-card-3') ? 'visible' : ''}`}
-            >
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-brand-black mb-4">Invisible Waste</h3>
-              <p className="text-brand-black/70 leading-relaxed">
-                Which campaigns are quietly unprofitable? Which clients eat margin? The answers are in your raw data, but nobody captured it. What wasn&apos;t collected is gone.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Client Quote - Taylor Haren */}
-      <section className="relative py-10 px-8 lg:px-12 bg-white">
-        <div className="max-w-[600px] mx-auto">
-          <div className="p-6 rounded-2xl border border-gray-200 bg-gray-50">
-            <div className="flex items-center gap-3 mb-4">
-              <img src="/images/testimonials/taylor-haren.jpg" alt="Taylor Haren" className="w-10 h-10 rounded-full object-cover flex-shrink-0" />
-              <div>
-                <p className="font-semibold text-brand-black text-sm">Taylor Haren</p>
-                <p className="text-xs text-gray-500">CEO, Sales Automation Systems</p>
-              </div>
-            </div>
-            <p className="text-lg font-semibold text-brand-black leading-snug italic">
-              &ldquo;Spent 6 figures with agencies over 6 months. Not one fucking thing got done. Stimuli built our lead database in week one.&rdquo;
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          SECTION 5: CENTRALIZE > SEE > ACT
-      ═══════════════════════════════════════════ */}
-      <section
-        id="solution"
-        data-section-id="solution"
-        className={`relative py-20 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('solution') ? 'visible' : ''}`}
-      >
-        <div className="max-w-[1600px] mx-auto relative z-10">
-          {/* Section label */}
-          <p className="text-[13px] text-white/40 uppercase tracking-widest font-semibold mb-4 text-center">
-            How We Fix It
-          </p>
-
-          {/* Headline */}
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-white text-center mb-20 tracking-tight">
-            Three Pillars. <span className="text-gradient">One Operating System.</span>
-          </h2>
-
-          {/* Pillar 1: Real-time Centralized Raw Data */}
-          <div
-            data-section-id="layer-1"
-            className={`mb-20 reveal-card ${visibleSections.has('layer-1') ? 'visible' : ''}`}
-          >
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
-                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Pillar 1</span>
-                </div>
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Centralized Data Warehouse</h3>
-                <p className="text-xl text-white/60 mb-6">Every tool. Every campaign. One truth.</p>
-                <p className="text-white/70 leading-relaxed mb-6">
-                  Raw data from Instantly, Smartlead, HubSpot, Clay, ad platforms. One structured warehouse. Always current. Your actual data, not pre-aggregated summaries.
-                </p>
-                <p className="text-white/70 leading-relaxed">
-                  No conflicting numbers. No five exports for one answer. You own the raw data. Not someone else&apos;s summary.
-                </p>
-              </div>
-              <div className="relative h-80 bg-brand-black/80/40 border border-brand-blue/10 rounded-2xl p-8 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-3 mb-8 flex-wrap">
-                    <div className="px-4 py-2 bg-brand-black/80/60 border border-brand-blue/15 rounded-lg text-xs font-mono">HubSpot</div>
-                    <div className="px-4 py-2 bg-brand-black/80/60 border border-brand-blue/15 rounded-lg text-xs font-mono">Instantly</div>
-                    <div className="px-4 py-2 bg-brand-black/80/60 border border-brand-blue/15 rounded-lg text-xs font-mono">Smartlead</div>
-                    <div className="px-4 py-2 bg-brand-black/80/60 border border-brand-blue/15 rounded-lg text-xs font-mono">Clay</div>
-                  </div>
-                  <svg className="w-8 h-8 mx-auto mb-8 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  </svg>
-                  <div className="w-32 h-32 mx-auto bg-brand-blue/20 border-2 border-brand-blue rounded-2xl flex items-center justify-center">
-                    <svg className="w-16 h-16 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Pillar 2: Automated Predetermined Actions */}
-          <div
-            data-section-id="layer-2"
-            className={`mb-20 reveal-card ${visibleSections.has('layer-2') ? 'visible' : ''}`}
-          >
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="order-2 lg:order-1 relative h-80 bg-brand-black/80/40 border border-brand-blue/10 rounded-2xl p-6">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
-                      Campaign bounce rate spikes
-                    </div>
-                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
-                      Auto-pause + alert
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
-                      High-intent lead detected
-                    </div>
-                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
-                      Routed to closer
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 p-2 bg-white/5 border border-white/10 rounded text-xs font-mono text-white/60">
-                      Sequence reply positive
-                    </div>
-                    <svg className="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                    <div className="flex-1 p-2 bg-brand-blue/10 border border-brand-blue/20 rounded text-xs font-mono text-brand-blue">
-                      CRM stage updated
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="order-1 lg:order-2">
-                <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
-                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Pillar 2</span>
-                </div>
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Automated Predetermined Actions</h3>
-                <p className="text-xl text-white/60 mb-6">If X happens, Y fires. No one in the loop.</p>
-                <p className="text-white/70 leading-relaxed mb-6">
-                  Bounce detection, sequence pauses, lead routing, pipeline updates. Defined before they happen, running 24/7 without being touched.
-                </p>
-                <p className="text-white/70 leading-relaxed">
-                  Your team stops moving data between tools and starts driving results.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Pillar 3: Ask Your Campaigns Unique Questions */}
-          <div
-            data-section-id="layer-3"
-            className={`reveal-card ${visibleSections.has('layer-3') ? 'visible' : ''}`}
-          >
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="inline-block px-4 py-2 bg-brand-blue/10 border border-brand-blue/20 rounded-full mb-6">
-                  <span className="text-sm font-semibold text-brand-blue uppercase tracking-wide">Pillar 3</span>
-                </div>
-                <h3 className="text-3xl lg:text-4xl font-bold mb-4">Ask Your Data Anything</h3>
-                <p className="text-xl text-white/60 mb-6">Type a question. Get a real answer in seconds.</p>
-                <p className="text-white/70 leading-relaxed mb-6">
-                  &quot;Cost-per-qualified-lead for Client X?&quot; &quot;Which sequence step is losing people?&quot; &quot;Why did Campaign 7 underperform this week?&quot;
-                </p>
-                <p className="text-white/70 leading-relaxed">
-                  No exports. No dashboards. No waiting for a report. The raw data is already there. Just ask.
-                </p>
-              </div>
-              <div className="relative h-80 bg-brand-black/80/40 border border-brand-blue/10 rounded-2xl p-6">
-                {/* Visual: MCP conversation */}
-                <div className="space-y-3">
-                  <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
-                    <p className="text-xs font-mono text-white/50 mb-1">You:</p>
-                    <p className="text-sm font-mono text-white/80">Which clients are unprofitable right now?</p>
-                  </div>
-                  <div className="p-3 bg-brand-blue/10 border border-brand-blue/30 rounded-lg">
-                    <p className="text-xs font-mono text-brand-blue mb-1">MCP:</p>
-                    <p className="text-sm font-mono text-brand-blue">3 clients are margin-negative. Client X costs $4.2K/mo to serve, generated $1.8K. Recommend pausing Sequence C and reallocating to Sequence A.</p>
-                  </div>
-                  <div className="p-3 bg-white/5 border border-white/10 rounded-lg">
-                    <p className="text-xs font-mono text-white/50 mb-1">You:</p>
-                    <p className="text-sm font-mono text-white/80">What if we cut those three and doubled down on the top 5?</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          SECTION 7: WHAT HAPPENS AFTER YOU SAY YES
-      ═══════════════════════════════════════════ */}
-      <TimelineSection />
-
-      {/* ═══════════════════════════════════════════
-          SECTION 9: COMPARISON
-      ═══════════════════════════════════════════ */}
-      <section
-        id="comparison"
-        data-section-id="comparison"
-        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('comparison') ? 'visible' : ''}`}
-      >
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-16">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-14">
             <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4">
-              How We Compare
+              Sound Familiar?
             </p>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight">
-              Why Agencies <span className="text-brand-blue">Switch to Stimuli.</span>
+              You&apos;ve Tried to <span className="text-brand-blue">Solve This Before.</span>
             </h2>
           </div>
 
-          {/* Comparison Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr>
-                  <th className="text-left p-4 text-sm font-semibold text-brand-black/60 uppercase tracking-wider border-b-2 border-gray-400/20 w-1/4"></th>
-                  <th className="p-4 text-sm font-semibold text-brand-black/40 uppercase tracking-wider border-b-2 border-gray-400/20 text-center">DIY / Internal</th>
-                  <th className="p-4 text-sm font-semibold text-brand-black/40 uppercase tracking-wider border-b-2 border-gray-400/20 text-center">Automation Consultants</th>
-                  <th className="p-4 text-sm font-bold text-brand-blue uppercase tracking-wider border-b-2 border-brand-blue text-center bg-brand-blue/5 rounded-t-xl">Stimuli</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { feature: "Raw data ownership", diy: "Partial", consultant: "No", stimuli: "Full ownership" },
-                  { feature: "Real-time campaign data", diy: "Manual exports", consultant: "Batch updates", stimuli: "Live sync" },
-                  { feature: "Cross-channel visibility", diy: "Spreadsheets", consultant: "Dashboard only", stimuli: "Unified schema" },
-                  { feature: "Automated actions", diy: "Zapier chains", consultant: "Basic triggers", stimuli: "Predetermined rules" },
-                  { feature: "Ask questions in real time", diy: "Not possible", consultant: "Not possible", stimuli: "MCP-powered" },
-                  { feature: "Custom to your stack", diy: "You build it", consultant: "Templates", stimuli: "Engineered for you" },
-                  { feature: "Scales past 50+ clients", diy: "Breaks", consultant: "Breaks", stimuli: "Built for scale" },
-                  { feature: "Time to first result", diy: "Months", consultant: "Weeks", stimuli: "Week 1" },
-                ].map((row, idx) => (
-                  <tr key={idx} className={idx % 2 === 0 ? 'bg-gray-50/50' : ''}>
-                    <td className="p-4 text-sm font-semibold text-brand-black border-b border-gray-400/10">{row.feature}</td>
-                    <td className="p-4 text-sm text-brand-black/50 text-center border-b border-gray-400/10">{row.diy}</td>
-                    <td className="p-4 text-sm text-brand-black/50 text-center border-b border-gray-400/10">{row.consultant}</td>
-                    <td className="p-4 text-sm font-semibold text-brand-blue text-center border-b border-gray-400/10 bg-brand-blue/5">{row.stimuli}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid md:grid-cols-3 gap-6 mb-10">
+            {[
+              {
+                title: "Your Tools Don\u2019t Talk to Each Other",
+                body: "CRM says one thing. Spreadsheet says another. You duct-taped 6 tools together and now nobody trusts the numbers. Least of all your team.",
+              },
+              {
+                title: "Growth Means More Headcount",
+                body: "Every time revenue grows, so does the team. You\u2019ve tried no-code, automations, even an internal build. Nothing holds at scale.",
+              },
+              {
+                title: "Your Best People Do the Worst Work",
+                body: "Data entry. Status updates. Weekly reports nobody reads. Your highest-paid team members spend hours on tasks a system should handle.",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                data-section-id={`familiar-${i}`}
+                className={`p-6 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has(`familiar-${i}`) ? 'visible' : ''}`}
+              >
+                <p className="font-bold text-brand-black text-base mb-2">{item.title}</p>
+                <p className="text-brand-black/50 text-[15px] leading-relaxed">{item.body}</p>
+              </div>
+            ))}
           </div>
-        </div>
-      </section>
 
-      {/* CTA after Comparison */}
-      <section className="relative py-16 px-8 lg:px-12 bg-brand-black">
-        <div className="max-w-[700px] mx-auto text-center">
-          <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-            Ready to see what your data is hiding?
-          </h3>
-          <p className="text-lg text-white/60 mb-8">
-            30 minutes. We audit your stack and show you what&apos;s broken. No pitch.
-          </p>
-          <Link
-            href="https://calendly.com/sergi-feq/30min"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-brand-blue text-white rounded-full font-bold text-lg hover:shadow-[0_0_40px_rgba(0,102,255,0.4)] transition-shadow duration-300"
-          >
-            Book a call
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION: PRICING
+          SECTION 5: WHY STIMULI
       ═══════════════════════════════════════════ */}
       <section
-        id="pricing"
-        data-section-id="pricing"
-        className={`relative py-32 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('pricing') ? 'visible' : ''}`}
+        data-section-id="why-us"
+        className={`relative py-24 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('why-us') ? 'visible' : ''}`}
       >
-        <div className="max-w-[1200px] mx-auto relative z-10">
-
-          {/* Hero block */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight leading-[1.1]">
-              Your Tech-Ops Department.
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-20">
+            <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4">
+              Why Stimuli
+            </p>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight">
+              Marketing + Sales + Engineering.<br /><span className="text-brand-blue">All Under One Roof.</span>
             </h2>
-            <p className="text-lg lg:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
-              Your operations run themselves. Your team focuses on results. You scale from 30 clients to 60+ without hiring. We&apos;re the department that makes it happen.
+          </div>
+
+          {/* ── CHAPTER 1: THE OPERATORS ── */}
+          <div
+            data-section-id="operators"
+            className={`mb-20 reveal-card ${visibleSections.has('operators') ? 'visible' : ''}`}
+          >
+            <h3 className="text-2xl lg:text-3xl font-bold text-brand-black mb-4">
+              We&apos;ve Done Your Job Before
+            </h3>
+            <p className="text-brand-black/55 leading-relaxed mb-8 max-w-3xl text-[15px]">
+              We started as marketing and RevOps leaders on one side, solutions architects and engineers on the other. Together we built a B2B lead gen agency from scratch. The technical walls kept showing up, so we built the fixes ourselves. Then started shipping them to every revenue team and agency that needed them.
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-4 mb-6">
+              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                <img src="/images/team/sergi.jpeg" alt="Sergi Cheishvili" className="w-16 h-16 rounded-xl object-cover" />
+                <div>
+                  <p className="font-bold text-brand-black">Sergi Cheishvili</p>
+                  <p className="text-sm text-brand-black/50">Co-Founder & CEO</p>
+                  <p className="text-xs text-brand-black/40 mt-1">From selling software to building it. 20+ companies on both sides of the table.</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                <img src="/images/team/Rezi.jpeg" alt="Rezi Dzidziguri" className="w-16 h-16 rounded-xl object-cover" />
+                <div>
+                  <p className="font-bold text-brand-black">Rezi Dzidziguri</p>
+                  <p className="text-sm text-brand-black/50">Co-Founder & CTO</p>
+                  <p className="text-xs text-brand-black/40 mt-1">CS and BA dropout. Architected TBC Bank&#39;s award-winning digital platform.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-200 mb-20"></div>
+
+          {/* ── CHAPTER 2: THE ENGINEERS ── */}
+          <div
+            data-section-id="engineers"
+            className={`reveal-card ${visibleSections.has('engineers') ? 'visible' : ''}`}
+          >
+            <h3 className="text-2xl lg:text-3xl font-bold text-brand-black mb-4">
+              Engineers Who Build to Scale
+            </h3>
+            <p className="text-brand-black/55 leading-relaxed mb-10 max-w-3xl text-[15px]">
+              CS majors from Eastern Europe&apos;s top university. International olympiad medalists. They architect systems that grow with your business.
+            </p>
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+              {engineers.map((eng, i) => (
+                <div
+                  key={i}
+                  data-section-id={`eng-${i}`}
+                  className={`p-5 bg-gray-50 rounded-2xl border border-gray-200 text-center reveal-card ${visibleSections.has(`eng-${i}`) ? 'visible' : ''}`}
+                >
+                  <img src={eng.photo} alt={eng.name} className="w-16 h-16 rounded-xl object-cover mx-auto mb-3" />
+                  <p className="font-bold text-brand-black text-[15px]">{eng.name}</p>
+                  <p className="text-brand-blue font-bold text-sm mt-1">{eng.headline}</p>
+                  <p className="text-brand-black/40 text-[12px] mt-1 leading-snug">{eng.sub}</p>
+                  <div className="flex flex-wrap items-center justify-center gap-2 mt-3">
+                    {eng.linkedin && (
+                      <a href={eng.linkedin} target="_blank" rel="noopener noreferrer" className="text-brand-black/30 hover:text-brand-blue transition-colors">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                      </a>
+                    )}
+                    {eng.profiles?.map((p, j) => (
+                      <a key={j} href={p.url} target="_blank" rel="noopener noreferrer" className="text-[10px] font-semibold text-brand-black/30 hover:text-brand-blue transition-colors underline underline-offset-2">
+                        {p.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 6: THREE PILLARS — HOW WE FIX IT
+      ═══════════════════════════════════════════ */}
+      <section
+        id="services"
+        data-section-id="pillars"
+        className={`relative py-24 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('pillars') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-20">
+            <p className="text-[13px] text-brand-blue uppercase tracking-widest font-semibold mb-4">
+              How We Fix It
+            </p>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+              Three Pillars. <span className="text-brand-blue">One Operating System.</span>
+            </h2>
+          </div>
+
+          {/* Pillar 1: Centralized Data Warehouse — Foundation */}
+          <div
+            data-section-id="pillar-1"
+            className={`relative mb-24 reveal-card ${visibleSections.has('pillar-1') ? 'visible' : ''}`}
+          >
+            {/* Foundation visual container */}
+            <div className="relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 lg:p-12">
+              {/* Subtle grid pattern background */}
+              <div className="absolute inset-0 overflow-hidden rounded-2xl opacity-30">
+                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <pattern id="warehouse-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,102,255,0.06)" strokeWidth="1"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#warehouse-grid)" />
+                </svg>
+              </div>
+
+              <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                {/* Left: SVG data flow diagram */}
+                <div className="flex justify-center">
+                  <svg width="320" height="200" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-[320px]">
+                    {/* Source nodes */}
+                    {[
+                      { x: 30, y: 30, label: "CRM" },
+                      { x: 30, y: 80, label: "Ads" },
+                      { x: 30, y: 130, label: "Billing" },
+                      { x: 30, y: 170, label: "Support" },
+                    ].map((node, i) => (
+                      <g key={i}>
+                        <rect x={node.x} y={node.y - 12} width="60" height="24" rx="4" fill="rgba(0,102,255,0.06)" stroke="rgba(0,102,255,0.15)" strokeWidth="1" />
+                        <text x={node.x + 30} y={node.y + 3} textAnchor="middle" fill="rgba(255,255,255,0.35)" fontSize="10" fontFamily="monospace">{node.label}</text>
+                        {/* Flow line to center */}
+                        <line x1="95" y1={node.y} x2="175" y2="100" stroke="rgba(0,102,255,0.12)" strokeWidth="1" />
+                        {/* Animated dot */}
+                        <circle r="2" fill="rgba(0,102,255,0.5)">
+                          <animateMotion dur={`${2.5 + i * 0.4}s`} repeatCount="indefinite" path={`M95,${node.y} L175,100`} />
+                        </circle>
+                      </g>
+                    ))}
+                    {/* Central warehouse */}
+                    <rect x="175" y="70" width="120" height="60" rx="8" fill="rgba(0,102,255,0.08)" stroke="rgba(0,102,255,0.3)" strokeWidth="1.5" />
+                    {/* Data warehouse icon: stacked discs */}
+                    <g transform="translate(205, 76)">
+                      {/* Bottom disc + body */}
+                      <path d="M0,38 L0,18" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      <path d="M60,38 L60,18" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      <ellipse cx="30" cy="38" rx="30" ry="8" fill="rgba(0,102,255,0.1)" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      {/* Middle disc */}
+                      <ellipse cx="30" cy="26" rx="30" ry="8" fill="rgba(0,102,255,0.1)" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      {/* Top disc body */}
+                      <path d="M0,26 L0,8" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      <path d="M60,26 L60,8" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      {/* Top disc */}
+                      <ellipse cx="30" cy="8" rx="30" ry="8" fill="rgba(0,102,255,0.2)" stroke="rgba(0,102,255,0.6)" strokeWidth="1.5" />
+                    </g>
+                  </svg>
+                </div>
+
+                {/* Right: Text + tool flow */}
+                <div>
+                  <p className="text-brand-blue/60 text-xs uppercase tracking-[0.2em] font-semibold mb-4">Foundation</p>
+                  <h3 className="text-3xl lg:text-4xl font-extrabold text-white mb-5 tracking-tight">Every Source. One Place. Always Live.</h3>
+                  <p className="text-white/45 text-[15px] leading-relaxed mb-8">
+                    Your CRM, ad platforms, billing, and support tools synced into one place that updates itself. No more cross-referencing tabs. No more &ldquo;let me pull that number.&rdquo; One source of truth your entire revenue team actually trusts.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-mono">
+                    {["HubSpot", "Salesforce", "Google Ads", "Stripe", "Slack", "Intercom"].map((tool, i) => (
+                      <span key={tool} className="flex items-center gap-2">
+                        {i > 0 && <span className="text-white/10">·</span>}
+                        <span className="text-white/30">{tool}</span>
+                      </span>
+                    ))}
+                    <span className="text-white/10 mx-2">&rarr;</span>
+                    <span className="text-brand-blue/70 font-semibold">One Source of Truth</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Connector: Foundation → Capabilities */}
+          <div className="mb-20 flex flex-col items-center gap-3">
+            <div className="w-px h-10 bg-gradient-to-b from-brand-blue/20 to-transparent" />
+            <p className="text-white/25 text-xs uppercase tracking-[0.2em] font-semibold">Everything below runs on this</p>
+            <div className="flex items-center gap-3">
+              <div className="w-16 h-px bg-gradient-to-r from-transparent to-brand-blue/15" />
+              <div className="w-1.5 h-1.5 rounded-full bg-brand-blue/30" />
+              <div className="w-16 h-px bg-gradient-to-l from-transparent to-brand-blue/15" />
+            </div>
+          </div>
+
+          {/* Pillars 2 & 3 — side-by-side capabilities */}
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+
+            {/* Pillar 2: Automated Predetermined Actions */}
+            <div
+              data-section-id="pillar-2"
+              className={`rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 lg:p-8 reveal-card ${visibleSections.has('pillar-2') ? 'visible' : ''}`}
+            >
+              <p className="text-brand-blue/50 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Automation</p>
+              <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Set the Rules. Never Touch Them Again.</h3>
+              <p className="text-white/40 text-[15px] leading-relaxed mb-8">
+                Define what should happen when something changes. Then walk away. Your ops run on logic, not people remembering to check a spreadsheet.
+              </p>
+              {/* Product-style automation rules */}
+              <div className="space-y-3">
+                {[
+                  { trigger: "Deal inactive 7+ days", action: "Slack alert to AE + manager", status: "Active" },
+                  { trigger: "New trial signup", action: "Onboarding sequence + CRM update", status: "Active" },
+                  { trigger: "MRR drops 15% for account", action: "Churn risk flag + CS assigned", status: "Active" },
+                ].map((row, i) => (
+                  <div key={i} className="flex items-center justify-between rounded-lg bg-white/[0.03] border border-white/[0.05] px-4 py-3">
+                    <div className="flex items-center gap-3 font-mono text-[13px]">
+                      <span className="text-white/35">{row.trigger}</span>
+                      <span className="text-brand-blue/40">&rarr;</span>
+                      <span className="text-brand-blue/70">{row.action}</span>
+                    </div>
+                    <span className="text-[10px] uppercase tracking-wider text-emerald-500/60 font-semibold">{row.status}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Pillar 3: Ask Your Data Anything */}
+            <div
+              data-section-id="pillar-3"
+              className={`rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 lg:p-8 reveal-card ${visibleSections.has('pillar-3') ? 'visible' : ''}`}
+            >
+              <p className="text-brand-blue/50 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Intelligence</p>
+              <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Ask a Question. Get the Real Answer.</h3>
+              <p className="text-white/40 text-[15px] leading-relaxed mb-8">
+                No dashboards to learn. No exports to clean. No waiting for someone to pull a report. Just ask in plain English and get the answer with the data behind it.
+              </p>
+              {/* Product-style chat interface */}
+              <div className="rounded-lg bg-white/[0.03] border border-white/[0.05] overflow-hidden">
+                <div className="px-4 py-3 border-b border-white/[0.05]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/50" />
+                    <span className="text-[11px] text-white/25 font-mono">ai assistant connected</span>
+                  </div>
+                </div>
+                <div className="p-4 space-y-4 font-mono text-[13px]">
+                  <div className="flex gap-3">
+                    <span className="text-white/20 text-[11px] mt-0.5 shrink-0">you</span>
+                    <p className="text-white/45">How many deals closed this month?</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-brand-blue/40 text-[11px] mt-0.5 shrink-0">ai</span>
+                    <p className="text-brand-blue/60">34 deals. $420K total. Up 18% from last month.</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-white/20 text-[11px] mt-0.5 shrink-0">you</span>
+                    <p className="text-white/45">Which channel drove the most?</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-brand-blue/40 text-[11px] mt-0.5 shrink-0">ai</span>
+                    <p className="text-brand-blue/60">Outbound: 19 deals ($240K). Inbound: 15 deals ($180K).</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Inline CTA — after Three Pillars */}
+      <div className="flex justify-center py-8 bg-brand-black">
+        <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue text-white rounded-full font-semibold text-sm hover:shadow-[0_0_30px_rgba(0,102,255,0.4)] transition-all duration-300">
+          Book a call
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+        </Link>
+      </div>
+
+      {/* ═══════════════════════════════════════════
+          SECTION 7: TWO TRACKS TIMELINE
+      ═══════════════════════════════════════════ */}
+      <section
+        data-section-id="timeline"
+        className={`relative py-24 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('timeline') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1100px] mx-auto">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
+              Two Tracks. Running <span className="text-brand-blue">Simultaneously.</span>
+            </h2>
+            <p className="text-white/50 text-lg">
+              Results every week. Not every quarter.
             </p>
           </div>
 
-          {/* Price anchor */}
-          <div className="text-center mb-20">
-            <div className="inline-flex flex-col items-center gap-3 border-2 border-brand-blue/30 rounded-3xl px-10 py-6 bg-brand-blue/[0.04]">
-              <div className="text-5xl lg:text-6xl font-black text-white tracking-tight">€8–12k<span className="text-xl text-white/50 font-normal">/mo</span></div>
-              <p className="text-white/50 text-sm max-w-sm">C17 saves ~$5k/mo in tools alone — before counting capacity gains.</p>
-            </div>
-          </div>
+          {/* Two Track Cards */}
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-12">
 
-          {/* Two-column value split */}
-          <div className="grid md:grid-cols-2 gap-6 mb-16">
-
-            {/* What gets built */}
-            <div className="relative border-2 border-brand-blue/20 rounded-3xl p-8 lg:p-10">
-              <h3 className="text-xl font-bold text-white mb-6 tracking-tight">What gets built</h3>
-              <div className="space-y-4">
-                {[
-                  'Raw data captured and warehoused from every tool — yours to query, yours to own',
-                  'Real attribution from first touch to closed deal',
-                  'Automated dashboards and client reporting',
-                  'Client-facing portals and platform experiences',
-                  'Rule-based automations — what works scales, what doesn\'t gets cut, daily',
-                  'AI agents and autonomous workflows on your data',
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <p className="text-white/80 text-sm leading-relaxed">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* What keeps compounding */}
-            <div className="relative border-2 border-brand-blue/20 rounded-3xl p-8 lg:p-10">
-              <h3 className="text-xl font-bold text-white mb-6 tracking-tight">What keeps compounding</h3>
-              <div className="space-y-4">
-                {[
-                  'Proactive optimization — problems caught before you notice, improvements shipped weekly',
-                  'New features and integrations as your stack evolves',
-                  'Ongoing strategic collaboration — not a quarterly vendor check-in',
-                  'Insights from 40+ agency implementations benefiting your build',
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-brand-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <p className="text-white/80 text-sm leading-relaxed">{item}</p>
-                  </div>
-                ))}
-              </div>
-              {/* Ownership declaration pinned to bottom */}
-              <div className="mt-8 pt-6 border-t border-white/10">
-                <p className="text-white font-semibold text-sm tracking-wide">You own all code, infrastructure, and data — always.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Scarcity + CTA */}
-          <div className="text-center mb-16">
-            <p className="text-white/40 text-sm uppercase tracking-widest mb-6">We work with 6–7 agencies at a time.</p>
-            <Link
-              href="https://calendly.com/sergi-feq/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-brand-blue text-white rounded-full font-semibold text-base hover:shadow-[0_0_40px_rgba(0,102,255,0.3)] transition-all duration-300"
+            {/* Track 1: Fix What Hurts Now — urgent/tactical feel */}
+            <div
+              data-section-id="track-1"
+              className={`rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 lg:p-8 reveal-card ${visibleSections.has('track-1') ? 'visible' : ''}`}
             >
-              Book a discovery call
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
+              <p className="text-brand-blue/50 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Track 1</p>
+              <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Fix What Hurts Now</h3>
+              <p className="text-white/40 text-[15px] leading-relaxed mb-6">
+                Week one. We audit your stack, find the biggest fire, and fix it. You see impact before the first invoice.
+              </p>
+              {/* Checklist-style: things we knock out fast */}
+              <div className="space-y-2">
+                {[
+                  "HubSpot not syncing with billing",
+                  "Reps manually updating 3 spreadsheets",
+                  "No visibility into pipeline by channel",
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-white/[0.03] border border-white/[0.05]">
+                    <svg className="w-4 h-4 text-emerald-500/60 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    <span className="text-white/40 text-[13px]">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Track 2: Build What Lasts — architectural/system feel */}
+            <div
+              data-section-id="track-2"
+              className={`rounded-xl border border-brand-blue/[0.1] bg-brand-blue/[0.03] p-6 lg:p-8 reveal-card ${visibleSections.has('track-2') ? 'visible' : ''}`}
+            >
+              <p className="text-brand-blue/50 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Track 2</p>
+              <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Build What Lasts</h3>
+              <p className="text-white/40 text-[15px] leading-relaxed mb-6">
+                While fires get fixed, we architect the real system. The one that makes fires stop happening.
+              </p>
+              {/* Architecture layers — stacked, building upward */}
+              <div className="space-y-2">
+                {[
+                  { layer: "Data Layer", desc: "Every source connected, always synced" },
+                  { layer: "Logic Layer", desc: "Rules and automations running 24/7" },
+                  { layer: "Intelligence Layer", desc: "Ask anything, get real answers" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center justify-between px-4 py-3 rounded-lg bg-white/[0.04] border border-brand-blue/[0.08]">
+                    <span className="text-white font-semibold text-[13px]">{item.layer}</span>
+                    <span className="text-white/30 text-[12px]">{item.desc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Weekly Sprint Cycle */}
+          <div
+            data-section-id="sprint-cycle"
+            className={`rounded-xl border border-brand-blue/[0.1] bg-brand-blue/[0.03] p-6 lg:p-8 reveal-card ${visibleSections.has('sprint-cycle') ? 'visible' : ''}`}
+          >
+            <p className="text-brand-blue/60 text-xs uppercase tracking-[0.2em] font-semibold mb-6 text-center">Weekly Sprint Cycle</p>
+            <div className="grid grid-cols-3 gap-6">
+              {[
+                { step: "Monday", desc: "Plan and prioritize" },
+                { step: "Tue-Sun", desc: "Build and ship" },
+                { step: "Monday", desc: "Next sprint starts" },
+              ].map((item, i) => (
+                <div key={i} className="text-center">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    {i > 0 && <span className="text-brand-blue/20 hidden md:inline">&rarr;</span>}
+                    <span className="text-white font-bold text-lg">{item.step}</span>
+                  </div>
+                  <p className="text-white/35 text-sm">{item.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 12: FAQ
+          SECTION 8: RESULTS SNAPSHOT
       ═══════════════════════════════════════════ */}
       <section
-        id="faq"
-        data-section-id="faq"
-        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('faq') ? 'visible' : ''}`}
+        id="results"
+        data-section-id="results"
+        className={`relative py-20 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('results') ? 'visible' : ''}`}
       >
         <div className="max-w-[1200px] mx-auto">
-          {/* Headline */}
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black text-center mb-16 tracking-tight">
-            <span className="text-brand-blue">Questions.</span>
-          </h2>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight">
+              Client <span className="text-brand-blue">Results</span>
+            </h2>
+          </div>
 
-          {/* FAQ Items - Enhanced with Spring Physics */}
-          <div className="space-y-4">
-            {faqItems.map((item, idx) => (
-              <motion.div
-                key={idx}
-                data-section-id={`faq-${idx}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 100,
-                  damping: 15,
-                  delay: idx * 0.05,
-                }}
-                className="bg-gray-50 border border-gray-400/20 rounded-xl overflow-hidden"
+          <div className="grid md:grid-cols-2 gap-6">
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                data-section-id={`testimonial-${i}`}
+                className={`p-6 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has(`testimonial-${i}`) ? 'visible' : ''}`}
               >
-                <motion.button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left"
-                  whileHover={{
-                    backgroundColor: 'rgba(237, 229, 221, 1)',
-                  }}
-                  transition={{
-                    type: 'spring',
-                    stiffness: 400,
-                    damping: 25,
-                  }}
-                  aria-expanded={openFaq === idx}
-                >
-                  <span className="font-semibold text-brand-black pr-4">{item.q}</span>
-                  <motion.svg
-                    className="w-5 h-5 text-brand-blue flex-shrink-0"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    animate={{
-                      rotate: openFaq === idx ? 180 : 0,
-                    }}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 200,
-                      damping: 20,
-                    }}
-                    aria-hidden="true"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </motion.svg>
-                </motion.button>
-                <motion.div
-                  initial={false}
-                  animate={{
-                    height: openFaq === idx ? 'auto' : 0,
-                    opacity: openFaq === idx ? 1 : 0,
-                  }}
-                  transition={{
-                    height: {
-                      type: 'spring',
-                      stiffness: 300,
-                      damping: 30,
-                    },
-                    opacity: {
-                      duration: 0.2,
-                    },
-                  }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-6 pb-5 pt-2 text-brand-black/70 leading-relaxed">
-                    {item.a}
+                {testimonialResults[t.name] && (
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {testimonialResults[t.name].map((r, j) => (
+                      <div
+                        key={j}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-blue/[0.06] border border-brand-blue/10"
+                      >
+                        <span className="text-brand-blue font-extrabold text-[14px] tracking-tight">{r.stat}</span>
+                        <span className="text-gray-500 text-[11px] font-medium whitespace-nowrap">{r.label}</span>
+                      </div>
+                    ))}
                   </div>
-                </motion.div>
-              </motion.div>
+                )}
+                <p className="text-[15px] font-semibold text-brand-black leading-relaxed mb-4">
+                  &ldquo;{highlightQuote(t.quote)}&rdquo;
+                </p>
+                <div className="flex items-center gap-3">
+                  <img src={t.photo} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                  <div>
+                    <p className="font-bold text-brand-black text-sm">{t.name}</p>
+                    <p className="text-xs text-gray-500">{t.role}</p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Inline CTA — after Results */}
+      <div className="flex justify-center py-8 bg-white">
+        <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue text-white rounded-full font-semibold text-sm hover:shadow-[0_0_30px_rgba(0,102,255,0.4)] transition-all duration-300">
+          Book a call
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+        </Link>
+      </div>
+
       {/* ═══════════════════════════════════════════
-          SECTION 13: FINAL CTA
+          SECTION 9: FINAL CTA
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="final-cta"
@@ -1011,11 +954,11 @@ export default function Home() {
       >
         <div className="max-w-[1400px] mx-auto text-center">
           <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-6 tracking-tight">
-            Your Infrastructure Is the Bottleneck. <span className="text-brand-blue">We&apos;ve Fixed It 40+ Times.</span>
+            Ready to see what your data is hiding?
           </h2>
 
-          <p className="text-xl text-white/60 mb-10 max-w-2xl mx-auto leading-relaxed">
-            30 minutes. What&apos;s broken, what it costs, and how we&apos;d fix it. No pitch.
+          <p className="text-xl text-white/50 mb-10 max-w-2xl mx-auto leading-relaxed">
+            30 minutes. We audit your stack and show you what&apos;s broken. No pitch.
           </p>
 
           <Link
@@ -1024,25 +967,22 @@ export default function Home() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-10 py-5 bg-brand-blue text-white rounded-full font-bold text-lg hover:shadow-[0_0_40px_rgba(0,102,255,0.4)] transition-shadow duration-300"
           >
-            Book your free diagnostic
+            Book a call
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
             </svg>
           </Link>
-
-          <p className="text-sm text-white/40 mt-6">
-            Free diagnostic from people who&apos;ve run the same agency you&apos;re running.
-          </p>
         </div>
       </section>
 
+
+
       {/* ═══════════════════════════════════════════
-          SECTION 14: FOOTER
+          FOOTER
       ═══════════════════════════════════════════ */}
       <footer className="bg-brand-black text-white py-16 px-8 border-t border-brand-blue/[0.08]">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
-            {/* Company */}
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
               <Image
                 src="/images/logo-full.svg"
@@ -1052,31 +992,37 @@ export default function Home() {
                 className="h-8 w-auto brightness-0 invert mb-4"
               />
               <p className="text-white/40 text-sm leading-relaxed">
-                Your Technical Backbone.<br/>
-                Centralize. Automate. Query.
+                The Tech-Ops Partner<br/>for Revenue Teams.
               </p>
             </div>
 
-            {/* Navigation */}
             <div>
-              <p className="text-white font-semibold mb-4 text-sm">Navigation</p>
+              <p className="text-white font-semibold mb-4 text-sm">Services</p>
               <div className="space-y-2">
-                <Link href="#problem" className="block text-white/40 hover:text-white text-sm transition-colors">
-                  The Problem
+                <Link href="/retainer" className="block text-white/40 hover:text-white text-sm transition-colors">
+                  Tech-Ops Partner
                 </Link>
-                <Link href="#solution" className="block text-white/40 hover:text-white text-sm transition-colors">
+                <Link href="/database" className="block text-white/40 hover:text-white text-sm transition-colors">
                   Our Approach
-                </Link>
-                <Link href="#case-studies" className="block text-white/40 hover:text-white text-sm transition-colors">
-                  The Scoreboard
-                </Link>
-                <Link href="#faq" className="block text-white/40 hover:text-white text-sm transition-colors">
-                  FAQs
                 </Link>
               </div>
             </div>
 
-            {/* Contact */}
+            <div>
+              <p className="text-white font-semibold mb-4 text-sm">Company</p>
+              <div className="space-y-2">
+                <Link href="/about" className="block text-white/40 hover:text-white text-sm transition-colors">
+                  About
+                </Link>
+                <Link href="/history" className="block text-white/40 hover:text-white text-sm transition-colors">
+                  Our History
+                </Link>
+                <Link href="/#videos" className="block text-white/40 hover:text-white text-sm transition-colors">
+                  Case Studies
+                </Link>
+              </div>
+            </div>
+
             <div>
               <p className="text-white font-semibold mb-4 text-sm">Get Started</p>
               <Link
@@ -1093,7 +1039,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Copyright */}
           <div className="pt-8 border-t border-brand-blue/[0.06] text-center">
             <p className="text-white/30 text-xs">
               © 2025 Stimuli Digital. All rights reserved.
