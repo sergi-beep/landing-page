@@ -295,11 +295,8 @@ export default function Home() {
         <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full">
           <div className="max-w-5xl mx-auto text-center">
             <h1 className="hero-fade-up hero-fade-up-1 text-[2.5rem] sm:text-5xl lg:text-[4.5rem] font-extrabold tracking-[-0.03em] leading-[1.05] mb-6 text-white">
-              <RotatingWord />Ops Veterans.<br/>Olympiad-Winning Engineers.
+              <RotatingWord />Ops Veterans.<br/>Olympiad-Winning Engineers.<br/>Your Fractional CTO + Tech-ops department
             </h1>
-            <p className="hero-fade-up hero-fade-up-2 text-xl lg:text-2xl text-white/70 font-medium tracking-tight mb-4">
-              Your Fractional CTO + Tech-ops department
-            </p>
             <p className="hero-fade-up hero-fade-up-2 text-lg lg:text-xl text-white/55 leading-relaxed mb-10 max-w-2xl mx-auto font-light tracking-tight text-balance">
               Building operational systems your stack is missing.
             </p>
