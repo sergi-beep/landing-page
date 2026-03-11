@@ -59,8 +59,8 @@ const engineers = [
   {
     name: "Luka Liklikadze",
     photo: "/images/team/luka-liklikadze.jpeg",
-    headline: "National Champion",
-    sub: "ICPC Semifinalist · \"Smartest Kid in the Country\"",
+    headline: "#1 National Talent of 2023",
+    sub: "Highest grade in National university entrance exams",
     linkedin: "https://www.linkedin.com/in/luka-liklikadze-571bb4324/",
     profiles: [
       { label: "TV Final", url: "https://www.youtube.com/watch?v=T5l27Jsgb2M" },
@@ -297,6 +297,9 @@ export default function Home() {
             <h1 className="hero-fade-up hero-fade-up-1 text-[2.5rem] sm:text-5xl lg:text-[4.5rem] font-extrabold tracking-[-0.03em] leading-[1.05] mb-6 text-white">
               <RotatingWord />Ops Veterans.<br/>Olympiad-Winning Engineers.
             </h1>
+            <p className="hero-fade-up hero-fade-up-2 text-xl lg:text-2xl text-white/70 font-medium tracking-tight mb-4">
+              Your Fractional CTO + Tech-ops department
+            </p>
             <p className="hero-fade-up hero-fade-up-2 text-lg lg:text-xl text-white/55 leading-relaxed mb-10 max-w-2xl mx-auto font-light tracking-tight text-balance">
               Building operational systems your stack is missing.
             </p>
