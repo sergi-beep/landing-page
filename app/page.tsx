@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ClientLogosTicker } from "./components/ClientLogosTicker";
 
-const rotatingWords = ["Rev", "Marketing", "Sales"];
+const rotatingWords = ["Revenue", "Marketing", "Sales", "Agency"];
 
 function RotatingWord() {
   const [index, setIndex] = useState(0);
@@ -37,7 +37,7 @@ function RotatingWord() {
 const engineers = [
   {
     name: "Giorgi Nadareishvili",
-    photo: "/images/team/giorgi-nadareishvili.jpg",
+    photo: "/images/team/giorgi-nadareishvili.png",
     headline: "IOI Bronze Medalist",
     sub: "EJOI Silver · RMI Silver · 5 International Medals",
     linkedin: "https://www.linkedin.com/in/giorgi-nadareishvili-661794187/",
@@ -295,7 +295,7 @@ export default function Home() {
         <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 pt-32 pb-20 w-full">
           <div className="max-w-5xl mx-auto text-center">
             <h1 className="hero-fade-up hero-fade-up-1 text-[2.5rem] sm:text-5xl lg:text-[4.5rem] font-extrabold tracking-[-0.03em] leading-[1.05] mb-6 text-white">
-              <RotatingWord />Ops Veterans.<br/>Olympiad-Winning Engineers.
+              <RotatingWord /> Ops Veterans.<br/>Olympiad-Winning Engineers.
             </h1>
             <p className="hero-fade-up hero-fade-up-2 text-lg lg:text-xl text-white/55 leading-relaxed mb-10 max-w-2xl mx-auto font-light tracking-tight text-balance">
               Your Fractional CTO + Tech-ops department
@@ -500,99 +500,6 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 5: WHY STIMULI
-      ═══════════════════════════════════════════ */}
-      <section
-        data-section-id="why-us"
-        className={`relative py-24 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('why-us') ? 'visible' : ''}`}
-      >
-        <div className="max-w-[1100px] mx-auto">
-          <div className="text-center mb-20">
-            <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4">
-              Why Stimuli
-            </p>
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight">
-              Marketing + Sales + Engineering.<br /><span className="text-brand-blue">All Under One Roof.</span>
-            </h2>
-          </div>
-
-          {/* ── CHAPTER 1: THE OPERATORS ── */}
-          <div
-            data-section-id="operators"
-            className={`mb-20 reveal-card ${visibleSections.has('operators') ? 'visible' : ''}`}
-          >
-            <h3 className="text-2xl lg:text-3xl font-bold text-brand-black mb-4">
-              We&apos;ve Done Your Job Before
-            </h3>
-            <p className="text-brand-black/55 leading-relaxed mb-8 max-w-3xl text-[15px]">
-              We started as marketing and RevOps leaders on one side, solutions architects and engineers on the other. Together we built a B2B lead gen agency from scratch. The technical walls kept showing up, so we built the fixes ourselves. Then started shipping them to every revenue team and agency that needed them.
-            </p>
-
-            <div className="grid sm:grid-cols-2 gap-4 mb-6">
-              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
-                <img src="/images/team/sergi.jpeg" alt="Sergi Cheishvili" className="w-16 h-16 rounded-xl object-cover" />
-                <div>
-                  <p className="font-bold text-brand-black">Sergi Cheishvili</p>
-                  <p className="text-sm text-brand-black/50">Co-Founder & CEO</p>
-                  <p className="text-xs text-brand-black/40 mt-1">From selling software to building it. 20+ companies on both sides of the table.</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
-                <img src="/images/team/Rezi.jpeg" alt="Rezi Dzidziguri" className="w-16 h-16 rounded-xl object-cover" />
-                <div>
-                  <p className="font-bold text-brand-black">Rezi Dzidziguri</p>
-                  <p className="text-sm text-brand-black/50">Co-Founder & CTO</p>
-                  <p className="text-xs text-brand-black/40 mt-1">CS and BA dropout. Architected TBC Bank&#39;s award-winning digital platform.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-200 mb-20"></div>
-
-          {/* ── CHAPTER 2: THE ENGINEERS ── */}
-          <div
-            data-section-id="engineers"
-            className={`reveal-card ${visibleSections.has('engineers') ? 'visible' : ''}`}
-          >
-            <h3 className="text-2xl lg:text-3xl font-bold text-brand-black mb-4">
-              Engineers Who Build to Scale
-            </h3>
-            <p className="text-brand-black/55 leading-relaxed mb-10 max-w-3xl text-[15px]">
-              CS majors from Eastern Europe&apos;s top university. International olympiad medalists. They architect systems that grow with your business.
-            </p>
-
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-              {engineers.map((eng, i) => (
-                <div
-                  key={i}
-                  data-section-id={`eng-${i}`}
-                  className={`p-5 bg-gray-50 rounded-2xl border border-gray-200 text-center reveal-card ${visibleSections.has(`eng-${i}`) ? 'visible' : ''}`}
-                >
-                  <img src={eng.photo} alt={eng.name} className="w-16 h-16 rounded-xl object-cover mx-auto mb-3" />
-                  <p className="font-bold text-brand-black text-[15px]">{eng.name}</p>
-                  <p className="text-brand-blue font-bold text-sm mt-1">{eng.headline}</p>
-                  <p className="text-brand-black/40 text-[12px] mt-1 leading-snug">{eng.sub}</p>
-                  <div className="flex flex-wrap items-center justify-center gap-2 mt-3">
-                    {eng.linkedin && (
-                      <a href={eng.linkedin} target="_blank" rel="noopener noreferrer" className="text-brand-black/30 hover:text-brand-blue transition-colors">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                      </a>
-                    )}
-                    {eng.profiles?.map((p, j) => (
-                      <a key={j} href={p.url} target="_blank" rel="noopener noreferrer" className="text-[10px] font-semibold text-brand-black/30 hover:text-brand-blue transition-colors underline underline-offset-2">
-                        {p.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
           SECTION 6: THREE PILLARS — HOW WE FIX IT
       ═══════════════════════════════════════════ */}
       <section
@@ -788,6 +695,24 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════
+          INLINE TESTIMONIAL — MICHAEL EWALD
+      ═══════════════════════════════════════════ */}
+      <section className="relative py-16 px-8 lg:px-12 bg-brand-black border-t border-white/[0.06]">
+        <div className="max-w-[700px] mx-auto text-center">
+          <p className="text-white/50 text-lg lg:text-xl leading-relaxed italic">
+            &ldquo;The first 3 days he saved 50% of the cost he brings with him. We scaled to over 60 clients with 4-5 people in fulfillment. I didn&apos;t want to do this interview — I don&apos;t want others to have you as a partner.&rdquo;
+          </p>
+          <div className="flex items-center justify-center gap-3 mt-6">
+            <img src="/images/testimonials/michael-ewald.jpg" alt="Michael Ewald" className="w-10 h-10 rounded-full object-cover" />
+            <div className="text-left">
+              <p className="text-white font-semibold text-sm">Michael Ewald</p>
+              <p className="text-white/30 text-xs">Founder, Vangates</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
           SECTION 7: TWO TRACKS TIMELINE
       ═══════════════════════════════════════════ */}
       <section
@@ -886,7 +811,100 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION 8: RESULTS SNAPSHOT
+          SECTION: WHY STIMULI
+      ═══════════════════════════════════════════ */}
+      <section
+        data-section-id="why-us"
+        className={`relative py-24 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('why-us') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-20">
+            <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4">
+              Why Stimuli
+            </p>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight">
+              Marketing + Sales + Engineering.<br /><span className="text-brand-blue">All Under One Roof.</span>
+            </h2>
+          </div>
+
+          {/* ── CHAPTER 1: THE OPERATORS ── */}
+          <div
+            data-section-id="operators"
+            className={`mb-20 reveal-card ${visibleSections.has('operators') ? 'visible' : ''}`}
+          >
+            <h3 className="text-2xl lg:text-3xl font-bold text-brand-black mb-4">
+              We&apos;ve Done Your Job Before
+            </h3>
+            <p className="text-brand-black/55 leading-relaxed mb-8 max-w-3xl text-[15px]">
+              We started as marketing and RevOps leaders on one side, solutions architects and engineers on the other. Together we built a B2B lead gen agency from scratch. The technical walls kept showing up, so we built the fixes ourselves. Then started shipping them to every revenue team and agency that needed them.
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-4 mb-6">
+              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                <img src="/images/team/sergi.jpeg" alt="Sergi Cheishvili" className="w-16 h-16 rounded-xl object-cover" />
+                <div>
+                  <p className="font-bold text-brand-black">Sergi Cheishvili</p>
+                  <p className="text-sm text-brand-black/50">Co-Founder & CEO</p>
+                  <p className="text-xs text-brand-black/40 mt-1">From selling software to building it. 20+ companies on both sides of the table.</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
+                <img src="/images/team/Rezi.jpeg" alt="Rezi Dzidziguri" className="w-16 h-16 rounded-xl object-cover" />
+                <div>
+                  <p className="font-bold text-brand-black">Rezi Dzidziguri</p>
+                  <p className="text-sm text-brand-black/50">Co-Founder & CTO</p>
+                  <p className="text-xs text-brand-black/40 mt-1">CS and BA dropout. Architected TBC Bank&#39;s award-winning digital platform.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-200 mb-20"></div>
+
+          {/* ── CHAPTER 2: THE ENGINEERS ── */}
+          <div
+            data-section-id="engineers"
+            className={`reveal-card ${visibleSections.has('engineers') ? 'visible' : ''}`}
+          >
+            <h3 className="text-2xl lg:text-3xl font-bold text-brand-black mb-4">
+              Engineers Who Build to Scale
+            </h3>
+            <p className="text-brand-black/55 leading-relaxed mb-10 max-w-3xl text-[15px]">
+              CS majors from Eastern Europe&apos;s top university. International olympiad medalists. They architect systems that grow with your business.
+            </p>
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+              {engineers.map((eng, i) => (
+                <div
+                  key={i}
+                  data-section-id={`eng-${i}`}
+                  className={`p-5 bg-gray-50 rounded-2xl border border-gray-200 text-center reveal-card ${visibleSections.has(`eng-${i}`) ? 'visible' : ''}`}
+                >
+                  <img src={eng.photo} alt={eng.name} className="w-16 h-16 rounded-xl object-cover mx-auto mb-3" />
+                  <p className="font-bold text-brand-black text-[15px]">{eng.name}</p>
+                  <p className="text-brand-blue font-bold text-sm mt-1">{eng.headline}</p>
+                  <p className="text-brand-black/40 text-[12px] mt-1 leading-snug">{eng.sub}</p>
+                  <div className="flex flex-wrap items-center justify-center gap-2 mt-3">
+                    {eng.linkedin && (
+                      <a href={eng.linkedin} target="_blank" rel="noopener noreferrer" className="text-brand-black/30 hover:text-brand-blue transition-colors">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                      </a>
+                    )}
+                    {eng.profiles?.map((p, j) => (
+                      <a key={j} href={p.url} target="_blank" rel="noopener noreferrer" className="text-[10px] font-semibold text-brand-black/30 hover:text-brand-blue transition-colors underline underline-offset-2">
+                        {p.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION: RESULTS SNAPSHOT
       ═══════════════════════════════════════════ */}
       <section
         id="results"
@@ -946,7 +964,110 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════
-          SECTION 9: FINAL CTA
+          SECTION: PRICING
+      ═══════════════════════════════════════════ */}
+      <section
+        data-section-id="pricing"
+        className={`relative py-24 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('pricing') ? 'visible' : ''}`}
+      >
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-[13px] text-white/40 uppercase tracking-widest font-semibold mb-4">Pricing</p>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+              Three Ways to <span className="text-brand-blue">Work With Us.</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Sprint */}
+            <div
+              data-section-id="pricing-sprint"
+              className={`rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8 flex flex-col reveal-card ${visibleSections.has('pricing-sprint') ? 'visible' : ''}`}
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-3 h-3 rounded-sm bg-brand-blue/60"></span>
+                <span className="text-white/60 text-xs uppercase tracking-[0.2em] font-semibold">Sprint</span>
+              </div>
+              <p className="text-white/40 text-sm leading-relaxed mb-6">
+                Custom GTM intelligence tailored to a specific workflow
+              </p>
+              <p className="text-3xl font-extrabold text-white mb-6">Contact For Pricing</p>
+              <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
+                className="block text-center px-6 py-3 rounded-lg border border-white/20 text-white font-semibold text-sm hover:bg-white/[0.05] transition-all duration-300 mb-8">
+                Get Started
+              </Link>
+              <p className="text-white/30 text-xs uppercase tracking-widest font-semibold mb-4">This plan includes:</p>
+              <ul className="space-y-3 text-sm text-white/50">
+                {["Single workflow implementation", "2-month minimum engagement", "Up to 3 tool integrations", "1 dedicated specialist", "Monthly progress reports", "Real-time support via Slack & Loom"].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-sm bg-brand-blue/50 mt-1.5 shrink-0"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* System — highlighted */}
+            <div
+              data-section-id="pricing-system"
+              className={`rounded-2xl border border-brand-blue/30 bg-brand-blue/[0.06] p-8 flex flex-col reveal-card ${visibleSections.has('pricing-system') ? 'visible' : ''}`}
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-3 h-3 rounded-sm bg-brand-blue"></span>
+                <span className="text-brand-blue text-xs uppercase tracking-[0.2em] font-semibold">System</span>
+              </div>
+              <p className="text-white/40 text-sm leading-relaxed mb-6">
+                Custom GTM intelligence tailored to building a full system
+              </p>
+              <p className="text-3xl font-extrabold text-white mb-6">Contact For Pricing</p>
+              <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
+                className="block text-center px-6 py-3 rounded-lg bg-brand-blue text-white font-semibold text-sm hover:shadow-[0_0_30px_rgba(0,102,255,0.4)] transition-all duration-300 mb-8">
+                Get Started
+              </Link>
+              <p className="text-white/30 text-xs uppercase tracking-widest font-semibold mb-4">This plan includes:</p>
+              <ul className="space-y-3 text-sm text-white/50">
+                {["Multi-workflow GTM transformation", "6-month minimum engagement", "Full audit of existing systems", "Complete GTM tool stack integration", "Multiple specialists as needed", "Weekly performance reports + insights", "Team training and documentation", "Async support via Slack & Loom"].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-sm bg-brand-blue/50 mt-1.5 shrink-0"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Enterprise */}
+            <div
+              data-section-id="pricing-enterprise"
+              className={`rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8 flex flex-col reveal-card ${visibleSections.has('pricing-enterprise') ? 'visible' : ''}`}
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-3 h-3 rounded-sm bg-brand-blue/60"></span>
+                <span className="text-white/60 text-xs uppercase tracking-[0.2em] font-semibold">Enterprise</span>
+              </div>
+              <p className="text-white/40 text-sm leading-relaxed mb-6">
+                Custom GTM intelligence tailored to a compounding advantage
+              </p>
+              <p className="text-3xl font-extrabold text-white mb-6">Contact For Pricing</p>
+              <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
+                className="block text-center px-6 py-3 rounded-lg border border-white/20 text-white font-semibold text-sm hover:bg-white/[0.05] transition-all duration-300 mb-8">
+                Get Started
+              </Link>
+              <p className="text-white/30 text-xs uppercase tracking-widest font-semibold mb-4">This plan includes:</p>
+              <ul className="space-y-3 text-sm text-white/50">
+                {["Ongoing strategic partnership", "12-month minimum engagement", "Custom code solutions and integrations", "Dedicated success manager", "Enterprise SLAs", "Real-time performance dashboards", "Quarterly strategic planning sessions", "White-glove onboarding", "Executive advisory sessions", "Future-state roadmap planning", "Priority technical support"].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-sm bg-brand-blue/50 mt-1.5 shrink-0"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION: FINAL CTA
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="final-cta"
