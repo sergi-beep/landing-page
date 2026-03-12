@@ -101,6 +101,34 @@ const clientLogos = [
   { src: "/images/logos/clients/oneaway.jpeg", alt: "OneAway", w: "w-48" }
 ];
 
+const familiarQuotes = [
+  // Card 1: Broken Data
+  [
+    { text: "We were having recurring issues with data accuracy. Moving to the custom app and backend you guys built has really unlocked improved efficiency.", name: "Felix Frank", role: "Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
+    { text: "The dashboards make us look like miles ahead of everyone else. There hasn't been anything we've asked them to do that they haven't figured out a way to solve.", name: "AJ Cassata", role: "Revenue Boost", photo: "/images/testimonials/aj-cassata.jpg" },
+    { text: "Reporting was the biggest bottleneck. You figured that out for us. You're saving us probably $5,000 a month just in tools we would have had to purchase.", name: "Enzo Carasso", role: "C17 Lab", photo: "/images/testimonials/enzo-carasso.jpg" },
+    { text: "You guys have been instrumental in helping us set up all the data tracking around the business to make sure operations are run smoothly.", name: "Alex Vacca", role: "Cold IQ", photo: "/images/testimonials/alex-vacca.jpg" },
+  ],
+  // Card 2: Tools Break at Scale
+  [
+    { text: "Airtable has a 50,000 row limit. I send 100,000 emails a month for one client. You guys built the whole damn thing in a week.", name: "Taylor Haren", role: "Sales Automation Systems", photo: "/images/testimonials/taylor-haren.jpg" },
+    { text: "We were running into limitations with Airtable. Moving to the custom backend you guys built, we now have a system we can easily scale upon.", name: "Felix Frank", role: "Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
+    { text: "All the data is in different places. This is where they were doing a crazy good job.", name: "Michael Ewald", role: "Vangates", photo: "/images/testimonials/michael-ewald.jpg" },
+  ],
+  // Card 3: Previous Devs Failed
+  [
+    { text: "I fired my previous fractional CTO company. You guys delivered in a week what I tried to build in four months with another company.", name: "Enzo Carasso", role: "C17 Lab", photo: "/images/testimonials/enzo-carasso.jpg" },
+    { text: "We tested 2-3 different automation agencies and it was always very difficult. With you guys it was completely different. From month one you were directly able to have an impact.", name: "Alex Vacca", role: "Cold IQ", photo: "/images/testimonials/alex-vacca.jpg" },
+    { text: "They understood our process very easily. They immediately implement the stuff. The communication has been so easy. They respond super fast.", name: "Aleksander Ivanov", role: "Hypergen", photo: "/images/testimonials/aleksander-ivanov.jpg" },
+  ],
+  // Card 4: Success ≠ Headcount Growth
+  [
+    { text: "We scaled to over 60 clients with 4-5 people in the fulfillment team. The first 3 days he saved 50% of the cost he brings. What he built could be state-of-the-art.", name: "Michael Ewald", role: "Vangates", photo: "/images/testimonials/michael-ewald.jpg" },
+    { text: "Right now we have 30 clients. With the delivery team you guys enabled us to unlock, we probably have capacity for 50-60 clients.", name: "Felix Frank", role: "Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
+    { text: "Two months ago we were doing everything manually. Now we're a scalable company largely driven by technology, saving hours a day across all departments.", name: "Naeem Alvi-Assinder", role: "Avalanche", photo: "/images/testimonials/naeem-alvi.jpg" },
+  ],
+];
+
 function highlightQuote(text: string): React.ReactNode {
   return text;
 }
@@ -197,12 +225,46 @@ const testimonialResults: Record<string, { stat: string; label: string }[]> = {
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const [familiarQuoteIndex, setFamiliarQuoteIndex] = useState(0);
+  const [familiarQuoteVisible, setFamiliarQuoteVisible] = useState(true);
 
   // Auto-advance testimonials every 7 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveSlide(prev => (prev + 1) % testimonials.length);
     }, 7000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Compute quote indices with collision avoidance (no person on 2 cards at once)
+  const familiarCardIndices = (() => {
+    const offsets = [0, 1, 2, 1];
+    const indices = offsets.map((offset, cardIdx) =>
+      (familiarQuoteIndex + offset) % familiarQuotes[cardIdx].length
+    );
+    // Resolve collisions: if a card shows the same person as an earlier card, bump it
+    for (let i = 1; i < 4; i++) {
+      let attempts = 0;
+      while (attempts < familiarQuotes[i].length) {
+        const name = familiarQuotes[i][indices[i]].name;
+        const collision = indices.slice(0, i).some((idx, j) => familiarQuotes[j][idx].name === name);
+        if (!collision) break;
+        indices[i] = (indices[i] + 1) % familiarQuotes[i].length;
+        attempts++;
+      }
+    }
+    return indices;
+  })();
+
+  // Auto-rotate Sound Familiar quotes every 15 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFamiliarQuoteVisible(false);
+      setTimeout(() => {
+        setFamiliarQuoteIndex(prev => prev + 1);
+        setFamiliarQuoteVisible(true);
+      }, 300);
+    }, 15000);
     return () => clearInterval(timer);
   }, []);
 
@@ -458,10 +520,10 @@ export default function Home() {
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="sound-familiar"
-        className={`relative py-20 px-8 lg:px-12 bg-gray-50 reveal-section ${visibleSections.has('sound-familiar') ? 'visible' : ''}`}
+        className={`relative py-24 px-8 lg:px-12 bg-white border-t border-gray-100 reveal-section ${visibleSections.has('sound-familiar') ? 'visible' : ''}`}
       >
         <div className="max-w-[1100px] mx-auto">
-          <div className="text-center mb-14">
+          <div className="text-center mb-16">
             <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4">
               Sound Familiar?
             </p>
@@ -470,30 +532,148 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
-            {[
-              {
-                title: "Your Tools Don\u2019t Talk to Each Other",
-                body: "CRM says one thing. Spreadsheet says another. You duct-taped 6 tools together and now nobody trusts the numbers. Least of all your team.",
-              },
-              {
-                title: "Growth Means More Headcount",
-                body: "Every time revenue grows, so does the team. You\u2019ve tried no-code, automations, even an internal build. Nothing holds at scale.",
-              },
-              {
-                title: "Your Best People Do the Worst Work",
-                body: "Data entry. Status updates. Weekly reports nobody reads. Your highest-paid team members spend hours on tasks a system should handle.",
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                data-section-id={`familiar-${i}`}
-                className={`p-6 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has(`familiar-${i}`) ? 'visible' : ''}`}
-              >
-                <p className="font-bold text-brand-black text-base mb-2">{item.title}</p>
-                <p className="text-brand-black/50 text-[15px] leading-relaxed">{item.body}</p>
+          <div className="grid md:grid-cols-2 gap-6">
+
+            {/* Card 1: Broken Data */}
+            <div
+              data-section-id="familiar-0"
+              className={`p-6 lg:p-8 rounded-2xl border border-gray-200 bg-white reveal-card flex flex-col ${visibleSections.has('familiar-0') ? 'visible' : ''}`}
+            >
+              <div className="mb-5 rounded-lg bg-gray-50/80 border border-gray-100 p-4 h-[140px] flex flex-col justify-center font-mono text-[12px] space-y-2.5">
+                {[
+                  { tool: "CRM", status: "Synced 2h ago", dotColor: "bg-emerald-500/60" },
+                  { tool: "Google Ads", status: "Synced 12d ago", dotColor: "bg-yellow-500/50" },
+                  { tool: "Billing", status: "Sync failed", dotColor: "bg-red-400/60" },
+                ].map((row, i) => (
+                  <div key={i} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className={`w-1.5 h-1.5 rounded-full ${row.dotColor}`}></span>
+                      <span className="text-brand-black/35">{row.tool}</span>
+                    </div>
+                    <span className="text-brand-black/20">{row.status}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+              <p className="font-extrabold text-brand-black text-lg tracking-tight mb-2">You Don&apos;t Trust Your Own Numbers.</p>
+              <p className="text-brand-black/45 text-[15px] leading-relaxed min-h-[48px]">Your data lives in 6 different tools. Reports take hours to pull and still don&apos;t match because every tool has already aggregated the numbers its own way. You never see the raw truth.</p>
+              {(() => { const q = familiarQuotes[0][familiarCardIndices[0]]; return (
+              <div className="mt-auto bg-gray-50/60 rounded-xl p-4 h-[110px] overflow-hidden">
+                <div className={`flex items-start gap-3 transition-opacity duration-300 ${familiarQuoteVisible ? 'opacity-100' : 'opacity-0'}`}>
+                  <img src={q.photo} alt={q.name} className="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-brand-black/50 text-[13px] italic leading-relaxed line-clamp-3">&ldquo;{q.text}&rdquo;</p>
+                    <p className="text-brand-black/35 text-[12px] mt-1">{q.name}, {q.role}</p>
+                  </div>
+                </div>
+              </div>
+              ); })()}
+            </div>
+
+            {/* Card 2: Tools Break at Scale */}
+            <div
+              data-section-id="familiar-1"
+              className={`p-6 lg:p-8 rounded-2xl border border-gray-200 bg-white reveal-card flex flex-col ${visibleSections.has('familiar-1') ? 'visible' : ''}`}
+            >
+              <div className="mb-5 rounded-lg bg-gray-50/80 border border-gray-100 p-4 h-[140px] flex flex-col justify-center">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] text-brand-black/30 uppercase tracking-wide font-medium">Database rows</span>
+                  <span className="text-[11px] text-red-400 font-semibold">Limit reached</span>
+                </div>
+                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-red-400 rounded-full" style={{ width: '100%' }}></div>
+                </div>
+                <div className="flex items-center justify-between mt-2">
+                  <span className="text-[11px] text-gray-400 font-mono">50,000 / 50,000</span>
+                  <span className="text-[11px] text-red-400/70 font-mono">+12,847 queued</span>
+                </div>
+              </div>
+              <p className="font-extrabold text-brand-black text-lg tracking-tight mb-2">Your Tools Break When You Scale.</p>
+              <p className="text-brand-black/45 text-[15px] leading-relaxed min-h-[48px]">You have vibe coded your ops into existence. It worked on smaller scale. Now you&apos;re hitting row limits, broken syncs, and duct-taped workarounds everywhere.</p>
+              {(() => { const q = familiarQuotes[1][familiarCardIndices[1]]; return (
+              <div className="mt-auto bg-gray-50/60 rounded-xl p-4 h-[110px] overflow-hidden">
+                <div className={`flex items-start gap-3 transition-opacity duration-300 ${familiarQuoteVisible ? 'opacity-100' : 'opacity-0'}`}>
+                  <img src={q.photo} alt={q.name} className="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-brand-black/50 text-[13px] italic leading-relaxed line-clamp-3">&ldquo;{q.text}&rdquo;</p>
+                    <p className="text-brand-black/35 text-[12px] mt-1">{q.name}, {q.role}</p>
+                  </div>
+                </div>
+              </div>
+              ); })()}
+            </div>
+
+            {/* Card 3: Previous Devs Failed */}
+            <div
+              data-section-id="familiar-2"
+              className={`p-6 lg:p-8 rounded-2xl border border-gray-200 bg-white reveal-card flex flex-col ${visibleSections.has('familiar-2') ? 'visible' : ''}`}
+            >
+              <div className="mb-5 rounded-lg bg-brand-black p-4 h-[140px] flex flex-col justify-center font-mono text-[12px]">
+                <div className="flex items-center gap-1.5 mb-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+                </div>
+                <p className="text-gray-500">$ project status</p>
+                <p className="text-white/60 mt-1">Lead Database v2</p>
+                <p className="text-yellow-400/60 mt-0.5">Status: &quot;Almost done&quot;</p>
+                <p className="text-gray-600 mt-0.5">Started: 6 months ago</p>
+                <p className="text-red-400/60 mt-0.5">Shipped: nothing</p>
+              </div>
+              <p className="font-extrabold text-brand-black text-lg tracking-tight mb-2">You&apos;ve Hired Devs Before. It Didn&apos;t Work.</p>
+              <p className="text-brand-black/45 text-[15px] leading-relaxed min-h-[48px]">Freelancers, agencies. Months of calls, nothing shipped. They didn&apos;t understand your industry and you ended up back at square one.</p>
+              {(() => { const q = familiarQuotes[2][familiarCardIndices[2]]; return (
+              <div className="mt-auto bg-gray-50/60 rounded-xl p-4 h-[110px] overflow-hidden">
+                <div className={`flex items-start gap-3 transition-opacity duration-300 ${familiarQuoteVisible ? 'opacity-100' : 'opacity-0'}`}>
+                  <img src={q.photo} alt={q.name} className="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-brand-black/50 text-[13px] italic leading-relaxed line-clamp-3">&ldquo;{q.text}&rdquo;</p>
+                    <p className="text-brand-black/35 text-[12px] mt-1">{q.name}, {q.role}</p>
+                  </div>
+                </div>
+              </div>
+              ); })()}
+            </div>
+
+            {/* Card 4: Success ≠ Headcount Growth */}
+            <div
+              data-section-id="familiar-3"
+              className={`p-6 lg:p-8 rounded-2xl border border-gray-200 bg-white reveal-card flex flex-col ${visibleSections.has('familiar-3') ? 'visible' : ''}`}
+            >
+              <div className="mb-5 rounded-lg bg-gray-50/80 border border-gray-100 p-4 h-[140px] flex flex-col justify-center font-mono text-[11px]">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <p className="text-brand-black/25 uppercase tracking-wide text-[9px] mb-2">Company A</p>
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between"><span className="text-brand-black/30">AI agents</span><span className="text-emerald-500/70 font-semibold">3 active</span></div>
+                      <div className="flex items-center justify-between"><span className="text-brand-black/30">Workflows</span><span className="text-emerald-500/70 font-semibold">47</span></div>
+                      <div className="flex items-center justify-between"><span className="text-brand-black/30">Attribution</span><span className="text-emerald-500/70 font-semibold">Real-time</span></div>
+                    </div>
+                  </div>
+                  <div className="border-l border-gray-200 pl-3">
+                    <p className="text-brand-black/25 uppercase tracking-wide text-[9px] mb-2">You</p>
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between"><span className="text-brand-black/30">AI agents</span><span className="text-red-400/70 font-semibold">0</span></div>
+                      <div className="flex items-center justify-between"><span className="text-brand-black/30">Workflows</span><span className="text-red-400/70 font-semibold">12 zaps</span></div>
+                      <div className="flex items-center justify-between"><span className="text-brand-black/30">Attribution</span><span className="text-red-400/70 font-semibold">3-day spreadsheet</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p className="font-extrabold text-brand-black text-lg tracking-tight mb-2">You&apos;re Falling Behind on AI. And You Know It.</p>
+              <p className="text-brand-black/45 text-[15px] leading-relaxed min-h-[48px]">The output of AI is only as good as the input you feed it. You&apos;re not behind because of effort. You&apos;re behind because of infrastructure.</p>
+              {(() => { const q = familiarQuotes[3][familiarCardIndices[3]]; return (
+              <div className="mt-auto bg-gray-50/60 rounded-xl p-4 h-[110px] overflow-hidden">
+                <div className={`flex items-start gap-3 transition-opacity duration-300 ${familiarQuoteVisible ? 'opacity-100' : 'opacity-0'}`}>
+                  <img src={q.photo} alt={q.name} className="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-brand-black/50 text-[13px] italic leading-relaxed line-clamp-3">&ldquo;{q.text}&rdquo;</p>
+                    <p className="text-brand-black/35 text-[12px] mt-1">{q.name}, {q.role}</p>
+                  </div>
+                </div>
+              </div>
+              ); })()}
+            </div>
+
           </div>
 
         </div>
@@ -537,63 +717,36 @@ export default function Home() {
               </div>
 
               <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                {/* Left: SVG data flow diagram */}
-                <div className="flex justify-center">
-                  <svg width="320" height="200" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-[320px]">
-                    {/* Source nodes */}
-                    {[
-                      { x: 30, y: 30, label: "CRM" },
-                      { x: 30, y: 80, label: "Ads" },
-                      { x: 30, y: 130, label: "Billing" },
-                      { x: 30, y: 170, label: "Support" },
-                    ].map((node, i) => (
-                      <g key={i}>
-                        <rect x={node.x} y={node.y - 12} width="60" height="24" rx="4" fill="rgba(0,102,255,0.06)" stroke="rgba(0,102,255,0.15)" strokeWidth="1" />
-                        <text x={node.x + 30} y={node.y + 3} textAnchor="middle" fill="rgba(255,255,255,0.35)" fontSize="10" fontFamily="monospace">{node.label}</text>
-                        {/* Flow line to center */}
-                        <line x1="95" y1={node.y} x2="175" y2="100" stroke="rgba(0,102,255,0.12)" strokeWidth="1" />
-                        {/* Animated dot */}
-                        <circle r="2" fill="rgba(0,102,255,0.5)">
-                          <animateMotion dur={`${2.5 + i * 0.4}s`} repeatCount="indefinite" path={`M95,${node.y} L175,100`} />
-                        </circle>
-                      </g>
-                    ))}
-                    {/* Central warehouse */}
-                    <rect x="175" y="70" width="120" height="60" rx="8" fill="rgba(0,102,255,0.08)" stroke="rgba(0,102,255,0.3)" strokeWidth="1.5" />
-                    {/* Data warehouse icon: stacked discs */}
-                    <g transform="translate(205, 76)">
-                      {/* Bottom disc + body */}
-                      <path d="M0,38 L0,18" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      <path d="M60,38 L60,18" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      <ellipse cx="30" cy="38" rx="30" ry="8" fill="rgba(0,102,255,0.1)" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      {/* Middle disc */}
-                      <ellipse cx="30" cy="26" rx="30" ry="8" fill="rgba(0,102,255,0.1)" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      {/* Top disc body */}
-                      <path d="M0,26 L0,8" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      <path d="M60,26 L60,8" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      {/* Top disc */}
-                      <ellipse cx="30" cy="8" rx="30" ry="8" fill="rgba(0,102,255,0.2)" stroke="rgba(0,102,255,0.6)" strokeWidth="1.5" />
-                    </g>
-                  </svg>
+                {/* Left: Plato's Cave — Greek Black-Figure Pottery Illustration */}
+                <div className="flex flex-col items-center gap-6">
+                  <div className="w-full max-w-[520px] relative">
+                    {/* Ambient glow behind image */}
+                    <div className="absolute -inset-4 bg-gradient-to-r from-transparent via-transparent to-brand-blue/[0.08] rounded-2xl blur-2xl" />
+                    <div className="relative overflow-hidden rounded-lg" style={{ boxShadow: '0 0 40px rgba(0,102,255,0.08), 0 0 80px rgba(183,148,246,0.04)' }}>
+                      <Image
+                        src="/images/platos-cave.png"
+                        alt="Greek black-figure pottery illustration of Plato's cave allegory — a figure stepping from darkness toward light"
+                        width={2528}
+                        height={1696}
+                        className="w-full h-auto"
+                        priority
+                      />
+                      {/* Right edge fade into page background */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-brand-black/40 pointer-events-none" style={{ backgroundPosition: '70% 0' }} />
+                    </div>
+                  </div>
+                  <p className="text-white/30 text-[14px] italic text-center leading-relaxed max-w-[380px]">
+                    You&apos;ve been looking at the shadow of your data. We show you what&apos;s casting it.
+                  </p>
                 </div>
 
                 {/* Right: Text + tool flow */}
                 <div>
                   <p className="text-brand-blue/60 text-xs uppercase tracking-[0.2em] font-semibold mb-4">Foundation</p>
-                  <h3 className="text-3xl lg:text-4xl font-extrabold text-white mb-5 tracking-tight">Every Source. One Place. Always Live.</h3>
+                  <h3 className="text-3xl lg:text-4xl font-extrabold text-white mb-5 tracking-tight">The Raw Truth.</h3>
                   <p className="text-white/45 text-[15px] leading-relaxed mb-8">
-                    Your CRM, ad platforms, billing, and support tools synced into one place that updates itself. No more cross-referencing tabs. No more &ldquo;let me pull that number.&rdquo; One source of truth your entire revenue team actually trusts.
+                    Your tools were never built to talk to each other. Each one keeps its own version of your numbers. That&apos;s why reports never match. That&apos;s why switching tools never fixed the problem. The missing piece was never another app. It was the layer underneath that makes all of them work as one. We build that layer.
                   </p>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-mono">
-                    {["HubSpot", "Salesforce", "Google Ads", "Stripe", "Slack", "Intercom"].map((tool, i) => (
-                      <span key={tool} className="flex items-center gap-2">
-                        {i > 0 && <span className="text-white/10">·</span>}
-                        <span className="text-white/30">{tool}</span>
-                      </span>
-                    ))}
-                    <span className="text-white/10 mx-2">&rarr;</span>
-                    <span className="text-brand-blue/70 font-semibold">One Source of Truth</span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -619,9 +772,9 @@ export default function Home() {
               className={`rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 lg:p-8 reveal-card ${visibleSections.has('pillar-2') ? 'visible' : ''}`}
             >
               <p className="text-brand-blue/50 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Automation</p>
-              <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Set the Rules. Never Touch Them Again.</h3>
+              <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Automate the Ops. Scale Without Hiring.</h3>
               <p className="text-white/40 text-[15px] leading-relaxed mb-8">
-                Define what should happen when something changes. Then walk away. Your ops run on logic, not people remembering to check a spreadsheet.
+                We build automated workflows that replace the manual work slowing your team down. Lead routing, reporting, alerts, onboarding sequences, all running on logic instead of people. Serve twice the clients with the same team.
               </p>
               {/* Product-style automation rules */}
               <div className="space-y-3">
@@ -650,7 +803,7 @@ export default function Home() {
               <p className="text-brand-blue/50 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Intelligence</p>
               <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Ask a Question. Get the Real Answer.</h3>
               <p className="text-white/40 text-[15px] leading-relaxed mb-8">
-                No dashboards to learn. No exports to clean. No waiting for someone to pull a report. Just ask in plain English and get the answer with the data behind it.
+                We build an AI layer on top of your data so anyone on your team can query it in plain English. Pipeline, attribution, campaign performance. Real answers from real data, not a dashboard someone has to learn.
               </p>
               {/* Product-style chat interface */}
               <div className="rounded-lg bg-white/[0.03] border border-white/[0.05] overflow-hidden">
@@ -708,6 +861,38 @@ export default function Home() {
               <p className="text-white font-semibold text-sm">Michael Ewald</p>
               <p className="text-white/30 text-xs">Founder, Vangates</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION: OUTCOMES ROW
+      ═══════════════════════════════════════════ */}
+      <section className="relative py-16 px-8 lg:px-12 bg-brand-black border-t border-white/[0.06]">
+        <div className="max-w-[1100px] mx-auto">
+          <p className="text-center text-white/30 text-xs uppercase tracking-[0.2em] font-semibold mb-10">The Result</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {[
+              { label: "Process-driven operations", agency: false },
+              { label: "Scale without headcount", agency: false },
+              { label: "Speed of decision-making", agency: false },
+              { label: "Reduced tool spend", agency: false },
+              { label: "Future-proofed for AI", agency: false },
+              { label: "Better client experience", agency: true },
+              { label: "Easier to sell", agency: true },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className={`px-5 py-2.5 rounded-full border text-[13px] font-medium ${
+                  item.agency
+                    ? 'border-brand-blue/20 bg-brand-blue/[0.06] text-brand-blue/70'
+                    : 'border-white/[0.08] bg-white/[0.03] text-white/50'
+                }`}
+              >
+                {item.label}
+                {item.agency && <span className="ml-2 text-[10px] uppercase tracking-wider text-brand-blue/40">Agency</span>}
+              </div>
+            ))}
           </div>
         </div>
       </section>
