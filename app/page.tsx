@@ -717,27 +717,44 @@ export default function Home() {
               </div>
 
               <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                {/* Left: Plato's Cave — Greek Black-Figure Pottery Illustration */}
-                <div className="flex flex-col items-center gap-6">
-                  <div className="w-full max-w-[520px] relative">
-                    {/* Ambient glow behind image */}
-                    <div className="absolute -inset-4 bg-gradient-to-r from-transparent via-transparent to-brand-blue/[0.08] rounded-2xl blur-2xl" />
-                    <div className="relative overflow-hidden rounded-lg" style={{ boxShadow: '0 0 40px rgba(0,102,255,0.08), 0 0 80px rgba(183,148,246,0.04)' }}>
-                      <Image
-                        src="/images/platos-cave.png"
-                        alt="Greek black-figure pottery illustration of Plato's cave allegory — a figure stepping from darkness toward light"
-                        width={2528}
-                        height={1696}
-                        className="w-full h-auto"
-                        priority
-                      />
-                      {/* Right edge fade into page background */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-brand-black/40 pointer-events-none" style={{ backgroundPosition: '70% 0' }} />
-                    </div>
-                  </div>
-                  <p className="text-white/30 text-[14px] italic text-center leading-relaxed max-w-[380px]">
-                    You&apos;ve been looking at the shadow of your data. We show you what&apos;s casting it.
-                  </p>
+                {/* Left: SVG data flow diagram */}
+                <div className="flex justify-center">
+                  <svg width="320" height="200" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-[320px]">
+                    {/* Source nodes */}
+                    {[
+                      { x: 30, y: 30, label: "CRM" },
+                      { x: 30, y: 80, label: "Ads" },
+                      { x: 30, y: 130, label: "Billing" },
+                      { x: 30, y: 170, label: "Support" },
+                    ].map((node, i) => (
+                      <g key={i}>
+                        <rect x={node.x} y={node.y - 12} width="60" height="24" rx="4" fill="rgba(0,102,255,0.06)" stroke="rgba(0,102,255,0.15)" strokeWidth="1" />
+                        <text x={node.x + 30} y={node.y + 3} textAnchor="middle" fill="rgba(255,255,255,0.35)" fontSize="10" fontFamily="monospace">{node.label}</text>
+                        {/* Flow line to center */}
+                        <line x1="95" y1={node.y} x2="175" y2="100" stroke="rgba(0,102,255,0.12)" strokeWidth="1" />
+                        {/* Animated dot */}
+                        <circle r="2" fill="rgba(0,102,255,0.5)">
+                          <animateMotion dur={`${2.5 + i * 0.4}s`} repeatCount="indefinite" path={`M95,${node.y} L175,100`} />
+                        </circle>
+                      </g>
+                    ))}
+                    {/* Central warehouse */}
+                    <rect x="175" y="70" width="120" height="60" rx="8" fill="rgba(0,102,255,0.08)" stroke="rgba(0,102,255,0.3)" strokeWidth="1.5" />
+                    {/* Data warehouse icon: stacked discs */}
+                    <g transform="translate(205, 76)">
+                      {/* Bottom disc + body */}
+                      <path d="M0,38 L0,18" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      <path d="M60,38 L60,18" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      <ellipse cx="30" cy="38" rx="30" ry="8" fill="rgba(0,102,255,0.1)" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      {/* Middle disc */}
+                      <ellipse cx="30" cy="26" rx="30" ry="8" fill="rgba(0,102,255,0.1)" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      {/* Top disc body */}
+                      <path d="M0,26 L0,8" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      <path d="M60,26 L60,8" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
+                      {/* Top disc */}
+                      <ellipse cx="30" cy="8" rx="30" ry="8" fill="rgba(0,102,255,0.2)" stroke="rgba(0,102,255,0.6)" strokeWidth="1.5" />
+                    </g>
+                  </svg>
                 </div>
 
                 {/* Right: Text + tool flow */}
