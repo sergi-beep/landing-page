@@ -18,11 +18,11 @@ const clientLogos = [
 
 const engineers = [
   { name: "Giorgi Nadareishvili", photo: "/images/team/giorgi-nadareishvili.png", headline: "IOI Bronze Medalist", sub: "EJOI Silver \u00b7 RMI Silver \u00b7 5 International Medals", linkedin: "https://www.linkedin.com/in/giorgi-nadareishvili-661794187/", profiles: [{ label: "CPHOF", url: "https://cphof.org/profile/codeforces:binpaw" }, { label: "IOI Stats", url: "https://stats.ioinformatics.org/people/7457" }, { label: "CLIST", url: "https://clist.by/coder/%E2%88%A83884967/" }] },
-  { name: "Gega Abashidze", photo: "/images/team/gega-abashidze.png", headline: "20+ Olympiad Wins", sub: "ICPC Semifinalist \u00b7 Millennium Innovation Award", linkedin: "https://www.linkedin.com/in/gega-abashidze-1168b728b/" },
+  { name: "Gega Abashidze", photo: "/images/team/gega-abashidze.png", headline: "6 Olympiad Wins", sub: "ICPC Semifinalist \u00b7 Millennium Innovation Award", linkedin: "https://www.linkedin.com/in/gega-abashidze-1168b728b/" },
   { name: "Luka Liklikadze", photo: "/images/team/luka-liklikadze.jpeg", headline: "#1 National Talent of 2023", sub: "Highest grade in National university entrance exams", linkedin: "https://www.linkedin.com/in/luka-liklikadze-571bb4324/", profiles: [{ label: "TV Final", url: "https://www.youtube.com/watch?v=T5l27Jsgb2M" }] },
   { name: "Lasha Gorgodze", photo: "/images/team/lasha-gorgodze.jpeg", headline: "Math Teacher \u2192 Engineer", sub: "ML Certified \u00b7 Automation Architect \u00b7 Backend Pipelines", linkedin: "https://www.linkedin.com/in/lasha-gorgodze/" },
   { name: "Dimitri Takavadze", photo: "/images/team/dimitri-takavadze.jpeg", headline: "The Algorithmist", sub: "Algorithms Specialist \u00b7 Free University CS & Math", linkedin: "https://www.linkedin.com/in/dimitri-tkavadze/" },
-  { name: "Ketevan Arevadze", photo: "/images/team/ketevan-arevadze.png", headline: "Full-Stack Engineer", sub: "Physics Background \u00b7 Frontend & Backend Systems", linkedin: "https://www.linkedin.com/in/ketevan-arevadze-1a60b2339/" },
+  { name: "Ketevan Arevadze", photo: "/images/team/ketevan-arevadze.png", headline: "Technovation Girls Winner", sub: "Teaching math since 15 \u00b7 Builds robots for fun", linkedin: "https://www.linkedin.com/in/ketevan-arevadze-1a60b2339/" },
 ];
 
 export default function AboutPage() {
@@ -101,24 +101,34 @@ export default function AboutPage() {
               We&apos;ve Done Your Job Before
             </h3>
             <p className="text-gray-500 leading-relaxed mb-8 max-w-3xl text-[15px]">
-              We started as marketing and RevOps leaders on one side, solutions architects and engineers on the other. Together we built a B2B lead gen agency from scratch. The technical walls kept showing up, so we built the fixes ourselves. Then started shipping them to every revenue team and agency that needed them.
+              Childhood best friends turned co-founders. One from the revenue ops side, the other from engineering. Together we built a B2B lead gen agency from scratch. The technical walls kept showing up, so we built the fixes ourselves. Then started shipping them to every revenue team and agency that needed them.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-4 mb-6">
-              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
-                <img src="/images/team/sergi.jpeg" alt="Sergi Cheishvili" className="w-16 h-16 rounded-xl object-cover" />
+              <div className="flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-200">
+                <img src="/images/team/sergi.jpeg" alt="Sergi Cheishvili" className="w-16 h-16 rounded-xl object-cover shrink-0" />
                 <div>
-                  <p className="font-bold text-gray-900">Sergi Cheishvili</p>
-                  <p className="text-sm text-gray-500">Co-Founder &amp; CEO</p>
-                  <p className="text-xs text-gray-400 mt-1">From selling software to building it. 20+ companies on both sides of the table.</p>
+                  <div className="flex items-center gap-2">
+                    <p className="font-bold text-gray-900">Sergi Cheishvili</p>
+                    <a href="https://www.linkedin.com/in/sergi-cheishvili-9b3936164/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-brand-blue transition-colors">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                  </div>
+                  <p className="text-sm text-gray-500">Co-Founder &amp; CBO</p>
+                  <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">4 years in B2B data ops. RevOps at N.Rich (Helsinki) and Brightvision (Sweden). Built Stimuli from the same trenches you operate in.</p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
-                <img src="/images/team/Rezi.jpeg" alt="Rezi Dzidziguri" className="w-16 h-16 rounded-xl object-cover" />
+              <div className="flex items-start gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-200">
+                <img src="/images/team/Rezi.jpeg" alt="Rezi Dzidziguri" className="w-16 h-16 rounded-xl object-cover shrink-0" />
                 <div>
-                  <p className="font-bold text-gray-900">Rezi Dzidziguri</p>
+                  <div className="flex items-center gap-2">
+                    <p className="font-bold text-gray-900">Rezi Dzidziguri</p>
+                    <a href="https://www.linkedin.com/in/revaz-dzidziguri-4a02941b9/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-brand-blue transition-colors">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                  </div>
                   <p className="text-sm text-gray-500">Co-Founder &amp; CTO</p>
-                  <p className="text-xs text-gray-400 mt-1">CS and BA dropout. Architected TBC Bank&#39;s award-winning digital platform.</p>
+                  <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">Solution Architect at TBC Bank. Neobank architect at Vacuumlabs. Built a team of 9 olympiad-winning engineers.</p>
                 </div>
               </div>
             </div>
@@ -173,7 +183,7 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div className="relative rounded-2xl overflow-hidden border border-white/[0.06] aspect-video">
+          <div className="relative rounded-2xl overflow-hidden border border-white/[0.06] aspect-video group" onClick={(e) => { const overlay = (e.currentTarget as HTMLElement).querySelector('.iframe-overlay'); if (overlay) (overlay as HTMLElement).style.display = 'none'; }}>
             <iframe
               src="https://www.youtube.com/embed/3Q9rewnLFYw?rel=0"
               title="Working with Stimuli"
@@ -181,6 +191,7 @@ export default function AboutPage() {
               allowFullScreen
               className="absolute inset-0 w-full h-full"
             />
+            <div className="iframe-overlay absolute inset-0 z-10 cursor-pointer" />
           </div>
         </div>
       </section>
@@ -215,8 +226,8 @@ export default function AboutPage() {
           </div>
 
           {/* Social proof faces */}
-          <div className="flex items-center justify-center gap-3 mt-10">
-            <div className="flex -space-x-2">
+          <div className="flex flex-col items-center gap-4 mt-10">
+            <div className="flex -space-x-3">
               {[
                 { src: "/images/testimonials/enzo-carasso.jpg", name: "Enzo" },
                 { src: "/images/testimonials/taylor-haren.jpg", name: "Taylor" },
@@ -224,16 +235,19 @@ export default function AboutPage() {
                 { src: "/images/testimonials/aj-cassata.jpg", name: "AJ" },
                 { src: "/images/testimonials/naeem-alvi.jpg", name: "Naeem" },
                 { src: "/images/testimonials/aleksander-ivanov.jpg", name: "Aleksander" },
+                { src: "/images/testimonials/alex-vacca.jpg", name: "Alex" },
+                { src: "/images/testimonials/harrison-waid.jpeg", name: "Harrison" },
+                { src: "/images/testimonials/felix-frank.jpeg", name: "Felix" },
               ].map((t, i) => (
                 <img
                   key={i}
                   src={t.src}
                   alt={t.name}
-                  className="w-8 h-8 rounded-full border-2 border-white object-cover"
+                  className="w-11 h-11 rounded-full border-2 border-white/20 object-cover shadow-[0_0_20px_rgba(232,180,200,0.2)] hover:scale-110 hover:z-10 transition-transform duration-300"
                 />
               ))}
             </div>
-            <span className="text-sm text-gray-400 font-medium">Trusted by 40+ B2B teams</span>
+            <span className="text-sm text-white/50 font-medium">Trusted by 40+ Revenue teams and agencies</span>
           </div>
         </div>
       </section>
@@ -287,7 +301,7 @@ export default function AboutPage() {
             <div className="text-sm text-center md:text-right">
               <p className="text-white/40 font-medium tracking-tight">&copy; 2025 Stimuli Digital. All rights reserved.</p>
               <p className="mt-2 text-white/25 tracking-tight">
-                Fractional CTO for B2B sales & marketing teams and agencies
+                Your CTO + Tech-ops department
               </p>
             </div>
           </div>

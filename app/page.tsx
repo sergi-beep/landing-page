@@ -53,7 +53,7 @@ const engineers = [
   {
     name: "Gega Abashidze",
     photo: "/images/team/gega-abashidze.png",
-    headline: "20+ Olympiad Wins",
+    headline: "6 Olympiad Wins",
     sub: "ICPC Semifinalist · Millennium Innovation Award",
     linkedin: "https://www.linkedin.com/in/gega-abashidze-1168b728b/",
   },
