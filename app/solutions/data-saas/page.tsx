@@ -12,7 +12,7 @@ const steps = [
     label: "Scrape",
     title: "Built target lists from real directories",
     description:
-      "Pulled companies from Clutch, Capterra, Indeed, Wellfound — filtered by industry, location, size, budget. No CSV uploads. No guessing.",
+      "Pulled companies from Clutch, Capterra, Indeed, Wellfound.filtered by industry, location, size, budget. No CSV uploads. No guessing.",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -24,7 +24,7 @@ const steps = [
     label: "Find contacts",
     title: "Found the decision-makers automatically",
     description:
-      "Select management level, title, max contacts per company. We pulled verified contacts from Apollo — names, titles, cities, all matched to the target list.",
+      "Select management level, title, max contacts per company. We pulled verified contacts from Apollo.names, titles, cities, all matched to the target list.",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -36,7 +36,7 @@ const steps = [
     label: "Enrich",
     title: "Added every data point needed for personalization",
     description:
-      "Clutch reviews, tech stack, SEO data, annual revenue, social profiles, company descriptions — pick what matters for the campaign. Every row became a personalized pitch.",
+      "Clutch reviews, tech stack, SEO data, annual revenue, social profiles, company descriptions.pick what matters for the campaign. Every row became a personalized pitch.",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
@@ -140,56 +140,20 @@ export default function DataSaasPage() {
           HERO
       ═══════════════════════════════════════════ */}
       <section className="relative pt-40 pb-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        {/* Ambient layers */}
-        <div className="absolute inset-0 hero-grid opacity-40"></div>
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[700px] bg-brand-blue/[0.07] rounded-full blur-[160px] animate-pulse-slower"></div>
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-brand-sky/[0.04] rounded-full blur-[100px]"></div>
-
         <div className="max-w-[1100px] mx-auto relative">
           <div className="text-center max-w-[900px] mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-8 hero-fade-up hero-fade-up-1">
-              <span className="w-2 h-2 rounded-full bg-white/30"></span>
-              <span className="text-sm text-white/60 font-medium tracking-wide uppercase">
-                Product Archive
-              </span>
-            </div>
-
             <h1 className="text-5xl lg:text-[4.8rem] font-extrabold tracking-[-0.03em] leading-[0.92] mb-8 text-white hero-fade-up hero-fade-up-2">
-              We built Clay<br />
-              <span className="text-gradient">before Clay was cool.</span>
+              B2B data aggregation<br />
+              <span className="text-brand-blue">from scratch.</span>
             </h1>
 
             <p className="text-xl text-white/40 leading-relaxed max-w-3xl mx-auto font-light tracking-tight mb-6 hero-fade-up hero-fade-up-3">
-              In 2023, two engineers built a full data aggregation platform from scratch. Python backend. Next.js frontend. Three months. It scraped business directories, found decision-makers, and enriched every row with personalization data.
+              Two engineers. Three months. A full platform that scraped directories, found decision-makers, and enriched every row.
             </p>
-
-            <p className="text-[15px] text-white/20 max-w-2xl mx-auto leading-relaxed hero-fade-up hero-fade-up-4">
-              The product worked. The business didn&apos;t. We almost went bankrupt&nbsp;&mdash; not because the tech was wrong, but because we were engineers who didn&apos;t know how to sell. This is its story.
-            </p>
-
-            {/* Tech stack badges */}
-            <div className="flex items-center justify-center gap-3 mt-10 hero-fade-up hero-fade-up-5">
-              <span className="px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] text-white/40 text-sm font-semibold tracking-tight">
-                Python
-              </span>
-              <span className="px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] text-white/40 text-sm font-semibold tracking-tight">
-                Next.js
-              </span>
-              <span className="px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] text-white/40 text-sm font-semibold tracking-tight">
-                Apollo API
-              </span>
-              <span className="px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] text-white/40 text-sm font-semibold tracking-tight">
-                Web Scraping
-              </span>
-            </div>
           </div>
 
-          {/* Hero — pipeline flow visualization */}
           <div className="relative hero-fade-up hero-fade-up-6">
-            <div className="absolute -inset-4 bg-gradient-to-r from-brand-blue/10 via-brand-sky/5 to-brand-blue/10 rounded-3xl blur-2xl opacity-60"></div>
-            <div className="relative">
-              <HeroPipeline />
-            </div>
+            <HeroPipeline />
           </div>
         </div>
       </section>
@@ -209,7 +173,7 @@ export default function DataSaasPage() {
                 {i > 0 && (
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 w-px h-12 bg-gradient-to-b from-transparent via-white/[0.08] to-transparent"></div>
                 )}
-                <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-gradient">
+                <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-brand-blue">
                   {stat.value}
                 </p>
                 <p className="text-white/30 text-sm font-medium mt-2 tracking-tight">{stat.label}</p>
@@ -220,7 +184,7 @@ export default function DataSaasPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          THE PROBLEM — Tool Graveyard
+          THE PROBLEM.Tool Graveyard
       ═══════════════════════════════════════════ */}
       <section className="relative py-28 px-8 lg:px-12 bg-white overflow-hidden">
         <div className="max-w-[900px] mx-auto text-center">
@@ -262,9 +226,6 @@ export default function DataSaasPage() {
           3-STEP PROCESS
       ═══════════════════════════════════════════ */}
       <section className="relative py-28 lg:py-36 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-brand-blue/[0.04] rounded-full blur-[140px] -translate-y-1/2"></div>
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-brand-sky/[0.03] rounded-full blur-[100px]"></div>
-
         <div className="max-w-[1100px] mx-auto relative">
           <div className="text-center mb-20 reveal-section">
             <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-4">How it worked</p>
@@ -273,7 +234,7 @@ export default function DataSaasPage() {
             </h2>
           </div>
 
-          {/* Step selector — vertical on left, content on right */}
+          {/* Step selector.vertical on left, content on right */}
           <div className="grid lg:grid-cols-[280px_1fr] gap-12 items-start reveal-section">
             {/* Step tabs */}
             <div className="relative">
@@ -324,17 +285,18 @@ export default function DataSaasPage() {
 
             {/* Active step content */}
             <div>
-              <div key={`text-${activeStep}`} className="mb-6 mock-step-enter">
-                <h3 className="text-2xl lg:text-3xl font-extrabold text-white tracking-tight mb-3">
-                  {steps[activeStep].title}
-                </h3>
-                <p className="text-white/40 text-[16px] leading-relaxed font-light max-w-xl">
-                  {steps[activeStep].description}
-                </p>
+              <div className="min-h-[100px] mb-6">
+                <div key={`text-${activeStep}`} className="mock-step-enter">
+                  <h3 className="text-2xl lg:text-3xl font-extrabold text-white tracking-tight mb-3">
+                    {steps[activeStep].title}
+                  </h3>
+                  <p className="text-white/40 text-[16px] leading-relaxed font-light max-w-xl">
+                    {steps[activeStep].description}
+                  </p>
+                </div>
               </div>
-              <div className="relative">
-                <div className="absolute -inset-3 bg-brand-blue/[0.06] rounded-2xl blur-2xl"></div>
-                <div key={`mock-${activeStep}`} className="relative mock-step-enter">
+              <div className="relative min-h-[450px]">
+                <div key={`mock-${activeStep}`} className="mock-step-enter">
                   {activeStep === 0 && <MockStep1 />}
                   {activeStep === 1 && <MockStep2 />}
                   {activeStep === 2 && <MockStep3 />}
@@ -346,7 +308,7 @@ export default function DataSaasPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          OUTPUT — The final result
+          OUTPUT.The final result
       ═══════════════════════════════════════════ */}
       <section className="relative py-28 px-8 lg:px-12 bg-white overflow-hidden">
         <div className="max-w-[1100px] mx-auto">
@@ -360,13 +322,13 @@ export default function DataSaasPage() {
                 Clean, enriched,<br />ready to send.
               </h2>
               <p className="text-gray-500 text-[16px] leading-relaxed font-light mb-8">
-                Every row was a potential client — with company info, decision-maker contacts, Clutch ratings, tech stack, SEO data, and any personalization point selected. One click to export as CSV.
+                Every row was a potential client.with company info, decision-maker contacts, Clutch ratings, tech stack, SEO data, and any personalization point selected. One click to export as CSV.
               </p>
               <div className="space-y-4">
                 {[
                   { text: "Verified emails for every contact", icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
                   { text: "15+ personalization data points per lead", icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" },
-                  { text: "Export to CSV — plug into any outreach tool", icon: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" },
+                  { text: "Export to CSV.plug into any outreach tool", icon: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" },
                 ].map((item) => (
                   <div key={item.text} className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-brand-blue/10 flex items-center justify-center flex-shrink-0">
@@ -384,39 +346,6 @@ export default function DataSaasPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          THE BACKSTORY
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute inset-0 hero-grid opacity-30"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-brand-blue/[0.06] rounded-full blur-[160px]"></div>
-
-        <div className="max-w-[700px] mx-auto relative text-center reveal-section">
-          <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-6">The backstory</p>
-
-          <h2 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white mb-4">
-            We built this in 2023.
-          </h2>
-          <p className="text-2xl lg:text-3xl font-extrabold tracking-tight text-white/25 mb-10">
-            Before Clay raised their Series B.
-          </p>
-
-          <div className="space-y-6 text-left max-w-xl mx-auto">
-            <p className="text-white/40 text-[16px] leading-relaxed">
-              Data aggregation and enrichment for B2B outreach — scrape from real directories, find decision-makers, enrich with every data point that matters. Python backend handling the scraping and data processing. Next.js frontend for the UI you see above. Built the whole thing from scratch. Three months. Two engineers.
-            </p>
-            <p className="text-white/40 text-[16px] leading-relaxed">
-              The product worked. The business didn&apos;t. We were engineers — we knew how to build, but not how to sell. We spent 150K GEL and almost went bankrupt.
-            </p>
-            <div className="p-6 rounded-xl border border-brand-blue/20 bg-brand-blue/[0.04]">
-              <p className="text-white/70 text-lg leading-relaxed font-semibold">
-                So we went back to agency work, learned the business side the hard way, and turned the pain into expertise. Every tool we build now comes from that experience&nbsp;&mdash; engineering rigor backed by hard-won commercial instincts.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
           DEMO VIDEO
       ═══════════════════════════════════════════ */}
       <section className="relative py-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
@@ -428,7 +357,6 @@ export default function DataSaasPage() {
             </h2>
           </div>
           <div className="relative rounded-2xl border border-white/[0.08] overflow-hidden shadow-xl">
-            <div className="absolute -inset-4 bg-brand-blue/[0.04] rounded-3xl blur-2xl"></div>
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 src="https://www.loom.com/embed/c99a99278d49485d9c410bc2771de081"
@@ -442,11 +370,9 @@ export default function DataSaasPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          CTA — Soft redirect
+          CTA.Soft redirect
       ═══════════════════════════════════════════ */}
       <section className="relative py-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-brand-blue/[0.05] rounded-full blur-[120px]"></div>
-
         <div className="max-w-3xl mx-auto text-center relative reveal-section">
           <h2 className="text-3xl lg:text-[2.8rem] font-extrabold tracking-[-0.02em] leading-tight mb-6 text-white">
             We still build things like this.

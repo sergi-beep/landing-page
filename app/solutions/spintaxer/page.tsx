@@ -201,7 +201,7 @@ export default function SpintaxerPage() {
             ].map((feature) => (
               <div
                 key={feature.title}
-                className="group p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-brand-blue/30 hover:bg-white/[0.04] transition-all duration-500"
+                className="group p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-brand-blue/30 hover:bg-white/[0.04] transition-all duration-500 flex flex-col"
               >
                 <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue mb-6">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,7 +209,7 @@ export default function SpintaxerPage() {
                   </svg>
                 </div>
                 <h3 className="text-xl font-extrabold text-white tracking-tight mb-2">{feature.title}</h3>
-                <p className="text-white/30 text-[14px] leading-relaxed mb-6">{feature.description}</p>
+                <p className="text-white/30 text-[14px] leading-relaxed mb-6 flex-1">{feature.description}</p>
                 <div className="pt-4 border-t border-white/[0.06]">
                   <p className="text-2xl font-extrabold text-brand-blue">{feature.metric}</p>
                   <p className="text-white/20 text-[12px] font-medium mt-1">{feature.metricLabel}</p>
