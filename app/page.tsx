@@ -105,28 +105,28 @@ const clientLogos = [
 const familiarQuotes = [
   // Card 1: Broken Data
   [
-    { text: "We were having recurring issues with data accuracy. Moving to the custom app and backend you guys built has really unlocked improved efficiency.", name: "Felix Frank", role: "Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
-    { text: "The dashboards make us look like miles ahead of everyone else. There hasn't been anything we've asked them to do that they haven't figured out a way to solve.", name: "AJ Cassata", role: "Revenue Boost", photo: "/images/testimonials/aj-cassata.jpg" },
-    { text: "Reporting was the biggest bottleneck. You figured that out for us. You're saving us probably $5,000 a month just in tools we would have had to purchase.", name: "Enzo Carasso", role: "C17 Lab", photo: "/images/testimonials/enzo-carasso.jpg" },
-    { text: "You guys have been instrumental in helping us set up all the data tracking around the business to make sure operations are run smoothly.", name: "Alex Vacca", role: "Cold IQ", photo: "/images/testimonials/alex-vacca.jpg" },
+    { text: "We were having recurring issues with data accuracy. Moving to the custom app and backend you guys built has really unlocked improved efficiency.", name: "Felix Frank", role: "Founder, Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
+    { text: "The dashboards make us look like miles ahead of everyone else. There hasn't been anything we've asked them to do that they haven't figured out a way to solve.", name: "AJ Cassata", role: "Co-founder, Revenue Boost", photo: "/images/testimonials/aj-cassata.jpg" },
+    { text: "Reporting was the biggest bottleneck. You figured that out for us. You're saving us probably $5,000 a month just in tools we would have had to purchase.", name: "Enzo Carasso", role: "CEO, C17 Lab", photo: "/images/testimonials/enzo-carasso.jpg" },
+    { text: "You guys have been instrumental in helping us set up all the data tracking around the business to make sure operations are run smoothly.", name: "Alex Vacca", role: "CEO, Cold IQ", photo: "/images/testimonials/alex-vacca.jpg" },
   ],
   // Card 2: Tools Break at Scale
   [
-    { text: "Airtable has a 50,000 row limit. I send 100,000 emails a month for one client. You guys built the whole damn thing in a week.", name: "Taylor Haren", role: "Sales Automation Systems", photo: "/images/testimonials/taylor-haren.jpg" },
-    { text: "We were running into limitations with Airtable. Moving to the custom backend you guys built, we now have a system we can easily scale upon.", name: "Felix Frank", role: "Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
-    { text: "All the data is in different places. This is where they were doing a crazy good job.", name: "Michael Ewald", role: "Vangates", photo: "/images/testimonials/michael-ewald.jpg" },
+    { text: "Airtable has a 50,000 row limit. I send 100,000 emails a month for one client. You guys built the whole damn thing in a week.", name: "Taylor Haren", role: "CEO, Sales Automation Systems", photo: "/images/testimonials/taylor-haren.jpg" },
+    { text: "We were running into limitations with Airtable. Moving to the custom backend you guys built, we now have a system we can easily scale upon.", name: "Felix Frank", role: "Founder, Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
+    { text: "All the data is in different places. This is where they were doing a crazy good job.", name: "Michael Ewald", role: "Founder, Vangates", photo: "/images/testimonials/michael-ewald.jpg" },
   ],
   // Card 3: 95% Accuracy Trap
   [
-    { text: "We were having recurring issues with data accuracy. Moving to the custom app and backend you guys built has really unlocked improved efficiency.", name: "Felix Frank", role: "Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
-    { text: "Reporting was the biggest bottleneck. You figured that out for us. You're saving us probably $5,000 a month just in tools we would have had to purchase.", name: "Enzo Carasso", role: "C17 Lab", photo: "/images/testimonials/enzo-carasso.jpg" },
-    { text: "These other guys told me 4 months and $42,000 and you guys built the whole damn thing in a week.", name: "Taylor Haren", role: "Sales Automation Systems", photo: "/images/testimonials/taylor-haren.jpg" },
+    { text: "We were having recurring issues with data accuracy. Moving to the custom app and backend you guys built has really unlocked improved efficiency.", name: "Felix Frank", role: "Founder, Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
+    { text: "Reporting was the biggest bottleneck. You figured that out for us. You're saving us probably $5,000 a month just in tools we would have had to purchase.", name: "Enzo Carasso", role: "CEO, C17 Lab", photo: "/images/testimonials/enzo-carasso.jpg" },
+    { text: "These other guys told me 4 months and $42,000 and you guys built the whole damn thing in a week.", name: "Taylor Haren", role: "CEO, Sales Automation Systems", photo: "/images/testimonials/taylor-haren.jpg" },
   ],
   // Card 4: Falling Behind on AI
   [
-    { text: "We scaled to over 60 clients with 4-5 people in the fulfillment team. The first 3 days he saved 50% of the cost he brings. What he built could be state-of-the-art.", name: "Michael Ewald", role: "Vangates", photo: "/images/testimonials/michael-ewald.jpg" },
-    { text: "Right now we have 30 clients. With the delivery team you guys enabled us to unlock, we probably have capacity for 50-60 clients.", name: "Felix Frank", role: "Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
-    { text: "Two months ago we were doing everything manually. Now we're a scalable company largely driven by technology, saving hours a day across all departments.", name: "Naeem Alvi-Assinder", role: "Avalanche", photo: "/images/testimonials/naeem-alvi.jpg" },
+    { text: "We scaled to over 60 clients with 4-5 people in the fulfillment team. The first 3 days he saved 50% of the cost he brings. What he built could be state-of-the-art.", name: "Michael Ewald", role: "Founder, Vangates", photo: "/images/testimonials/michael-ewald.jpg" },
+    { text: "Right now we have 30 clients. With the delivery team you guys enabled us to unlock, we probably have capacity for 50-60 clients.", name: "Felix Frank", role: "Founder, Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
+    { text: "Two months ago we were doing everything manually. Now we're a scalable company largely driven by technology, saving hours a day across all departments.", name: "Naeem Alvi-Assinder", role: "Founder, Avalanche", photo: "/images/testimonials/naeem-alvi.jpg" },
   ],
 ];
 
@@ -230,6 +230,7 @@ export default function Home() {
   const [familiarQuoteVisible, setFamiliarQuoteVisible] = useState(true);
   const [showAllResults, setShowAllResults] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [advantageFlipped, setAdvantageFlipped] = useState(false);
 
   // Auto-advance testimonials every 7 seconds
   useEffect(() => {
@@ -579,8 +580,7 @@ export default function Home() {
                 problemDesc: "Your data lives in 6 different tools. Reports take hours to pull and still don\u2019t match because every tool has already aggregated the numbers its own way. You never see the raw truth.",
                 solutionLabel: "Foundation",
                 solutionTitle: "One Source of Truth",
-                solutionHook: "You\u2019ve been looking at the shadow of your data. We show you what\u2019s casting it.",
-                solutionDesc: "Your tools were never built to talk to each other. Each one keeps its own version of your numbers. That\u2019s why reports never match. The missing piece was never another app. It was the layer underneath that makes all of them work as one. We build that layer.",
+                solutionDesc: "Each tool keeps its own version of your numbers. That\u2019s why reports never match. The missing piece was never another app. It was the layer underneath that makes them work as one. We build that layer.",
                 beforeContent: (
                   <div className="space-y-3 font-mono text-[13px]">
                     {[{ tool: "CRM", value: "142 deals" }, { tool: "Ads", value: "158 deals" }, { tool: "Billing", value: "134 deals" }].map((row, i) => (
@@ -604,8 +604,7 @@ export default function Home() {
                 problemDesc: "You have vibe coded your ops into existence. It worked on smaller scale. Now you\u2019re hitting row limits, broken syncs, and duct-taped workarounds everywhere.",
                 solutionLabel: "Operational Infrastructure",
                 solutionTitle: "Built to Scale",
-                solutionHook: "Most systems weren\u2019t built. They were assembled.",
-                solutionDesc: "No-code tools got you here. But they were never meant to be your backend. We design the architecture underneath your operations and build it as production software. Monitoring, alerting, failure recovery. Your processes keep running. Your team stops firefighting.",
+                solutionDesc: "No-code tools got you here. But they were never meant to be your backend. We build production software underneath your operations. Monitoring, alerting, failure recovery. Your team stops firefighting.",
                 beforeContent: (
                   <div className="space-y-2.5 font-mono text-[12px]">
                     {[{ tool: "Zapier", status: "3 failed runs" }, { tool: "Make", status: "timeout" }, { tool: "Manual retry", status: "47 pending" }].map((row, i) => (
@@ -633,8 +632,7 @@ export default function Home() {
                 problemDesc: "Dashboards are populated. Numbers come back. But half your integrations broke weeks ago and nobody noticed. 95% accurate - just wrong enough to make every decision built on it a guess.",
                 solutionLabel: "Data Integrity",
                 solutionTitle: "Nothing Breaks Silently",
-                solutionHook: "The gap between 95% and 100% is where every bad decision lives.",
-                solutionDesc: "APIs change. Schemas drift. Syncs go stale. In most systems, nobody notices for weeks. We build monitoring into every layer. Schema validation on every ingestion. Automated alerts when data patterns shift. Your system doesn\u2019t just run. It watches itself.",
+                solutionDesc: "APIs change. Schemas drift. Syncs go stale. Nobody notices for weeks. We build monitoring into every layer. Schema validation on ingestion. Automated alerts when patterns shift. Your system watches itself.",
                 beforeContent: (
                   <div className="space-y-2.5 font-mono text-[12px]">
                     {[{ label: "Schema changed", value: "Feb 3", color: "text-gray-500" }, { label: "Detected", value: "never", color: "text-red-500/70" }, { label: "Records corrupted", value: "2,847", color: "text-red-500/70" }, { label: "Time to discover", value: "6 weeks", color: "text-red-500/70" }].map((row, i) => (
@@ -660,8 +658,7 @@ export default function Home() {
                 problemDesc: "The output of AI is only as good as the input you feed it. You\u2019re not behind because of effort. You\u2019re behind because of infrastructure.",
                 solutionLabel: "AI Layer",
                 solutionTitle: "AI on Real Data",
-                solutionHook: "Everyone has AI. Almost nobody has the data to make it useful.",
-                solutionDesc: "Most companies plug AI into fragmented tools and wonder why it hallucinates. We plug it into a unified data layer with business context engineered in. Your team asks questions in plain English. They get real answers. Not guesses from a half-connected tool.",
+                solutionDesc: "Most companies plug AI into fragmented tools and wonder why it hallucinates. We plug it into a unified data layer with business context. Your team asks in plain English and gets real answers.",
                 beforeContent: (
                   <div className="space-y-3 font-mono text-[12px]">
                     <div><p className="text-gray-400 text-[11px] mb-1">you</p><p className="text-gray-500">What&apos;s our CAC by channel?</p></div>
@@ -690,26 +687,25 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Desktop: side-by-side */}
-                <div className="hidden lg:grid lg:grid-cols-2">
+                {/* Desktop: side-by-side with subgrid for equal box heights */}
+                <div className="hidden lg:grid lg:grid-cols-2" style={{ gridTemplateRows: 'auto auto auto 1fr' }}>
                   {/* Left: Problem */}
-                  <div className="p-8 bg-red-50/20 border-r border-gray-200">
+                  <div className="p-8 bg-red-50/20 border-r border-gray-200 grid row-span-4" style={{ gridTemplateRows: 'subgrid' }}>
                     <p className="text-red-500/60 text-[11px] uppercase tracking-[0.15em] font-semibold mb-2">{pair.problemLabel}</p>
                     <h3 className="text-xl font-extrabold text-brand-black mb-2 tracking-tight">{pair.problemTitle}</h3>
                     <p className="text-brand-black/45 text-[14px] leading-relaxed mb-5">{pair.problemDesc}</p>
-                    <div className="rounded-lg bg-red-50 border border-red-200/40 p-4">
+                    <div className="rounded-lg bg-red-50 border border-red-200/40 p-4 flex flex-col justify-center">
                       <p className="text-red-400/70 text-[9px] uppercase tracking-wider font-bold mb-3">Before</p>
                       {pair.beforeContent}
                     </div>
                   </div>
 
                   {/* Right: Solution */}
-                  <div className="p-8 bg-blue-50/20">
+                  <div className="p-8 bg-blue-50/20 grid row-span-4" style={{ gridTemplateRows: 'subgrid' }}>
                     <p className="text-brand-blue text-[11px] uppercase tracking-[0.15em] font-semibold mb-2">{pair.solutionLabel}</p>
                     <h3 className="text-xl font-extrabold text-brand-black mb-2 tracking-tight">{pair.solutionTitle}</h3>
-                    <p className="text-brand-black/50 text-[13px] leading-relaxed mb-1 italic">{pair.solutionHook}</p>
                     <p className="text-brand-black/35 text-[13px] leading-relaxed mb-5">{pair.solutionDesc}</p>
-                    <div className="rounded-lg bg-emerald-50 border border-emerald-200/40 p-4">
+                    <div className="rounded-lg bg-emerald-50 border border-emerald-200/40 p-4 flex flex-col justify-center">
                       <p className="text-emerald-600/70 text-[9px] uppercase tracking-wider font-bold mb-3">After</p>
                       {pair.afterContent}
                     </div>
@@ -717,11 +713,11 @@ export default function Home() {
                 </div>
 
                 {/* Testimonial - spans full width */}
-                <div className="hidden lg:flex items-start gap-3 px-8 py-5 bg-amber-50/20 border-t border-gray-200">
-                  <img src={q.photo} alt={q.name} className="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5" />
+                <div className="hidden lg:flex items-start gap-3 px-8 py-5 bg-white border-t border-gray-200 min-h-[88px]">
+                  <img src={q.photo} alt={q.name} className="w-10 h-10 rounded-full object-cover shrink-0" />
                   <div>
                     <p className="text-brand-black/50 text-[13px] italic leading-relaxed">&ldquo;{q.text}&rdquo;</p>
-                    <p className="text-brand-black/30 text-[11px] mt-1.5 font-medium">{q.name}, {q.role}</p>
+                    <p className="text-brand-black/70 text-[12px] mt-1.5 font-semibold">{q.name}<span className="text-brand-black/30 font-medium">, {q.role}</span></p>
                   </div>
                 </div>
 
@@ -737,19 +733,18 @@ export default function Home() {
                       {pair.beforeContent}
                     </div>
                   </div>
-                  <div className="px-6 py-4 bg-amber-50/20 border-x border-gray-200">
+                  <div className="px-6 py-4 bg-white border-x border-gray-200 min-h-[80px]">
                     <div className="flex items-start gap-3">
-                      <img src={q.photo} alt={q.name} className="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" />
+                      <img src={q.photo} alt={q.name} className="w-9 h-9 rounded-full object-cover shrink-0" />
                       <div>
                         <p className="text-brand-black/50 text-[12px] italic leading-relaxed">&ldquo;{q.text}&rdquo;</p>
-                        <p className="text-brand-black/30 text-[11px] mt-1 font-medium">{q.name}, {q.role}</p>
+                        <p className="text-brand-black/70 text-[11px] mt-1 font-semibold">{q.name}<span className="text-brand-black/30 font-medium">, {q.role}</span></p>
                       </div>
                     </div>
                   </div>
                   <div className="p-6 bg-blue-50/20 rounded-b-xl border border-gray-200 border-t-0">
                     <p className="text-brand-blue text-[11px] uppercase tracking-[0.15em] font-semibold mb-2">{pair.solutionLabel}</p>
                     <h3 className="text-lg font-extrabold text-brand-black mb-2 tracking-tight">{pair.solutionTitle}</h3>
-                    <p className="text-brand-black/50 text-[13px] leading-relaxed mb-1 italic">{pair.solutionHook}</p>
                     <p className="text-brand-black/35 text-[13px] leading-relaxed mb-4">{pair.solutionDesc}</p>
                     <div className="rounded-lg bg-emerald-50 border border-emerald-200/40 p-3">
                       <p className="text-emerald-600/70 text-[9px] uppercase tracking-wider font-bold mb-2">After</p>
@@ -790,7 +785,7 @@ export default function Home() {
             {/* Track 1: Fix What Hurts Now */}
             <div
               data-section-id="track-1"
-              className={`rounded-xl border border-gray-200 bg-white p-6 lg:p-8 reveal-card ${visibleSections.has('track-1') ? 'visible' : ''}`}
+              className={`rounded-xl border border-emerald-200/40 bg-emerald-50/30 p-6 lg:p-8 reveal-card ${visibleSections.has('track-1') ? 'visible' : ''}`}
             >
               <p className="text-emerald-600/60 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Track 1</p>
               <h3 className="text-2xl font-extrabold text-brand-black mb-3 tracking-tight">Fix What Hurts Now</h3>
@@ -967,22 +962,32 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Card 4: Agency / GTM Advantage */}
-            <div className="p-8 rounded-2xl border border-brand-blue/20 bg-blue-50/20">
-              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                </svg>
+            {/* Card 4: Agency / GTM Advantage — Flip Card */}
+            <div
+              className="p-8 rounded-2xl border border-brand-blue/20 bg-blue-50/20 cursor-pointer hover:border-brand-blue/40 hover:shadow-md transition-all duration-300"
+              onClick={() => setAdvantageFlipped(prev => !prev)}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                  </svg>
+                </div>
+                {/* Toggle tabs */}
+                <div className="flex rounded-full border border-brand-blue/20 overflow-hidden text-[11px] font-semibold">
+                  <span className={`px-3 py-1.5 transition-all duration-300 ${!advantageFlipped ? 'bg-brand-blue text-white' : 'text-brand-black/40 hover:text-brand-black/60'}`}>Agency</span>
+                  <span className={`px-3 py-1.5 transition-all duration-300 ${advantageFlipped ? 'bg-brand-blue text-white' : 'text-brand-black/40 hover:text-brand-black/60'}`}>GTM Team</span>
+                </div>
               </div>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="text-lg font-bold text-brand-black tracking-tight">Agency Advantage</h3>
+              <div className="relative overflow-hidden" style={{ minHeight: '80px' }}>
+                <div className={`transition-all duration-400 ${!advantageFlipped ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 absolute inset-0'}`}>
+                  <h3 className="text-2xl font-bold text-brand-black tracking-tight mb-3">Agency Advantage</h3>
                   <p className="text-gray-500 text-[15px] leading-relaxed">
                     Better client experience. Your business becomes easy to sell.
                   </p>
                 </div>
-                <div className="border-t border-gray-200 pt-4">
-                  <h3 className="text-lg font-bold text-brand-black tracking-tight">GTM Team Advantage</h3>
+                <div className={`transition-all duration-400 ${advantageFlipped ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute inset-0'}`}>
+                  <h3 className="text-2xl font-bold text-brand-black tracking-tight mb-3">GTM Team Advantage</h3>
                   <p className="text-gray-500 text-[15px] leading-relaxed">
                     Every dollar tracked to revenue, translating into more sales and bonuses for you and your team.
                   </p>
