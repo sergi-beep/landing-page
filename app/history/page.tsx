@@ -75,22 +75,13 @@ export default function HistoryPage() {
             </div>
 
             <div className="hidden lg:flex items-center gap-10">
-              <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Services
-              </Link>
-              <Link href="/#case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Client Success
-              </Link>
-              <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                About
-              </Link>
-              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                FAQs
-              </Link>
+              <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Services</Link>
+              <Link href="/case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Video Case Studies</Link>
+              <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Why Us</Link>
               <SolutionsDropdown />
-              <Link href="/history" className="text-[15px] font-medium text-white transition-colors">
-                Our History
-              </Link>
+              <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Pricing</Link>
+              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Q&amp;A</Link>
+              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Our Purpose</Link>
             </div>
 
             <Link
@@ -99,7 +90,7 @@ export default function HistoryPage() {
               rel="noopener noreferrer"
               className="px-6 py-2.5 bg-white text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white transition-all duration-300"
             >
-              Let&apos;s talk
+              Challenge Us
             </Link>
           </div>
         </div>
@@ -120,7 +111,7 @@ export default function HistoryPage() {
 
           <h1 className="text-5xl lg:text-[4.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
             Giants built this ground.<br />
-            <span className="text-gradient">We&apos;re not letting it go cold.</span>
+            <span className="text-brand-blue">We&apos;re not letting it go cold.</span>
           </h1>
 
           <p className="text-xl text-white/40 leading-relaxed max-w-3xl mx-auto font-light tracking-tight">

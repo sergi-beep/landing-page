@@ -9,7 +9,14 @@ const solutions = [
     tagline: "Find your next client before they find you.",
     status: "Coming Soon",
     statusColor: "text-brand-blue bg-brand-blue/10",
-    href: "/solutions/outfound",
+    href: "https://www.outfound.io/",
+  },
+  {
+    name: "Slaygent",
+    tagline: "AI agents that actually close deals.",
+    status: "Live",
+    statusColor: "text-emerald-400 bg-emerald-500/10",
+    href: "https://slaygent.co/",
   },
   {
     name: "Spintaxer",

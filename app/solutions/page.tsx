@@ -84,22 +84,13 @@ export default function SolutionsPage() {
             </div>
 
             <div className="hidden lg:flex items-center gap-10">
-              <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Services
-              </Link>
-              <Link href="/#case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Client Success
-              </Link>
-              <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                About
-              </Link>
-              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                FAQs
-              </Link>
-              <SolutionsDropdown active />
-              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Our History
-              </Link>
+              <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Services</Link>
+              <Link href="/case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Video Case Studies</Link>
+              <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Why Us</Link>
+              <SolutionsDropdown />
+              <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Pricing</Link>
+              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Q&amp;A</Link>
+              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Our Purpose</Link>
             </div>
 
             <Link
@@ -108,7 +99,7 @@ export default function SolutionsPage() {
               rel="noopener noreferrer"
               className="px-6 py-2.5 bg-white text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white transition-all duration-300"
             >
-              Let&apos;s talk
+              Challenge Us
             </Link>
           </div>
         </div>
@@ -128,7 +119,7 @@ export default function SolutionsPage() {
 
           <h1 className="text-5xl lg:text-[4.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
             Tools we built.<br />
-            <span className="text-gradient">Now we&apos;re sharing them.</span>
+            <span className="text-brand-blue">Now we&apos;re sharing them.</span>
           </h1>
 
           <p className="text-xl text-white/40 leading-relaxed max-w-2xl mx-auto font-light tracking-tight">
@@ -231,7 +222,7 @@ export default function SolutionsPage() {
             className="group relative inline-flex items-center gap-2 px-10 py-5 bg-white text-brand-black rounded-full font-bold text-[17px] tracking-tight overflow-hidden transition-all duration-500 hover:bg-brand-blue hover:text-white hover:shadow-[0_0_60px_rgba(0,102,255,0.4)]"
           >
             <span className="relative z-10 flex items-center gap-2">
-              Let&apos;s talk
+              Challenge Us
               <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
