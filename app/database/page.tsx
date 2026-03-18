@@ -326,12 +326,12 @@ export default function Home() {
 
             <div className="hidden lg:flex items-center gap-10">
               <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Services</Link>
-              <Link href="/case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Case Studies</Link>
-              <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">About Us</Link>
+              <Link href="/case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Video Case Studies</Link>
+              <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Why Us</Link>
               <SolutionsDropdown />
               <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Pricing</Link>
               <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Q&amp;A</Link>
-              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Our History</Link>
+              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Our Purpose</Link>
             </div>
 
             <Link
@@ -340,7 +340,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="px-6 py-2.5 bg-gray-50 text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white hover:shadow-lg transition-all duration-300"
             >
-              Let&apos;s talk
+              Challenge Us
             </Link>
           </div>
         </div>

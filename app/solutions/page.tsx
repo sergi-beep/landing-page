@@ -7,12 +7,25 @@ import { SolutionsDropdown } from "../components/solutions-dropdown";
 
 const solutions = [
   {
+    name: "Slaygent",
+    tagline: "Claygent's power. Without Clay's baggage.",
+    description: "Research companies, qualify ICPs, detect signals. One API call, structured data back. No spreadsheet.",
+    status: "Live",
+    statusColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    link: "https://slaygent.co/",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
+  },
+  {
     name: "Outfound",
-    tagline: "Find your next client before they find you.",
-    description: "Outbound prospecting infrastructure built for B2B lead generation agencies. The system that does the finding so your team can do the closing.",
-    status: "Coming Soon",
-    statusColor: "bg-brand-blue/10 text-brand-blue border-brand-blue/20",
-    link: "/solutions/outfound",
+    tagline: "Cold email infrastructure for agencies.",
+    description: "Backend database, infrastructure monitoring, deep campaign analytics, white label client portal, and CRM attribution. Co-founded with Sales Automation Systems.",
+    status: "Live",
+    statusColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    link: "https://www.outfound.io/",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -21,10 +34,10 @@ const solutions = [
   },
   {
     name: "Spintaxer",
-    tagline: "Cold email personalization at scale.",
-    description: "The tool that started it all. Generate spintax variations for cold email campaigns, making every message unique while sending thousands. Used by hundreds of agencies worldwide.",
-    status: "Live",
-    statusColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    tagline: "Cold email spintax that actually works.",
+    description: "Generate millions of spintax variations. Not synonym swaps. Entire sentence structures rewritten. Every email unique, every message sounds human.",
+    status: "Archive",
+    statusColor: "bg-white/[0.06] text-white/40 border-white/10",
     link: "/solutions/spintaxer",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,10 +47,10 @@ const solutions = [
   },
   {
     name: "Data SaaS",
-    tagline: "We built Clay before Clay was cool.",
-    description: "Outreach-ready lists from real business directories. Scrape, find contacts, enrich with personalization data, all in one workflow. Built for B2B lead gen agencies.",
-    status: "Coming Soon",
-    statusColor: "bg-brand-blue/10 text-brand-blue border-brand-blue/20",
+    tagline: "B2B data aggregation from scratch.",
+    description: "Scrape business directories, find decision-makers, enrich with 15+ data points. One workflow. Built in 2023 by two engineers in three months.",
+    status: "Archive",
+    statusColor: "bg-white/[0.06] text-white/40 border-white/10",
     link: "/solutions/data-saas",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,21 +122,13 @@ export default function SolutionsPage() {
           HERO
       ═══════════════════════════════════════════ */}
       <section className="relative pt-40 pb-20 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-blue/[0.06] rounded-full blur-[120px]"></div>
-
         <div className="max-w-[900px] mx-auto relative text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-8">
-            <span className="w-2 h-2 rounded-full bg-brand-blue"></span>
-            <span className="text-sm text-white/60 font-medium tracking-wide uppercase">Solutions</span>
-          </div>
-
-          <h1 className="text-5xl lg:text-[4.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
+          <h1 className="text-5xl lg:text-[4.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-6 text-white">
             Tools we built.<br />
             <span className="text-brand-blue">Now we&apos;re sharing them.</span>
           </h1>
-
-          <p className="text-xl text-white/40 leading-relaxed max-w-2xl mx-auto font-light tracking-tight">
-            Everything we build for clients eventually becomes a solution. These are the systems born from real campaign pain, now available to everyone.
+          <p className="text-xl text-white/40 font-light tracking-tight">
+            Built from real campaign pain.
           </p>
         </div>
       </section>
@@ -133,7 +138,7 @@ export default function SolutionsPage() {
       ═══════════════════════════════════════════ */}
       <section className="relative py-24 px-8 lg:px-12 bg-brand-black overflow-hidden">
         <div className="max-w-[1100px] mx-auto">
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 gap-6">
             {solutions.map((solution) => (
               <div
                 key={solution.name}
@@ -211,10 +216,6 @@ export default function SolutionsPage() {
             Need something custom?<br />
             <span className="text-white/30">That&apos;s what we do best.</span>
           </h2>
-          <p className="text-xl text-white/40 mb-14 max-w-2xl mx-auto leading-relaxed font-light tracking-tight">
-            Every solution started as a client problem. If you don&apos;t see what you need, we&apos;ll build it.
-          </p>
-
           <Link
             href="https://calendly.com/sergi-feq/30min"
             target="_blank"
@@ -251,7 +252,7 @@ export default function SolutionsPage() {
             <div className="text-sm text-center md:text-right">
               <p className="text-white/40 font-medium tracking-tight">&copy; 2025 Stimuli Digital. All rights reserved.</p>
               <p className="mt-2 text-white/25 tracking-tight">
-                Fractional CTO for B2B sales & marketing teams and agencies
+                Your CTO + Tech-ops department
               </p>
             </div>
           </div>

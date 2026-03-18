@@ -87,18 +87,21 @@ export default function ProductsPage() {
               <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Services
               </Link>
-              <Link href="/#case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Client Success
+              <Link href="/case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Video Case Studies
               </Link>
               <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                About
-              </Link>
-              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                FAQs
+                Why Us
               </Link>
               <ProductsDropdown active />
+              <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Pricing
+              </Link>
+              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Q&amp;A
+              </Link>
               <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Our History
+                Our Purpose
               </Link>
             </div>
 
@@ -108,7 +111,7 @@ export default function ProductsPage() {
               rel="noopener noreferrer"
               className="px-6 py-2.5 bg-white text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white transition-all duration-300"
             >
-              Let&apos;s talk
+              Challenge Us
             </Link>
           </div>
         </div>
@@ -231,7 +234,7 @@ export default function ProductsPage() {
             className="group relative inline-flex items-center gap-2 px-10 py-5 bg-white text-brand-black rounded-full font-bold text-[17px] tracking-tight overflow-hidden transition-all duration-500 hover:bg-brand-blue hover:text-white hover:shadow-[0_0_60px_rgba(0,102,255,0.4)]"
           >
             <span className="relative z-10 flex items-center gap-2">
-              Let&apos;s talk
+              Challenge Us
               <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
@@ -260,7 +263,7 @@ export default function ProductsPage() {
             <div className="text-sm text-center md:text-right">
               <p className="text-white/40 font-medium tracking-tight">&copy; 2025 Stimuli Digital. All rights reserved.</p>
               <p className="mt-2 text-white/25 tracking-tight">
-                Fractional CTO for B2B sales & marketing teams and agencies
+                Your CTO + Tech-ops department
               </p>
             </div>
           </div>

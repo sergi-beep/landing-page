@@ -5,29 +5,29 @@ import Link from 'next/link';
 
 const solutions = [
   {
-    name: "Outfound",
-    tagline: "Find your next client before they find you.",
-    status: "Coming Soon",
-    statusColor: "text-brand-blue bg-brand-blue/10",
-    href: "https://www.outfound.io/",
-  },
-  {
     name: "Slaygent",
-    tagline: "AI agents that actually close deals.",
+    tagline: "Claygent's power. Without Clay's baggage.",
     status: "Live",
     statusColor: "text-emerald-400 bg-emerald-500/10",
     href: "https://slaygent.co/",
   },
   {
-    name: "Spintaxer",
-    tagline: "Cold email personalization at scale.",
+    name: "Outfound",
+    tagline: "Cold email infrastructure for agencies.",
     status: "Live",
     statusColor: "text-emerald-400 bg-emerald-500/10",
+    href: "https://www.outfound.io/",
+  },
+  {
+    name: "Spintaxer",
+    tagline: "Cold email spintax that actually works.",
+    status: "Archive",
+    statusColor: "text-white/40 bg-white/[0.06]",
     href: "/solutions/spintaxer",
   },
   {
     name: "Data SaaS",
-    tagline: "We built Clay before Clay was cool.",
+    tagline: "B2B data aggregation from scratch.",
     status: "Archive",
     statusColor: "text-white/40 bg-white/[0.06]",
     href: "/solutions/data-saas",
@@ -88,6 +88,13 @@ export function SolutionsDropdown({ active = false }: { active?: boolean }) {
               </div>
             );
 
+            if (solution.href.startsWith('http')) {
+              return (
+                <a key={solution.name} href={solution.href} target="_blank" rel="noopener noreferrer">
+                  {inner}
+                </a>
+              );
+            }
             return (
               <Link key={solution.name} href={solution.href}>
                 {inner}

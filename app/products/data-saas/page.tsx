@@ -106,18 +106,21 @@ export default function DataSaasPage() {
               <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Services
               </Link>
-              <Link href="/#case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Client Success
+              <Link href="/case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Video Case Studies
               </Link>
               <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                About
-              </Link>
-              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                FAQs
+                Why Us
               </Link>
               <ProductsDropdown />
+              <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Pricing
+              </Link>
+              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Q&amp;A
+              </Link>
               <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Our History
+                Our Purpose
               </Link>
             </div>
 
@@ -127,7 +130,7 @@ export default function DataSaasPage() {
               rel="noopener noreferrer"
               className="px-6 py-2.5 bg-white text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white transition-all duration-300"
             >
-              Let&apos;s talk
+              Challenge Us
             </Link>
           </div>
         </div>
@@ -488,7 +491,7 @@ export default function DataSaasPage() {
             <div className="text-sm text-center md:text-right">
               <p className="text-white/40 font-medium tracking-tight">&copy; 2025 Stimuli Digital. All rights reserved.</p>
               <p className="mt-2 text-white/25 tracking-tight">
-                Fractional CTO for B2B sales & marketing teams and agencies
+                Your CTO + Tech-ops department
               </p>
             </div>
           </div>

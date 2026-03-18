@@ -247,7 +247,7 @@ export default function AboutPage() {
                 />
               ))}
             </div>
-            <span className="text-sm text-white/50 font-medium">Trusted by 40+ Revenue teams and agencies</span>
+            <span className="text-sm text-gray-400 font-medium">Trusted by 40+ Revenue teams and agencies</span>
           </div>
         </div>
       </section>

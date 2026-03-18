@@ -48,18 +48,21 @@ export default function SpintaxerPage() {
               <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Services
               </Link>
-              <Link href="/#case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Client Success
+              <Link href="/case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Video Case Studies
               </Link>
               <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                About
-              </Link>
-              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                FAQs
+                Why Us
               </Link>
               <ProductsDropdown />
+              <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Pricing
+              </Link>
+              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
+                Q&amp;A
+              </Link>
               <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Our History
+                Our Purpose
               </Link>
             </div>
 
@@ -69,7 +72,7 @@ export default function SpintaxerPage() {
               rel="noopener noreferrer"
               className="px-6 py-2.5 bg-white text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white transition-all duration-300"
             >
-              Let&apos;s talk
+              Challenge Us
             </Link>
           </div>
         </div>
@@ -334,7 +337,7 @@ export default function SpintaxerPage() {
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-brand-black rounded-full font-bold text-[16px] tracking-tight hover:bg-brand-blue hover:text-white transition-all duration-500 hover:shadow-[0_0_60px_rgba(0,102,255,0.4)]"
             >
-              Let&apos;s talk
+              Challenge Us
               <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
@@ -369,7 +372,7 @@ export default function SpintaxerPage() {
             <div className="text-sm text-center md:text-right">
               <p className="text-white/40 font-medium tracking-tight">&copy; 2025 Stimuli Digital. All rights reserved.</p>
               <p className="mt-2 text-white/25 tracking-tight">
-                Fractional CTO for B2B sales & marketing teams and agencies
+                Your CTO + Tech-ops department
               </p>
             </div>
           </div>

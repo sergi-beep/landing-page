@@ -266,7 +266,7 @@ export default function HistoryPage() {
             <div className="text-sm text-center md:text-right">
               <p className="text-white/40 font-medium tracking-tight">&copy; 2025 Stimuli Digital. All rights reserved.</p>
               <p className="mt-2 text-white/25 tracking-tight">
-                Fractional CTO for B2B sales & marketing teams and agencies
+                Your CTO + Tech-ops department
               </p>
             </div>
           </div>

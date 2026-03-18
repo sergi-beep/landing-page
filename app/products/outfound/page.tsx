@@ -46,7 +46,7 @@ export default function OutfoundPage() {
               rel="noopener noreferrer"
               className="px-6 py-2.5 bg-white text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white transition-all duration-300"
             >
-              Let&apos;s talk
+              Challenge Us
             </Link>
           </div>
         </div>
