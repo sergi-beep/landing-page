@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { SolutionsDropdown } from "./components/solutions-dropdown";
 import { ClientLogosTicker } from "./components/ClientLogosTicker";
 
 const rotatingWords = ["Revenue", "Marketing", "Sales", "Agency"];
@@ -115,13 +116,13 @@ const familiarQuotes = [
     { text: "We were running into limitations with Airtable. Moving to the custom backend you guys built, we now have a system we can easily scale upon.", name: "Felix Frank", role: "Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
     { text: "All the data is in different places. This is where they were doing a crazy good job.", name: "Michael Ewald", role: "Vangates", photo: "/images/testimonials/michael-ewald.jpg" },
   ],
-  // Card 3: Previous Devs Failed
+  // Card 3: 95% Accuracy Trap
   [
-    { text: "I fired my previous fractional CTO company. You guys delivered in a week what I tried to build in four months with another company.", name: "Enzo Carasso", role: "C17 Lab", photo: "/images/testimonials/enzo-carasso.jpg" },
-    { text: "We tested 2-3 different automation agencies and it was always very difficult. With you guys it was completely different. From month one you were directly able to have an impact.", name: "Alex Vacca", role: "Cold IQ", photo: "/images/testimonials/alex-vacca.jpg" },
-    { text: "They understood our process very easily. They immediately implement the stuff. The communication has been so easy. They respond super fast.", name: "Aleksander Ivanov", role: "Hypergen", photo: "/images/testimonials/aleksander-ivanov.jpg" },
+    { text: "We were having recurring issues with data accuracy. Moving to the custom app and backend you guys built has really unlocked improved efficiency.", name: "Felix Frank", role: "Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
+    { text: "Reporting was the biggest bottleneck. You figured that out for us. You're saving us probably $5,000 a month just in tools we would have had to purchase.", name: "Enzo Carasso", role: "C17 Lab", photo: "/images/testimonials/enzo-carasso.jpg" },
+    { text: "These other guys told me 4 months and $42,000 and you guys built the whole damn thing in a week.", name: "Taylor Haren", role: "Sales Automation Systems", photo: "/images/testimonials/taylor-haren.jpg" },
   ],
-  // Card 4: Success ≠ Headcount Growth
+  // Card 4: Falling Behind on AI
   [
     { text: "We scaled to over 60 clients with 4-5 people in the fulfillment team. The first 3 days he saved 50% of the cost he brings. What he built could be state-of-the-art.", name: "Michael Ewald", role: "Vangates", photo: "/images/testimonials/michael-ewald.jpg" },
     { text: "Right now we have 30 clients. With the delivery team you guys enabled us to unlock, we probably have capacity for 50-60 clients.", name: "Felix Frank", role: "Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
@@ -227,6 +228,8 @@ export default function Home() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
   const [familiarQuoteIndex, setFamiliarQuoteIndex] = useState(0);
   const [familiarQuoteVisible, setFamiliarQuoteVisible] = useState(true);
+  const [showAllResults, setShowAllResults] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Auto-advance testimonials every 7 seconds
   useEffect(() => {
@@ -312,24 +315,13 @@ export default function Home() {
             </div>
 
             <div className="hidden lg:flex items-center gap-10">
-              <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Services
-              </Link>
-              <Link href="/#videos" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Case Studies
-              </Link>
-              <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                About
-              </Link>
-              <Link href="/database#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Pricing
-              </Link>
-              <Link href="/database#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                FAQs
-              </Link>
-              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Our History
-              </Link>
+              <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Services</Link>
+              <Link href="/case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Video Case Studies</Link>
+              <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Why Us</Link>
+              <SolutionsDropdown />
+              <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Pricing</Link>
+              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Q&amp;A</Link>
+              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Our Purpose</Link>
             </div>
 
             <Link
@@ -338,7 +330,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="px-6 py-2.5 bg-gray-50 text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white hover:shadow-lg transition-all duration-300"
             >
-              Let&apos;s talk
+              Challenge Us
             </Link>
           </div>
         </div>
@@ -388,7 +380,7 @@ export default function Home() {
                   />
                 ))}
               </div>
-              <span className="text-sm text-white/50 font-medium">Trusted by 40+ Revenue teams across 4 continents</span>
+              <span className="text-sm text-white/50 font-medium">Trusted by 40+ Revenue teams and agencies</span>
             </div>
           </div>
         </div>
@@ -510,19 +502,54 @@ export default function Home() {
       <div className="flex justify-center py-8 bg-white">
         <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue text-white rounded-full font-semibold text-sm hover:shadow-[0_0_30px_rgba(0,102,255,0.4)] transition-all duration-300">
-          Book a call
+          Replicate success
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
         </Link>
       </div>
 
       {/* ═══════════════════════════════════════════
-          SECTION 4: SOUND FAMILIAR?
+          SECTION: WHO IS THIS FOR
+      ═══════════════════════════════════════════ */}
+      <section className="py-24 px-8 lg:px-12 bg-white border-t border-gray-100">
+        <div className="max-w-[1000px] mx-auto">
+          <h2 className="text-3xl lg:text-4xl font-extrabold text-brand-black tracking-tight text-center mb-12">
+            Who Is This <span className="text-brand-blue">For?</span>
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-8 rounded-2xl border border-gray-200 bg-white hover:border-brand-blue/30 hover:shadow-lg transition-all duration-300">
+              <div className="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center mb-5">
+                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-brand-black mb-3">Agencies</h3>
+              <p className="text-gray-500 text-[15px] leading-relaxed">
+                Revenue-generating agencies who have tried to build their operational system and either failed or are almost there and don&apos;t know how to make it better.
+              </p>
+            </div>
+            <div className="p-8 rounded-2xl border border-gray-200 bg-white hover:border-brand-blue/30 hover:shadow-lg transition-all duration-300">
+              <div className="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center mb-5">
+                <svg className="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-brand-black mb-3">GTM Teams</h3>
+              <p className="text-gray-500 text-[15px] leading-relaxed">
+                In-house revenue and GTM teams who have outgrown their tools and need production-grade infrastructure without hiring an entire engineering department.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION: PROBLEM → SOLUTION (SPLIT SCREEN)
       ═══════════════════════════════════════════ */}
       <section
-        data-section-id="sound-familiar"
-        className={`relative py-24 px-8 lg:px-12 bg-white border-t border-gray-100 reveal-section ${visibleSections.has('sound-familiar') ? 'visible' : ''}`}
+        id="services"
+        className="relative py-24 px-8 lg:px-12 bg-white border-t border-gray-100"
       >
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-16">
             <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4">
               Sound Familiar?
@@ -532,571 +559,524 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-
-            {/* Card 1: Broken Data */}
-            <div
-              data-section-id="familiar-0"
-              className={`p-6 lg:p-8 rounded-2xl border border-gray-200 bg-white reveal-card flex flex-col ${visibleSections.has('familiar-0') ? 'visible' : ''}`}
-            >
-              <div className="mb-5 rounded-lg bg-gray-50/80 border border-gray-100 p-4 h-[140px] flex flex-col justify-center font-mono text-[12px] space-y-2.5">
-                {[
-                  { tool: "CRM", status: "Synced 2h ago", dotColor: "bg-emerald-500/60" },
-                  { tool: "Google Ads", status: "Synced 12d ago", dotColor: "bg-yellow-500/50" },
-                  { tool: "Billing", status: "Sync failed", dotColor: "bg-red-400/60" },
-                ].map((row, i) => (
-                  <div key={i} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className={`w-1.5 h-1.5 rounded-full ${row.dotColor}`}></span>
-                      <span className="text-brand-black/35">{row.tool}</span>
-                    </div>
-                    <span className="text-brand-black/20">{row.status}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="font-extrabold text-brand-black text-lg tracking-tight mb-2">You Don&apos;t Trust Your Own Numbers.</p>
-              <p className="text-brand-black/45 text-[15px] leading-relaxed min-h-[48px]">Your data lives in 6 different tools. Reports take hours to pull and still don&apos;t match because every tool has already aggregated the numbers its own way. You never see the raw truth.</p>
-              {(() => { const q = familiarQuotes[0][familiarCardIndices[0]]; return (
-              <div className="mt-auto bg-gray-50/60 rounded-xl p-4 h-[110px] overflow-hidden">
-                <div className={`flex items-start gap-3 transition-opacity duration-300 ${familiarQuoteVisible ? 'opacity-100' : 'opacity-0'}`}>
-                  <img src={q.photo} alt={q.name} className="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-brand-black/50 text-[13px] italic leading-relaxed line-clamp-3">&ldquo;{q.text}&rdquo;</p>
-                    <p className="text-brand-black/35 text-[12px] mt-1">{q.name}, {q.role}</p>
-                  </div>
-                </div>
-              </div>
-              ); })()}
+          {/* Column headers */}
+          <div className="hidden lg:grid lg:grid-cols-2 rounded-t-2xl border border-b-0 border-gray-200 overflow-hidden">
+            <div className="px-8 py-3 bg-red-50/40 border-r border-gray-200">
+              <p className="text-red-500/60 text-[11px] uppercase tracking-[0.15em] font-bold">Problem</p>
             </div>
-
-            {/* Card 2: Tools Break at Scale */}
-            <div
-              data-section-id="familiar-1"
-              className={`p-6 lg:p-8 rounded-2xl border border-gray-200 bg-white reveal-card flex flex-col ${visibleSections.has('familiar-1') ? 'visible' : ''}`}
-            >
-              <div className="mb-5 rounded-lg bg-gray-50/80 border border-gray-100 p-4 h-[140px] flex flex-col justify-center">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] text-brand-black/30 uppercase tracking-wide font-medium">Database rows</span>
-                  <span className="text-[11px] text-red-400 font-semibold">Limit reached</span>
-                </div>
-                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div className="h-full bg-red-400 rounded-full" style={{ width: '100%' }}></div>
-                </div>
-                <div className="flex items-center justify-between mt-2">
-                  <span className="text-[11px] text-gray-400 font-mono">50,000 / 50,000</span>
-                  <span className="text-[11px] text-red-400/70 font-mono">+12,847 queued</span>
-                </div>
-              </div>
-              <p className="font-extrabold text-brand-black text-lg tracking-tight mb-2">Your Tools Break When You Scale.</p>
-              <p className="text-brand-black/45 text-[15px] leading-relaxed min-h-[48px]">You have vibe coded your ops into existence. It worked on smaller scale. Now you&apos;re hitting row limits, broken syncs, and duct-taped workarounds everywhere.</p>
-              {(() => { const q = familiarQuotes[1][familiarCardIndices[1]]; return (
-              <div className="mt-auto bg-gray-50/60 rounded-xl p-4 h-[110px] overflow-hidden">
-                <div className={`flex items-start gap-3 transition-opacity duration-300 ${familiarQuoteVisible ? 'opacity-100' : 'opacity-0'}`}>
-                  <img src={q.photo} alt={q.name} className="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-brand-black/50 text-[13px] italic leading-relaxed line-clamp-3">&ldquo;{q.text}&rdquo;</p>
-                    <p className="text-brand-black/35 text-[12px] mt-1">{q.name}, {q.role}</p>
-                  </div>
-                </div>
-              </div>
-              ); })()}
-            </div>
-
-            {/* Card 3: Previous Devs Failed */}
-            <div
-              data-section-id="familiar-2"
-              className={`p-6 lg:p-8 rounded-2xl border border-gray-200 bg-white reveal-card flex flex-col ${visibleSections.has('familiar-2') ? 'visible' : ''}`}
-            >
-              <div className="mb-5 rounded-lg bg-brand-black p-4 h-[140px] flex flex-col justify-center font-mono text-[12px]">
-                <div className="flex items-center gap-1.5 mb-3">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
-                </div>
-                <p className="text-gray-500">$ project status</p>
-                <p className="text-white/60 mt-1">Lead Database v2</p>
-                <p className="text-yellow-400/60 mt-0.5">Status: &quot;Almost done&quot;</p>
-                <p className="text-gray-600 mt-0.5">Started: 6 months ago</p>
-                <p className="text-red-400/60 mt-0.5">Shipped: nothing</p>
-              </div>
-              <p className="font-extrabold text-brand-black text-lg tracking-tight mb-2">You&apos;ve Hired Devs Before. It Didn&apos;t Work.</p>
-              <p className="text-brand-black/45 text-[15px] leading-relaxed min-h-[48px]">Freelancers, agencies. Months of calls, nothing shipped. They didn&apos;t understand your industry and you ended up back at square one.</p>
-              {(() => { const q = familiarQuotes[2][familiarCardIndices[2]]; return (
-              <div className="mt-auto bg-gray-50/60 rounded-xl p-4 h-[110px] overflow-hidden">
-                <div className={`flex items-start gap-3 transition-opacity duration-300 ${familiarQuoteVisible ? 'opacity-100' : 'opacity-0'}`}>
-                  <img src={q.photo} alt={q.name} className="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-brand-black/50 text-[13px] italic leading-relaxed line-clamp-3">&ldquo;{q.text}&rdquo;</p>
-                    <p className="text-brand-black/35 text-[12px] mt-1">{q.name}, {q.role}</p>
-                  </div>
-                </div>
-              </div>
-              ); })()}
-            </div>
-
-            {/* Card 4: Success ≠ Headcount Growth */}
-            <div
-              data-section-id="familiar-3"
-              className={`p-6 lg:p-8 rounded-2xl border border-gray-200 bg-white reveal-card flex flex-col ${visibleSections.has('familiar-3') ? 'visible' : ''}`}
-            >
-              <div className="mb-5 rounded-lg bg-gray-50/80 border border-gray-100 p-4 h-[140px] flex flex-col justify-center font-mono text-[11px]">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <p className="text-brand-black/25 uppercase tracking-wide text-[9px] mb-2">Company A</p>
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between"><span className="text-brand-black/30">AI agents</span><span className="text-emerald-500/70 font-semibold">3 active</span></div>
-                      <div className="flex items-center justify-between"><span className="text-brand-black/30">Workflows</span><span className="text-emerald-500/70 font-semibold">47</span></div>
-                      <div className="flex items-center justify-between"><span className="text-brand-black/30">Attribution</span><span className="text-emerald-500/70 font-semibold">Real-time</span></div>
-                    </div>
-                  </div>
-                  <div className="border-l border-gray-200 pl-3">
-                    <p className="text-brand-black/25 uppercase tracking-wide text-[9px] mb-2">You</p>
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between"><span className="text-brand-black/30">AI agents</span><span className="text-red-400/70 font-semibold">0</span></div>
-                      <div className="flex items-center justify-between"><span className="text-brand-black/30">Workflows</span><span className="text-red-400/70 font-semibold">12 zaps</span></div>
-                      <div className="flex items-center justify-between"><span className="text-brand-black/30">Attribution</span><span className="text-red-400/70 font-semibold">3-day spreadsheet</span></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <p className="font-extrabold text-brand-black text-lg tracking-tight mb-2">You&apos;re Falling Behind on AI. And You Know It.</p>
-              <p className="text-brand-black/45 text-[15px] leading-relaxed min-h-[48px]">The output of AI is only as good as the input you feed it. You&apos;re not behind because of effort. You&apos;re behind because of infrastructure.</p>
-              {(() => { const q = familiarQuotes[3][familiarCardIndices[3]]; return (
-              <div className="mt-auto bg-gray-50/60 rounded-xl p-4 h-[110px] overflow-hidden">
-                <div className={`flex items-start gap-3 transition-opacity duration-300 ${familiarQuoteVisible ? 'opacity-100' : 'opacity-0'}`}>
-                  <img src={q.photo} alt={q.name} className="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-brand-black/50 text-[13px] italic leading-relaxed line-clamp-3">&ldquo;{q.text}&rdquo;</p>
-                    <p className="text-brand-black/35 text-[12px] mt-1">{q.name}, {q.role}</p>
-                  </div>
-                </div>
-              </div>
-              ); })()}
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          SECTION 6: THREE PILLARS — HOW WE FIX IT
-      ═══════════════════════════════════════════ */}
-      <section
-        id="services"
-        data-section-id="pillars"
-        className={`relative py-24 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('pillars') ? 'visible' : ''}`}
-      >
-        <div className="max-w-[1200px] mx-auto">
-          <div className="text-center mb-20">
-            <p className="text-[13px] text-brand-blue uppercase tracking-widest font-semibold mb-4">
-              How We Fix It
-            </p>
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-              Three Pillars. <span className="text-brand-blue">One Operating System.</span>
-            </h2>
-          </div>
-
-          {/* Pillar 1: Centralized Data Warehouse — Foundation */}
-          <div
-            data-section-id="pillar-1"
-            className={`relative mb-24 reveal-card ${visibleSections.has('pillar-1') ? 'visible' : ''}`}
-          >
-            {/* Foundation visual container */}
-            <div className="relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 lg:p-12">
-              {/* Subtle grid pattern background */}
-              <div className="absolute inset-0 overflow-hidden rounded-2xl opacity-30">
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="warehouse-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,102,255,0.06)" strokeWidth="1"/>
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#warehouse-grid)" />
-                </svg>
-              </div>
-
-              <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                {/* Left: SVG data flow diagram */}
-                <div className="flex justify-center">
-                  <svg width="320" height="200" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-[320px]">
-                    {/* Source nodes */}
-                    {[
-                      { x: 30, y: 30, label: "CRM" },
-                      { x: 30, y: 80, label: "Ads" },
-                      { x: 30, y: 130, label: "Billing" },
-                      { x: 30, y: 170, label: "Support" },
-                    ].map((node, i) => (
-                      <g key={i}>
-                        <rect x={node.x} y={node.y - 12} width="60" height="24" rx="4" fill="rgba(0,102,255,0.06)" stroke="rgba(0,102,255,0.15)" strokeWidth="1" />
-                        <text x={node.x + 30} y={node.y + 3} textAnchor="middle" fill="rgba(255,255,255,0.35)" fontSize="10" fontFamily="monospace">{node.label}</text>
-                        {/* Flow line to center */}
-                        <line x1="95" y1={node.y} x2="175" y2="100" stroke="rgba(0,102,255,0.12)" strokeWidth="1" />
-                        {/* Animated dot */}
-                        <circle r="2" fill="rgba(0,102,255,0.5)">
-                          <animateMotion dur={`${2.5 + i * 0.4}s`} repeatCount="indefinite" path={`M95,${node.y} L175,100`} />
-                        </circle>
-                      </g>
-                    ))}
-                    {/* Central warehouse */}
-                    <rect x="175" y="70" width="120" height="60" rx="8" fill="rgba(0,102,255,0.08)" stroke="rgba(0,102,255,0.3)" strokeWidth="1.5" />
-                    {/* Data warehouse icon: stacked discs */}
-                    <g transform="translate(205, 76)">
-                      {/* Bottom disc + body */}
-                      <path d="M0,38 L0,18" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      <path d="M60,38 L60,18" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      <ellipse cx="30" cy="38" rx="30" ry="8" fill="rgba(0,102,255,0.1)" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      {/* Middle disc */}
-                      <ellipse cx="30" cy="26" rx="30" ry="8" fill="rgba(0,102,255,0.1)" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      {/* Top disc body */}
-                      <path d="M0,26 L0,8" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      <path d="M60,26 L60,8" stroke="rgba(0,102,255,0.5)" strokeWidth="1.5" />
-                      {/* Top disc */}
-                      <ellipse cx="30" cy="8" rx="30" ry="8" fill="rgba(0,102,255,0.2)" stroke="rgba(0,102,255,0.6)" strokeWidth="1.5" />
-                    </g>
-                  </svg>
-                </div>
-
-                {/* Right: Text + tool flow */}
-                <div>
-                  <p className="text-brand-blue/60 text-xs uppercase tracking-[0.2em] font-semibold mb-4">Foundation</p>
-                  <h3 className="text-3xl lg:text-4xl font-extrabold text-white mb-5 tracking-tight">The Raw Truth.</h3>
-                  <p className="text-white/45 text-[15px] leading-relaxed mb-8">
-                    Your tools were never built to talk to each other. Each one keeps its own version of your numbers. That&apos;s why reports never match. That&apos;s why switching tools never fixed the problem. The missing piece was never another app. It was the layer underneath that makes all of them work as one. We build that layer.
-                  </p>
-                </div>
-              </div>
+            <div className="px-8 py-3 bg-blue-50/40">
+              <p className="text-brand-blue/60 text-[11px] uppercase tracking-[0.15em] font-bold">Solution</p>
             </div>
           </div>
 
-          {/* Connector: Foundation → Capabilities */}
-          <div className="mb-20 flex flex-col items-center gap-3">
-            <div className="w-px h-10 bg-gradient-to-b from-brand-blue/20 to-transparent" />
-            <p className="text-white/25 text-xs uppercase tracking-[0.2em] font-semibold">Everything below runs on this</p>
-            <div className="flex items-center gap-3">
-              <div className="w-16 h-px bg-gradient-to-r from-transparent to-brand-blue/15" />
-              <div className="w-1.5 h-1.5 rounded-full bg-brand-blue/30" />
-              <div className="w-16 h-px bg-gradient-to-l from-transparent to-brand-blue/15" />
-            </div>
-          </div>
-
-          {/* Pillars 2 & 3 — side-by-side capabilities */}
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-
-            {/* Pillar 2: Automated Predetermined Actions */}
-            <div
-              data-section-id="pillar-2"
-              className={`rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 lg:p-8 reveal-card ${visibleSections.has('pillar-2') ? 'visible' : ''}`}
-            >
-              <p className="text-brand-blue/50 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Automation</p>
-              <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Automate the Ops. Scale Without Hiring.</h3>
-              <p className="text-white/40 text-[15px] leading-relaxed mb-8">
-                We build automated workflows that replace the manual work slowing your team down. Lead routing, reporting, alerts, onboarding sequences, all running on logic instead of people. Serve twice the clients with the same team.
-              </p>
-              {/* Product-style automation rules */}
-              <div className="space-y-3">
-                {[
-                  { trigger: "Deal inactive 7+ days", action: "Slack alert to AE + manager", status: "Active" },
-                  { trigger: "New trial signup", action: "Onboarding sequence + CRM update", status: "Active" },
-                  { trigger: "MRR drops 15% for account", action: "Churn risk flag + CS assigned", status: "Active" },
-                ].map((row, i) => (
-                  <div key={i} className="flex items-center justify-between rounded-lg bg-white/[0.03] border border-white/[0.05] px-4 py-3">
-                    <div className="flex items-center gap-3 font-mono text-[13px]">
-                      <span className="text-white/35">{row.trigger}</span>
-                      <span className="text-brand-blue/40">&rarr;</span>
-                      <span className="text-brand-blue/70">{row.action}</span>
-                    </div>
-                    <span className="text-[10px] uppercase tracking-wider text-emerald-500/60 font-semibold">{row.status}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Pillar 3: Ask Your Data Anything */}
-            <div
-              data-section-id="pillar-3"
-              className={`rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 lg:p-8 reveal-card ${visibleSections.has('pillar-3') ? 'visible' : ''}`}
-            >
-              <p className="text-brand-blue/50 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Intelligence</p>
-              <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Ask a Question. Get the Real Answer.</h3>
-              <p className="text-white/40 text-[15px] leading-relaxed mb-8">
-                We build an AI layer on top of your data so anyone on your team can query it in plain English. Pipeline, attribution, campaign performance. Real answers from real data, not a dashboard someone has to learn.
-              </p>
-              {/* Product-style chat interface */}
-              <div className="rounded-lg bg-white/[0.03] border border-white/[0.05] overflow-hidden">
-                <div className="px-4 py-3 border-b border-white/[0.05]">
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/50" />
-                    <span className="text-[11px] text-white/25 font-mono">ai assistant connected</span>
-                  </div>
-                </div>
-                <div className="p-4 space-y-4 font-mono text-[13px]">
-                  <div className="flex gap-3">
-                    <span className="text-white/20 text-[11px] mt-0.5 shrink-0">you</span>
-                    <p className="text-white/45">How many deals closed this month?</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <span className="text-brand-blue/40 text-[11px] mt-0.5 shrink-0">ai</span>
-                    <p className="text-brand-blue/60">34 deals. $420K total. Up 18% from last month.</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <span className="text-white/20 text-[11px] mt-0.5 shrink-0">you</span>
-                    <p className="text-white/45">Which channel drove the most?</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <span className="text-brand-blue/40 text-[11px] mt-0.5 shrink-0">ai</span>
-                    <p className="text-brand-blue/60">Outbound: 19 deals ($240K). Inbound: 15 deals ($180K).</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Inline CTA — after Three Pillars */}
-      <div className="flex justify-center py-8 bg-brand-black">
-        <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue text-white rounded-full font-semibold text-sm hover:shadow-[0_0_30px_rgba(0,102,255,0.4)] transition-all duration-300">
-          Book a call
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
-        </Link>
-      </div>
-
-      {/* ═══════════════════════════════════════════
-          INLINE TESTIMONIAL — MICHAEL EWALD
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-16 px-8 lg:px-12 bg-brand-black border-t border-white/[0.06]">
-        <div className="max-w-[700px] mx-auto text-center">
-          <p className="text-white/50 text-lg lg:text-xl leading-relaxed italic">
-            &ldquo;The first 3 days he saved 50% of the cost he brings with him. We scaled to over 60 clients with 4-5 people in fulfillment. I didn&apos;t want to do this interview — I don&apos;t want others to have you as a partner.&rdquo;
-          </p>
-          <div className="flex items-center justify-center gap-3 mt-6">
-            <img src="/images/testimonials/michael-ewald.jpg" alt="Michael Ewald" className="w-10 h-10 rounded-full object-cover" />
-            <div className="text-left">
-              <p className="text-white font-semibold text-sm">Michael Ewald</p>
-              <p className="text-white/30 text-xs">Founder, Vangates</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          SECTION: OUTCOMES ROW
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-16 px-8 lg:px-12 bg-brand-black border-t border-white/[0.06]">
-        <div className="max-w-[1100px] mx-auto">
-          <p className="text-center text-white/30 text-xs uppercase tracking-[0.2em] font-semibold mb-10">The Result</p>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="lg:rounded-b-2xl lg:border lg:border-t-0 lg:border-gray-200 overflow-hidden">
+            <div className="space-y-0">
             {[
-              { label: "Process-driven operations", agency: false },
-              { label: "Scale without headcount", agency: false },
-              { label: "Speed of decision-making", agency: false },
-              { label: "Reduced tool spend", agency: false },
-              { label: "Future-proofed for AI", agency: false },
-              { label: "Better client experience", agency: true },
-              { label: "Easier to sell", agency: true },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className={`px-5 py-2.5 rounded-full border text-[13px] font-medium ${
-                  item.agency
-                    ? 'border-brand-blue/20 bg-brand-blue/[0.06] text-brand-blue/70'
-                    : 'border-white/[0.08] bg-white/[0.03] text-white/50'
-                }`}
-              >
-                {item.label}
-                {item.agency && <span className="ml-2 text-[10px] uppercase tracking-wider text-brand-blue/40">Agency</span>}
+              {
+                num: "01",
+                problemLabel: "Data Chaos",
+                problemTitle: "You Don\u2019t Trust Your Own Numbers.",
+                problemDesc: "Your data lives in 6 different tools. Reports take hours to pull and still don\u2019t match because every tool has already aggregated the numbers its own way. You never see the raw truth.",
+                solutionLabel: "Foundation",
+                solutionTitle: "One Source of Truth",
+                solutionHook: "You\u2019ve been looking at the shadow of your data. We show you what\u2019s casting it.",
+                solutionDesc: "Your tools were never built to talk to each other. Each one keeps its own version of your numbers. That\u2019s why reports never match. The missing piece was never another app. It was the layer underneath that makes all of them work as one. We build that layer.",
+                beforeContent: (
+                  <div className="space-y-3 font-mono text-[13px]">
+                    {[{ tool: "CRM", value: "142 deals" }, { tool: "Ads", value: "158 deals" }, { tool: "Billing", value: "134 deals" }].map((row, i) => (
+                      <div key={i} className="flex items-center justify-between"><span className="text-gray-400">{row.tool}</span><span className="text-gray-500">{row.value}</span></div>
+                    ))}
+                    <p className="text-red-500/70 text-[11px] font-mono pt-2 border-t border-red-200/30">&#10005; Which is right?</p>
+                  </div>
+                ),
+                afterContent: (
+                  <div className="flex flex-col items-center justify-center h-full">
+                    <p className="text-3xl font-extrabold text-brand-black/80">142</p>
+                    <p className="text-gray-400 text-[12px] font-mono mt-1">deals closed</p>
+                    <p className="text-emerald-600/70 text-[11px] font-mono mt-3">&#10003; Verified across all sources</p>
+                  </div>
+                ),
+              },
+              {
+                num: "02",
+                problemLabel: "Scale Failure",
+                problemTitle: "Your Tools Break When You Scale.",
+                problemDesc: "You have vibe coded your ops into existence. It worked on smaller scale. Now you\u2019re hitting row limits, broken syncs, and duct-taped workarounds everywhere.",
+                solutionLabel: "Operational Infrastructure",
+                solutionTitle: "Built to Scale",
+                solutionHook: "Most systems weren\u2019t built. They were assembled.",
+                solutionDesc: "No-code tools got you here. But they were never meant to be your backend. We design the architecture underneath your operations and build it as production software. Monitoring, alerting, failure recovery. Your processes keep running. Your team stops firefighting.",
+                beforeContent: (
+                  <div className="space-y-2.5 font-mono text-[12px]">
+                    {[{ tool: "Zapier", status: "3 failed runs" }, { tool: "Make", status: "timeout" }, { tool: "Manual retry", status: "47 pending" }].map((row, i) => (
+                      <div key={i} className="flex items-center justify-between"><span className="text-gray-400">{row.tool}</span><span className="text-red-500/70">{row.status}</span></div>
+                    ))}
+                    <p className="text-red-500/70 text-[11px] font-mono pt-2 border-t border-red-200/30">&#10005; Duct tape</p>
+                  </div>
+                ),
+                afterContent: (
+                  <div className="space-y-2.5 font-mono text-[12px]">
+                    {[{ period: "Jan", value: "1.2K/day", w: "8%" }, { period: "Mar", value: "12.4K/day", w: "35%" }, { period: "Jun", value: "124K/day", w: "100%" }].map((row, i) => (
+                      <div key={i}>
+                        <div className="flex items-center justify-between mb-1"><span className="text-gray-400">{row.period}</span><span className="text-emerald-600/70">{row.value}</span></div>
+                        <div className="w-full h-1 bg-emerald-100 rounded-full overflow-hidden"><div className="h-full bg-emerald-400/50 rounded-full" style={{ width: row.w }}></div></div>
+                      </div>
+                    ))}
+                    <p className="text-emerald-600/70 text-[11px] font-mono pt-2 border-t border-emerald-200/30">&#10003; Production</p>
+                  </div>
+                ),
+              },
+              {
+                num: "03",
+                problemLabel: "Silent Decay",
+                problemTitle: "Your System Kind of Works. That\u2019s the Problem.",
+                problemDesc: "Dashboards are populated. Numbers come back. But half your integrations broke weeks ago and nobody noticed. 95% accurate - just wrong enough to make every decision built on it a guess.",
+                solutionLabel: "Data Integrity",
+                solutionTitle: "Nothing Breaks Silently",
+                solutionHook: "The gap between 95% and 100% is where every bad decision lives.",
+                solutionDesc: "APIs change. Schemas drift. Syncs go stale. In most systems, nobody notices for weeks. We build monitoring into every layer. Schema validation on every ingestion. Automated alerts when data patterns shift. Your system doesn\u2019t just run. It watches itself.",
+                beforeContent: (
+                  <div className="space-y-2.5 font-mono text-[12px]">
+                    {[{ label: "Schema changed", value: "Feb 3", color: "text-gray-500" }, { label: "Detected", value: "never", color: "text-red-500/70" }, { label: "Records corrupted", value: "2,847", color: "text-red-500/70" }, { label: "Time to discover", value: "6 weeks", color: "text-red-500/70" }].map((row, i) => (
+                      <div key={i} className="flex items-center justify-between"><span className="text-gray-400">{row.label}</span><span className={row.color}>{row.value}</span></div>
+                    ))}
+                    <p className="text-red-500/70 text-[11px] font-mono pt-2 border-t border-red-200/30">&#10005; Nobody noticed</p>
+                  </div>
+                ),
+                afterContent: (
+                  <div className="space-y-2.5 font-mono text-[12px]">
+                    <p className="text-gray-400 text-[11px] mb-2">API v3.2 &rarr; v3.3</p>
+                    {[{ label: "Detected", value: "0.4s" }, { label: "Auto-mapped", value: "1.2s" }, { label: "Records affected", value: "0" }].map((row, i) => (
+                      <div key={i} className="flex items-center justify-between"><span className="text-gray-400">{row.label}</span><span className="text-emerald-600/70">{row.value}</span></div>
+                    ))}
+                    <p className="text-emerald-600/70 text-[11px] font-mono pt-2 border-t border-emerald-200/30">&#10003; Handled instantly</p>
+                  </div>
+                ),
+              },
+              {
+                num: "04",
+                problemLabel: "AI Blindness",
+                problemTitle: "You\u2019re Falling Behind on AI. And You Know It.",
+                problemDesc: "The output of AI is only as good as the input you feed it. You\u2019re not behind because of effort. You\u2019re behind because of infrastructure.",
+                solutionLabel: "AI Layer",
+                solutionTitle: "AI on Real Data",
+                solutionHook: "Everyone has AI. Almost nobody has the data to make it useful.",
+                solutionDesc: "Most companies plug AI into fragmented tools and wonder why it hallucinates. We plug it into a unified data layer with business context engineered in. Your team asks questions in plain English. They get real answers. Not guesses from a half-connected tool.",
+                beforeContent: (
+                  <div className="space-y-3 font-mono text-[12px]">
+                    <div><p className="text-gray-400 text-[11px] mb-1">you</p><p className="text-gray-500">What&apos;s our CAC by channel?</p></div>
+                    <div><p className="text-gray-400 text-[11px] mb-1">ai</p><p className="text-gray-500">~$120 per lead.</p></div>
+                    <div className="space-y-1 text-[10px]"><p className="text-amber-500/70">&#9888; Based on partial data</p><p className="text-amber-500/70">&#9888; CRM not connected</p></div>
+                    <p className="text-red-500/70 text-[11px] font-mono pt-2 border-t border-red-200/30">&#10005; Confident but wrong</p>
+                  </div>
+                ),
+                afterContent: (
+                  <div className="space-y-3 font-mono text-[12px]">
+                    <div><p className="text-gray-400 text-[11px] mb-1">you</p><p className="text-gray-500">What&apos;s our CAC by channel?</p></div>
+                    <div><p className="text-brand-blue/60 text-[11px] mb-1">ai</p><p className="text-brand-blue">Cold email: $47. LinkedIn: $112. Paid: $89.</p></div>
+                    <p className="text-gray-400 text-[10px]">Queried: HubSpot + Google Ads + Stripe</p>
+                    <p className="text-emerald-600/70 text-[11px] font-mono pt-2 border-t border-emerald-200/30">&#10003; Real answers</p>
+                  </div>
+                ),
+              },
+            ].map((pair, idx) => {
+              const q = familiarQuotes[idx][familiarCardIndices[idx]];
+              return (
+              <div key={idx} className={`relative ${idx > 0 ? 'border-t border-gray-200' : ''}`}>
+                {/* Number badge on center vertical divider - desktop only */}
+                <div className="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 z-10">
+                  <div className="w-9 h-9 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center shadow-sm">
+                    <span className="text-[12px] font-bold font-mono text-brand-black/60">{pair.num}</span>
+                  </div>
+                </div>
+
+                {/* Desktop: side-by-side */}
+                <div className="hidden lg:grid lg:grid-cols-2">
+                  {/* Left: Problem */}
+                  <div className="p-8 bg-red-50/20 border-r border-gray-200">
+                    <p className="text-red-500/60 text-[11px] uppercase tracking-[0.15em] font-semibold mb-2">{pair.problemLabel}</p>
+                    <h3 className="text-xl font-extrabold text-brand-black mb-2 tracking-tight">{pair.problemTitle}</h3>
+                    <p className="text-brand-black/45 text-[14px] leading-relaxed mb-5">{pair.problemDesc}</p>
+                    <div className="rounded-lg bg-red-50 border border-red-200/40 p-4">
+                      <p className="text-red-400/70 text-[9px] uppercase tracking-wider font-bold mb-3">Before</p>
+                      {pair.beforeContent}
+                    </div>
+                  </div>
+
+                  {/* Right: Solution */}
+                  <div className="p-8 bg-blue-50/20">
+                    <p className="text-brand-blue text-[11px] uppercase tracking-[0.15em] font-semibold mb-2">{pair.solutionLabel}</p>
+                    <h3 className="text-xl font-extrabold text-brand-black mb-2 tracking-tight">{pair.solutionTitle}</h3>
+                    <p className="text-brand-black/50 text-[13px] leading-relaxed mb-1 italic">{pair.solutionHook}</p>
+                    <p className="text-brand-black/35 text-[13px] leading-relaxed mb-5">{pair.solutionDesc}</p>
+                    <div className="rounded-lg bg-emerald-50 border border-emerald-200/40 p-4">
+                      <p className="text-emerald-600/70 text-[9px] uppercase tracking-wider font-bold mb-3">After</p>
+                      {pair.afterContent}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Testimonial - spans full width */}
+                <div className="hidden lg:flex items-start gap-3 px-8 py-5 bg-amber-50/20 border-t border-gray-200">
+                  <img src={q.photo} alt={q.name} className="w-8 h-8 rounded-full object-cover shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-brand-black/50 text-[13px] italic leading-relaxed">&ldquo;{q.text}&rdquo;</p>
+                    <p className="text-brand-black/30 text-[11px] mt-1.5 font-medium">{q.name}, {q.role}</p>
+                  </div>
+                </div>
+
+                {/* Mobile: stacked */}
+                <div className="lg:hidden space-y-0">
+                  <div className="p-6 bg-red-50/20 rounded-t-xl border border-gray-200 border-b-0">
+                    <span className="text-[11px] font-bold font-mono text-brand-black/30 block mb-1">{pair.num}</span>
+                    <p className="text-red-500/60 text-[11px] uppercase tracking-[0.15em] font-semibold mb-2">{pair.problemLabel}</p>
+                    <h3 className="text-lg font-extrabold text-brand-black mb-2 tracking-tight">{pair.problemTitle}</h3>
+                    <p className="text-brand-black/45 text-[14px] leading-relaxed mb-4">{pair.problemDesc}</p>
+                    <div className="rounded-lg bg-red-50 border border-red-200/40 p-3">
+                      <p className="text-red-400/70 text-[9px] uppercase tracking-wider font-bold mb-2">Before</p>
+                      {pair.beforeContent}
+                    </div>
+                  </div>
+                  <div className="px-6 py-4 bg-amber-50/20 border-x border-gray-200">
+                    <div className="flex items-start gap-3">
+                      <img src={q.photo} alt={q.name} className="w-7 h-7 rounded-full object-cover shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-brand-black/50 text-[12px] italic leading-relaxed">&ldquo;{q.text}&rdquo;</p>
+                        <p className="text-brand-black/30 text-[11px] mt-1 font-medium">{q.name}, {q.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6 bg-blue-50/20 rounded-b-xl border border-gray-200 border-t-0">
+                    <p className="text-brand-blue text-[11px] uppercase tracking-[0.15em] font-semibold mb-2">{pair.solutionLabel}</p>
+                    <h3 className="text-lg font-extrabold text-brand-black mb-2 tracking-tight">{pair.solutionTitle}</h3>
+                    <p className="text-brand-black/50 text-[13px] leading-relaxed mb-1 italic">{pair.solutionHook}</p>
+                    <p className="text-brand-black/35 text-[13px] leading-relaxed mb-4">{pair.solutionDesc}</p>
+                    <div className="rounded-lg bg-emerald-50 border border-emerald-200/40 p-3">
+                      <p className="text-emerald-600/70 text-[9px] uppercase tracking-wider font-bold mb-2">After</p>
+                      {pair.afterContent}
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
+              );
+            })}
+            </div>
           </div>
         </div>
       </section>
 
+
       {/* ═══════════════════════════════════════════
-          SECTION 7: TWO TRACKS TIMELINE
+          SECTION: TWO TRACKS TIMELINE
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="timeline"
-        className={`relative py-24 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('timeline') ? 'visible' : ''}`}
+        className={`relative py-24 px-8 lg:px-12 bg-white border-t border-gray-100 reveal-section ${visibleSections.has('timeline') ? 'visible' : ''}`}
       >
         <div className="max-w-[1100px] mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight mb-4">
               Two Tracks. Running <span className="text-brand-blue">Simultaneously.</span>
             </h2>
-            <p className="text-white/50 text-lg">
-              Results every week. Not every quarter.
+            <p className="text-gray-500 text-lg">
+              Results every day. Not every quarter.
             </p>
           </div>
 
-          {/* Two Track Cards */}
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-12">
+          {/* Two Track Timelines */}
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16">
 
-            {/* Track 1: Fix What Hurts Now — urgent/tactical feel */}
+            {/* Track 1: Fix What Hurts Now */}
             <div
               data-section-id="track-1"
-              className={`rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 lg:p-8 reveal-card ${visibleSections.has('track-1') ? 'visible' : ''}`}
+              className={`rounded-xl border border-gray-200 bg-white p-6 lg:p-8 reveal-card ${visibleSections.has('track-1') ? 'visible' : ''}`}
             >
-              <p className="text-brand-blue/50 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Track 1</p>
-              <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Fix What Hurts Now</h3>
-              <p className="text-white/40 text-[15px] leading-relaxed mb-6">
-                Week one. We audit your stack, find the biggest fire, and fix it. You see impact before the first invoice.
+              <p className="text-emerald-600/60 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Track 1</p>
+              <h3 className="text-2xl font-extrabold text-brand-black mb-3 tracking-tight">Fix What Hurts Now</h3>
+              <p className="text-gray-500 text-[15px] leading-relaxed mb-8">
+                Week one. We audit your stack, prioritize quick wins and start fixing them immediately to make your team&apos;s life better by next day.
               </p>
-              {/* Checklist-style: things we knock out fast */}
-              <div className="space-y-2">
+              {/* Timeline entries */}
+              <div className="space-y-0">
                 {[
-                  "HubSpot not syncing with billing",
-                  "Reps manually updating 3 spreadsheets",
-                  "No visibility into pipeline by channel",
+                  { action: "Identify all major bottlenecks" },
+                  { action: "Prioritize by difficulty of fixing them" },
+                  { action: "Fix easy and medium bottlenecks immediately" },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-white/[0.03] border border-white/[0.05]">
-                    <svg className="w-4 h-4 text-emerald-500/60 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                    <span className="text-white/40 text-[13px]">{item}</span>
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="flex flex-col items-center pt-1">
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/60 shrink-0" />
+                      {i < 2 && <div className="w-px h-full min-h-[32px] bg-gray-200" />}
+                    </div>
+                    <div className="pb-5">
+                      <p className="text-gray-600 text-[14px] mt-1">{item.action}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Track 2: Build What Lasts — architectural/system feel */}
+            {/* Track 2: Build What Lasts */}
             <div
               data-section-id="track-2"
-              className={`rounded-xl border border-brand-blue/[0.1] bg-brand-blue/[0.03] p-6 lg:p-8 reveal-card ${visibleSections.has('track-2') ? 'visible' : ''}`}
+              className={`rounded-xl border border-brand-blue/20 bg-blue-50/20 p-6 lg:p-8 reveal-card ${visibleSections.has('track-2') ? 'visible' : ''}`}
             >
-              <p className="text-brand-blue/50 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Track 2</p>
-              <h3 className="text-2xl font-extrabold text-white mb-3 tracking-tight">Build What Lasts</h3>
-              <p className="text-white/40 text-[15px] leading-relaxed mb-6">
+              <p className="text-brand-blue/60 text-xs uppercase tracking-[0.2em] font-semibold mb-3">Track 2</p>
+              <h3 className="text-2xl font-extrabold text-brand-black mb-3 tracking-tight">Build What Lasts</h3>
+              <p className="text-gray-500 text-[15px] leading-relaxed mb-8">
                 While fires get fixed, we architect the real system. The one that makes fires stop happening.
               </p>
-              {/* Architecture layers — stacked, building upward */}
-              <div className="space-y-2">
+              {/* Timeline entries */}
+              <div className="space-y-0">
                 {[
-                  { layer: "Data Layer", desc: "Every source connected, always synced" },
-                  { layer: "Logic Layer", desc: "Rules and automations running 24/7" },
-                  { layer: "Intelligence Layer", desc: "Ask anything, get real answers" },
+                  { action: "Map the stack. Plan the build." },
+                  { action: "Data layer connected and synced." },
+                  { action: "Automation and intelligence live." },
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center justify-between px-4 py-3 rounded-lg bg-white/[0.04] border border-brand-blue/[0.08]">
-                    <span className="text-white font-semibold text-[13px]">{item.layer}</span>
-                    <span className="text-white/30 text-[12px]">{item.desc}</span>
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="flex flex-col items-center pt-1">
+                      <div className="w-2.5 h-2.5 rounded-full bg-brand-blue/60 shrink-0" />
+                      {i < 2 && <div className="w-px h-full min-h-[32px] bg-brand-blue/[0.15]" />}
+                    </div>
+                    <div className="pb-5">
+                      <p className="text-gray-600 text-[14px] mt-1">{item.action}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Weekly Sprint Cycle */}
+          {/* Sprint Cycle — Progress Bar */}
           <div
             data-section-id="sprint-cycle"
-            className={`rounded-xl border border-brand-blue/[0.1] bg-brand-blue/[0.03] p-6 lg:p-8 reveal-card ${visibleSections.has('sprint-cycle') ? 'visible' : ''}`}
+            className={`mb-12 reveal-card ${visibleSections.has('sprint-cycle') ? 'visible' : ''}`}
           >
-            <p className="text-brand-blue/60 text-xs uppercase tracking-[0.2em] font-semibold mb-6 text-center">Weekly Sprint Cycle</p>
-            <div className="grid grid-cols-3 gap-6">
+            <p className="text-brand-blue/60 text-xs uppercase tracking-[0.2em] font-semibold mb-8 text-center">Weekly Sprint Cycle</p>
+            <div className="grid grid-cols-3 max-w-[600px] mx-auto relative">
+              {/* Connecting line behind dots */}
+              <div className="absolute top-2 left-[16.67%] right-[16.67%] h-px bg-gray-200" />
               {[
-                { step: "Monday", desc: "Plan and prioritize" },
-                { step: "Tue-Sun", desc: "Build and ship" },
-                { step: "Monday", desc: "Next sprint starts" },
+                { label: "Monday", desc: "Plan", active: false },
+                { label: "Tue-Sun", desc: "Build & ship", active: true },
+                { label: "Monday", desc: "Review + next sprint", active: false },
               ].map((item, i) => (
-                <div key={i} className="text-center">
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    {i > 0 && <span className="text-brand-blue/20 hidden md:inline">&rarr;</span>}
-                    <span className="text-white font-bold text-lg">{item.step}</span>
-                  </div>
-                  <p className="text-white/35 text-sm">{item.desc}</p>
+                <div key={i} className="flex flex-col items-center text-center relative">
+                  <div className={`w-4 h-4 rounded-full border-2 ${item.active ? 'bg-brand-blue border-brand-blue' : 'bg-white border-gray-300'}`} />
+                  <p className="text-brand-black font-bold text-sm mt-3">{item.label}</p>
+                  <p className="text-gray-400 text-[12px] mt-0.5">{item.desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
+          {/* Ownership — OBJ005 */}
+          <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 lg:p-8 max-w-[700px] mx-auto">
+            <h3 className="text-xl font-bold text-brand-black mb-2">Zero Dependency. You Own Everything.</h3>
+            <p className="text-gray-500 text-[15px] mb-6">Every line of code. Every architecture decision. Every data flow diagram. Yours from day one.</p>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-brand-blue/60 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                <div>
+                  <p className="text-brand-black/70 text-[14px] font-medium">Open technologies</p>
+                  <p className="text-gray-400 text-[13px]">Postgres, REST APIs, mainstream frameworks. Nothing proprietary.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-brand-blue/60 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <div>
+                  <p className="text-brand-black/70 text-[14px] font-medium">Fully documented</p>
+                  <p className="text-gray-400 text-[13px]">Architecture docs, data flow maps, schema designs. Your team can take over.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-brand-blue/60 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                </svg>
+                <div>
+                  <p className="text-brand-black/70 text-[14px] font-medium">Your code, your infra</p>
+                  <p className="text-gray-400 text-[13px]">All code, documentation, and infrastructure belongs to you from day one.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Inline CTA — Boost your operations */}
+      <div className="flex justify-center py-12 bg-white border-t border-gray-100">
+        <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-brand-blue text-white rounded-full font-semibold text-base hover:shadow-[0_0_40px_rgba(0,102,255,0.4)] hover:scale-[1.02] transition-all duration-300">
+          Boost your operations
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+        </Link>
+      </div>
+
+      {/* ═══════════════════════════════════════════
+          SECTION: THE RESULT — 4 CARDS, 2x2
+      ═══════════════════════════════════════════ */}
+      <section className="relative py-20 px-8 lg:px-12 bg-white border-t border-gray-100">
+        <div className="max-w-[1100px] mx-auto">
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight mb-16 text-center">
+            You <span className="text-brand-blue">Get</span>
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Card 1: Scale Without Headcount */}
+            <div className="p-8 rounded-2xl border border-gray-200 bg-white">
+              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-brand-black tracking-tight mb-3">Scale Without Headcount</h3>
+              <p className="text-gray-500 text-[15px] leading-relaxed">
+                Same team, 10x capacity.
+              </p>
+            </div>
+
+            {/* Card 2: Reduced Tool Spend */}
+            <div className="p-8 rounded-2xl border border-gray-200 bg-white">
+              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-brand-black tracking-tight mb-3">Reduced Tool Spend</h3>
+              <p className="text-gray-500 text-[15px] leading-relaxed">
+                You will be surprised how many softwares you don&apos;t need.
+              </p>
+            </div>
+
+            {/* Card 3: Team That Thrives */}
+            <div className="p-8 rounded-2xl border border-gray-200 bg-white">
+              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-brand-black tracking-tight mb-3">Team That Thrives</h3>
+              <p className="text-gray-500 text-[15px] leading-relaxed">
+                Your co-workers will do interesting things, cause error prone, boring, manual tasks will be automated.
+              </p>
+            </div>
+
+            {/* Card 4: Agency / GTM Advantage */}
+            <div className="p-8 rounded-2xl border border-brand-blue/20 bg-blue-50/20">
+              <div className="w-12 h-12 bg-brand-blue/10 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-6 h-6 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-bold text-brand-black tracking-tight">Agency Advantage</h3>
+                  <p className="text-gray-500 text-[15px] leading-relaxed">
+                    Better client experience. Your business becomes easy to sell.
+                  </p>
+                </div>
+                <div className="border-t border-gray-200 pt-4">
+                  <h3 className="text-lg font-bold text-brand-black tracking-tight">GTM Team Advantage</h3>
+                  <p className="text-gray-500 text-[15px] leading-relaxed">
+                    Every dollar tracked to revenue, translating into more sales and bonuses for you and your team.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          SECTION: WHY STIMULI
+          SECTION: WHY STIMULI — COMPARISON TABLE
       ═══════════════════════════════════════════ */}
       <section
         data-section-id="why-us"
         className={`relative py-24 px-8 lg:px-12 bg-white reveal-section ${visibleSections.has('why-us') ? 'visible' : ''}`}
       >
         <div className="max-w-[1100px] mx-auto">
-          <div className="text-center mb-20">
+          <div className="text-center mb-16">
             <p className="text-[13px] text-gray-400 uppercase tracking-widest font-semibold mb-4">
               Why Stimuli
             </p>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight">
-              Marketing + Sales + Engineering.<br /><span className="text-brand-blue">All Under One Roof.</span>
+              Compare Your <span className="text-brand-blue">Options.</span>
             </h2>
           </div>
 
-          {/* ── CHAPTER 1: THE OPERATORS ── */}
-          <div
-            data-section-id="operators"
-            className={`mb-20 reveal-card ${visibleSections.has('operators') ? 'visible' : ''}`}
-          >
-            <h3 className="text-2xl lg:text-3xl font-bold text-brand-black mb-4">
-              We&apos;ve Done Your Job Before
-            </h3>
-            <p className="text-brand-black/55 leading-relaxed mb-8 max-w-3xl text-[15px]">
-              We started as marketing and RevOps leaders on one side, solutions architects and engineers on the other. Together we built a B2B lead gen agency from scratch. The technical walls kept showing up, so we built the fixes ourselves. Then started shipping them to every revenue team and agency that needed them.
-            </p>
-
-            <div className="grid sm:grid-cols-2 gap-4 mb-6">
-              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
-                <img src="/images/team/sergi.jpeg" alt="Sergi Cheishvili" className="w-16 h-16 rounded-xl object-cover" />
-                <div>
-                  <p className="font-bold text-brand-black">Sergi Cheishvili</p>
-                  <p className="text-sm text-brand-black/50">Co-Founder & CEO</p>
-                  <p className="text-xs text-brand-black/40 mt-1">From selling software to building it. 20+ companies on both sides of the table.</p>
+          <div className="overflow-x-auto">
+            <div className="min-w-[700px] rounded-2xl border border-gray-200 overflow-hidden">
+              {/* Header row */}
+              <div className="grid grid-cols-4">
+                <div className="p-5 bg-white" />
+                <div className="p-5 bg-brand-blue/[0.04] border-x border-gray-200 flex items-center justify-center">
+                  <img src="/images/logo-symbol.png" alt="Stimuli" className="h-8" />
+                </div>
+                <div className="p-5 bg-white flex items-center justify-center border-r border-gray-200">
+                  <p className="text-brand-black font-bold text-sm text-center">General Dev Agency</p>
+                </div>
+                <div className="p-5 bg-white flex items-center justify-center">
+                  <p className="text-brand-black font-bold text-sm text-center">Building In-House</p>
                 </div>
               </div>
-              <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-200">
-                <img src="/images/team/Rezi.jpeg" alt="Rezi Dzidziguri" className="w-16 h-16 rounded-xl object-cover" />
-                <div>
-                  <p className="font-bold text-brand-black">Rezi Dzidziguri</p>
-                  <p className="text-sm text-brand-black/50">Co-Founder & CTO</p>
-                  <p className="text-xs text-brand-black/40 mt-1">CS and BA dropout. Architected TBC Bank&#39;s award-winning digital platform.</p>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div className="border-t border-gray-200 mb-20"></div>
-
-          {/* ── CHAPTER 2: THE ENGINEERS ── */}
-          <div
-            data-section-id="engineers"
-            className={`reveal-card ${visibleSections.has('engineers') ? 'visible' : ''}`}
-          >
-            <h3 className="text-2xl lg:text-3xl font-bold text-brand-black mb-4">
-              Engineers Who Build to Scale
-            </h3>
-            <p className="text-brand-black/55 leading-relaxed mb-10 max-w-3xl text-[15px]">
-              CS majors from Eastern Europe&apos;s top university. International olympiad medalists. They architect systems that grow with your business.
-            </p>
-
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-              {engineers.map((eng, i) => (
-                <div
-                  key={i}
-                  data-section-id={`eng-${i}`}
-                  className={`p-5 bg-gray-50 rounded-2xl border border-gray-200 text-center reveal-card ${visibleSections.has(`eng-${i}`) ? 'visible' : ''}`}
-                >
-                  <img src={eng.photo} alt={eng.name} className="w-16 h-16 rounded-xl object-cover mx-auto mb-3" />
-                  <p className="font-bold text-brand-black text-[15px]">{eng.name}</p>
-                  <p className="text-brand-blue font-bold text-sm mt-1">{eng.headline}</p>
-                  <p className="text-brand-black/40 text-[12px] mt-1 leading-snug">{eng.sub}</p>
-                  <div className="flex flex-wrap items-center justify-center gap-2 mt-3">
-                    {eng.linkedin && (
-                      <a href={eng.linkedin} target="_blank" rel="noopener noreferrer" className="text-brand-black/30 hover:text-brand-blue transition-colors">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                      </a>
-                    )}
-                    {eng.profiles?.map((p, j) => (
-                      <a key={j} href={p.url} target="_blank" rel="noopener noreferrer" className="text-[10px] font-semibold text-brand-black/30 hover:text-brand-blue transition-colors underline underline-offset-2">
-                        {p.label}
-                      </a>
-                    ))}
+              {/* Data rows */}
+              {[
+                {
+                  q: "Built by engineers with your domain knowledge?",
+                  stimuli: "Helped 40+ agencies and GTM teams build the system you\u2019re trying to build.",
+                  agency: "They learn your industry on your dime. Every engagement starts from zero.",
+                  inhouse: "Every mistake we\u2019ve already made and fixed, you\u2019ll discover the hard way.",
+                },
+                {
+                  q: "Own the systems & data you pay for?",
+                  stimuli: "Fully yours. Open tech, documented from day 1.",
+                  agency: "Usually yours, but domain-ignorant code you can\u2019t maintain.",
+                  inhouse: "Yours, but undocumented and held together by whoever built it.",
+                },
+                {
+                  q: "Result in week 1?",
+                  stimuli: "Impact before the first invoice. That\u2019s the standard.",
+                  agency: "Weeks of scoping calls. Months of \u2018alignment\u2019. Maybe something ships in Q2.",
+                  inhouse: "Hiring alone takes longer than our first 3 sprints.",
+                },
+                {
+                  q: "Production-grade infrastructure?",
+                  stimuli: "Designed by a solutions architect, built by olympiad medalists. Monitored and battle-tested across 40+ deployments.",
+                  agency: "Ships on deadline, breaks on launch. Maintenance is a separate contract.",
+                  inhouse: "One person building, monitoring, and firefighting. Until they burn out.",
+                },
+                {
+                  q: "Fractional team, fraction of the cost?",
+                  stimuli: "Architect + engineers + domain expertise. \u20AC8-12K/mo.",
+                  agency: "\u20AC150K+ project fee. And that\u2019s before change requests.",
+                  inhouse: "\u20AC200K+/yr salary, plus tools, plus management overhead, plus turnover risk.",
+                },
+                {
+                  q: "Handle 3x growth without rebuilding?",
+                  stimuli: "Architected to grow with you. No rewrites, no migrations, no ceilings.",
+                  agency: "They build what you asked for today. Tomorrow\u2019s scale is a new project.",
+                  inhouse: "Depends entirely on who you hire.",
+                },
+              ].map((row, i) => (
+                <div key={i} className={`grid grid-cols-4 border-t border-gray-200 ${i % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}`}>
+                  <div className="p-5">
+                    <p className="text-brand-black font-semibold text-[14px] leading-snug">{row.q}</p>
+                  </div>
+                  <div className="p-5 bg-brand-blue/[0.04] border-x border-gray-200">
+                    <p className="text-brand-black/70 text-[14px] leading-snug">{row.stimuli}</p>
+                  </div>
+                  <div className="p-5 border-r border-gray-200">
+                    <p className="text-brand-black/50 text-[14px] leading-snug">{row.agency}</p>
+                  </div>
+                  <div className="p-5">
+                    <p className="text-brand-black/50 text-[14px] leading-snug">{row.inhouse}</p>
                   </div>
                 </div>
               ))}
@@ -1125,7 +1105,7 @@ export default function Home() {
               <div
                 key={i}
                 data-section-id={`testimonial-${i}`}
-                className={`p-6 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has(`testimonial-${i}`) ? 'visible' : ''}`}
+                className={`p-6 bg-white rounded-2xl border border-gray-200 reveal-card ${visibleSections.has(`testimonial-${i}`) ? 'visible' : ''} ${i >= 2 && !showAllResults ? 'hidden' : ''}`}
               >
                 {testimonialResults[t.name] && (
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -1153,6 +1133,19 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          <div className="flex justify-center mt-8">
+            <button
+              type="button"
+              onClick={() => { setShowAllResults(prev => !prev); }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-gray-200 text-brand-black/60 text-sm font-semibold hover:border-brand-blue/30 hover:text-brand-blue transition-all duration-300 cursor-pointer"
+            >
+              {showAllResults ? 'Show less' : `Show all ${testimonials.length} results`}
+              <svg className={`w-4 h-4 transition-transform duration-300 ${showAllResults ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -1166,104 +1159,191 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════
-          SECTION: PRICING
+          SECTION: PRICING — 2-STEP MODEL
       ═══════════════════════════════════════════ */}
       <section
+        id="pricing"
         data-section-id="pricing"
         className={`relative py-24 px-8 lg:px-12 bg-brand-black text-white reveal-section ${visibleSections.has('pricing') ? 'visible' : ''}`}
       >
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[900px] mx-auto">
           <div className="text-center mb-16">
             <p className="text-[13px] text-white/40 uppercase tracking-widest font-semibold mb-4">Pricing</p>
             <h2 className="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-              Three Ways to <span className="text-brand-blue">Work With Us.</span>
+              How We Work <span className="text-brand-blue">Together.</span>
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Sprint */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {/* Card 1: Diagnostic Sprint */}
             <div
-              data-section-id="pricing-sprint"
-              className={`rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8 flex flex-col reveal-card ${visibleSections.has('pricing-sprint') ? 'visible' : ''}`}
+              data-section-id="pricing-diagnostic"
+              className={`rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8 flex flex-col reveal-card ${visibleSections.has('pricing-diagnostic') ? 'visible' : ''}`}
             >
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-3 h-3 rounded-sm bg-brand-blue/60"></span>
-                <span className="text-white/60 text-xs uppercase tracking-[0.2em] font-semibold">Sprint</span>
-              </div>
-              <p className="text-white/40 text-sm leading-relaxed mb-6">
-                Custom GTM intelligence tailored to a specific workflow
+              <p className="text-emerald-500/70 text-xs uppercase tracking-[0.2em] font-semibold mb-6">Start Here</p>
+              <h3 className="text-2xl font-extrabold text-white mb-1 tracking-tight">Diagnostic Sprint</h3>
+              <p className="text-white/30 text-sm mb-6">1 week</p>
+              <p className="text-3xl font-extrabold text-white mb-2">&euro;1.5K</p>
+              <p className="text-emerald-500/60 text-[13px] font-medium mb-6">Credited toward your first month if you continue</p>
+              <p className="text-white/40 text-[15px] leading-relaxed mb-8">
+                We audit your stack, map every data flow, and deliver a concrete plan.
               </p>
-              <p className="text-3xl font-extrabold text-white mb-6">Contact For Pricing</p>
-              <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
-                className="block text-center px-6 py-3 rounded-lg border border-white/20 text-white font-semibold text-sm hover:bg-white/[0.05] transition-all duration-300 mb-8">
-                Get Started
-              </Link>
-              <p className="text-white/30 text-xs uppercase tracking-widest font-semibold mb-4">This plan includes:</p>
-              <ul className="space-y-3 text-sm text-white/50">
-                {["Single workflow implementation", "2-month minimum engagement", "Up to 3 tool integrations", "1 dedicated specialist", "Monthly progress reports", "Real-time support via Slack & Loom"].map((item, i) => (
+              <p className="text-white/30 text-xs uppercase tracking-widest font-semibold mb-4">You get:</p>
+              <ul className="space-y-3 text-sm text-white/50 mb-8">
+                {["Architecture document", "Gap analysis", "Data flow map", "Prioritized roadmap"].map((item, i) => (
                   <li key={i} className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-sm bg-brand-blue/50 mt-1.5 shrink-0"></span>
+                    <svg className="w-4 h-4 text-emerald-500/60 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                     {item}
                   </li>
                 ))}
               </ul>
+              <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
+                className="mt-auto block text-center px-6 py-3 rounded-lg border border-white/20 text-white font-semibold text-sm hover:bg-white/[0.05] transition-all duration-300">
+                Book a diagnostic
+              </Link>
             </div>
 
-            {/* System — highlighted */}
+            {/* Card 2: Monthly Retainer */}
             <div
-              data-section-id="pricing-system"
-              className={`rounded-2xl border border-brand-blue/30 bg-brand-blue/[0.06] p-8 flex flex-col reveal-card ${visibleSections.has('pricing-system') ? 'visible' : ''}`}
+              data-section-id="pricing-retainer"
+              className={`rounded-2xl border border-brand-blue/30 bg-brand-blue/[0.06] p-8 flex flex-col reveal-card ${visibleSections.has('pricing-retainer') ? 'visible' : ''}`}
             >
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-3 h-3 rounded-sm bg-brand-blue"></span>
-                <span className="text-brand-blue text-xs uppercase tracking-[0.2em] font-semibold">System</span>
-              </div>
-              <p className="text-white/40 text-sm leading-relaxed mb-6">
-                Custom GTM intelligence tailored to building a full system
+              <p className="text-brand-blue text-xs uppercase tracking-[0.2em] font-semibold mb-6">Then Continue</p>
+              <h3 className="text-2xl font-extrabold text-white mb-1 tracking-tight">Monthly Retainer</h3>
+              <p className="text-white/30 text-sm mb-6">4 sprints per month</p>
+              <p className="text-3xl font-extrabold text-white mb-2">&euro;1,750<span className="text-lg font-bold text-white/40"> / sprint</span></p>
+              <p className="text-white/30 text-[13px] mb-6">&euro;7K/mo total</p>
+              <p className="text-white/40 text-[15px] leading-relaxed mb-8">
+                Concrete deliverable every week. CTO + engineer + domain expertise.
               </p>
-              <p className="text-3xl font-extrabold text-white mb-6">Contact For Pricing</p>
-              <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
-                className="block text-center px-6 py-3 rounded-lg bg-brand-blue text-white font-semibold text-sm hover:shadow-[0_0_30px_rgba(0,102,255,0.4)] transition-all duration-300 mb-8">
-                Get Started
-              </Link>
-              <p className="text-white/30 text-xs uppercase tracking-widest font-semibold mb-4">This plan includes:</p>
-              <ul className="space-y-3 text-sm text-white/50">
-                {["Multi-workflow GTM transformation", "6-month minimum engagement", "Full audit of existing systems", "Complete GTM tool stack integration", "Multiple specialists as needed", "Weekly performance reports + insights", "Team training and documentation", "Async support via Slack & Loom"].map((item, i) => (
+              <p className="text-white/30 text-xs uppercase tracking-widest font-semibold mb-4">Includes:</p>
+              <ul className="space-y-3 text-sm text-white/50 mb-8">
+                {["Weekly sprints (Monday plan, build, ship)", "Full team (CTO + engineers)", "Ongoing system evolution", "Slack support", "Full documentation"].map((item, i) => (
                   <li key={i} className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-sm bg-brand-blue/50 mt-1.5 shrink-0"></span>
+                    <svg className="w-4 h-4 text-brand-blue/60 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                     {item}
                   </li>
                 ))}
               </ul>
+              <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
+                className="mt-auto block text-center px-6 py-3 rounded-lg bg-brand-blue text-white font-semibold text-sm hover:shadow-[0_0_30px_rgba(0,102,255,0.4)] transition-all duration-300">
+                Book a call
+              </Link>
             </div>
 
-            {/* Enterprise */}
+            {/* Card 3: Custom Projects */}
             <div
-              data-section-id="pricing-enterprise"
-              className={`rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8 flex flex-col reveal-card ${visibleSections.has('pricing-enterprise') ? 'visible' : ''}`}
+              data-section-id="pricing-custom"
+              className={`rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8 flex flex-col reveal-card ${visibleSections.has('pricing-custom') ? 'visible' : ''}`}
             >
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-3 h-3 rounded-sm bg-brand-blue/60"></span>
-                <span className="text-white/60 text-xs uppercase tracking-[0.2em] font-semibold">Enterprise</span>
-              </div>
-              <p className="text-white/40 text-sm leading-relaxed mb-6">
-                Custom GTM intelligence tailored to a compounding advantage
+              <p className="text-white/40 text-xs uppercase tracking-[0.2em] font-semibold mb-6">Custom</p>
+              <h3 className="text-2xl font-extrabold text-white mb-1 tracking-tight">Custom Projects</h3>
+              <p className="text-white/30 text-sm mb-6">SaaS collaborations & custom builds</p>
+              <p className="text-3xl font-extrabold text-white mb-2">Let&apos;s talk</p>
+              <p className="text-white/30 text-[13px] mb-6">Scoped to your needs</p>
+              <p className="text-white/40 text-[15px] leading-relaxed mb-8">
+                Have a product idea or SaaS collaboration in mind? We build custom solutions from the ground up.
               </p>
-              <p className="text-3xl font-extrabold text-white mb-6">Contact For Pricing</p>
-              <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
-                className="block text-center px-6 py-3 rounded-lg border border-white/20 text-white font-semibold text-sm hover:bg-white/[0.05] transition-all duration-300 mb-8">
-                Get Started
-              </Link>
-              <p className="text-white/30 text-xs uppercase tracking-widest font-semibold mb-4">This plan includes:</p>
-              <ul className="space-y-3 text-sm text-white/50">
-                {["Ongoing strategic partnership", "12-month minimum engagement", "Custom code solutions and integrations", "Dedicated success manager", "Enterprise SLAs", "Real-time performance dashboards", "Quarterly strategic planning sessions", "White-glove onboarding", "Executive advisory sessions", "Future-state roadmap planning", "Priority technical support"].map((item, i) => (
+              <p className="text-white/30 text-xs uppercase tracking-widest font-semibold mb-4">Includes:</p>
+              <ul className="space-y-3 text-sm text-white/50 mb-8">
+                {["Custom scoping & architecture", "SaaS product development", "Full-stack engineering", "Ongoing partnership options"].map((item, i) => (
                   <li key={i} className="flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-sm bg-brand-blue/50 mt-1.5 shrink-0"></span>
+                    <svg className="w-4 h-4 text-white/30 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                     {item}
                   </li>
                 ))}
               </ul>
+              <Link href="https://calendly.com/sergi-feq/30min" target="_blank" rel="noopener noreferrer"
+                className="mt-auto block text-center px-6 py-3 rounded-lg border border-white/20 text-white font-semibold text-sm hover:bg-white/[0.05] transition-all duration-300">
+                Challenge Us
+              </Link>
             </div>
+          </div>
+
+
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          SECTION: FAQ
+      ═══════════════════════════════════════════ */}
+      <section id="faq" className="relative py-24 px-8 lg:px-12 bg-brand-black border-t border-white/[0.06]">
+        <div className="max-w-[700px] mx-auto">
+          <h2 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-12 text-center">
+            Questions You Might Have
+          </h2>
+
+          <div className="space-y-0">
+            {[
+              {
+                q: "Why a retainer instead of a one-time project?",
+                a: "Infrastructure is a living system. APIs change, data volumes grow, business rules evolve. Every one-time build we\u2019ve inherited started as someone\u2019s \u201Cfinished\u201D project. Our sprint model means you get something shipped every week, and the system keeps evolving with your business."
+              },
+              {
+                q: "What does the first week look like?",
+                a: "We start with a diagnostic sprint. We audit your stack, map every data flow, and deliver a concrete plan. From there, two tracks run simultaneously: Track 1 fixes the fires hurting you right now. Track 2 architects the long-term system underneath. You see quick wins in the first weeks while the real infrastructure takes shape."
+              },
+              {
+                q: "How long until we see results?",
+                a: "Week 1. The diagnostic sprint alone produces an architecture document and prioritized roadmap. Most clients have their first workflow fixed or automated within the first two sprints. The full system typically takes 8\u201312 weeks to build, but you\u2019re getting value from sprint one."
+              },
+              {
+                q: "Can\u2019t AI just build this?",
+                a: "AI can build you a demo in an afternoon. Making it work in production \u2014 with real data, real edge cases, and real scale \u2014 takes domain knowledge that only comes from doing this 40+ times. We use AI every day. It makes us faster. But it doesn\u2019t replace knowing what to build."
+              },
+              {
+                q: "Our engineers could handle this.",
+                a: "They could write the code. But building data infrastructure that works at scale requires pattern recognition from doing it dozens of times. Every edge case your team would discover the hard way, we\u2019ve already solved and documented."
+              },
+              {
+                q: "We\u2019ve been burned by outsourced dev before.",
+                a: "That was domain ignorance, not dev incompetence. Generic agencies learn your industry on your dime and can\u2019t catch incomplete specs. We started as operators building these systems for our own business. We don\u2019t need a discovery phase to understand your stack."
+              },
+              {
+                q: "How is this different from hiring a freelancer?",
+                a: "A freelancer is one person with one skill set. We\u2019re a full team: solutions architect, engineers, and domain specialists working in weekly sprints. When a freelancer leaves, the knowledge leaves with them. With us, everything is documented, the code is clean, and the system doesn\u2019t depend on any single person."
+              },
+              {
+                q: "What tools do you work with?",
+                a: "We\u2019re tool-agnostic. HubSpot, Salesforce, Pipedrive, Google Ads, LinkedIn Ads, Stripe, custom databases \u2014 we integrate whatever your stack runs on. We build on open technologies (Postgres, REST APIs, mainstream frameworks) so you\u2019re never locked into proprietary tools."
+              },
+              {
+                q: "Do you replace our existing stack or build on top of it?",
+                a: "We don\u2019t replace anything. Your CRM, ad platforms, and billing tools stay exactly where they are. We connect them, clean the data flowing between them, and build the infrastructure that makes everything work as one system. No migrations, no retraining your team."
+              },
+              {
+                q: "What happens after the diagnostic sprint?",
+                a: "You get the architecture document, gap analysis, and prioritized roadmap. If it makes sense for both sides, we move into the monthly retainer and start executing from sprint one. If not, you walk away with a complete technical blueprint you can hand to any team. The diagnostic is credited toward your first month if you continue."
+              },
+              {
+                q: "What if it doesn\u2019t work?",
+                a: "The diagnostic sprint is designed to prove it before you commit. For \u20AC1.5K you get a full audit and roadmap in one week. If the results don\u2019t convince you, you keep the deliverables and walk away. Every client so far has continued."
+              },
+              {
+                q: "How do you handle sensitive data?",
+                a: "Your data stays in your infrastructure. We work within your existing cloud environment and access controls. We don\u2019t store, export, or retain any of your data outside your systems."
+              },
+              {
+                q: "Where is your team based?",
+                a: "We\u2019re all in one office in Tbilisi, Georgia. No remote contractors, no distributed teams. We work in the same room, communicate via Slack with clients, and overlap with EU and US timezones."
+              },
+            ].map((item, i) => (
+              <div key={i} className="border-b border-white/[0.06]">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between py-5 text-left cursor-pointer"
+                >
+                  <p className="text-white font-semibold text-[15px] pr-4">{item.q}</p>
+                  <svg className={`w-5 h-5 text-white/30 shrink-0 transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div className={`overflow-hidden transition-all duration-300 ${openFaq === i ? 'max-h-[300px] pb-5' : 'max-h-0'}`}>
+                  <p className="text-white/40 text-[14px] leading-relaxed">{item.a}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -1277,11 +1357,11 @@ export default function Home() {
       >
         <div className="max-w-[1400px] mx-auto text-center">
           <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-6 tracking-tight">
-            Ready to see what your data is hiding?
+            Start With a Diagnostic Sprint.
           </h2>
 
           <p className="text-xl text-white/50 mb-10 max-w-2xl mx-auto leading-relaxed">
-            30 minutes. We audit your stack and show you what&apos;s broken. No pitch.
+            One week. One audit. A complete roadmap for your infrastructure. If it makes sense, we keep building.
           </p>
 
           <Link
@@ -1290,7 +1370,7 @@ export default function Home() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-10 py-5 bg-brand-blue text-white rounded-full font-bold text-lg hover:shadow-[0_0_40px_rgba(0,102,255,0.4)] transition-shadow duration-300"
           >
-            Book a call
+            Book your diagnostic
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
             </svg>
@@ -1305,7 +1385,7 @@ export default function Home() {
       ═══════════════════════════════════════════ */}
       <footer className="bg-brand-black text-white py-16 px-8 border-t border-brand-blue/[0.08]">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
               <Image
                 src="/images/logo-full.svg"
@@ -1315,20 +1395,8 @@ export default function Home() {
                 className="h-8 w-auto brightness-0 invert mb-4"
               />
               <p className="text-white/40 text-sm leading-relaxed">
-                The Tech-Ops Partner<br/>for Revenue Teams.
+                Your CTO + Tech-ops department
               </p>
-            </div>
-
-            <div>
-              <p className="text-white font-semibold mb-4 text-sm">Services</p>
-              <div className="space-y-2">
-                <Link href="/retainer" className="block text-white/40 hover:text-white text-sm transition-colors">
-                  Tech-Ops Partner
-                </Link>
-                <Link href="/database" className="block text-white/40 hover:text-white text-sm transition-colors">
-                  Our Approach
-                </Link>
-              </div>
             </div>
 
             <div>
@@ -1338,9 +1406,9 @@ export default function Home() {
                   About
                 </Link>
                 <Link href="/history" className="block text-white/40 hover:text-white text-sm transition-colors">
-                  Our History
+                  Our Purpose
                 </Link>
-                <Link href="/#videos" className="block text-white/40 hover:text-white text-sm transition-colors">
+                <Link href="/case-studies" className="block text-white/40 hover:text-white text-sm transition-colors">
                   Case Studies
                 </Link>
               </div>
