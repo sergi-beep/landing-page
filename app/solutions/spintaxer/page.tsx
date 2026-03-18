@@ -82,55 +82,22 @@ export default function SpintaxerPage() {
           HERO
       ═══════════════════════════════════════════ */}
       <section className="relative pt-40 pb-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute inset-0 hero-grid opacity-40"></div>
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[700px] bg-brand-blue/[0.07] rounded-full blur-[160px] animate-pulse-slower"></div>
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-brand-sky/[0.04] rounded-full blur-[100px]"></div>
 
         <div className="max-w-[1100px] mx-auto relative">
           <div className="text-center max-w-[900px] mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-8 hero-fade-up hero-fade-up-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span className="text-sm text-white/60 font-medium tracking-wide uppercase">
-                Product &middot; Live
-              </span>
-            </div>
-
             <h1 className="text-5xl lg:text-[4.8rem] font-extrabold tracking-[-0.03em] leading-[0.92] mb-8 text-white hero-fade-up hero-fade-up-2">
               Cold email spintax<br />
-              <span className="text-gradient">that actually works.</span>
+              <span className="text-brand-blue">that actually works.</span>
             </h1>
 
             <p className="text-xl text-white/40 leading-relaxed max-w-3xl mx-auto font-light tracking-tight mb-6 hero-fade-up hero-fade-up-3">
-              The tool that started it all. Generate spintax with millions of variations&nbsp;&mdash; not just synonym swaps, but entire sentence structures rewritten. Every email unique. Every message sounds human.
+              Millions of unique variations. Not synonym swaps. Entire sentences rewritten.
             </p>
-
-            <p className="text-[15px] text-white/20 max-w-2xl mx-auto leading-relaxed hero-fade-up hero-fade-up-4">
-              Used by hundreds of cold email agencies worldwide. Built because we couldn&apos;t find anything that actually got the job done.
-            </p>
-
-            {/* Tech badges */}
-            <div className="flex items-center justify-center gap-3 mt-10 hero-fade-up hero-fade-up-5">
-              <span className="px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] text-white/40 text-sm font-semibold tracking-tight">
-                Smartlead
-              </span>
-              <span className="px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] text-white/40 text-sm font-semibold tracking-tight">
-                Instantly
-              </span>
-              <span className="px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] text-white/40 text-sm font-semibold tracking-tight">
-                Cold Email
-              </span>
-              <span className="px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] text-white/40 text-sm font-semibold tracking-tight">
-                Deliverability
-              </span>
-            </div>
           </div>
 
           {/* Hero visual — branching variations */}
           <div className="relative hero-fade-up hero-fade-up-6 max-w-[500px] mx-auto">
-            <div className="absolute -inset-4 bg-gradient-to-r from-brand-blue/10 via-brand-sky/5 to-brand-blue/10 rounded-3xl blur-2xl opacity-60"></div>
-            <div className="relative">
-              <HeroSpintax />
-            </div>
+            <HeroSpintax />
           </div>
         </div>
       </section>
@@ -147,7 +114,7 @@ export default function SpintaxerPage() {
               <span className="text-gray-300">It&apos;s not.</span>
             </h2>
             <p className="text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto font-light tracking-tight">
-              Most people either under-spintax and create obvious patterns that destroy deliverability, or they go overboard and the emails end up&nbsp;&mdash; kinda embarrassing to read.
+              Most people either under-spintax and create obvious patterns that destroy deliverability, or they go overboard and the emails end up.kinda embarrassing to read.
             </p>
           </div>
 
@@ -196,9 +163,6 @@ export default function SpintaxerPage() {
           THE SOLUTION — What Spintaxer does
       ═══════════════════════════════════════════ */}
       <section className="relative py-28 lg:py-36 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-brand-blue/[0.04] rounded-full blur-[140px] -translate-y-1/2"></div>
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-brand-sky/[0.03] rounded-full blur-[100px]"></div>
-
         <div className="max-w-[1100px] mx-auto relative">
           <div className="text-center mb-20 reveal-section">
             <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-4">The solution</p>
@@ -247,18 +211,13 @@ export default function SpintaxerPage() {
                 <h3 className="text-xl font-extrabold text-white tracking-tight mb-2">{feature.title}</h3>
                 <p className="text-white/30 text-[14px] leading-relaxed mb-6">{feature.description}</p>
                 <div className="pt-4 border-t border-white/[0.06]">
-                  <p className="text-2xl font-extrabold text-gradient">{feature.metric}</p>
+                  <p className="text-2xl font-extrabold text-brand-blue">{feature.metric}</p>
                   <p className="text-white/20 text-[12px] font-medium mt-1">{feature.metricLabel}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Variant preview */}
-          <div className="max-w-[700px] mx-auto reveal-section">
-            <p className="text-center text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-6">Example output</p>
-            <MockVariantPreview />
-          </div>
         </div>
       </section>
 
@@ -284,50 +243,15 @@ export default function SpintaxerPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          THE BACKSTORY
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute inset-0 hero-grid opacity-30"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-brand-blue/[0.06] rounded-full blur-[160px]"></div>
-
-        <div className="max-w-[700px] mx-auto relative text-center reveal-section">
-          <p className="text-xs font-bold text-brand-blue uppercase tracking-[0.2em] mb-6">The backstory</p>
-
-          <h2 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white mb-4">
-            The tool that started it all.
-          </h2>
-          <p className="text-2xl lg:text-3xl font-extrabold tracking-tight text-white/25 mb-10">
-            Born from agency pain.
-          </p>
-
-          <div className="space-y-6 text-left max-w-xl mx-auto">
-            <p className="text-white/40 text-[16px] leading-relaxed">
-              We were running a cold email agency. Sending thousands of emails a day. And the spintax problem was killing us&nbsp;&mdash; every variation had to be unique enough to pass spam filters, but natural enough to sound human.
-            </p>
-            <p className="text-white/40 text-[16px] leading-relaxed">
-              We tried GPT prompting. We tried manual writing. We tried every tool on the market. Nothing worked at the quality and scale we needed. So we built our own.
-            </p>
-            <div className="p-6 rounded-xl border border-brand-blue/20 bg-brand-blue/[0.04]">
-              <p className="text-white/70 text-lg leading-relaxed font-semibold">
-                Shared it on LinkedIn. Agencies started using it. Hundreds of them. Spintaxer became the first product we ever shipped&nbsp;&mdash; and the proof that building tools from real pain creates things people actually want.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
           CTA — Soft redirect
       ═══════════════════════════════════════════ */}
       <section className="relative py-28 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-brand-blue/[0.05] rounded-full blur-[120px]"></div>
-
         <div className="max-w-3xl mx-auto text-center relative reveal-section">
           <h2 className="text-3xl lg:text-[2.8rem] font-extrabold tracking-[-0.02em] leading-tight mb-6 text-white">
             Need better cold email infrastructure?
           </h2>
           <p className="text-xl text-white/35 mb-12 max-w-2xl mx-auto leading-relaxed font-light tracking-tight">
-            Spintaxer is one piece of the puzzle. We build complete outbound systems for B2B agencies&nbsp;&mdash; from prospecting to deliverability to closing.
+            Spintaxer is one piece of the puzzle. We build complete outbound systems for B2B agencies.from prospecting to deliverability to closing.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
