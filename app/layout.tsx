@@ -3,7 +3,7 @@ import "./globals.css";
 import { SmoothScrollWrapper } from "./components/SmoothScrollWrapper";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://stimulidigital.com'),
+  metadataBase: new URL('https://stimuli.agency'),
   icons: {
     icon: [
       { url: '/favicon-128.png', sizes: '128x128', type: 'image/png' },
@@ -12,21 +12,21 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-touch-icon.png',
   },
-  title: "Stimuli Digital | The Technical Backbone for Outbound Agencies",
-  description: "We warehouse your campaign data, automate your operations, and give you AI that answers any question in seconds. 40+ agencies across 4 continents.",
+  title: "Stimuli Digital | Your Fractional CTO + Tech-Ops Team",
+  description: "Revenue ops veterans and olympiad-winning engineers building production infrastructure for B2B agencies and GTM teams. 40+ teams across 4 continents.",
   keywords: [
     "fractional CTO for agencies",
-    "cold email agency infrastructure",
-    "outbound agency automation",
-    "campaign data warehouse",
-    "agency operations system",
-    "client reporting automation",
+    "fractional CTO B2B",
+    "tech ops for agencies",
+    "B2B agency infrastructure",
+    "agency operations automation",
+    "GTM team engineering",
+    "revenue operations engineering",
     "scale agency without hiring",
     "agency tech stack",
-    "cold email operations",
-    "campaign intelligence",
-    "agency data engineering",
-    "MCP campaign data"
+    "production infrastructure B2B",
+    "custom software for agencies",
+    "agency data engineering"
   ],
   authors: [{ name: "Stimuli Digital" }],
   creator: "Stimuli Digital",
@@ -45,10 +45,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://stimulidigital.com",
+    url: "https://stimuli.agency",
     siteName: "Stimuli Digital",
-    title: "The Technical Backbone for Outbound Agencies | Stimuli Digital",
-    description: "We warehouse your campaign data, automate operations, and make it all queryable with AI. 40+ agencies. 4 continents.",
+    title: "Your Fractional CTO + Tech-Ops Team | Stimuli Digital",
+    description: "Revenue ops veterans and olympiad-winning engineers building production infrastructure for B2B agencies and GTM teams. 40+ teams across 4 continents.",
     images: [
       {
         url: "/images/og-image.png",
@@ -60,13 +60,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Technical Backbone for Outbound Agencies | Stimuli Digital",
-    description: "We warehouse campaign data, automate operations, and make it queryable with AI. 40+ agencies. 4 continents.",
+    title: "Your Fractional CTO + Tech-Ops Team | Stimuli Digital",
+    description: "Revenue ops veterans and olympiad-winning engineers building production infrastructure for B2B agencies and GTM teams.",
     images: ["/images/og-image.png"],
     creator: "@stimulidigital",
   },
   alternates: {
-    canonical: "https://stimulidigital.com",
+    canonical: "https://stimuli.agency",
   },
   verification: {
     google: "your-google-verification-code", // User should add their verification code

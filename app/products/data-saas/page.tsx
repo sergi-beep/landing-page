@@ -119,9 +119,7 @@ export default function DataSaasPage() {
               <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
                 Q&amp;A
               </Link>
-              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">
-                Our Purpose
-              </Link>
+              <span className="text-[15px] font-medium text-white/30 cursor-default">Our Purpose</span>
             </div>
 
             <Link
