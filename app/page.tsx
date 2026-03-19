@@ -231,6 +231,7 @@ export default function Home() {
   const [showAllResults, setShowAllResults] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [advantageFlipped, setAdvantageFlipped] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Auto-advance testimonials every 7 seconds
   useEffect(() => {
@@ -325,11 +326,43 @@ export default function Home() {
               <span className="text-[15px] font-medium text-white/30 cursor-default">Our Purpose</span>
             </div>
 
+            <div className="flex items-center gap-4">
+              <Link
+                href="https://calendly.com/sergi-feq/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:inline-flex px-6 py-2.5 bg-gray-50 text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white hover:shadow-lg transition-all duration-300"
+              >
+                Challenge Us
+              </Link>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden flex flex-col items-center justify-center w-10 h-10 gap-1.5"
+                aria-label="Toggle menu"
+              >
+                <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+                <span className={`w-6 h-0.5 bg-white transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${mobileMenuOpen ? 'max-h-[400px] border-t border-white/[0.06]' : 'max-h-0'}`}>
+          <div className="px-8 py-6 space-y-4 bg-brand-black/95 backdrop-blur-xl">
+            <Link href="/#services" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Services</Link>
+            <Link href="/case-studies" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Video Case Studies</Link>
+            <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Why Us</Link>
+            <Link href="/#pricing" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Pricing</Link>
+            <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Q&amp;A</Link>
             <Link
               href="https://calendly.com/sergi-feq/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-2.5 bg-gray-50 text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white hover:shadow-lg transition-all duration-300"
+              onClick={() => setMobileMenuOpen(false)}
+              className="inline-flex px-6 py-3 bg-brand-blue text-white rounded-full font-semibold text-[15px] mt-2"
             >
               Challenge Us
             </Link>
@@ -771,7 +804,7 @@ export default function Home() {
         <div className="max-w-[1100px] mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-brand-black tracking-tight mb-4">
+            <h2 className="text-4xl lg:text-5xl font-bold text-brand-black tracking-tight mb-4">
               Two Tracks. Running <span className="text-brand-blue">Simultaneously.</span>
             </h2>
             <p className="text-gray-500 text-lg">
@@ -1015,78 +1048,106 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="overflow-x-auto">
-            <div className="min-w-[700px] rounded-2xl border border-gray-200 overflow-hidden">
-              {/* Header row */}
-              <div className="grid grid-cols-4">
-                <div className="p-5 bg-white" />
-                <div className="p-5 bg-brand-blue/[0.04] border-x border-gray-200 flex items-center justify-center">
-                  <img src="/images/logo-symbol.png" alt="Stimuli" className="h-8" />
+          {(() => {
+            const comparisonData = [
+              {
+                q: "Built by engineers with your domain knowledge?",
+                stimuli: "Helped 40+ agencies and GTM teams build the system you\u2019re trying to build.",
+                agency: "They learn your industry on your dime. Every engagement starts from zero.",
+                inhouse: "Every mistake we\u2019ve already made and fixed, you\u2019ll discover the hard way.",
+              },
+              {
+                q: "Own the systems & data you pay for?",
+                stimuli: "Fully yours. Open tech, documented from day 1.",
+                agency: "Usually yours, but domain-ignorant code you can\u2019t maintain.",
+                inhouse: "Yours, but undocumented and held together by whoever built it.",
+              },
+              {
+                q: "Result in week 1?",
+                stimuli: "Impact before the first invoice. That\u2019s the standard.",
+                agency: "Weeks of scoping calls. Months of \u2018alignment\u2019. Maybe something ships in Q2.",
+                inhouse: "Hiring alone takes longer than our first 3 sprints.",
+              },
+              {
+                q: "Production-grade infrastructure?",
+                stimuli: "Designed by a solutions architect, built by olympiad medalists. Monitored and battle-tested across 40+ deployments.",
+                agency: "Ships on deadline, breaks on launch. Maintenance is a separate contract.",
+                inhouse: "One person building, monitoring, and firefighting. Until they burn out.",
+              },
+              {
+                q: "Fractional team, fraction of the cost?",
+                stimuli: "Architect + engineers + domain expertise. \u20AC8-12K/mo.",
+                agency: "\u20AC150K+ project fee. And that\u2019s before change requests.",
+                inhouse: "\u20AC200K+/yr salary, plus tools, plus management overhead, plus turnover risk.",
+              },
+              {
+                q: "Handle 3x growth without rebuilding?",
+                stimuli: "Architected to grow with you. No rewrites, no migrations, no ceilings.",
+                agency: "They build what you asked for today. Tomorrow\u2019s scale is a new project.",
+                inhouse: "Depends entirely on who you hire.",
+              },
+            ];
+            return (
+              <>
+                {/* Desktop: full table */}
+                <div className="hidden lg:block overflow-x-auto">
+                  <div className="rounded-2xl border border-gray-200 overflow-hidden">
+                    <div className="grid grid-cols-4">
+                      <div className="p-5 bg-white" />
+                      <div className="p-5 bg-brand-blue/[0.04] border-x border-gray-200 flex items-center justify-center">
+                        <img src="/images/logo-symbol.png" alt="Stimuli" className="h-8" />
+                      </div>
+                      <div className="p-5 bg-white flex items-center justify-center border-r border-gray-200">
+                        <p className="text-brand-black font-bold text-sm text-center">General Dev Agency</p>
+                      </div>
+                      <div className="p-5 bg-white flex items-center justify-center">
+                        <p className="text-brand-black font-bold text-sm text-center">Building In-House</p>
+                      </div>
+                    </div>
+                    {comparisonData.map((row, i) => (
+                      <div key={i} className={`grid grid-cols-4 border-t border-gray-200 ${i % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}`}>
+                        <div className="p-5">
+                          <p className="text-brand-black font-semibold text-[14px] leading-snug">{row.q}</p>
+                        </div>
+                        <div className="p-5 bg-brand-blue/[0.04] border-x border-gray-200">
+                          <p className="text-brand-black/70 text-[14px] leading-snug">{row.stimuli}</p>
+                        </div>
+                        <div className="p-5 border-r border-gray-200">
+                          <p className="text-brand-black/50 text-[14px] leading-snug">{row.agency}</p>
+                        </div>
+                        <div className="p-5">
+                          <p className="text-brand-black/50 text-[14px] leading-snug">{row.inhouse}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="p-5 bg-white flex items-center justify-center border-r border-gray-200">
-                  <p className="text-brand-black font-bold text-sm text-center">General Dev Agency</p>
-                </div>
-                <div className="p-5 bg-white flex items-center justify-center">
-                  <p className="text-brand-black font-bold text-sm text-center">Building In-House</p>
-                </div>
-              </div>
 
-              {/* Data rows */}
-              {[
-                {
-                  q: "Built by engineers with your domain knowledge?",
-                  stimuli: "Helped 40+ agencies and GTM teams build the system you\u2019re trying to build.",
-                  agency: "They learn your industry on your dime. Every engagement starts from zero.",
-                  inhouse: "Every mistake we\u2019ve already made and fixed, you\u2019ll discover the hard way.",
-                },
-                {
-                  q: "Own the systems & data you pay for?",
-                  stimuli: "Fully yours. Open tech, documented from day 1.",
-                  agency: "Usually yours, but domain-ignorant code you can\u2019t maintain.",
-                  inhouse: "Yours, but undocumented and held together by whoever built it.",
-                },
-                {
-                  q: "Result in week 1?",
-                  stimuli: "Impact before the first invoice. That\u2019s the standard.",
-                  agency: "Weeks of scoping calls. Months of \u2018alignment\u2019. Maybe something ships in Q2.",
-                  inhouse: "Hiring alone takes longer than our first 3 sprints.",
-                },
-                {
-                  q: "Production-grade infrastructure?",
-                  stimuli: "Designed by a solutions architect, built by olympiad medalists. Monitored and battle-tested across 40+ deployments.",
-                  agency: "Ships on deadline, breaks on launch. Maintenance is a separate contract.",
-                  inhouse: "One person building, monitoring, and firefighting. Until they burn out.",
-                },
-                {
-                  q: "Fractional team, fraction of the cost?",
-                  stimuli: "Architect + engineers + domain expertise. \u20AC8-12K/mo.",
-                  agency: "\u20AC150K+ project fee. And that\u2019s before change requests.",
-                  inhouse: "\u20AC200K+/yr salary, plus tools, plus management overhead, plus turnover risk.",
-                },
-                {
-                  q: "Handle 3x growth without rebuilding?",
-                  stimuli: "Architected to grow with you. No rewrites, no migrations, no ceilings.",
-                  agency: "They build what you asked for today. Tomorrow\u2019s scale is a new project.",
-                  inhouse: "Depends entirely on who you hire.",
-                },
-              ].map((row, i) => (
-                <div key={i} className={`grid grid-cols-4 border-t border-gray-200 ${i % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}`}>
-                  <div className="p-5">
-                    <p className="text-brand-black font-semibold text-[14px] leading-snug">{row.q}</p>
-                  </div>
-                  <div className="p-5 bg-brand-blue/[0.04] border-x border-gray-200">
-                    <p className="text-brand-black/70 text-[14px] leading-snug">{row.stimuli}</p>
-                  </div>
-                  <div className="p-5 border-r border-gray-200">
-                    <p className="text-brand-black/50 text-[14px] leading-snug">{row.agency}</p>
-                  </div>
-                  <div className="p-5">
-                    <p className="text-brand-black/50 text-[14px] leading-snug">{row.inhouse}</p>
-                  </div>
+                {/* Mobile: stacked cards */}
+                <div className="lg:hidden space-y-4">
+                  {comparisonData.map((row, i) => (
+                    <div key={i} className="rounded-xl border border-gray-200 overflow-hidden">
+                      <div className="p-4 bg-gray-50">
+                        <p className="text-brand-black font-semibold text-[14px] leading-snug">{row.q}</p>
+                      </div>
+                      <div className="p-4 bg-brand-blue/[0.04] border-t border-gray-200">
+                        <p className="text-brand-blue text-[11px] font-bold uppercase tracking-wider mb-1">Stimuli</p>
+                        <p className="text-brand-black/70 text-[14px] leading-snug">{row.stimuli}</p>
+                      </div>
+                      <div className="p-4 border-t border-gray-200">
+                        <p className="text-gray-400 text-[11px] font-bold uppercase tracking-wider mb-1">Dev Agency</p>
+                        <p className="text-brand-black/40 text-[13px] leading-snug">{row.agency}</p>
+                      </div>
+                      <div className="p-4 border-t border-gray-200">
+                        <p className="text-gray-400 text-[11px] font-bold uppercase tracking-wider mb-1">In-House</p>
+                        <p className="text-brand-black/40 text-[13px] leading-snug">{row.inhouse}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </>
+            );
+          })()}
         </div>
       </section>
 
@@ -1186,7 +1247,7 @@ export default function Home() {
               className={`rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8 flex flex-col reveal-card ${visibleSections.has('pricing-diagnostic') ? 'visible' : ''}`}
             >
               <p className="text-emerald-500/70 text-xs uppercase tracking-[0.2em] font-semibold mb-6">Start Here</p>
-              <h3 className="text-2xl font-extrabold text-white mb-1 tracking-tight">Diagnostic Sprint</h3>
+              <h3 className="text-2xl font-bold text-white mb-1 tracking-tight">Diagnostic Sprint</h3>
               <p className="text-white/30 text-sm mb-6">1 week</p>
               <p className="text-3xl font-extrabold text-white mb-2">&euro;1.5K</p>
               <p className="text-emerald-500/60 text-[13px] font-medium mb-6">Credited toward your first month if you continue</p>
