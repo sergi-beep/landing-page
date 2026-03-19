@@ -1277,8 +1277,8 @@ export default function Home() {
               <p className="text-brand-blue text-xs uppercase tracking-[0.2em] font-semibold mb-6">Then Continue</p>
               <h3 className="text-2xl font-extrabold text-white mb-1 tracking-tight">Monthly Retainer</h3>
               <p className="text-white/30 text-sm mb-6">4 sprints per month</p>
-              <p className="text-3xl font-extrabold text-white mb-2">&euro;1,750<span className="text-lg font-bold text-white/40"> / sprint</span></p>
-              <p className="text-white/30 text-[13px] mb-6">&euro;7K/mo total</p>
+              <p className="text-3xl font-extrabold text-white mb-2">Custom pricing</p>
+              <p className="text-white/30 text-[13px] mb-6">Based on scope and complexity</p>
               <p className="text-white/40 text-[15px] leading-relaxed mb-8">
                 Concrete deliverable every week. CTO + engineer + domain expertise.
               </p>
