@@ -61,13 +61,13 @@ export default function PurposePage() {
   const skipVideo = () => {
     if (!videoEnded) {
       setVideoFading(true);
-      setTimeout(() => setVideoEnded(true), 600);
+      setTimeout(() => setVideoEnded(true), 300);
     }
   };
 
   const handleVideoEnd = () => {
     setVideoFading(true);
-    setTimeout(() => setVideoEnded(true), 600);
+    setTimeout(() => setVideoEnded(true), 300);
   };
 
   // Background music: play from start, loop while on page
@@ -101,7 +101,7 @@ export default function PurposePage() {
       setPageFading(true);
       sessionStorage.setItem('purpose-seen', 'true');
       setTimeout(() => router.push('/'), 2000);
-    }, 130000);
+    }, 75000);
     return () => clearTimeout(timer);
   }, [videoEnded, router]);
 
@@ -257,7 +257,7 @@ export default function PurposePage() {
           top: 100%;
           width: 100%;
           padding: 0 80px;
-          animation: crawl 130s linear forwards;
+          animation: crawl 75s linear forwards;
         }
         .crawl-done {
           height: auto;
