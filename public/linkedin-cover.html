@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1584px;
+    height: 396px;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #0F172A;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bg-glow {
+    position: absolute;
+    bottom: -150px;
+    right: -100px;
+    width: 800px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0,102,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .logo {
+    position: absolute;
+    top: 24px;
+    left: 36px;
+    height: 36px;
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1);
+    z-index: 2;
+  }
+
+  .bottom-right {
+    position: absolute;
+    bottom: 36px;
+    right: 48px;
+    text-align: right;
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 40px;
+    font-weight: 400;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  h1 strong {
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <img src="images/logo-full.svg" alt="Stimuli Digital" class="logo" />
+  <div class="bottom-right">
+    <h1><strong>Production-grade</strong> infrastructure<br>for <strong>sales and marketing</strong></h1>
+  </div>
+</body>
+</html>

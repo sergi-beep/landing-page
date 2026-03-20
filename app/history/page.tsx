@@ -1,45 +1,113 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { SolutionsDropdown } from "../components/solutions-dropdown";
 
-const giants = [
+const manifestoSections = [
   {
-    name: "Andria Razmadze",
-    years: "1889 – 1929",
-    photo: "/images/history/andria-razmadze-final-final.jpeg",
-    title: "The Founder",
-    field: "Calculus of Variations",
-    achievement: "Created a new direction in calculus of variations by solving problems in the class of discontinuous curves. Before him, this entire field dealt with smooth curves — he showed how to handle cases where curves have breaks and corners.",
-    legacy: "Built Georgian mathematical terminology from zero. Every math term written in Georgian traces back to his work. He didn't just do mathematics in Georgia — he made Georgia mathematical.",
-    color: "brand-blue",
+    text: "We exist to prove something.",
+    first: true,
+    bold: true,
   },
   {
-    name: "Niko Muskhelishvili",
-    years: "1891 – 1976",
-    photo: "/images/history/niko-muskhelishvili.jpg",
-    title: "The Engineer of Theory",
-    field: "Elasticity & Integral Equations",
-    achievement: "Invented methods for solving elasticity problems using complex variable functions. Before him, calculating stress and deformation in solid materials was extremely difficult. His methods made it solvable — and they're still used today in engineering, construction, and aerospace.",
-    legacy: "His techniques were directly applied in building the USSR's first satellite. He also developed the theory of singular integral equations, giving mathematicians a powerful new toolkit that remains standard worldwide.",
-    color: "white",
+    text: "Not for the title. As proof. Proof that a country whose talent and freedom has been oppressed by the Russian empire for over 200 years can still mix science and business at the highest level and produce industry-changing products.",
   },
   {
-    name: "Ilia Vekua",
-    years: "1907 – 1977",
-    photo: "/images/history/ilia-vekua.jpg",
-    title: "The Inventor",
-    field: "Generalized Analytic Functions & Shell Theory",
-    achievement: "Created the theory of generalized analytic functions — a completely new branch of mathematics that didn't exist before him. He also invented new methods for solving elliptic partial differential equations.",
-    legacy: "Built a mathematical theory of thin elastic shells — curved structures like domes, aircraft fuselages, and rocket bodies. Before his work, engineers couldn't precisely calculate how these structures behave under stress. His math is in every aircraft flying today.",
-    color: "brand-blue",
+    text: "To make it happen, we assembled a team of generational talent: olympiad-winning software developers, mathematicians, solutions architects, and revenue operations specialists.",
+  },
+  {
+    text: "People whose strive for professionalism and excellence overshadows everyday pleasures. People who were born to do this.",
+  },
+  {
+    text: "For over two years we have worked non-stop and changed the cold email industry. Built new standards that the leaders of this game now operate on.",
+  },
+  {
+    text: "We have created the fundamentals of our business and culture.",
+  },
+  {
+    text: "But this is just the beginning.",
+    bold: true,
+  },
+  {
+    text: "The faith in our purpose, our discipline, and the love and respect we have for our team and our work gives us the confidence to wake up every day and take one more step toward where we are destined to be.",
+  },
+  {
+    text: "And if you want to be a part of this journey, either as a partner or as a co-worker, feel free to reach out to us.",
+  },
+  {
+    text: "We are searching for you.",
+    bold: true,
   },
 ];
 
-export default function HistoryPage() {
+export default function PurposePage() {
+  const router = useRouter();
+  const [videoEnded, setVideoEnded] = useState(false);
+  const [videoFading, setVideoFading] = useState(false);
+  const [pageFading, setPageFading] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Check if already seen this session
   useEffect(() => {
+    if (sessionStorage.getItem('purpose-seen')) {
+      router.replace('/');
+    }
+  }, [router]);
+
+  const skipVideo = () => {
+    if (!videoEnded) {
+      setVideoFading(true);
+      setTimeout(() => setVideoEnded(true), 600);
+    }
+  };
+
+  const handleVideoEnd = () => {
+    setVideoFading(true);
+    setTimeout(() => setVideoEnded(true), 600);
+  };
+
+  // Background music: play from start, loop while on page
+  useEffect(() => {
+    if (!videoEnded || !audioRef.current) return;
+    const audio = audioRef.current;
+    audio.currentTime = 0;
+    audio.loop = false;
+    audio.volume = 0;
+    audio.play().catch(() => {});
+
+    // Fade in over 2 seconds
+    let vol = 0;
+    const fadeIn = setInterval(() => {
+      vol = Math.min(vol + 0.05, 1);
+      audio.volume = vol;
+      if (vol >= 1) clearInterval(fadeIn);
+    }, 100);
+
+    return () => {
+      clearInterval(fadeIn);
+      audio.pause();
+    };
+  }, [videoEnded]);
+
+  // After crawl ends, fade out and redirect to homepage
+  const [crawlDone, setCrawlDone] = useState(false);
+  useEffect(() => {
+    if (!videoEnded) return;
+    const timer = setTimeout(() => {
+      setPageFading(true);
+      sessionStorage.setItem('purpose-seen', 'true');
+      setTimeout(() => router.push('/'), 2000);
+    }, 130000);
+    return () => clearTimeout(timer);
+  }, [videoEnded, router]);
+
+  // Scroll reveal for manifesto sections
+  useEffect(() => {
+    if (!videoEnded) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -49,229 +117,188 @@ export default function HistoryPage() {
           }
         });
       },
-      { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
+      { threshold: 0.3, rootMargin: '0px 0px -100px 0px' }
     );
-    document.querySelectorAll('.reveal-section').forEach((el) => observer.observe(el));
+    document.querySelectorAll('.manifesto-section').forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [videoEnded]);
 
   return (
-    <main className="min-h-screen bg-brand-black">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 nav-glass border-b border-white/[0.06]">
-        <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center">
-              <Link href="/">
-                <Image
-                  src="/images/logo-full.svg"
-                  alt="Stimuli Digital"
-                  width={160}
-                  height={42}
-                  className="h-10 w-auto cursor-pointer brightness-0 invert"
-                  priority
-                />
+    <main className={`min-h-screen bg-brand-black transition-opacity duration-2000 ${pageFading ? 'opacity-0' : 'opacity-100'}`}>
+      <audio ref={audioRef} src="/purpose-music.mp3" preload="auto" />
+      {/* Video Intro */}
+      {!videoEnded && (
+        <div
+          className={`fixed inset-0 z-[100] bg-brand-black flex items-center justify-center cursor-pointer transition-opacity duration-600 ${videoFading ? 'opacity-0' : 'opacity-100'}`}
+          onClick={skipVideo}
+        >
+          <video
+            ref={videoRef}
+            src="/3d_logo_with_audio.mp4"
+            autoPlay
+            playsInline
+            onEnded={handleVideoEnd}
+            className="w-full h-full object-contain"
+          />
+          <p className="absolute bottom-8 text-white/20 text-sm tracking-widest uppercase">Click anywhere to skip</p>
+        </div>
+      )}
+
+      {/* Navigation - only visible after video */}
+      {videoEnded && (
+        <nav className="fixed top-0 left-0 right-0 z-50 nav-glass border-b border-white/[0.06] animate-fade-in">
+          <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
+            <div className="flex items-center justify-between h-20">
+              <div className="flex items-center">
+                <Link href="/">
+                  <Image
+                    src="/images/logo-full.svg"
+                    alt="Stimuli Digital"
+                    width={160}
+                    height={42}
+                    className="h-10 w-auto cursor-pointer brightness-0 invert"
+                    priority
+                  />
+                </Link>
+              </div>
+
+              <div className="hidden lg:flex items-center gap-10">
+                <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Services</Link>
+                <Link href="/case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Video Case Studies</Link>
+                <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Why Us</Link>
+                <SolutionsDropdown />
+                <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Pricing</Link>
+                <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Q&amp;A</Link>
+                <Link href="/history" className="text-[15px] font-medium text-white hover:text-white transition-colors">Our Purpose</Link>
+              </div>
+
+              <Link
+                href="https://calendly.com/sergi-feq/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2.5 bg-white text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white transition-all duration-300"
+              >
+                Challenge Us
               </Link>
             </div>
-
-            <div className="hidden lg:flex items-center gap-10">
-              <Link href="/#services" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Services</Link>
-              <Link href="/case-studies" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Video Case Studies</Link>
-              <Link href="/about" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Why Us</Link>
-              <SolutionsDropdown />
-              <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Pricing</Link>
-              <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Q&amp;A</Link>
-              <span className="text-[15px] font-medium text-white/30 cursor-default">Our Purpose</span>
-            </div>
-
-            <Link
-              href="https://calendly.com/sergi-feq/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2.5 bg-white text-brand-black rounded-full font-medium text-[15px] hover:bg-brand-blue hover:text-white transition-all duration-300"
-            >
-              Challenge Us
-            </Link>
           </div>
-        </div>
-      </nav>
+        </nav>
+      )}
 
-      {/* ═══════════════════════════════════════════
-          HERO — The Declaration
-      ═══════════════════════════════════════════ */}
-      <section className="relative pt-40 pb-20 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-brand-blue/[0.05] rounded-full blur-[140px]"></div>
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-brand-blue/[0.03] rounded-full blur-[100px]"></div>
-
-        <div className="max-w-[900px] mx-auto relative text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-8">
-            <span className="w-2 h-2 rounded-full bg-brand-blue"></span>
-            <span className="text-sm text-white/60 font-medium tracking-wide uppercase">Our Heritage</span>
-          </div>
-
-          <h1 className="text-5xl lg:text-[4.5rem] font-extrabold tracking-[-0.03em] leading-[0.95] mb-8 text-white">
-            Giants built this ground.<br />
-            <span className="text-brand-blue">We&apos;re not letting it go cold.</span>
-          </h1>
-
-          <p className="text-xl text-white/40 leading-relaxed max-w-3xl mx-auto font-light tracking-tight">
-            Georgia produced mathematicians who rewrote the rules of physics, engineering, and space exploration. Their work is in every satellite, every aircraft fuselage, every load-bearing structure on earth. This is the tradition we come from. And we intend to honor it.
-          </p>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          THE GIANTS — Alternating Dark/White Cards
-      ═══════════════════════════════════════════ */}
-      {giants.map((giant, index) => {
-        const isDark = index % 2 === 0;
-        const isReversed = index % 2 === 1;
-
-        return (
-          <section
-            key={giant.name}
-            className={`relative py-24 lg:py-32 px-8 lg:px-12 overflow-hidden ${isDark ? 'bg-brand-black' : 'bg-white'}`}
-          >
-            {isDark && (
-              <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-brand-blue/[0.04] rounded-full blur-[120px] -translate-y-1/2"></div>
-            )}
-
-            <div className="max-w-[1100px] mx-auto relative reveal-section">
-              <div className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-20 items-center`}>
-                {/* Photo */}
-                <div className="w-full lg:w-[380px] flex-shrink-0">
-                  <div className={`relative aspect-[3/4] rounded-2xl overflow-hidden ${isDark ? 'border border-white/[0.08]' : 'border border-gray-200/60 shadow-xl'}`}>
-                    <Image
-                      src={giant.photo}
-                      alt={giant.name}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-t from-brand-black/80 via-transparent to-transparent' : 'bg-gradient-to-t from-white/60 via-transparent to-transparent'}`}></div>
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <p className={`text-xs font-bold uppercase tracking-[0.2em] mb-2 ${isDark ? 'text-brand-blue' : 'text-brand-blue'}`}>
-                        {giant.years}
-                      </p>
-                      <p className={`text-2xl font-extrabold tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                        {giant.name}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <p className={`text-xs font-bold uppercase tracking-[0.2em] mb-3 ${isDark ? 'text-brand-blue' : 'text-brand-blue'}`}>
-                    {giant.title}
+      {/* Manifesto - Star Wars Crawl */}
+      {videoEnded && (
+        <div className="bg-brand-black overflow-hidden">
+          {/* Crawl container */}
+          <div className={`crawl-container ${crawlDone ? 'crawl-done' : ''}`}>
+            <div className="crawl-perspective">
+              <div className="crawl-content">
+                {manifestoSections.map((section, i) => (
+                  <p
+                    key={i}
+                    className={`mb-12 lg:mb-16 text-left leading-relaxed tracking-tight font-bold text-white ${
+                      section.first
+                        ? 'text-2xl lg:text-4xl'
+                        : section.bold
+                          ? 'text-lg lg:text-2xl'
+                          : 'text-base lg:text-xl'
+                    }`}
+                  >
+                    {section.text}
                   </p>
-                  <h2 className={`text-3xl lg:text-4xl font-extrabold tracking-tight mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                    {giant.name}
-                  </h2>
-                  <p className={`text-sm font-semibold uppercase tracking-widest mb-8 ${isDark ? 'text-white/30' : 'text-gray-400'}`}>
-                    {giant.field}
+                ))}
+
+                {/* CTA at end of crawl */}
+                <div className="flex flex-col items-center pt-16">
+                  <Link
+                    href="https://calendly.com/sergi-feq/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative inline-flex items-center gap-2 px-10 py-5 bg-white text-brand-black rounded-full font-bold text-[17px] tracking-tight overflow-hidden transition-all duration-500 hover:bg-brand-blue hover:text-white hover:shadow-[0_0_60px_rgba(0,102,255,0.4)]"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      Be a part of this journey
+                      <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </Link>
+                  <p className="text-white/30 text-[15px] mt-8 font-medium tracking-tight">
+                    Partner with us or join the team
                   </p>
-
-                  {/* Achievement */}
-                  <div className="mb-8">
-                    <p className={`text-xs font-bold uppercase tracking-widest mb-3 ${isDark ? 'text-white/20' : 'text-gray-300'}`}>
-                      What he did
-                    </p>
-                    <p className={`text-[15px] leading-relaxed ${isDark ? 'text-white/50' : 'text-gray-500'}`}>
-                      {giant.achievement}
-                    </p>
-                  </div>
-
-                  {/* Legacy */}
-                  <div className={`p-6 rounded-xl ${isDark ? 'bg-white/[0.03] border border-white/[0.06]' : 'bg-gray-50 border border-gray-200/60'}`}>
-                    <p className={`text-xs font-bold uppercase tracking-widest mb-3 ${isDark ? 'text-brand-blue' : 'text-brand-blue'}`}>
-                      Why it matters
-                    </p>
-                    <p className={`text-[15px] leading-relaxed font-medium ${isDark ? 'text-white/70' : 'text-gray-700'}`}>
-                      {giant.legacy}
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
-          </section>
-        );
-      })}
-
-      {/* ═══════════════════════════════════════════
-          THE CHALLENGE — Dark Manifesto
-      ═══════════════════════════════════════════ */}
-      <section className="relative py-32 px-8 lg:px-12 bg-brand-black overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-brand-blue/[0.06] rounded-full blur-[140px]"></div>
-
-        <div className="max-w-[900px] mx-auto relative text-center reveal-section">
-          <p className="text-xs font-bold text-brand-blue uppercase tracking-widest mb-6">The challenge</p>
-
-          <h2 className="text-4xl lg:text-[3.5rem] font-extrabold tracking-[-0.03em] leading-[1] mb-10 text-white">
-            These men solved problems the world said were unsolvable.<br />
-            <span className="text-white/30 mt-2 block">They didn&apos;t ask permission. They just did it.</span>
-          </h2>
-
-          <div className="max-w-2xl mx-auto mb-16">
-            <p className="text-xl text-white/40 leading-relaxed font-light tracking-tight mb-8">
-              Razmadze created an entire mathematical language for a nation. Muskhelishvili&apos;s equations helped put the first satellite in orbit. Vekua&apos;s math is in every aircraft fuselage flying right now.
-            </p>
-            <p className="text-xl text-white/60 leading-relaxed font-semibold tracking-tight">
-              This is the standard we hold ourselves to. Not because we have to. Because we refuse to let this legacy collect dust.
-            </p>
           </div>
 
-          {/* The dare */}
-          <div className="p-10 rounded-2xl border border-brand-blue/20 bg-brand-blue/[0.04] max-w-2xl mx-auto mb-16">
-            <p className="text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug mb-6">
-              Challenge us.
-            </p>
-            <p className="text-white/50 text-[15px] leading-relaxed">
-              Bring us your broken systems, your duct-taped workflows, your impossible deadlines. We come from a country that produced mathematicians who solved what couldn&apos;t be solved. Give us something worth solving.
-            </p>
-          </div>
-
-          <Link
-            href="https://calendly.com/sergi-feq/30min"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative inline-flex items-center gap-2 px-10 py-5 bg-white text-brand-black rounded-full font-bold text-[17px] tracking-tight overflow-hidden transition-all duration-500 hover:bg-brand-blue hover:text-white hover:shadow-[0_0_60px_rgba(0,102,255,0.4)]"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              Give us your hardest problem
-              <svg className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          </Link>
-
-          <p className="text-white/30 text-[15px] mt-10 font-medium tracking-tight">
-            30-minute call · No pitch deck · No bullshit
-          </p>
         </div>
-      </section>
+      )}
 
-      {/* Footer */}
-      <footer className="py-20 px-8 lg:px-12 bg-brand-black border-t border-white/[0.06]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            <div className="flex items-center">
-              <Image
-                src="/images/logo-full.svg"
-                alt="Stimuli Digital"
-                width={160}
-                height={42}
-                className="h-11 w-auto brightness-0 invert"
-              />
-            </div>
-            <div className="text-sm text-center md:text-right">
-              <p className="text-white/40 font-medium tracking-tight">&copy; 2025 Stimuli Digital. All rights reserved.</p>
-              <p className="mt-2 text-white/25 tracking-tight">
-                Your CTO + Tech-ops department
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <style jsx>{`
+        .crawl-container {
+          width: 100%;
+          height: 100vh;
+          position: relative;
+          overflow: hidden;
+          background: #0F172A;
+        }
+        .crawl-perspective {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100%;
+          max-width: 600px;
+          height: 100%;
+          perspective: 600px;
+          overflow: hidden;
+        }
+        .crawl-content {
+          position: absolute;
+          top: 100%;
+          width: 100%;
+          padding: 0 80px;
+          animation: crawl 130s linear forwards;
+        }
+        .crawl-done {
+          height: auto;
+          min-height: 100vh;
+          overflow: visible;
+        }
+        .crawl-done .crawl-perspective {
+          position: relative;
+          bottom: auto;
+          left: auto;
+          transform: none;
+        }
+        .crawl-done .crawl-content {
+          position: relative;
+          top: auto;
+          animation: none;
+          transform: none;
+          padding-top: 80px;
+          padding-bottom: 80px;
+        }
+        @keyframes crawl {
+          0% {
+            top: 100%;
+            transform: rotateX(12deg);
+          }
+          100% {
+            top: -180%;
+            transform: rotateX(12deg);
+          }
+        }
+        .duration-2000 {
+          transition-duration: 2000ms;
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.6s ease-out;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}</style>
     </main>
   );
 }

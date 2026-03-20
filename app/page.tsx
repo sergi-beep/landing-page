@@ -232,6 +232,13 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [advantageFlipped, setAdvantageFlipped] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [purposeSeen, setPurposeSeen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && sessionStorage.getItem('purpose-seen')) {
+      setPurposeSeen(true);
+    }
+  }, []);
 
   // Auto-advance testimonials every 7 seconds
   useEffect(() => {
@@ -323,7 +330,7 @@ export default function Home() {
               <SolutionsDropdown />
               <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Pricing</Link>
               <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Q&amp;A</Link>
-              <span className="text-[15px] font-medium text-white/30 cursor-default">Our Purpose</span>
+              {!purposeSeen && <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Our Purpose</Link>}
             </div>
 
             <div className="flex items-center gap-4">
@@ -1075,12 +1082,6 @@ export default function Home() {
                 inhouse: "One person building, monitoring, and firefighting. Until they burn out.",
               },
               {
-                q: "Fractional team, fraction of the cost?",
-                stimuli: "Architect + engineers + domain expertise. \u20AC8-12K/mo.",
-                agency: "\u20AC150K+ project fee. And that\u2019s before change requests.",
-                inhouse: "\u20AC200K+/yr salary, plus tools, plus management overhead, plus turnover risk.",
-              },
-              {
                 q: "Handle 3x growth without rebuilding?",
                 stimuli: "Architected to grow with you. No rewrites, no migrations, no ceilings.",
                 agency: "They build what you asked for today. Tomorrow\u2019s scale is a new project.",
@@ -1249,7 +1250,7 @@ export default function Home() {
               <p className="text-emerald-500/70 text-xs uppercase tracking-[0.2em] font-semibold mb-6">Start Here</p>
               <h3 className="text-2xl font-bold text-white mb-1 tracking-tight">Diagnostic Sprint</h3>
               <p className="text-white/30 text-sm mb-6">1 week</p>
-              <p className="text-3xl font-extrabold text-white mb-2">&euro;1.5K</p>
+              <p className="text-3xl font-extrabold text-white mb-2">&euro;990</p>
               <p className="text-emerald-500/60 text-[13px] font-medium mb-6">Credited toward your first month if you continue</p>
               <p className="text-white/40 text-[15px] leading-relaxed mb-8">
                 We audit your stack, map every data flow, and deliver a concrete plan.
@@ -1383,7 +1384,7 @@ export default function Home() {
               },
               {
                 q: "What if it doesn\u2019t work?",
-                a: "The diagnostic sprint is designed to prove it before you commit. For \u20AC1.5K you get a full audit and roadmap in one week. If the results don\u2019t convince you, you keep the deliverables and walk away. Every client so far has continued."
+                a: "The diagnostic sprint is designed to prove it before you commit. For \u20AC990 you get a full audit and roadmap in one week. If the results don\u2019t convince you, you keep the deliverables and walk away. Every client so far has continued."
               },
               {
                 q: "How do you handle sensitive data?",
