@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { SmoothScrollWrapper } from "./components/SmoothScrollWrapper";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://stimuli.agency'),
@@ -147,8 +149,12 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <Script id="microsoft-clarity" strategy="afterInteractive">
+          {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "vyrtr9ivte");`}
+        </Script>
         <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
       </body>
+      <GoogleAnalytics gaId="G-LZLPDZ4780" />
     </html>
   );
 }
