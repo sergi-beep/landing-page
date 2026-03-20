@@ -101,7 +101,7 @@ export default function PurposePage() {
       setPageFading(true);
       sessionStorage.setItem('purpose-seen', 'true');
       setTimeout(() => router.push('/'), 2000);
-    }, 75000);
+    }, 110000);
     return () => clearTimeout(timer);
   }, [videoEnded, router]);
 
@@ -257,7 +257,7 @@ export default function PurposePage() {
           top: 100%;
           width: 100%;
           padding: 0 80px;
-          animation: crawl 75s linear forwards;
+          animation: crawl 110s linear forwards;
         }
         .crawl-done {
           height: auto;
