@@ -113,7 +113,7 @@ export default function CaseStudiesPage() {
               <SolutionsDropdown />
               <Link href="/#pricing" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Pricing</Link>
               <Link href="/#faq" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Q&amp;A</Link>
-              <span className="text-[15px] font-medium text-white/30 cursor-default">Our Purpose</span>
+              <Link href="/history" className="text-[15px] font-medium text-white/50 hover:text-white transition-colors">Our Purpose</Link>
             </div>
             <Link
               href="https://calendly.com/sergi-feq/30min"
