@@ -364,6 +364,7 @@ export default function Home() {
             <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Why Us</Link>
             <Link href="/#pricing" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Pricing</Link>
             <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Q&amp;A</Link>
+            {!purposeSeen && <Link href="/history" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Our Purpose</Link>}
             <Link
               href="https://calendly.com/sergi-feq/30min"
               target="_blank"

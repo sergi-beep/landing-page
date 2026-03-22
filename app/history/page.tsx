@@ -45,11 +45,19 @@ const manifestoSections = [
 
 export default function PurposePage() {
   const router = useRouter();
+  const [promptDismissed, setPromptDismissed] = useState(false);
   const [videoEnded, setVideoEnded] = useState(false);
   const [videoFading, setVideoFading] = useState(false);
   const [pageFading, setPageFading] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const startExperience = () => {
+    setPromptDismissed(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  };
 
   // Check if already seen this session
   useEffect(() => {
@@ -126,6 +134,20 @@ export default function PurposePage() {
   return (
     <main className={`min-h-screen bg-brand-black transition-opacity duration-2000 ${pageFading ? 'opacity-0' : 'opacity-100'}`}>
       <audio ref={audioRef} src="/purpose-music.mp3" preload="auto" />
+      {/* Volume Prompt */}
+      {!promptDismissed && !videoEnded && (
+        <div
+          className="fixed inset-0 z-[110] bg-brand-black flex flex-col items-center justify-center cursor-pointer"
+          onClick={startExperience}
+        >
+          <svg className="w-10 h-10 text-white/40 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072M17.95 6.05a8 8 0 010 11.9M11 5L6 9H2v6h4l5 4V5z" />
+          </svg>
+          <p className="text-white/60 text-lg tracking-wide mb-8">Best with sound on.</p>
+          <p className="text-white/20 text-sm tracking-widest uppercase">Click anywhere to continue</p>
+        </div>
+      )}
+
       {/* Video Intro */}
       {!videoEnded && (
         <div
@@ -135,7 +157,6 @@ export default function PurposePage() {
           <video
             ref={videoRef}
             src="/3d_logo_with_audio.mp4"
-            autoPlay
             playsInline
             onEnded={handleVideoEnd}
             className="w-full h-full object-contain"
