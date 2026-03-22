@@ -161,7 +161,7 @@ export default function PurposePage() {
             onEnded={handleVideoEnd}
             className="w-full h-full object-contain"
           />
-          <p className="absolute bottom-8 text-white/20 text-sm tracking-widest uppercase">Click anywhere to skip</p>
+          <p className="absolute bottom-8 text-white/50 text-sm tracking-widest uppercase">Click anywhere to skip</p>
         </div>
       )}
 
