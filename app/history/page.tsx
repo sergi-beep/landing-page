@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { SolutionsDropdown } from "../components/solutions-dropdown";
+import { PS1LogoAnimation } from "../components/PS1LogoAnimation";
 
 const manifestoSections = [
   {
@@ -71,6 +72,11 @@ export default function PurposePage() {
       setVideoFading(true);
       setTimeout(() => setVideoEnded(true), 300);
     }
+  };
+
+  const handleVideoEnd = () => {
+    setVideoFading(true);
+    setTimeout(() => setVideoEnded(true), 300);
   };
 
   const handleVideoEnd = () => {

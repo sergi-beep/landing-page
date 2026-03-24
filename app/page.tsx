@@ -1251,7 +1251,7 @@ export default function Home() {
               <p className="text-emerald-500/70 text-xs uppercase tracking-[0.2em] font-semibold mb-6">Start Here</p>
               <h3 className="text-2xl font-bold text-white mb-1 tracking-tight">Diagnostic Sprint</h3>
               <p className="text-white/30 text-sm mb-6">1 week</p>
-              <p className="text-3xl font-extrabold text-white mb-2">&euro;990</p>
+              <p className="text-3xl font-extrabold text-white mb-2">&euro;500</p>
               <p className="text-emerald-500/60 text-[13px] font-medium mb-6">Credited toward your first month if you continue</p>
               <p className="text-white/40 text-[15px] leading-relaxed mb-8">
                 We audit your stack, map every data flow, and deliver a concrete plan.
@@ -1385,7 +1385,7 @@ export default function Home() {
               },
               {
                 q: "What if it doesn\u2019t work?",
-                a: "The diagnostic sprint is designed to prove it before you commit. For \u20AC990 you get a full audit and roadmap in one week. If the results don\u2019t convince you, you keep the deliverables and walk away. Every client so far has continued."
+                a: "The diagnostic sprint is designed to prove it before you commit. For \u20AC500 you get a full audit and roadmap in one week. If the results don\u2019t convince you, you keep the deliverables and walk away. Every client so far has continued."
               },
               {
                 q: "How do you handle sensitive data?",
