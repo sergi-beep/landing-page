@@ -7,15 +7,6 @@ import { SolutionsDropdown } from "../components/solutions-dropdown";
 
 const caseStudies = [
   {
-    video: "https://www.youtube.com/watch?v=IJw_o6v4pEc&t=88s",
-    thumbnail: "/images/testimonials/thumbnail-1.png",
-    quote: "We cannot live without you guys. I don't even consider you guys as an agency. I almost consider you guys as a fractional CTO.",
-    name: "Enzo Carasso",
-    role: "CEO, C17 Lab",
-    photo: "/images/testimonials/enzo-carasso.jpg",
-    stats: [{ stat: "$5K+", label: "saved/mo" }, { stat: "4mo \u2192 1wk", label: "delivery" }],
-  },
-  {
     video: "https://www.youtube.com/watch?v=RFEKjpiPl9Q&t=74s",
     thumbnail: "/images/testimonials/thumbnail-3.png",
     quote: "These other guys told me 4 months and $42,000 and you guys built the whole damn thing in a week.",

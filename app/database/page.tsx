@@ -35,7 +35,6 @@ import { SolutionsDropdown } from "../components/solutions-dropdown";
 const clientLogos = [
   { src: "/images/logos/clients/coldiq-large.svg", alt: "ColdIQ", w: "w-32" },
   { src: "/images/logos/clients/stack-optimize.png", alt: "Stack Optimize", w: "w-32" },
-  { src: "/images/logos/clients/c17-large.avif", alt: "C17 Lab", w: "w-20" },
   { src: "/images/logos/clients/salesautomationsystems-large.png", alt: "Sales Automation Systems", w: "w-40" },
   { src: "/images/logos/clients/revenueboost.png", alt: "Revenue Boost", w: "w-28" },
   { src: "/images/logos/clients/hypergen.webp", alt: "Hypergen", w: "w-28" },
@@ -45,19 +44,6 @@ const clientLogos = [
 ];
 
 const testimonials = [
-  {
-    thumbnail: "/images/testimonials/thumbnail-1.png",
-    video: "https://www.youtube.com/watch?v=IJw_o6v4pEc&t=88s",
-    quote: "We cannot live without you guys. I don't even consider you guys as an agency. I almost consider you guys as a fractional CTO. You guys delivered in a week what I tried to build in four months with another company. You're saving us probably $5,000+ a month just in tools alone.",
-    name: "Enzo Carasso",
-    role: "CEO, C17 Lab",
-    photo: "/images/testimonials/enzo-carasso.jpg",
-    results: [
-      { stat: "$5K+", label: "saved/mo in tools" },
-      { stat: "4mo → 1wk", label: "delivery time" },
-      { stat: "Fractional CTO", label: "not just an agency" },
-    ]
-  },
   {
     thumbnail: "/images/testimonials/thumbnail-3.png",
     video: "https://www.youtube.com/watch?v=RFEKjpiPl9Q&t=74s",
@@ -884,7 +870,7 @@ export default function Home() {
           <div className="text-center mb-20">
             <div className="inline-flex flex-col items-center gap-3 border-2 border-brand-blue/30 rounded-3xl px-10 py-6 bg-brand-blue/[0.04]">
               <div className="text-5xl lg:text-6xl font-black text-white tracking-tight">€8–12k<span className="text-xl text-white/50 font-normal">/mo</span></div>
-              <p className="text-white/50 text-sm max-w-sm">C17 saves ~$5k/mo in tools alone — before counting capacity gains.</p>
+              <p className="text-white/50 text-sm max-w-sm">Clients save thousands per month in tools alone, before counting capacity gains.</p>
             </div>
           </div>
 

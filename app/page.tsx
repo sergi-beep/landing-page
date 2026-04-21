@@ -93,7 +93,6 @@ const engineers = [
 const clientLogos = [
   { src: "/images/logos/clients/coldiq-large.svg", alt: "ColdIQ", w: "w-32" },
   { src: "/images/logos/clients/stack-optimize.png", alt: "Stack Optimize", w: "w-32" },
-  { src: "/images/logos/clients/c17-large.avif", alt: "C17 Lab", w: "w-20" },
   { src: "/images/logos/clients/salesautomationsystems-large.png", alt: "Sales Automation Systems", w: "w-40" },
   { src: "/images/logos/clients/revenueboost.png", alt: "Revenue Boost", w: "w-28" },
   { src: "/images/logos/clients/hypergen.webp", alt: "Hypergen", w: "w-28" },
@@ -107,7 +106,6 @@ const familiarQuotes = [
   [
     { text: "We were having recurring issues with data accuracy. Moving to the custom app and backend you guys built has really unlocked improved efficiency.", name: "Felix Frank", role: "Founder, Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
     { text: "The dashboards make us look like miles ahead of everyone else. There hasn't been anything we've asked them to do that they haven't figured out a way to solve.", name: "AJ Cassata", role: "Co-founder, Revenue Boost", photo: "/images/testimonials/aj-cassata.jpg" },
-    { text: "Reporting was the biggest bottleneck. You figured that out for us. You're saving us probably $5,000 a month just in tools we would have had to purchase.", name: "Enzo Carasso", role: "CEO, C17 Lab", photo: "/images/testimonials/enzo-carasso.jpg" },
     { text: "You guys have been instrumental in helping us set up all the data tracking around the business to make sure operations are run smoothly.", name: "Alex Vacca", role: "CEO, Cold IQ", photo: "/images/testimonials/alex-vacca.jpg" },
   ],
   // Card 2: Tools Break at Scale
@@ -119,7 +117,6 @@ const familiarQuotes = [
   // Card 3: 95% Accuracy Trap
   [
     { text: "We were having recurring issues with data accuracy. Moving to the custom app and backend you guys built has really unlocked improved efficiency.", name: "Felix Frank", role: "Founder, Stack Optimize", photo: "/images/testimonials/felix-frank.jpeg" },
-    { text: "Reporting was the biggest bottleneck. You figured that out for us. You're saving us probably $5,000 a month just in tools we would have had to purchase.", name: "Enzo Carasso", role: "CEO, C17 Lab", photo: "/images/testimonials/enzo-carasso.jpg" },
     { text: "These other guys told me 4 months and $42,000 and you guys built the whole damn thing in a week.", name: "Taylor Haren", role: "CEO, Sales Automation Systems", photo: "/images/testimonials/taylor-haren.jpg" },
   ],
   // Card 4: Falling Behind on AI
@@ -135,14 +132,6 @@ function highlightQuote(text: string): React.ReactNode {
 }
 
 const testimonials = [
-  {
-    thumbnail: "/images/testimonials/thumbnail-1.png",
-    video: "https://www.youtube.com/watch?v=IJw_o6v4pEc&t=88s",
-    quote: "We cannot live without you guys. I don't even consider you guys as an agency. I almost consider you guys as a fractional CTO. You guys delivered in a week what I tried to build in four months with another company. You're saving us probably $5,000+ a month just in tools alone.",
-    name: "Enzo Carasso",
-    role: "CEO, C17 Lab",
-    photo: "/images/testimonials/enzo-carasso.jpg"
-  },
   {
     thumbnail: "/images/testimonials/thumbnail-3.png",
     video: "https://www.youtube.com/watch?v=RFEKjpiPl9Q&t=74s",
@@ -210,7 +199,6 @@ const testimonials = [
 ];
 
 const testimonialResults: Record<string, { stat: string; label: string }[]> = {
-  "Enzo Carasso": [{ stat: "$5K+", label: "saved/mo" }, { stat: "4mo → 1wk", label: "delivery" }],
   "Taylor Haren": [{ stat: "$8K+", label: "saved/mo" }, { stat: "2 employees", label: "30+ clients" }],
   "Michael Ewald": [{ stat: "50%", label: "cost saved in 3 days" }, { stat: "60+", label: "clients managed" }],
   "AJ Cassata": [{ stat: "10/10", label: "to work with" }, { stat: "Miles ahead", label: "of competition" }],

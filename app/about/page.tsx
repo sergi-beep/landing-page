@@ -8,7 +8,6 @@ import { SolutionsDropdown } from "../components/solutions-dropdown";
 const clientLogos = [
   { src: "/images/logos/clients/coldiq-large.svg", alt: "ColdIQ", w: "w-32" },
   { src: "/images/logos/clients/stack-optimize.png", alt: "Stack Optimize", w: "w-32" },
-  { src: "/images/logos/clients/c17-large.avif", alt: "C17 Lab", w: "w-20" },
   { src: "/images/logos/clients/salesautomationsystems-large.png", alt: "Sales Automation Systems", w: "w-40" },
   { src: "/images/logos/clients/revenueboost.png", alt: "Revenue Boost", w: "w-28" },
   { src: "/images/logos/clients/hypergen.webp", alt: "Hypergen", w: "w-28" },
@@ -229,7 +228,6 @@ export default function AboutPage() {
           <div className="flex flex-col items-center gap-4 mt-10">
             <div className="flex -space-x-3">
               {[
-                { src: "/images/testimonials/enzo-carasso.jpg", name: "Enzo" },
                 { src: "/images/testimonials/taylor-haren.jpg", name: "Taylor" },
                 { src: "/images/testimonials/michael-ewald.jpg", name: "Michael" },
                 { src: "/images/testimonials/aj-cassata.jpg", name: "AJ" },
