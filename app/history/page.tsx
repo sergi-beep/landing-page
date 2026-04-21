@@ -79,11 +79,6 @@ export default function PurposePage() {
     setTimeout(() => setVideoEnded(true), 300);
   };
 
-  const handleVideoEnd = () => {
-    setVideoFading(true);
-    setTimeout(() => setVideoEnded(true), 300);
-  };
-
   // Background music: play from start, loop while on page
   useEffect(() => {
     if (!videoEnded || !audioRef.current) return;
