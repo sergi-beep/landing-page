@@ -220,6 +220,7 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [advantageFlipped, setAdvantageFlipped] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
   const [purposeSeen, setPurposeSeen] = useState(false);
 
   useEffect(() => {
@@ -345,11 +346,48 @@ export default function Home() {
         </div>
 
         {/* Mobile menu */}
-        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${mobileMenuOpen ? 'max-h-[400px] border-t border-white/[0.06]' : 'max-h-0'}`}>
+        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${mobileMenuOpen ? 'max-h-[700px] border-t border-white/[0.06]' : 'max-h-0'}`}>
           <div className="px-8 py-6 space-y-4 bg-brand-black/95 backdrop-blur-xl">
             <Link href="/#services" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Services</Link>
             <Link href="/case-studies" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Video Case Studies</Link>
             <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Why Us</Link>
+            <div>
+              <button
+                type="button"
+                onClick={() => setMobileSolutionsOpen(!mobileSolutionsOpen)}
+                className="flex items-center gap-1.5 text-[15px] font-medium text-white/60 hover:text-white transition-colors"
+              >
+                Solutions
+                <svg className={`w-3.5 h-3.5 transition-transform duration-200 ${mobileSolutionsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 ${mobileSolutionsOpen ? 'max-h-[400px] mt-3' : 'max-h-0'}`}>
+                <div className="pl-3 space-y-3 border-l border-white/[0.08]">
+                  <a href="https://slaygent.co/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-between gap-3">
+                    <span className="text-[14px] text-white/70">Slaygent</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400">Live</span>
+                  </a>
+                  <a href="https://www.outfound.io/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-between gap-3">
+                    <span className="text-[14px] text-white/70">Outfound</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400">Live</span>
+                  </a>
+                  <a href="https://revcode.app" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-between gap-3">
+                    <span className="text-[14px] text-white/70">RevCode</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400">Live</span>
+                  </a>
+                  <Link href="/solutions/spintaxer" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-between gap-3">
+                    <span className="text-[14px] text-white/70">Spintaxer</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/[0.06] text-white/40">Archive</span>
+                  </Link>
+                  <Link href="/solutions/data-saas" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-between gap-3">
+                    <span className="text-[14px] text-white/70">Data SaaS</span>
+                    <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/[0.06] text-white/40">Archive</span>
+                  </Link>
+                  <Link href="/solutions" onClick={() => setMobileMenuOpen(false)} className="block text-[12px] text-white/40 font-medium pt-1">View all solutions &rarr;</Link>
+                </div>
+              </div>
+            </div>
             <Link href="/#pricing" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Pricing</Link>
             <Link href="/#faq" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Q&amp;A</Link>
             {!purposeSeen && <Link href="/history" onClick={() => setMobileMenuOpen(false)} className="block text-[15px] font-medium text-white/60 hover:text-white transition-colors">Our Purpose</Link>}
@@ -1239,7 +1277,7 @@ export default function Home() {
               <p className="text-emerald-500/70 text-xs uppercase tracking-[0.2em] font-semibold mb-6">Start Here</p>
               <h3 className="text-2xl font-bold text-white mb-1 tracking-tight">Diagnostic Sprint</h3>
               <p className="text-white/30 text-sm mb-6">1 week</p>
-              <p className="text-3xl font-extrabold text-white mb-2">&euro;500</p>
+              <p className="text-3xl font-extrabold text-white mb-2">&euro;990</p>
               <p className="text-emerald-500/60 text-[13px] font-medium mb-6">Credited toward your first month if you continue</p>
               <p className="text-white/40 text-[15px] leading-relaxed mb-8">
                 We audit your stack, map every data flow, and deliver a concrete plan.
@@ -1373,7 +1411,7 @@ export default function Home() {
               },
               {
                 q: "What if it doesn\u2019t work?",
-                a: "The diagnostic sprint is designed to prove it before you commit. For \u20AC500 you get a full audit and roadmap in one week. If the results don\u2019t convince you, you keep the deliverables and walk away. Every client so far has continued."
+                a: "The diagnostic sprint is designed to prove it before you commit. For \u20AC990 you get a full audit and roadmap in one week. If the results don\u2019t convince you, you keep the deliverables and walk away. Every client so far has continued."
               },
               {
                 q: "How do you handle sensitive data?",

@@ -7,6 +7,19 @@ import { SolutionsDropdown } from "../components/solutions-dropdown";
 
 const solutions = [
   {
+    name: "RevCode",
+    tagline: "Data tool for post-Clay GTM teams.",
+    description: "Data tool for post-Clay GTM teams.",
+    status: "Live",
+    statusColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    link: "https://revcode.app",
+    icon: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+      </svg>
+    ),
+  },
+  {
     name: "Slaygent",
     tagline: "Claygent's power. Without Clay's baggage.",
     description: "Research companies, qualify ICPs, detect signals. One API call, structured data back. No spreadsheet.",
